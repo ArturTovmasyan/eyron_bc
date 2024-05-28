@@ -1,0 +1,91 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+figcaption {
+  background-color: #ffffff;
+}
+figcaption ul li {
+  height: 35px;
+  line-height: 31px;
+  cursor: pointer;
+}
+figcaption ul li > span {
+  display: block;
+}
+figcaption ul li a[md-button] {
+  display: block;
+  line-height: 33px;
+}
+figcaption ul li a i {
+  font-size: 25px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+figcaption ul li a:hover,
+figcaption ul li a:focus {
+  text-decoration: none;
+}
+figcaption ul li a:hover {
+  background-color: #7724f6;
+  color: #fff;
+}
+figcaption ul li a:hover a .text {
+  color: #ffffff;
+}
+figcaption ul li i.icon-green-ok,
+figcaption ul li .icon-green-plus {
+  font-size: 36px;
+  vertical-align: middle;
+}
+figcaption ul li .text {
+  display: inline-block;
+  vertical-align: middle;
+  color: #999999;
+  font-size: 12px;
+}
+figcaption ul li .transparent .text {
+  color: #a4a4a4;
+}
+figcaption ul li .transparent:hover {
+  background-color: transparent;
+}
+figcaption ul li .transparent:hover a,
+figcaption ul li .transparent:hover .text {
+  color: #a4a4a4;
+}
+@media (min-width: 768px) {
+  figcaption ul li {
+    height: 50px;
+    line-height: 45px;
+  }
+  figcaption ul li a[md-button] {
+    padding: 6px 0 8px;
+    line-height: 36px;
+  }
+  figcaption ul li a i {
+    font-size: 30px;
+  }
+  figcaption ul li .text {
+    font-size: 14px;
+  }
+  figcaption ul li i.icon-green-ok,
+  figcaption ul li .icon-green-plus {
+    font-size: 49px;
+  }
+  figcaption ul li:last-child {
+    text-align: center;
+  }
+}
+@media (min-width: 992px) {
+  figcaption ul li:not(.transparent):hover {
+    color: #ffffff;
+  }
+  figcaption ul li:not(.transparent):hover span {
+    color: #ffffff;
+  }
+}

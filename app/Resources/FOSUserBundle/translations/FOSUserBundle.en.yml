@@ -1,0 +1,199 @@
+email:
+    dogApsent: please, include an @ in the email address
+    beforeDog: please, enter a part preceding @
+    afterDog:  please, enter a part followed by @
+    resend:    Resend message
+    update:    Update email address
+    error:     This email already exists
+    primary_error: This email has already been selected by another user, please choose a another  primary email field
+
+    update: Update email address
+    update_message: We have not been able to send confirmation emails to your new %email% address. You can change to a different address or we can try again.
+
+password:
+    validation: Strong passwords include numbers, letters, and punctuation marks. It must be at least 6 characters long
+    error: Invalid current password
+    current: Set your current password
+
+# Security
+"Bad credentials.": The email and password you entered did not match our records. Please try again.
+invalid_data: Username, Member ID or password is incorrect
+
+security:
+    login:
+        title: Login to Your Account
+        username: Username
+        password: Password
+        remember_me: Remember me
+        forgot_password: Forgot password?
+        email: Email
+        sign_up: Sign Up
+        submit: Sign In
+        connect: CONNECT WITH
+
+# Profile
+profile:
+    show:
+        username: Username
+        email: Email
+    edit:
+        submit: Update
+    flash:
+        updated: The profile has been updated
+
+# Password change
+change_password:
+    submit: Done
+    success_first: You've successfully changed your password
+    success_second: Now you can start using all of %project_name%'s great features
+
+# Registration
+registration:
+    check_email: A confirmation message was sent to %email%
+    resend_message: A new confirmation message has been sent to %email%.
+    confirmed: Congrats %username%, your account is now activated.
+    back: Back to the originating page.
+    submit: Register
+    flash:
+        user_created: The user has been created successfully
+    email:
+        subject: Welcome %username%!
+        message: |
+            Hello %username%!
+
+            To finish activating your account - please visit %confirmationUrl%
+
+            Regards,
+            the Team.
+    sign_up_title: Sign up and discover great ideas
+    agreement: By clicking Sign up, you agree to our
+    sign_up_btn: Sign Up
+    privacy_policy: Terms of Service & Privacy Policy
+    sign_up_btn: Sign up and discover great ideas
+    have_account: Already have an account ?
+    sign_in_btn: SIGN IN
+
+# Password resetting
+resetting:
+    title: Recover Your Account
+    change_title: Change Password
+    password: New Password
+    confirm_password: Confirm Password
+    password_already_requested: The password for this user has already been requested within the last 24 hours.
+    user_not_found: User not found
+    check_email:
+        title: Check your email
+        check_email_first_text: We've sent an email to %email%. Click the link in the email to reset your password.
+        check_email_second_text: If you don't see the email, also check your junk, spam, social, or other folders.
+        have_not_received: I haven’t received the email.
+    request:
+        invalid_username: The account doesn’t exist, please type in the email you provided at the registration.
+        username: "Email"
+        submit: Send
+        reset: Reset your password
+        reset_text: We’ll send instructions to reset your password to your email.
+    flash:
+        success: The password has been reset successfully
+    email:
+        subject: Reset your %project_name% password
+        message_first: |
+            <h3>Hello %username%!</h3>
+
+            <p>We received a request to reset the password for your account, %email%.</p>
+            <p>If you made this request, click the link below. If you didn't make this request, you can ignore this email.</p>
+
+        message_second: |
+            Please do not reply to this message.
+            If you have more question, please visit our
+
+        link: Reset your password
+
+# Global strings
+layout:
+    logout: Logout
+    login: Login
+    register: Register
+    logged_in_as: Logged in as %username%
+
+# Form field labels
+form:
+    group_name: "Group name:"
+    username: "Username"
+    email: "Email"
+    current_password: "Current password"
+    password: "Password"
+    re_password: "Repeat password"
+    re_new_password: "Repeat new password"
+    password_confirmation: "Verification"
+    new_password: "New password"
+    new_password_confirmation: "Verification"
+    firstName: "First name"
+    lastName: "Last name"
+    date_of_birth: Date of birth
+    birth_date_month: "Month"
+    birth_date_day: "Day"
+    birth_date_year: "Year"
+    add_email: "add email"
+    month_january: January
+    month_february: February
+    month_march: March
+    month_april: April
+    month_may: May
+    month_june: June
+    month_july: July
+    month_august: August
+    month_september: September
+    month_october: October
+    month_november: November
+    month_december: December
+    file: "Upload a photo"
+    choose: Choose
+    language: Choose language
+
+verification:
+    verified: Account verified
+    verified_content: Now you can start using all of %XXX%'s great features.
+
+    wrong: Something went wrong
+    wrong_content: This link is invalid. For more information, please visit our
+    help_center: Help Center
+my_list:
+    signed_up: You've already signed up!
+    verification: Verification link has been sent to your e-mail address.
+    confirm: Please, confirm your account by clicking on the link.
+    add_image: Please, add an image to your profile from settings.
+    want_control: If you are here you want to control your life and make it interesting.
+    follow_link: So follow the link, explore great ideas and add your first goal.
+    dream_text: Your goals are just dreams if they are not tied to time. So set a deadline and make the first step in turning your dreams into reality.
+    have_goal: You have a goal to complete, don't you? Then go ahead, just do it.
+    complete_goal: You have a completed goal? Great, then write about it, share your story with people, inspire them.
+
+user:
+    update_email_title: Update email address
+    update_email_description: Description for update email address
+    resend_email_title: Resend Message
+    resend_email_description: Description for Resend Message page
+    account_verified_title: Account verified
+    account_verified_description: Description for account verified page
+    register_title: Registration
+    register_description: Description for registration
+    profile_edit: Profile edit
+    notify_edit: Notification edit
+    notify_settings_text: What you will receive
+    profile: Profile
+    notification: Notification
+
+
+First name: First name
+Last name: Last name
+Email: Email
+Password: Password
+Re-enter password: Re-enter password
+New password: New password
+Repeat new password: Repeat new password
+change_pictures: change profile pictures
+change profile pictures: change profile pictures
+Primary Email: Primary Email
+Current password: Current password
+
+

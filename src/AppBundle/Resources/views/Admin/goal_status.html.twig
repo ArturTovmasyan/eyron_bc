@@ -1,0 +1,11 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{%- block field %}
+
+    {% if object.status == constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') %}
+        <strong style="color: red">Private</strong>
+    {% else %}
+        <strong style="color: green">Public</strong>
+    {% endif %}
+
+{% endblock -%}

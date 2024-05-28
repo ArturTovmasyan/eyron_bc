@@ -1,0 +1,57 @@
+{% extends "::base.html.twig" %}
+
+{% block confirm_email %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div  class="signup notice">
+            <div>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+
+                        <h1 class="text-center">{{ 'email.update'|trans({}, 'FOSUserBundle') }}</h1>
+
+                        <h4 class="text-center text-gray">{{ 'email.update_message'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}</h4>
+
+                        <form method="POST" action="{{ path('update_email') }}" class="form-horizontal">
+                            <div class="error-message text-center">{{ form_errors(form.email) }}</div>
+
+                            <div class="form-group">
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group text-right">
+                                {{ form_widget(form.done, {'attr': {'class': 'btn btn-purple'}}) }}
+                            </div>
+
+                            {{ form_widget(form._token) }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{%- block title -%}
+    {{ 'user.update_email_title'|trans({}, 'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block og_title -%}
+    {{ 'user.update_email_title'|trans({}, 'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block og_description -%}
+    {{ 'user.update_email_description'|trans({}, 'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'user.update_email_description'|trans({}, 'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}

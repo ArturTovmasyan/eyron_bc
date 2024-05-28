@@ -1,0 +1,51 @@
+{% if user is defined %}
+    <div data-ng-controller="goalFriends">
+        <div class="bg-white padding round margin-top"
+             data-ng-cloak
+             data-ng-init = "userId = {{ user.id }}">
+
+            <div class="row">
+                <div class="col-xs-10">
+                    <a href="{{ path('goal_friends') }}" class="heading text-gray">
+                        <i class="goalfrined-icon"></i>
+                        <span class="text">{{ 'goalfriends'|trans }} [[ length ]]</span>
+                    </a>
+                </div>
+
+                <div class="col-xs-2 text-right">
+                    <a href="javascript:void(0)" data-ng-click="refreshGoalFriends()" class="load" id="goalFriendLoad"></a>
+                </div>
+            </div>
+
+            <hr/>
+
+            <ul class="list">
+                <li class="clearfix friends-animate"
+                    data-ng-cloak
+                    data-ng-repeat="goalFriend in goalFriends">
+                    <a href="{{ env_prefix }}/profile/[[ ::goalFriend.u_id ]]">
+
+                        <figure class="image img-circle">
+                            <img data-ng-if="goalFriend.cached_image.length != 2"  data-ng-src="[[ ::goalFriend.cached_image ]]" alt="[[ ::goalFriend.first_name ]]" class="img-circle img-responsive"/>
+                            {% set className = "user-no" ~ random(4) %}
+                            <p data-ng-if="goalFriend.cached_image.length == 2" class="no-image {{ className }}">[[ ::goalFriend.cached_image | uppercase ]]</p>
+                        </figure>
+
+                        <div class="pull-left text-gray" data-ng-init="stats = goalFriend.stats; nameLength = goalFriend.first_name.length + goalFriend.last_name.length">
+                            <h4 class="text-dark-gray">
+                                <span class="ng-hide text-dark-gray" data-ng-show="nameLength < 31 " >[[ ::goalFriend.first_name ]] [[ ::goalFriend.last_name ]]</span>
+                                <span class="ng-hide text-dark-gray" data-ng-init="filterCount= goalFriend.last_name.length - (nameLength - 26) " data-ng-show="nameLength > 30 " data-toggle="tooltip" data-placement="bottom" title="[[ ::goalFriend.first_name ]] [[ ::goalFriend.last_name ]]">
+                                    [[ ::goalFriend.first_name ]] [[ ::goalFriend.last_name | limitTo: filterCount ]]...
+                                </span>
+                                <i class="leaderboard-small" data-ng-if="haveTop && inArray(goalFriend)"></i>
+                            </h4>
+
+                            <span class="text-gray">{{ 'listed_by'|trans }} <span data-ng-bind="stats.listedBy"></span></span> |
+                            <span class="text-gray">{{ 'completed'|trans }} <span data-ng-bind="stats.doneBy"></span></span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endif %}

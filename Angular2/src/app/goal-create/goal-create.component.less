@@ -1,0 +1,390 @@
+@import "../../assets/less/variables.less";
+@import "../../assets/less/function.less";
+
+.buttons{
+  margin:0 0 5px 0;
+
+  button[md-button],a[md-button]{
+    display: inline-block;
+    padding: 3px 6px 4px;
+    margin-left: 1px;
+    font-size: 12px;
+    line-height: 20px;
+    margin-bottom:8px;
+    min-width: 60px;
+
+    span{
+      line-height: 20px;
+    }
+
+    i.icon-arrow-right,i.icon-arrow-left{
+      font-size: 20px;
+      vertical-align: middle;
+    }
+
+    &:first-child{
+      border:1px solid #e3e3e3;
+      color:#999999;
+    }
+
+    &:hover{
+      background-color: #5e1dc3;
+      color:#ffffff;
+      box-shadow:none;
+    }
+
+    &:active,&:focus,&:visited{
+      box-shadow:none;
+      outline:0;
+      background-color: #4f3576;
+    }
+
+    &:focus{
+      color:#ffffff;
+    }
+  }
+
+  .btn-transparent{
+    padding: 4px 6px 4px 7px;
+  }
+
+  .icon-right{
+    margin-left:15px;
+  }
+}
+
+.suggest-input{
+  padding: 6px 0 2px 20px;
+}
+
+#goal-create-form,.goal-preview{
+  h3{
+    &.text-purple{
+      margin: 18px 0 0;
+      font-size: 17px;
+      line-height: 25px;
+    }
+  }
+
+  p{
+    font-size: 11px;
+    line-height: 17px;
+  }
+}
+
+.goals{
+  padding-bottom:20px;
+  margin:15px 0 0;
+
+  .swiper-wrapper{
+    margin: 0 auto;
+  }
+
+  .margin-top{
+    margin-top:5px;
+  }
+
+  a{
+    .icon-arrow-right,.icon-arrow-left,i.icon-remove-video-link{
+      display:inline-block;
+      color: #999999;
+      font-size: 25px;
+      margin-top: 3px;
+      line-height: 45px;
+    }
+
+    i.icon-remove-video-link{
+      margin-right: 25px;
+      font-size: 33px;
+    }
+
+    &:hover{
+      text-decoration: none;
+    }
+
+  }
+
+  h3{
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+    margin-top: 10px;
+    padding: 0 2px 0 14px;
+
+  }
+
+  .title{
+    border: 0;
+    border-bottom:1px solid  #e6e6e6;
+    font-size: 12px;
+    border-radius: 0;
+    box-shadow: none;
+    color: #333333;
+  }
+
+.resize{
+  height:70px;
+}
+
+  .form-group{
+    p{
+      font-size: 12px;
+      text-align: justify;
+    }
+
+    .relative{
+      margin-bottom:5px;
+    }
+  }
+  .tags{
+    margin: 3px 0;
+    white-space: normal;
+    button{
+      padding: 5px 25px;
+      margin: 0 10px 5px 0;
+      white-space: normal;
+      word-break: break-word;
+      text-align: left;
+    }
+  }
+
+  textarea.form-control{
+    resize: none;
+    height: 43px;
+  }
+
+  figure{
+    margin:0 0 20px 0;
+  }
+
+}
+
+.existing-menu{
+
+  a{
+    display: inline-block;
+  }
+
+  .icon-arrow-left{
+    margin-left: 7px;
+  }
+}
+.suggest-input span:last-child{
+  font-size: 18px;
+}
+.tags {
+    .mat-button{
+     font-size: 12px;
+      line-height: 20px;
+  }
+}
+@media (max-width: @screen-sm){
+  md-checkbox{
+    span{
+      font-size: 15px !important;
+    }
+  }
+}
+@media (min-width: @screen-sm) {
+  .buttons {
+    margin: 5px 0 20px;
+
+    button[md-button], a[md-button] {
+      margin-bottom: 0;
+      padding: 5px 15px;
+      margin-left: 5px;
+
+      span {
+        line-height: 27px;
+      }
+
+      i.icon-arrow-right, i.icon-arrow-left {
+        font-size: 25px;
+      }
+
+    }
+    .btn-transparent {
+      padding: 4px 15px;
+    }
+  }
+
+  .suggest-input {
+    padding: 22px 0 0 22px;
+  }
+
+  .suggest-test {
+    margin: 0 0 0 30px;
+  }
+
+  #goal-create-form, .goal-preview {
+    h3 {
+      &.text-purple {
+        margin: 15px 0 0;
+        font-size: 20px;
+        line-height: 30px;
+      }
+    }
+
+    p {
+      font-size: 13px;
+      line-height: 19px;
+    }
+  }
+
+  .goals {
+    margin: 30px 0;
+
+    .margin-top {
+      margin-top: 15px;
+    }
+
+    textarea.form-control {
+      height: 94px;
+    }
+
+    .tags {
+      margin: 10px 0;
+    }
+    a {
+      .icon-arrow-right, .icon-arrow-left, i.icon-remove-video-link {
+        font-size: 30px;
+        margin-top: 13px;
+      }
+
+      i.icon-remove-video-link {
+        font-size: 40px;
+        margin-right: 18px;
+      }
+
+    }
+
+    .title {
+      margin-top: 10px;
+      font-size: 45px;
+      height: 73px;
+      line-height: 65px;
+      padding: 5px 0 10px;
+    }
+    h3.title {
+      margin-top: 0;
+      padding: 17px 40px;
+      font-size: 25px;
+      line-height: 35px;
+      height: auto;
+    }
+
+    h3 {
+      margin-top: 16px;
+      font-size: 25px;
+      padding: 0 2px 0 15px;
+      line-height: normal;
+    }
+
+    .form-group {
+      p {
+        font-size: 13px;
+      }
+    }
+    .relative {
+      margin-bottom: 5px;
+    }
+
+  }
+
+  .existing-menu {
+
+    .icon-arrow-left {
+      margin-left: 10px;
+    }
+  }
+
+}
+
+@media (min-width: @screen-md) {
+  .buttons{
+    margin:40px 0;
+    button[md-button],a[md-button]{
+      padding: 6px 25px;
+      margin-left:10px;
+    }
+    .btn-transparent{
+      padding:5px 25px;
+    }
+  }
+
+  .suggest-input{
+    padding: 35px 0 0 22px;
+  }
+
+  .suggest-test{
+    margin: 0 0 0 35px;
+  }
+
+  .existing-menu{
+    margin-bottom: 10px;
+  }
+
+  #goal-create-form,.goal-preview{
+    h3{
+      &.text-purple{
+        margin: 27px 0 0;
+        font-size: 24px;
+        line-height: 36px;
+      }
+    }
+
+    p{
+      font-size: 14px;
+      line-height: 21px;
+    }
+  }
+
+  .goals{
+
+    .margin-top{
+      margin-top:30px;
+    }
+
+    .form-group{
+      p{
+        font-size: 14px;
+      }
+    }
+
+    a{
+      .icon-arrow-right,.icon-arrow-left,i.icon-remove-video-link{
+        margin-top:30px;
+      }
+    }
+
+    .title{
+      margin-top:15px;
+      font-size: 52px;
+      height: 83px;
+      padding: 5px 0 11px 0;
+    }
+
+    h3{
+      margin-top: 31px;
+      //padding: 0;
+    }
+
+    h3.title{
+      padding: 17px 40px;
+      font-size: 25px;
+      line-height:35px;
+      height:auto;
+    }
+
+    .relative{
+      margin-bottom:5px;
+    }
+
+    .remove-icon{
+      .icon-remove-video-link{
+        font-size: 27px;
+      }
+    }
+  }
+
+}

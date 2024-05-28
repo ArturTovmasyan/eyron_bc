@@ -1,0 +1,174 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <!--  Bucket List Service -->
+        <service id="bl_service" class="AppBundle\Services\BucketListService">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+        <!-- Success story service -->
+        <service id="bl_story_service" class="AppBundle\Services\SuccessStoryService">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <!--  User Notify Service -->
+        <service id="user_notify" class="AppBundle\Services\UserNotifyService">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="bl.location.type" class="AppBundle\Form\Type\LocationType">
+            <tag name="form.type" alias="bl_location" />
+        </service>
+
+        <service id="bl.multiple.file" class="AppBundle\Form\Type\BlMultipleFileType">
+            <tag name="form.type" alias="bl_multiple_file" />
+        </service>
+
+        <service id="story.multiple.file" class="AppBundle\Form\Type\StoryMultipleFileType">
+            <tag name="form.type" alias="story_multiple_file" />
+        </service>
+
+        <service id="bl.multiple.video" class="AppBundle\Form\Type\BlMultipleVideoType">
+            <tag name="form.type" alias="bl_multiple_video" />
+        </service>
+
+        <service id="bl.multiple.blog" class="AppBundle\Form\Type\BlMultipleBlogType">
+            <tag name="form.type" alias="bl_multiple_blog" />
+        </service>
+
+         <!--service for twig extension replace in string -->
+        <service id="bl.all.extensions" class="AppBundle\Twig\Extension\AllTwigExtension">
+            <argument type="service" id="service_container" />
+            <tag name="twig.extension"/>
+        </service>
+
+        <!-- service doctrine listener -->
+        <service id="bl.doctrine.listener" class="AppBundle\Listener\DoctrineListener">
+            <argument type="service" id="service_container" />
+            <tag name="doctrine.event_listener" event = "onFlush"/>
+            <tag name="doctrine.event_listener" event = "postLoad" method="postLoad"/>
+            <tag name="doctrine.event_listener" event = "postUpdate" method="postUpdate"/>
+            <tag name="doctrine.event_listener" event = "postPersist" method="postPersist"/>
+        </service>
+
+
+        <!-- service locale listener -->
+        <service id="bl.request.listener" class="AppBundle\Listener\RequestListener">
+            <argument>%kernel.default_locale%</argument>
+            <argument>%ios_mandatory_version%</argument>
+            <argument>%android_mandatory_version%</argument>
+            <argument type="service" id="security.token_storage" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="debug.stopwatch" />
+            <argument>%angular2host%</argument>
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse"/>
+        </service>
+
+
+        <service id="bl.settings.listener.resolver" class="AppBundle\Listener\MyEntityListenerResolver">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <!-- RandomId service -->
+        <service id="bl_random_id_service" class="AppBundle\Services\RandomIdService">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <!-- PutNotification service -->
+        <service id="bl_put_notification_service" class="AppBundle\Services\PutNotificationService">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <!--  form for languages -->
+        <service id="app.form.lng" class="AppBundle\Form\Type\LngType">
+            <tag name="form.type" alias="lng" />
+            <argument type="service" id="service_container" />
+        </service>
+
+        <!-- custom liip filter-->
+        <service id="app.filter.central_crop" class="AppBundle\LiipFilters\CentralCropFilterLoader">
+            <tag name="liip_imagine.filter.loader" loader="central_crop" />
+        </service>
+
+        <!-- mail Chimp service -->
+        <service id="bl_mail_chimp_service" class="AppBundle\Services\MailChimpService">
+            <argument type="service" id="service_container" />
+            <argument>%mail_chimp_api_key%</argument>
+        </service>
+
+        <!-- mandrill service -->
+        <service id="bl_mandrill_service" class="AppBundle\Services\MandrillService">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="app.goal_voter" class="AppBundle\Security\GoalVoter" public="false">
+            <tag name="security.voter" />
+        </service>
+
+        <service id="app.success_story_voter" class="AppBundle\Security\SuccessStoryVoter" public="false">
+            <tag name="security.voter" />
+        </service>
+
+        <service id="app.comment_voter" class="AppBundle\Security\CommentVoter" public="false">
+            <tag name="security.voter" />
+        </service>
+
+        <service id="app.post_processor.opt_post_processor" class="AppBundle\LiipFilters\PostProcessor\OptPostProcessor">
+            <tag name="liip_imagine.filter.post_processor" post_processor="opt_post_processor" />
+        </service>
+
+        <service id="app.instance_article" class="AppBundle\Services\InstantArticleService">
+            <argument type="service" id="templating" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%facebook_page_token%</argument>
+            <argument>%facebook_page_id%</argument>
+        </service>
+
+        <!--Get Google place service -->
+        <service id="app.google_place" class="AppBundle\Services\GooglePlaceService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%google_server_key%</argument>
+        </service>
+
+        <!--Get Place service -->
+        <service id="app.place" class="AppBundle\Services\PlaceService">
+            <argument type="service" id="app.google_place" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+        <!--Get post on social wall service -->
+        <service id="app.post_social_wall" class="AppBundle\Services\PostOnSocialWallService">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <!-- user goal service -->
+        <service id="app.user.goal" class="AppBundle\Services\UserGoalService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="liip_imagine.cache.manager" />
+            <argument type="service" id="security.authorization_checker" />
+            <argument type="service" id="bl_service" />
+        </service>
+
+        <!-- goal service -->
+        <service id="app.goal" class="AppBundle\Services\GoalService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="liip_imagine.cache.manager" />
+            <argument type="service" id="serializer" />
+        </service>
+
+        <service id="bl.apc" class="AppBundle\Services\ApcService">
+            <argument/>
+        </service>
+
+    </services>
+
+</container>

@@ -1,0 +1,149 @@
+<div class="my-modal goal-modal done-modal"  *ngIf="load">
+    <div *ngIf="newAdded" class="email">{{ "message_on_top_of_the_page" | translate | uppercase }}</div>
+    <div class="modal-top" *ngIf="userGoal">
+        <figure>
+            <img src="{{ userGoal.goal.cached_image?userGoal.goal.cached_image:imgPath }}" alt="{{ userGoal.goal.title }}" class="img-responsive"/>
+        </figure>
+
+        <span class="overlay"></span>
+
+        <div>
+            <h2 [ngClass]="{'title-smaller': userGoal.goal.title.length > 35, 'title-top': !userGoal.goal.author || !userGoal.goal.author.show_name}">
+                <span>{{ userGoal.goal.title }}</span>
+            </h2>
+            <p *ngIf="userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == appUser.id ">
+                {{ userGoal.goal.author.show_name }}
+            </p>
+            <ul>
+                <li>
+                    <a >
+                        {{ 'block_listed'|translate | titlecase }}
+                        <span>{{ userGoal.goal.stats.listedBy | number }}</span>
+                        <i class="icon-user-small"></i>
+                    </a>
+                </li>
+                <li>
+                    <a >
+                        {{ 'block_completed'|translate | titlecase }}
+                        <span>{{ userGoal.goal.stats.doneBy | number }}</span>
+                        <i class="icon-user-small"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="fb-root"></div>
+    <div class="row bg-grey" *ngIf="userGoal">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <div class="row " [ngClass]="{'no-gutter':!isMobile}">
+                <div class="col-xs-9 col-sm-8 hidden-xs">
+                    <h2 class="text-grey-dark ">{{ 'share_title'|translate }}</h2>
+                </div>
+                <div class="col-xs-3 col-sm-4">
+                    <fb-share
+                         [name]="userGoal.goal.slug"
+                         [link]="goalLink"
+                         caption="BUCKETLIST127.COM"
+                         [picture]="userGoal.goal.cached_image"
+                         [message]="'facebook_post_text'|translate"
+                         [description]="userGoal.goal.description">
+                    </fb-share>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white" *ngIf="userGoal">
+        <perfect-scrollbar class="modal-container" [config]="config">
+
+        <div *ngIf="newAdded">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+
+                    <h3 class="story-title text-grey-dark">{{ "success_story.completion_date"|translate }}</h3>
+
+                    <p class="complete-text hidden-xs">{{ "success_story.complete_edit_text"|translate }}</p>
+
+                    <div class="form-group row">
+                        <div class="col-xs-4">
+                            <md-select placeholder="{{ 'form.birth_date_year'|translate }}" name="year" [(ngModel)]="year">
+                                <md-option [value]="0">
+                                    {{ 'form.birth_date_year'|translate }}
+                                </md-option>
+                                <md-option *ngFor="let year of completeYears" [value]="year">
+                                    {{ year }}
+                                </md-option>
+                            </md-select>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" [(ngModel)]="month">
+                                <md-option *ngFor="let month of months; let i=index" [value]="i">
+                                    {{ month|translate }}
+                                </md-option>
+                            </md-select>
+                        </div>
+                        <div class="col-xs-4">
+                            <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" [(ngModel)]="day">
+                                <md-option [value]="0">
+                                    {{ 'form.birth_date_day'|translate }}
+                                </md-option>
+                                <md-option *ngFor="let day of days" [value]="day">
+                                    {{ day }}
+                                </md-option>
+                            </md-select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr/>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <h3 class="story-title text-grey-dark">{{ 'success_story.title'|translate }}</h3>
+            </div>
+        </div>
+
+        <form id="goal-done-form" action="#" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <textarea required="required" name="story" [(ngModel)]="story" class="form-control" [class.border-red]="noStory" placeholder="{{ 'success_story.add'|translate }}" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <my-dropzone [files]="files" [type]="'story'" [existing]="existingFiles" [count]="imageCount"></my-dropzone>
+
+                    <div class="form-group">
+                        <label class="text-grey-dark story-title">Video</label>
+
+                        <input-video *ngFor="let video of videos_array; let i = index"
+                                [key]="i"
+                                [limit]="3"
+                                [link]="video"
+                                [array]="videos_array">
+
+                        </input-video>
+                    </div>
+                    <p class="text-center error-message" *ngIf="noStory">{{ 'success_story.error_widht_file'|translate }}</p>
+                    <p class="text-center error-message" *ngIf="invalidYear">{{ 'success_story.error_day_in_month1'|translate }} {{ dayInMonth}} {{ 'success_story.error_day_in_month2'|translate }}</p>
+                    <p class="text-center error-message" *ngIf="uncompletedYear">{{ 'success_story.error_uncomplete_year'|translate }}</p>
+
+                </div>
+            </div>
+
+
+
+        </form>
+            </perfect-scrollbar>
+    </div>
+    <div class="text-center modal-bottom">
+        <a md-button (click)="save()" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</a>
+        <a md-button (click)="dialogRef.close(); isOpen = false" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|translate }}</a>
+    </div>
+</div>
+<bl-loading mode="indeterminate" *ngIf="!load"></bl-loading>

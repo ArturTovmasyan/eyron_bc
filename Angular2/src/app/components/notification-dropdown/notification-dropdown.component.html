@@ -1,0 +1,81 @@
+<div id="notdrop" class="bg-white">
+        <!--data-infinite-scroll='nextNotifications()'-->
+        <!--data-infinite-scroll-disabled='noNotification || busy'-->
+
+        <!--data-ng-cloak-->
+        <ul id="notification-list" [style.min-width.px]="width">
+            <li class="test">
+                <div class="row">
+                    <div class="col-xs-5 text-left">
+                        <h3 class="text-gray">Notifications</h3>
+                    </div>
+                    <div  class="col-xs-7 text-right">
+                        <a class="text-grey-dark" (click)="readAll()">Mark All as read</a>
+                        <!--href="javascript:void(0)-->
+                    </div>
+                </div>
+            </li>
+
+            <li *ngIf="notifications && notifications.length">
+
+                <perfect-scrollbar class="notification-container" [config]="config">
+                    <div class="content">
+                        <ul *ngFor="let notify of notifications;let i = index"
+                    [ngClass]="{'unread': !notify.is_read}">
+                    <li>
+                        <i class="close-icon" data-click="true" (click)="delete(notify.id, i)"></i>
+
+                        <div (click)="goNotificationPage(notify, i); userPage = false" class="clearfix">
+                            <figure class="pull-left">
+                                <img *ngIf=" notify.notification.performer && notify.notification.performer.image_path"
+                                     src="{{serverPath + notify.notification.performer.image_path}}" alt="photo"
+                                     height="40"/>
+                                <img src="assets/images/notify-user.png"
+                                     *ngIf="!notify.notification.performer || !notify.notification.performer.image_path"
+                                     alt="photo " height="40"/>
+                            </figure>
+
+                            <p>
+                          <span>
+                              <a class="pull-left" *ngIf="notify.notification.performer" (click)="goToUserPage()"
+                                 routerLink="/profile/{{notify.notification.performer.u_id }}/activity">{{
+                                  notify.notification.performer.show_name}} &nbsp;</a>
+                              <span class="text-dark-gray" [innerHTML]="bodyInHtml(notify.notification.body)"></span>
+                          </span>
+                                <span class="text-gray "
+                                      *ngIf="getInterval(notify.notification.created).title == 'datetime'">{{ notify.notification.created | date: "MMMM d, yyyy 'at' h:mm a" }} </span>
+                                <span class="text-gray "
+                                      *ngIf="getInterval(notify.notification.created).title == 'yesterday'">{{ 'notify.yesterday'|translate }} {{ notify.notification.created | date: "h:mm a" }}</span>
+                        <span class="text-gray " *ngIf="getInterval(notify.notification.created).title == 'hr'">
+                            <span *ngIf="getInterval(notify.notification.created).time == 1">{{ getInterval(notify.notification.created).time }} {{ 'notify.hour'|translate }}</span>
+                            <span *ngIf="getInterval(notify.notification.created).time != 1">{{ getInterval(notify.notification.created).time }} {{ 'notify.hours'|translate }}</span>
+                        </span>
+                                <span class="text-gray "
+                                      *ngIf="getInterval(notify.notification.created).title == 'minute'">{{ getInterval(notify.notification.created).time }} {{ 'notify.minute'|translate }}</span>
+                                <span class="text-gray "
+                                      *ngIf="getInterval(notify.notification.created).title == 'now'">{{ 'notify.now'|translate }}</span>
+                            </p>
+
+                        </div>
+                    </li>
+                </ul>
+                    </div>
+                </perfect-scrollbar>
+            </li>
+
+            <li class="text-center" *ngIf="notifications && notifications.length">
+                <a *ngIf="notifications && notifications.length" routerLink="/notifications" (click)="hideNote()" class="text-grey-dark">
+                    See all
+                </a>
+
+            </li>
+        </ul>
+
+        <div *ngIf="!(notifications && notifications.length)" class="ng-hide text-center no-note">
+            <span></span>
+
+            <p>{{ 'notification.no_notification'|translate }}</p>
+
+        </div>
+</div>
+

@@ -1,0 +1,144 @@
+<div class="container">
+  <div  class="signup">
+    <div class="row">
+      <h1 class="text-center">{{ 'registration.sign_up_title'|translate }}</h1>
+
+      <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+
+        <form action="#" method="POST" [formGroup]="form" enctype="multipart/form-data" (ngSubmit)="createUser(form.value)" class="form-horizontal text-center">
+          <div class="form-group row">
+            <div class="col-sm-4 col-sm-offset-4">
+
+              <label class="upload" for="file" *ngIf="!source">Upload a photo</label>
+
+              <div class="registration-image">
+                <img src="{{ source}}" class="uploaded-image" alt="User Image" *ngIf="source">
+              </div>
+              <p *ngIf="imageError" [innerHTML]="imageError.file"></p>
+            </div>
+
+            <div class="hide">
+              <input type="file" id="file" formControlName="file" name="file" (change)="showUploadedImage($event)">
+            </div>
+            <div>
+            </div>
+          </div>
+
+          <div class="form-group row no-padding">
+
+            <div class="col-sm-6">
+              <input type="text" formControlName="firstName" name="firstName" class="form-control" placeholder= "{{ 'form.firstName'|translate }}">
+              <control-messages [control]="form.controls.firstName"></control-messages>
+            </div>
+
+            <div class="col-sm-6">
+              <input type="text" formControlName="lastName" id="lastName" name="lastName" class="form-control"  placeholder= "{{ 'form.lastName'|translate }}">
+              <control-messages [control]="form.controls.lastName"></control-messages>
+            </div>
+          </div>
+
+          <div class="form-group row">
+
+            <div class="col-sm-12">
+              <input type="email" formControlName="email" name="email" class="form-control"  placeholder= "{{ 'form.email'|translate }}">
+              <control-messages [control]="form.controls.email"></control-messages>
+              <span *ngIf="errorMessage && errorMessage.email" style="text-align: center;color: red">{{ errorMessage.email }}</span>
+            </div>
+
+          </div>
+
+          <div class="form-group row no-padding">
+
+            <div class="col-sm-6">
+              <input type="password" formControlName="password" id="password" name="password" class="form-control"  placeholder= "{{ 'form.password'|translate }}">
+              <control-messages [control]="form.controls.password"></control-messages>
+            </div>
+
+            <div class="col-sm-6">
+              <input type="password" formControlName="plainPassword" id="plainPassword" name="plainPassword" class="form-control" placeholder="{{ 'form.re_password'|translate }}">
+              <control-messages [control]="form"></control-messages>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+              <p class="text-gray">
+                {{ 'password.validation'|translate }}
+              </p>
+            </div>
+          </div>
+
+          <p class="text-dark-gray">{{ 'form.date_of_birth'|translate }}</p>
+
+          <!--drop down date part-->
+          <div class="form-group row">
+
+            <div class="col-xs-4">
+              <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" formControlName="month">
+                <md-option *ngFor="let month of arrayMonth; let i=index" [value]="i">
+                  {{ month|translate }}
+                </md-option>
+              </md-select>
+
+              <control-messages [control]="form.controls.month"></control-messages>
+            </div>
+
+            <div class="col-xs-4">
+
+              <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" formControlName="day">
+                <md-option [value]="0">
+                  {{ 'form.birth_date_day'|translate }}
+                </md-option>
+                <md-option *ngFor="let day of arrayDay" [value]="day">
+                  {{ day }}
+                </md-option>
+              </md-select>
+
+              <control-messages [control]="form.controls.day"></control-messages>
+            </div>
+
+            <div class="col-xs-4">
+
+              <md-select placeholder="{{ 'form.birth_date_year'|translate }}" name="year" formControlName="year">
+                <md-option [value]="0">
+                  {{ 'form.birth_date_year'|translate }}
+                </md-option>
+                <md-option *ngFor="let year of arrayYear" [value]="year">
+                  {{ year }}
+                </md-option>
+              </md-select>
+
+              <control-messages [control]="form.controls.year"></control-messages>
+            </div>
+
+          </div>
+
+          <div class="form-group row">
+            <p class="text-gray">{{ 'registration.agreement'|translate }}
+              <a routerLink="/page/terms-of-service-privacy-policy" class="text-purple">{{ 'registration.privacy_policy'|translate }}</a>
+            </p>
+          </div>
+
+          <button md-button type="submit" name="register" [disabled]="form.invalid" class="btn btn-purple">{{ 'security.login.sign_up'|translate }}</button>
+
+        </form>
+        <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
+          <bl-loading mode="indeterminate"></bl-loading>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p class="text-center margin-top text-gray">{{ 'registration.have_account'|translate }}
+          <a md-button (click)="openSignInPopover()" class="text-purple">
+            {{ 'registration.sign_in_btn'|translate | titlecase}}
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+

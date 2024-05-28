@@ -1,0 +1,36 @@
+<div id="signin" data-ng-controller="AuthenticatorLoginController">
+    <h2>Join</h2>
+    <a class="close-icon" rel="modal:close"></a>
+    <form action="{{ path("fos_user_security_check") }}" enctype="multipart/form-data" method="post" id="login-form">
+
+        <div class="form-group">
+            <input type="email" data-ng-model="login_form.username" class="form-control" id="username" name="_username" required="required" placeholder="{{ 'security.login.email'|trans({}, 'FOSUserBundle') }}" />
+        </div>
+
+        <div class="form-group">
+            <input type="password" data-ng-model="login_form.password" class="form-control"  id="password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" name="_password" required="required" />
+        </div>
+
+
+        <div class="error-message" data-ng-if="error">
+            [[ error ]]
+        </div>
+
+        <a href="{{ path("fos_user_resetting_check_email") }}">{{ 'security.login.forgot_password'|trans({}, 'FOSUserBundle') }}</a>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-purple">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') | upper }}</button>
+        </div>
+
+    </form>
+
+    <a href="{{ path("fos_user_registration_register") }}" class="sign-up">
+        <span class="icon-user"></span>{{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') | upper}}
+    </a>
+
+    <h4>{{ 'security.login.connect'|trans({}, 'FOSUserBundle') }}</h4>
+    <ul class="social">
+        {{ include('HWIOAuthBundle:Connect:login.html.twig' ) }}
+    </ul>
+</div>
+

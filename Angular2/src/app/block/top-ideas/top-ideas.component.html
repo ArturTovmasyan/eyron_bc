@@ -1,0 +1,30 @@
+<div class="top-ideas">
+    <div class="bg-white padding round margin-top" *ngIf="goals && goals.length">
+        <div class="row">
+          <div class="col-xs-10">
+            <a routerLink="{{ url }}" class="heading text-gray">
+              <i [ngClass]="{'icon-top-idea': type == categories[0],'featured-icon': type == categories[2],'suggested-icon': type == categories[1]}"></i>
+              <span class="text">{{ (type == categories[0])?('right_menu.ideas'|translate ): (type == categories[2])? ('featured_ideas'|translate):('right_menu.suggested'|translate) }}</span>
+            </a>
+          </div>
+
+          <div class="col-xs-2 text-right">
+            <a  (click)="refreshIdeas()" class="load" id="topIdeasLoad" #rotate></a>
+          </div>
+        </div>
+
+        <hr class="hr-margin"/>
+
+        <div *ngFor="let goal of goals" class="row idea-item">
+            <div class="col-sm-6 col-md-12">
+                <figure>
+                    <app-goal [goal]="goal"></app-goal>
+                    <figcaption class="footer-bordered">
+                        <app-goal-footer [goal]="goal"></app-goal-footer>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+
+    </div>
+</div>

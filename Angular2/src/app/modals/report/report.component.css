@@ -1,0 +1,63 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+#report-modal {
+  text-align: left;
+  padding: 0;
+  width: 280px;
+  margin: 0 auto;
+  top: 10%;
+}
+#report-modal h3 {
+  margin: 0;
+  padding: 20px 10px;
+  font-size: 18px;
+  color: #021523;
+}
+#report-modal .report-content {
+  border-top: 1px solid #cccccc;
+  padding: 10px;
+}
+#report-modal .report-content textarea {
+  padding: 10px;
+  margin: 10px 0;
+  font-weight: 600;
+}
+#report-modal .report-content label,
+#report-modal .report-content textarea,
+#report-modal .report-content p {
+  color: #333333;
+  font-weight: 600;
+}
+#report-modal button[md-button] {
+  padding: 2px 35px;
+}
+#report-modal .purple-transparent {
+  background-color: rgba(97, 8, 234, 0.31);
+}
+#report-modal .padding {
+  padding: 10px;
+}
+@media (min-width: 768px) {
+  #report-modal {
+    width: 390px;
+  }
+  #report-modal h3 {
+    padding: 20px;
+    font-size: 22px;
+  }
+  #report-modal .report-content {
+    padding: 20px;
+  }
+  #report-modal .report-content i {
+    margin-right: 0;
+  }
+  #report-modal .padding {
+    padding: 20px;
+  }
+}

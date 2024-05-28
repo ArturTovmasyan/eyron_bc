@@ -1,0 +1,131 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+  figcaption {
+    background-color: #ffffff;
+    ul {
+      li {
+        height: 35px;
+        line-height: 31px;
+        cursor: pointer;
+
+        & > span {
+          display: block;
+        }
+
+        a {
+          &[md-button] {
+            display: block;
+            line-height: 33px;
+          }
+
+          i {
+            font-size: 25px;
+            vertical-align: middle;
+            margin-right: 5px;
+          }
+
+          &:hover, &:focus {
+            text-decoration: none;
+          }
+
+          &:hover {
+            background-color: #7724f6;
+            color: #fff;
+            a {
+              .text {
+                color: #ffffff;
+
+              }
+            }
+          }
+        }
+
+        i.icon-green-ok, .icon-green-plus {
+          font-size: 36px;
+          vertical-align: middle;
+        }
+        .text {
+          display: inline-block;
+          vertical-align: middle;
+          color: #999999;
+          font-size: 12px;
+        }
+        .transparent {
+          .text {
+            color: #a4a4a4;
+          }
+          &:hover {
+            background-color: transparent;
+            a, .text {
+              color: #a4a4a4;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+@media (min-width: @screen-sm) {
+
+    figcaption {
+      ul {
+        li {
+          height: 50px;
+          line-height: 45px;
+
+          a {
+            &[md-button]{
+              padding: 6px 0 8px;
+              line-height: 36px;
+            }
+
+            i {
+              font-size: 30px;
+            }
+          }
+
+          .text {
+            font-size: 14px;
+          }
+
+          i.icon-green-ok, .icon-green-plus {
+            font-size: 49px;
+          }
+
+          &:last-child {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+
+@media (min-width: @screen-md) {
+
+    figcaption {
+      ul {
+        li:not(.transparent){
+
+          &:hover {
+            //background-color: #7724F6;
+            color: #ffffff;
+
+            span {
+              color: #ffffff;
+            }
+          }
+
+          &:focus, &:active {
+            //background-color: #6108EA;
+            //a, span {
+            //  color: #ffffff;
+            //}
+          }
+        }
+      }
+    }
+  }
+

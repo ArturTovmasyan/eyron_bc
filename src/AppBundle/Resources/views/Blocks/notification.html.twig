@@ -1,0 +1,60 @@
+
+<div data-uib-dropdown data-auto-close="outsideClick" data-is-open="dropdownOpen()" data-ng-cloak>
+  <a href="#notification" data-uib-dropdown-toggle class="relative notify" data-ng-cloak>
+      <i class="bell"></i>
+      <sup data-ng-show="newNotCount != 0" class="ng-hide">[[ newNotCount]]</sup>
+  </a>
+  <ul class="dropdown-menu" data-uib-dropdown-menu data-aria-labelledby="simple-dropdown">
+      <li>
+          <div class="row">
+              <div class="col-xs-5">
+                  <h3 class="text-gray">Notifications</h3>
+              </div>
+              <div class="col-xs-7 text-right ng-hide" data-ng-show="notifies.length">
+                  <a class="text-grey-dark" data-ng-click="readAll()" href="javascript:void(0)">Mark All as read</a>
+              </div>
+          </div>
+      </li>
+
+       <li data-ng-show="notifies.length" class="ng-hide" data-ng-cloak data-ng-scrollbars data-ng-scrollbars-config="scroller_config" data-ng-scrollbars-update="updateScrollbar">
+           <ul data-ng-repeat="notify in notifies">
+               <li data-ng-class="{'unread': !notify.is_read}">
+                   <i class="close-icon" data-ng-click="delete(notify.id, $index)"></i>
+                        <div data-ng-click="goNotificationPage(notify, $index)" class="clearfix" data-ng-init="time[notify.id] = getInterval(notify.notification.created)">
+                           <figure class="pull-left">
+                               <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]" height="60"/>
+                               <img src="{{ asset('bundles/app/images/notify-user.png') }}" data-ng-if="!notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]" height="60"/>
+                           </figure>
+
+                            <p>
+                                <span>
+                                    <a class="pull-left" data-ng-if="notify.notification.performer" data-ng-href="{{ env_prefix }}/profile/[[ ::notify.notification.performer.u_id ]]">[[ notify.notification.performer.show_name]] &nbsp</a>
+                                   <span class="text-dark-gray" data-ng-bind-html="bodyInHtml(notify.notification.body)"></span>
+                                </span>
+                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'datetime'">[[ notify.notification.created | date: "MMMM d, yyyy 'at' h:mm a" ]] </span>
+                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'yesterday'">{{ 'notify.yesterday'|trans }} [[ notify.notification.created | date: "h:mm a" ]] </span>
+                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'hr'">
+                                    <span data-ng-if="time[notify.id].time == 1">[[ time[notify.id].time ]] {{ 'notify.hour'|trans }}</span>
+                                    <span data-ng-if="time[notify.id].time != 1">[[ time[notify.id].time ]] {{ 'notify.hours'|trans }}</span>
+                                </span>
+                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'minute'">[[ time[notify.id].time ]] {{ 'notify.minute'|trans }}</span>
+                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'now'">{{ 'notify.now'|trans }}</span>
+                            </p>
+
+                        </div>
+               </li>
+           </ul>
+       </li>
+
+        <li data-ng-show="!notifies.length" class="ng-hide text-center no-note">
+            <span></span>
+            <p>{{ 'notification.no_notification'|trans }}</p>
+
+        </li>
+
+      <li data-ng-show="notifies.length" class="ng-hide text-center" data-ng-cloak>
+            <a href="{{ path('notifications') }}" class="text-grey-dark text-center">See all</a>
+      </li>
+
+  </ul>
+</div>

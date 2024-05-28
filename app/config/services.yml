@@ -1,0 +1,27 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    hwi_oauth.user.provider.entity:
+            class: Application\UserBundle\Provider\UserProvider
+            arguments:
+                - '@fos_user.user_manager'
+                - '@service_container'
+
+    app.image_filter.twig_extension:
+        class: AppBundle\Twig\Extension\ImageFilterExtension
+        arguments: [ '@service_container' ]
+        tags:
+              - { name: twig.extension }
+
+# add sitemap listner
+    sitemap.listner:
+            class: AppBundle\Listener\SitemapListener
+            arguments:
+                - @router
+                - @doctrine.orm.default_entity_manager
+                - @debug.stopwatch
+            tags:
+                - { name: "presta.sitemap.listener"}

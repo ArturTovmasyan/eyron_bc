@@ -1,0 +1,174 @@
+@import "../../assets/less/variables.less";
+@import "../../assets/less/function.less";
+
+#activities{
+  .idea-item{
+    figure{
+      margin-bottom: 0;
+    }
+  }
+
+  .image{
+    margin:0 10px 0 0;
+    float:left;
+
+    a{
+      height:auto;
+    }
+
+    img{
+      width:40px;
+      height:40px;
+      margin:0 auto;
+      border:2px solid #cecece;
+    }
+
+    .no-image{
+      height: 40px;
+      width: 40px;
+      line-height: 35px;
+      color:#ffffff;
+    }
+
+  }
+
+  p{
+    font-size:12px;
+    color:#999999;
+  }
+
+  h4{
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 0 2px 0;
+    margin: 0;
+
+    a{
+      font-size:14px;
+      padding-bottom: 2px;
+      display: inline-block;
+    }
+
+    span{
+      display: block;
+    }
+  }
+
+    .swiper-button-next, .swiper-button-prev{
+      top: 42%;
+      background-size: 40%;
+    }
+
+    .swiper-pagination{
+      text-align: right;
+      position: absolute;
+      right: 3px;
+      top: 36px;
+      width: 100px;
+      height: 25px;
+      font-size: 14px;
+      left: auto;
+
+      .swiper-pagination-bullet{
+        margin: 0 5px;
+      }
+    }
+
+    p{
+      padding-bottom:0;
+    }
+
+    .idea-item{
+      figure{
+
+        figcaption{
+          ul{
+            li{
+              a{
+                display: block;
+              }
+              .mat-button-focus-overlay{
+                background-color: transparent;
+              }
+
+              &:hover{
+                background-color: transparent;
+                a,span{
+                  color: #a4a4a4;
+                }
+              }
+            }
+          }
+        }
+        &.rounded-corners{
+          .rounded-corners-top;
+        }
+      }
+    }
+}
+
+@media (min-width: @screen-sm) {
+  #activities{
+    .image{
+      margin:0 15px 5px 0;
+      float:left;
+
+      a{
+        height:auto;
+      }
+
+      img{
+        width:50px;
+        height:50px;
+        margin:0 auto;
+        border:2px solid #cecece;
+      }
+
+      .no-image{
+        height: 50px;
+        width: 50px;
+        line-height: 45px;
+      }
+    }
+
+    p{
+      font-size:13px;
+    }
+
+    h4{
+      font-size:16px;
+      padding:9px 0 2px 0;
+
+      a{
+        font-size:16px;
+        padding: 0 10px 0 0;
+      }
+
+      span{
+        display: inline-block;
+      }
+    }
+
+    .swiper-button-next, .swiper-button-prev{
+      background-size: 85%;
+    }
+
+      .swiper-pagination{
+        top: 6px;
+        font-size: 16px;
+      }
+
+      p{
+        padding-bottom:0;
+      }
+  }
+
+}
+
+@media (min-width: @screen-md) {
+  #activities{
+    .swiper-button-next, .swiper-button-prev{
+      background-size: 100%;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{% block story_multiple_file_widget %}
+<div class="form-group clearfix">
+    <ul class="images  control-label" data-prototype="{{ _self.multiple_prototype(form.vars.prototype)|e }}">
+
+        {% for child in form %}
+
+            {% if child.vars.value is not null and child.vars.value.filename is not null %}
+
+                <li class="col-sm-3">
+                    <figure>
+                        <a href="{{ child.vars.value.downloadLink }}" target="_blank">
+                            <img width="260" src="{{asset(child.vars.value.downloadLink)}}" alt="child.vars.value.filename">
+                        </a>
+
+                        <div class="col-sm-4">
+                            <a class="delete-link" href="{{ path("get_goal_remove_story_image", {'id' : child.vars.value.id } ) }}" >{{ 'btn_delete'|trans }}</a>
+                        </div>
+
+                    </figure>
+
+                </li>
+            {% endif %}
+
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
+
+{% macro multiple_prototype(form) %}
+    {{ form_widget(form.file) }}
+{% endmacro %}

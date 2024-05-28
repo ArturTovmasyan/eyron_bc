@@ -1,0 +1,85 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+        hwi_oauth_user_provider:
+            id: hwi_oauth.user.provider
+        bl_user_api_provider:
+            id: bl_user_api_provider
+
+    role_hierarchy:
+        ROLE_GOD:         ROLE_SUPER_ADMIN
+        ROLE_ADMIN:       ROLE_USER, ROLE_MODERATOR
+        ROLE_SUPER_ADMIN: ROLE_ADMIN, ROLE_SONATA_ADMIN
+
+        ROLE_MODERATOR:
+            - ROLE_GOAL_MODERATOR_VIEW
+            - ROLE_GOAL_MODERATOR_LIST
+            - ROLE_GOAL_MODERATOR_EDIT
+            - ROLE_GOAL_MODERATOR_DELETE
+
+            - ROLE_SUCCESS_STORY_MODERATOR_VIEW
+            - ROLE_SUCCESS_STORY_MODERATOR_LIST
+            - ROLE_SUCCESS_STORY_MODERATOR_EDIT
+            - ROLE_SUCCESS_STORY_MODERATOR_DELETE
+
+            - ROLE_COMMENT_MODERATOR_VIEW
+            - ROLE_COMMENT_MODERATOR_LIST
+            - ROLE_COMMENT_MODERATOR_EDIT
+            - ROLE_COMMENT_MODERATOR_DELETE
+
+            - ROLE_THREAD_MODERATOR_VIEW
+            - ROLE_THREAD_MODERATOR_LIST
+            - ROLE_THREAD_MODERATOR_EDIT
+            - ROLE_THREAD_MODERATOR_DELETE
+
+            - ROLE_REPORT_MODERATOR_VIEW
+            - ROLE_REPORT_MODERATOR_LIST
+            - ROLE_REPORT_MODERATOR_EDIT
+            - ROLE_REPORT_MODERATOR_DELETE
+
+    firewalls:
+        main:
+            simple_preauth:
+                authenticator: bl_user_api_authenticator
+            provider: bl_user_api_provider
+            entry_point: authentication_entry_point
+            stateless: true
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                success_handler: authentication_handler
+                failure_handler: authentication_handler
+                default_target_path: /
+            anonymous: true
+            logout:
+                path:   /logout
+                target: /
+            oauth:
+                resource_owners:
+                    facebook:           /login/check-facebook
+                    google:             /login/check-google
+                    twitter:            /login/check-twitter
+                success_handler: authentication_handler
+                failure_handler: authentication_handler
+                default_target_path: /
+                login_path:        /check-login
+                failure_path:      /check-login
+                oauth_user_provider:
+                    service: hwi_oauth.user.provider.entity
+
+            remember_me:
+                key:      m23u8h9dq2
+                lifetime: 2592000 #one month
+                path:     /
+                domain:   ~
+                always_remember_me: true
+
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin(.*), role: [ROLE_MODERATOR, ROLE_ADMIN, ROLE_SONATA_ADMIN, ROLE_GOD] }

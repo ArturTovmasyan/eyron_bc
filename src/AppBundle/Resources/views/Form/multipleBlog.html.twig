@@ -1,0 +1,14 @@
+{% block bl_multiple_blog_widget %}
+    <div class="form-group clearfix">
+        <ul class="blog" data-prototype="{{ _self.multiple_prototype(form.vars.prototype)|e }}">
+            {% for child in form %}
+                {{ form_widget(child) }}
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}
+
+{% macro multiple_prototype(form) %}
+    {{ form_widget(form) }}
+{% endmacro %}

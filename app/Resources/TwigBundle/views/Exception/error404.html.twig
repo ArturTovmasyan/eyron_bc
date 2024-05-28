@@ -1,0 +1,26 @@
+{% extends "::base.html.twig" %}
+
+{% block confirm_email %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div  class="signup notice">
+            <div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <h1 class="text-center">{{ 'verification.wrong'|trans({}, 'FOSUserBundle') }}</h1>
+                        <h4 class="text-center text-gray">
+
+                            {{ 'verification.wrong_content'|trans({}, 'FOSUserBundle') }}
+
+                            <a href="{{ path('page', { 'slug': 'contact-us' }) }}" class="text-purple">
+                                {{ 'verification.help_center'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

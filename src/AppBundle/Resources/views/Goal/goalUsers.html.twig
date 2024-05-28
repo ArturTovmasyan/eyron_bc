@@ -1,0 +1,50 @@
+<div data-ng-controller="friendsController" class="bg-grey" id="goal-users-modal">
+    <div class="bg-white relative" data-ng-show="Friends.users.length">
+        <h3 data-ng-show="slug == 1" class="ng-hide" data-ng-cloak>{{ 'home_listed_by'|trans }} [[ ::usersCount ]] {{ 'users'|trans }}</h3>
+        <h3 data-ng-show="slug == 2" class="ng-hide" data-ng-cloak>{{ 'home_complete'|trans }} [[ ::usersCount ]] {{ 'users'|trans }}</h3>
+        <h3 data-ng-show="slug == 3" class="ng-hide" data-ng-cloak>{{ 'home_voters'|trans }} [[ ::usersCount ]] {{ 'users'|trans }}</h3>
+        <a href="javascript:void(0)" rel="modal:close" class="close-icon"></a>
+    </div>
+
+    <div class="users-content"
+         data-ng-cloak
+         data-infinite-scroll='Friends.nextFriends(friendName, slug, goalId)'
+         data-infinite-scroll-disabled='Friends.noItem || Friends.busy'>
+        <div data-ng-show="Friends.users.length"
+             data-ng-cloak
+             class="ng-hide row"
+             data-ng-repeat="user in Friends.users">
+
+            <div class="col-xs-12 margin-top bg-white padding round">
+                <a href="{{ env_prefix }}/profile/[[ ::user.u_id ]]" class="text-gray">
+
+                    <figure class="image-goalfrinds pull-left">
+                        <img data-ng-if="user.image_path" data-ng-src="[[ ::user.image_path ]]" alt="[[ ::user.first_name ]]" class="img-circle img-responsive" />
+                        {% set className = "user-no" ~ random(4) %}
+                        <p data-ng-if="!user.image_path" class="no-image {{ className }}">[[ (user.first_name | limitTo:1 | uppercase) + (user.last_name | limitTo:1 | uppercase) ]]</p>
+                    </figure>
+
+                    <div class="pull-left" data-ng-init="stats = user.stats; nameLength = user.first_name.length + user.last_name.length">
+                        <h4 class="text-dark-gray">
+                            <strong class="ng-hide" data-ng-show="nameLength < 31 " >[[ ::user.first_name ]] [[ ::user.last_name ]]</strong>
+                            <span class="ng-hide" data-ng-init="filterCount= user.last_name.length - (nameLength - 26) " data-ng-show="nameLength > 30 " data-toggle="tooltip" data-placement="bottom" title="[[ ::user.first_name ]] [[ ::user.last_name ]]">
+                                [[ ::user.first_name ]] [[ ::user.last_name | limitTo: filterCount ]]...
+                            </span>
+                        </h4>
+
+                        <span class="text-gray">{{ 'listed_by'|trans }} <span data-ng-bind="stats.listedBy"></span></span> |
+                        <span class="text-gray">{{ 'completed'|trans }} <span data-ng-bind="stats.doneBy"></span></span>
+                        <a href="javascript:void(0)"
+                           data-ls-common-manage
+                           data-ng-show="user.common_goals_count != 0"
+                           data-ls-user="[[ ::user.id ]]"
+                           data-ng-cloak class="text-gray">{{ 'menu.common'|trans }} [[ ::user.common_goals_count ]]
+                        </a>
+                    </div>
+
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

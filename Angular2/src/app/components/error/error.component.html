@@ -1,0 +1,19 @@
+<div class="container">
+  <div  class="signup notice">
+    <div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center">
+          <h1 class="text-center">{{ 'verification.wrong'|translate }}</h1>
+          <h4 class="text-center text-gray">
+            {{ 'verification.wrong_content'|translate }}
+            <a routerLink="/page/contact-us" class="text-purple">
+              {{ 'verification.help_center'|translate }}
+            </a>
+          </h4>
+          <p *ngIf="errorMessage" style="text-align: center;color: red">{{ errorMessage }}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

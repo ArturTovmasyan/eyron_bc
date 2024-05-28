@@ -1,0 +1,119 @@
+<lightbox *ngIf="light_box_open" [data]="lightBoxData" [type]="lightBoxType" (onClose)="closeLightBox()"></lightbox>
+<div id="story-slider-homepage">
+
+  <div class="container">
+
+    <h2 class="text-center text-dark">{{ 'homepage_success_story'| translate }}</h2>
+
+    <div class="row">
+
+      <div class="col-sm-12">
+        <!--<my-component>-->
+          <swiper [config]="config" class="swiper-container" id="story-slider-homepage-container">
+            <div class="swiper-wrapper">
+              <div *ngFor="let story of stories; let i = index" class="swiper-slide comment-place story-fade-in">
+                <!--data-ng-init="count[{{ story.id }}] = {{ story.voters_count }}">-->
+
+                <div class="row no-gutter">
+                  <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                    <div class="bg-white" >
+
+                      <div class="row padding">
+
+                        <div class="col-xs-9">
+
+                          <div class="clearfix">
+
+                            <div class="pull-left">
+                              <a [routerLink]="'/login/user/' + story.user.u_id">
+
+                                <figure class="user-image">
+                                  <!--blImageFilter('user_icon')-->
+                                  <img *ngIf="story.user.cached_image" src="{{ story.user.cached_image }}"
+                                       class="img-circle img-responsive"
+                                       alt="{{ story.user.first_name }}">
+                                  <span *ngIf="!story.user.cached_image" class="no-image text-white user-no4">{{ story.user.first_name|slice:0:1 |uppercase}}{{ story.user.last_name|slice:0:1 |uppercase}}</span>
+                                </figure>
+                              </a>
+                            </div>
+
+                            <div class="pull-left success-story-user" *ngIf="story.user">
+                              <p class="user-name">
+                                <a [routerLink]="'/login/user/' + story.user.u_id" class="text-dark-gray">{{ story.user.show_name }}</a>
+                              </p>
+                              <span class="text-gray">
+                                  {{ story.created| date:'dd MMMM,  yyyy' }} at {{ story.created| date:'HH:mm' }}
+                              </span>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="col-xs-3 text-right">
+                          <span class="text-purple">{{ story.voters_count }}</span>
+                          <a (click)="openSignInPopover(story)">
+                            <i class="like-icon"></i>
+                          </a>
+                        </div>
+
+                      </div>
+
+                      <div class="border-left">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <perfect-scrollbar class="success-scroll">
+                              <div class="content">
+                                <p>{{ story.story }}</p>
+
+                                <!--file.downloadLink|blImageFilter('slide_max_size')-->
+                                <ng-template ngFor let-file [ngForOf]="story.files" let-k="index">
+                                  <a class="swipebox" *ngIf="k == 0">
+                                    <i class="photo-icon" (click)="openLightBox(story.files)"></i>
+                                    <!--('story_homepage_small')-->
+                                    <img src="{{ file.image_path }}" alt="{{ file.file_name }}" height="83" width="106"/>
+                                  </a>
+                                </ng-template>
+
+                                <ng-template ngFor let-video_link [ngForOf]="story.video_link" let-k="index">
+                                  <a *ngIf="k == 0" class="swipebox-video">
+                                    <i class="video-icon" (click)="openLightBox(story.video_link, 'videos')"></i>
+                                    <embed-video [href]="video_link" height="83" width="106">
+                                    </embed-video>
+                                  </a>
+                                </ng-template>
+                              </div>
+                            </perfect-scrollbar>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="idea-item" *ngIf="story.goal">
+                        <figure class="rounded-corners">
+                          <i class="icon-lock-white"></i>
+                          <app-goal [goal]="story.goal"></app-goal>
+                        </figure>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next swiper-button-next-home-story"></div>
+            <div class="swiper-button-prev swiper-button-prev-home-story"></div>
+          </swiper>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <button md-button (click)="openSignInPopover()" class="btn btn-purple">{{ 'join_now'| translate | uppercase}}</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>

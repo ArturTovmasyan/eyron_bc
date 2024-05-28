@@ -1,0 +1,52 @@
+<div class="calendar-place">
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-5">
+        <section>
+          <button md-button class="groupX left" [ngClass]="{'md-active': type == 'month'}" (click)="type = 'month'">Month</button>
+          <button md-button class="groupX middle" [ngClass]="{'md-active': type == 'year'}" (click)="type = 'year'">Year</button>
+          <button md-button class="groupX right" [ngClass]="{'md-active': type == 'all'}" (click)="type = 'all'">All</button>
+        </section>
+      </div>
+      <div class="col-xs-8 col-sm-4">
+        <h3 *ngIf="type == 'month'">
+          {{ dateByFormat(currentYear, currentMonth, 1)| date :'MMMM yyyy' }}
+        </h3>
+        <h3 class="year" *ngIf="type == 'year'">Years</h3>
+        <h3 *ngIf="type == 'all'">Lifetime</h3>
+      </div>
+      <div class="col-xs-4 col-sm-3 text-right">
+
+        <a (click)="prev()">
+          <i class="icon-arrow-left"><span class="path1"></span><span class="path2"></span></i>
+        </a>
+
+        <a (click)="next()">
+          <i class="icon-arrow-right"></i>
+        </a>
+
+      </div>
+      <!--<a *ngIf="isMobile" class="close-icon"   (click)="dialogClose()"></a>-->
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-responsive" *ngIf="type == 'month'">
+          <calendar-month [myDays]="myDays" [days]="days"></calendar-month>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row" *ngIf="type == 'year'">
+      <calendar-year [myYAMonths]="myYAMonths" [currentYear]="currentYear"></calendar-year>
+    </div>
+
+    <div class="row" *ngIf="type == 'all'">
+      <calendar-all-year [currentYear]="currentYear" [myYears]="myYears"></calendar-all-year>
+    </div>
+
+  </div>
+</div>

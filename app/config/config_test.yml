@@ -1,0 +1,26 @@
+imports:
+    - { resource: config_dev.yml }
+    - { resource: security_test.yml }
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+    profiler:
+        collect: true
+
+parameters:
+      places:
+          - {country: 'armenia', city: 'yerevan', short_name: 'am', latitude: 40.17941, longitude: 44.54084}
+          - {country: 'russia', city: 'moscow', short_name: 'ru', latitude: 55.75583, longitude: 37.61730}
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+swiftmailer:
+    disable_delivery: true
+
+doctrine:
+    dbal:
+        dbname:   "%test_database_name%"

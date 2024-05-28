@@ -1,0 +1,13 @@
+{#<div  class="text-center padding">#}
+    {#{{ 'change_password.success_first'|trans({}, 'FOSUserBundle') }}#}
+    {#{{ 'change_password.success_second'|trans({'%project_name%': project_name}, 'FOSUserBundle') }}#}
+{#</div>#}
+
+<div class="email">
+    <div class="container text-center">
+        <span>
+            {{ 'change_password.success_first'|trans({}, 'FOSUserBundle') }}
+            {{ 'change_password.success_second'|trans({'%project_name%': project_name}, 'FOSUserBundle') }}
+        </span>
+    </div>
+</div>

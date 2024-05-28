@@ -1,0 +1,35 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+.relative{
+  margin-bottom: 5px;
+}
+
+.remove-icon{
+  position: absolute;
+  right: 3px;
+  top: 2px;
+  background-color: #ffffff;
+  padding:0 0 0 3px;
+  .icon-remove-video-link{
+    font-size: 25px;
+  }
+
+  &:hover,:focus{
+    text-decoration: none;
+  }
+}
+
+@media (min-width: @screen-sm) {
+  .remove-icon {
+    right: 10px;
+  }
+}
+
+@media (min-width: @screen-md) {
+  .remove-icon {
+    .icon-remove-video-link{
+      font-size: 27px;
+    }
+  }
+}

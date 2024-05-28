@@ -1,0 +1,58 @@
+<div class="text-center">
+    <div class="dropzone" id="goalDropzone">
+        <form action="#">
+            <label for="file">
+                <div class="dz-message">
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <h3 class="text-dark-gray" *ngIf="type == 'story'">
+                            <i class="icon-cloud"></i> {{ 'drag_drop'|translate }}
+                        </h3>
+                        <h3 class="text-dark-gray" *ngIf="type != 'story'">
+                             <span class="btn-purple" >
+                                <i class="icon-cloud"></i> BROWSE
+                             </span>
+
+                             <span>{{ 'drag_drop'|translate }}</span>
+                        </h3>
+
+                    </div>
+                </div>
+
+                <!--<p [innerHTML]="'upload'|translate"></p>-->
+
+                <div class="text-center">
+                    <div class="dz-preview dz-file-preview" *ngFor="let data of existing; let i = index">
+                        <div class="dz-details">
+                            <div class="dz-filename">
+                                <span data-dz-name *ngIf="data.file_name"> {{ data.file_name}}</span>
+                            </div>
+                            <div class="dz-size" data-dz-size></div>
+                            <img data-dz-thumbnail *ngIf="data.image_path || data.image"
+                                 src="{{ data.image?data.image:(serverPath + data.image_path)}}"/>
+                        </div>
+                        <div class="dz-progress" *ngIf="data.progress">
+                            <span class="dz-upload" data-dz-uploadprogress></span>
+                        </div>
+                        <div class="dz-success-mark" *ngIf="!data.progress && !data.error">
+                            <span>✔</span>
+                        </div>
+                        <div class="dz-error-mark" data-dz-remove *ngIf="!data.progress && data.error"
+                             (click)="cancel(i, $event)">
+                            <span>✘</span>
+                        </div>
+                        <div class="dz-error-message" *ngIf="data.error">
+                            <span data-dz-errormessage> {{ data.error }}</span>
+                        </div>
+                        <div (click)="cancel(i, $event)" class="dz-remove"> Cancel</div>
+                    </div>
+                </div>
+            </div>
+            </label>
+            <div class="hide">
+                <input type="file" id="file" name="file" (change)="showUploadedImage($event)" multiple>
+            </div>
+        </form>
+    </div>
+</div>

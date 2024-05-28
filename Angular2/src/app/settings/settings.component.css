@@ -1,0 +1,24 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.text-grey-dark {
+  line-height: 14px;
+}
+.text-muted {
+  font-size: 12px;
+  line-height: 18px;
+  display: inline-flex;
+  white-space: normal;
+}
+md-slide-toggle {
+  height: auto;
+  margin: 10px 15px;
+}
+md-radio-button {
+  margin: 7px 2px 0;
+}

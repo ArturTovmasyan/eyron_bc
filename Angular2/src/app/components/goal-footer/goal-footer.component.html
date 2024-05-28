@@ -1,0 +1,39 @@
+<!--{% if app.user.id is defined %}-->
+<!--{% set userId = app.user.id %}-->
+<!--{% else %}-->
+<!--{% set userId = 0 %}-->
+<!--{% endif %}-->
+<figcaption>
+    <ul class="row no-gutter">
+        <!--{% if goal is defined and goalInner is not defined %} -->
+        <!--data-ng-init="completed=true;goal.is_my_goal={{ goal.isMyGoal|default(0) }};goal.id={{ goal.id }}" -->
+        <!--{% endif %}>-->
+
+      <li class="col-xs-6" [class.transparent]="goal.is_my_goal && goal.is_my_goal !== 0">
+        <a md-button *ngIf="!goal.is_my_goal"
+         (click)="addGoal(goal.id)">
+          <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+          <span class="text">{{ 'add'|translate | titlecase }} </span>
+        </a>
+
+        <span *ngIf="goal.is_my_goal && goal.is_my_goal !== 0">
+            <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+            <span class="text">{{ 'added'|translate | titlecase }} </span>
+        </span>
+      </li>
+
+      <li class="col-xs-6" [class.transparent]="goal.is_my_goal && goal.is_my_goal === 2">
+          <!--data-ng-init="success[ goal.id ] = false">-->
+            <a md-button *ngIf="!goal.is_my_goal || goal.is_my_goal !== 2" (click)="completeGoal(goal.id)">
+                 <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                 <span class="text">{{ 'done'|translate | titlecase }}</span>
+            </a>
+
+            <span *ngIf="goal.is_my_goal && goal.is_my_goal === 2 " id="success{{ goal.id }}">
+                 <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                <span class="text">{{ 'completed'|translate | titlecase }}</span>
+            </span>
+
+      </li>
+    </ul>
+</figcaption>

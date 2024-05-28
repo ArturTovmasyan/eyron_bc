@@ -1,0 +1,33 @@
+<div class="lightbox ">
+  <a  (click)="closeLightBox()" class="close-icon"></a>
+<div class="row no-gutter burger">
+  <div class="col-md-8 col-md-offset-2 lightbox-content">
+    <swiper [config]="config" id="lightbox-slider" class="swiper-container" *ngIf="data && data.length > 1">
+      <!-- Slides Container -->
+      <div class="swiper-wrapper">
+
+        <div class="swiper-slide" *ngFor="let d of data">
+          <a class="swipebox-main" *ngIf="!type || type != 'videos'">
+            <img  class="img-responsive" src="{{ d.image_path }}" alt=""/>
+          </a>
+          <a *ngIf="type && type == 'videos'" class="swipebox-video">
+            <embed-video [href]="d" height="100%" width="100%">
+            </embed-video>
+          </a>
+        </div>
+      </div>
+
+      <!--Add Pagination -->
+      <div class="swiper-pagination swiper-pagination-white" *ngIf="data.length > 1"></div>
+       <!--Add Arrows -->
+      <div class="swiper-button-next swiper-button-white" *ngIf="data.length > 1"></div>
+      <div class="swiper-button-prev swiper-button-white" *ngIf="data.length > 1"></div>
+    </swiper>
+
+    <figure class="goal-preview" id="lightbox-slider"
+            *ngIf="data.length == 1">
+      <img class="img-responsive" src="{{ data[0].image_path }}" alt="view goal img" style="height: 100%;"/>
+    </figure>
+  </div>
+</div>
+</div>

@@ -1,0 +1,190 @@
+<div class="col-sm-2"  [ngClass]="{'no-left' : isMobile, 'no-right': !isMobile}" *ngIf="!removed">
+  <div class="date-left">
+    <!--data-ng-init="-->
+    <!--change[[ goal.id}} = 0;-->
+    <!--doDate[[ goal.id }} = null;-->
+    <!--dateStatus[goal.id] = userGoal.date_status;-->
+    <!--goalDate[ goal.id ] = ((userGoal.do_date && status != 2)? userGoal.do_date: (userGoal.completion_date? userGoal.completion_date: 'dreaming'))"-->
+    <p *ngIf="isMobile && first" >
+      <span class="hidden-sm hidden-mg hidden-lg space"></span>
+    </p>
+
+    <div class="img-circle hidden-xs "  *ngIf="goalDate != 'dreaming' && dateStatus == 1">
+      {{ goalDate | date:'dd' }}
+    </div>
+
+    <div class="img-circle hidden-xs "  *ngIf="goalDate != 'dreaming' && dateStatus != 1">
+      --
+    </div>
+
+    <div class="img-circle hidden-xs "  *ngIf="goalDate == 'dreaming'">
+      <i class="dreaming">
+        <i class="icon-dreaming"></i>
+      </i>
+    </div>
+
+    <!--{#todo mobile is crush#}-->
+    <div class="data-mobile " *ngIf="isMobile">
+      <div></div>
+      <div >
+        <p *ngIf="goalDate != 'dreaming' && dateStatus == 1" >{{ goalDate| date:'dd MMMM yyyy' }}</p>
+        <p *ngIf="goalDate != 'dreaming' && dateStatus == 2">{{ goalDate| date:'yyyy' }}</p>
+        <p *ngIf="goalDate != 'dreaming' && dateStatus == 3">{{ goalDate| date:'MMMM yyyy' }}</p>
+        <p *ngIf="goalDate == 'dreaming'">
+          <i class="dreaming-mobile">
+            <i class="icon-dreaming text-purple"></i>
+          </i>
+        </p>
+      </div>
+    </div>
+
+    <span class="hidden-xs" *ngIf="last"></span>
+
+    <div class="elipse" >
+
+      <div  *ngIf="!isMobile && goalDate != 'dreaming' && dateStatus != 2" class="text-gray ">
+        {{ goalDate | date:'MMM, yyyy' }}
+      </div>
+      <div  *ngIf="!isMobile && goalDate != 'dreaming' && dateStatus == 2" class="text-gray  only-year">
+        {{ goalDate | date:'yyyy' }}
+      </div>
+
+      <div  *ngIf="!isMobile && goalDate == 'dreaming' " class="text-gray ">
+        {{ 'dreaming'|translate}}
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="col-sm-10" [ngClass]="{'bg-white no-left': !isMobile}" *ngIf="!removed">
+  <div class="row">
+    <div class="col-sm-6" [class.no-right]="!isMobile">
+      <figure>
+        <!--data-ng-init="innerPath = (goal.publish || (goal.author && goal.author.id == '{{ user.id }}'))? '{{ env_prefix  }}/goal/' + goal.slug: '#'"-->
+
+        <!--<div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ env_prefix  }}/goal/{{ goal.slug }}"></div>-->
+
+
+        <a *ngIf="goal && (goal.publish || (goal.author && goal.author.id == appUser.id))" routerLink="/goal/{{ goal.slug }}">
+          <span class="overlay"></span>
+          <img *ngIf="goal && goal.cached_image" src="{{ goal.cached_image }}" alt="{{ goal.title }}" />
+        </a>
+        <a *ngIf="goal && (!goal.publish && (!goal.author || goal.author.id != appUser.id))" href="#">
+          <span class="overlay"></span>
+          <img *ngIf="goal && goal.cached_image" src="{{ goal.cached_image }}" alt="{{ goal.title }}" />
+        </a>
+
+
+        <figcaption>
+          <div class="row no-gutter" *ngIf="goal">
+            <div class="col-xs-5">
+              <goal-users [goal]="goal" type="1"></goal-users>
+            </div>
+            <div class="col-xs-7">
+              <goal-users [goal]="goal" type="2"></goal-users>
+            </div>
+          </div>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="col-sm-6">
+      <article class="information" [class.bg-white]="isMobile">
+        <div class="row">
+          <div class="col-sm-12">
+            <h3>
+              <a *ngIf="goal && (goal.publish || (goal.author && goal.author.id == appUser.id))" routerLink="/goal/{{ goal.slug }}" class="text-dark-gray">
+                <strong>{{ goal.title }}</strong>
+              </a>
+              <a *ngIf="goal && (!goal.publish && (!goal.author || goal.author.id != appUser.id))" href="#" class="text-dark-gray">
+                <strong>{{ goal.title }}</strong>
+              </a>
+            </h3>
+          </div>
+        </div>
+
+        <!--<ul class="clearfix">-->
+
+          <!--&lt;!&ndash;{# Missed deadline #}&ndash;&gt;-->
+          <!--<li *ngIf="isLate(userGoal.do_date) && !success">-->
+            <!--&lt;!&ndash;*ngIf="isLate(userGoal.do_date) && !success"&ndash;&gt;-->
+            <!--<i title="{{ 'my_bucket_list.missed_deadline'|translate}}"  class="icon-info text-purple"></i>-->
+          <!--</li>-->
+
+          <!--<li *ngIf="goal && !goal.publish && goal.author && goal.author.id == appUser.id">-->
+            <!--<a routerLink="/goal/create/{{goal.id}}/Public">-->
+              <!--<i title="{{ 'my_bucket_list.edit'|translate}}" class="icon-pencil"></i>-->
+            <!--</a>-->
+          <!--</li>-->
+
+          <!--<li>-->
+            <!--<a class="text-gray manage-modal" (click)="manageGoal(goal.id)">-->
+              <!--<i *ngIf="userGoal.note" title="{{ 'my_bucket_list.notes'|translate}}" class="svg edit-note"></i>-->
+            <!--</a>-->
+          <!--</li>-->
+
+          <!--&lt;!&ndash;{# invisible #}&ndash;&gt;-->
+          <!--<li *ngIf="!userGoal.is_visible">-->
+            <!--<i title="{{ 'my_bucket_list.invisible'|translate}}" class="icon-eye"></i>-->
+          <!--</li>-->
+
+          <!--<li *ngIf="goal && goal.author && goal.author.id == appUser.id && goal.status == 'false'">-->
+            <!--<i title="{{ 'my_bucket_list.private'|translate}}"  class="icon-lock-white"></i>-->
+          <!--</li>-->
+
+        <!--</ul>-->
+
+        <!--<ul class="progress-section clearfix">-->
+
+          <!--<li *ngIf="userGoal && !isEmpty(userGoal.steps)">-->
+            <!--<i title="{{ 'my_bucket_list.notes'|translate}}"  class="icon-step-list"></i>-->
+          <!--</li>-->
+
+          <!--<li *ngIf="userGoal && !isEmpty(userGoal.steps)">-->
+            <!--<div class="progress">-->
+              <!--<section class="progress-section">-->
+                 <!--<span class="text-white">-->
+                   <!--{{ userGoal.completed |round }}%-->
+                 <!--</span>-->
+                <!--<md-progress-bar-->
+                        <!--class="example-margin"-->
+                        <!--[value]="userGoal.completed">-->
+                <!--</md-progress-bar>-->
+              <!--</section>-->
+            <!--</div>-->
+          <!--</li>-->
+        <!--</ul>-->
+
+        <div [ngClass]="{'absolute': !isMobile}">
+          <div class="row">
+            <div class="col-xs-5">
+              <a md-button class="text-gray btn-transparent manage-modal" (click)="manageGoal(goal.id)">
+                <i class="icon-manage"></i>
+                <span>{{ 'manage'|translate| titlecase }}</span>
+              </a>
+            </div>
+
+            <div class="col-xs-7 text-right">
+              <!--data-ng-init="goalStatus = (status == '{{ constant("AppBundle\\Entity\\UserGoalCOMPLETED")---2--- }}')"-->
+              <!--data-ng-init="success[ goal.id ] = goalStatus"-->
+              <div class="check_status">
+                <a md-button *ngIf="!success"
+                   (click)="completeGoal(goal.id)" class="btn btn-transparent ">
+                  <!--id="done{{ goal.id }}"-->
+                  <i class="icon done-icon"></i>
+                  {{ 'done'|translate| titlecase }}
+                </a>
+                <a md-button *ngIf="success" class="btn btn-transparent successtory" (click)="completeGoal(goal.id, true)">
+                  <!--id="success{{ goal.id }}">-->
+                  <i class="icon ok-icon-green"></i>
+                  {{ 'successtory'|translate| titlecase }}
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </article>
+    </div>
+  </div>
+</div>

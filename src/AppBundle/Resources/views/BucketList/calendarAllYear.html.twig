@@ -1,0 +1,28 @@
+<div class="col-xs-6 col-sm-3 col-md-2">
+    <div class="lifetime bg-white">
+        <span class="text-grey-dark">
+           <sup>Year [[ +currentYear + {{ index }} ]]</sup>
+        </span>
+
+        <span class="absolute">
+            <span class="goal-count bg-green ng-hide"
+                  data-ng-mouseleave="isHover = false"
+                  data-ng-mousemove="hoverIn($event, myYears[+currentYear + {{ index }} ].complete +' '+ (myYears[+currentYear + {{ index }} ].complete > 1?'{{ 'my_bucket_list.calendar.theCompleted'|trans }}':'{{ 'my_bucket_list.calendar.completed'|trans }}'))"
+                  data-ng-show="myYears[+currentYear + {{ index }} ].complete > 0">
+                [[ myYears[+currentYear + {{ index }} ].complete ]]
+            </span>
+            <span class="goal-count bg-gradinet ng-hide"
+                  data-ng-mouseleave="isHover = false"
+                  data-ng-mousemove="hoverIn($event, myYears[+currentYear + {{ index }} ].deadline + ' ' + (myYears[+currentYear + {{ index }} ].deadline > 1?'{{ 'my_bucket_list.calendar.deadlines'|trans }}':'{{ 'my_bucket_list.calendar.deadline'|trans }}'))"
+                  data-ng-show="myYears[+currentYear + {{ index }} ].deadline > 0">
+                [[ myYears[+currentYear + {{ index }} ].deadline ]]
+            </span>
+            <span class="goal-count bg-purple ng-hide"
+                  data-ng-mouseleave="isHover = false"
+                  data-ng-mousemove="hoverIn($event, myYears[+currentYear + {{ index }} ].current + ' ' + (myYears[+currentYear + {{ index }} ].current > 1?'{{ 'my_bucket_list.calendar.actives'|trans }}':'{{ 'my_bucket_list.calendar.active'|trans }}'))"
+                  data-ng-show="myYears[+currentYear + {{ index }} ].current > 0">
+                [[ myYears[+currentYear + {{ index }} ].current ]]
+            </span>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    <div>
+        {% if object is defined and object.id %}
+            {% set userStats = object.getStats() %}
+            {{ userStats['listedBy'] }}
+        {% endif %}
+    </div>
+{% endblock %}

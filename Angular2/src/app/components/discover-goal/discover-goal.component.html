@@ -1,0 +1,81 @@
+<div id="scroll-button"></div>
+<div id="homepage-ideas" class="ideas-list">
+  <div class="container">
+    <h2 class="text-center text-dark">{{ 'homepage_list_title' |translate }}</h2>
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+        <div class="row idea-item">
+
+          <div class="col-md-4">
+            <div class="row" *ngFor="let goal of goals | slice:0:2">
+              <div class="col-sm-12">
+                <!--goal_list_small-->
+                <div class="row idea-item">
+                  <div class="col-sm-12">
+                    <figure>
+                      <app-goal [goal]="goal"></app-goal>
+                      <app-goal-footer [goal]="goal"></app-goal-footer>
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <!--goal_list_vertical-->
+            <div class="row idea-item" *ngFor="let goal of goals | slice:2:3">
+              <div class="col-sm-12">
+                <figure>
+                  <app-goal [goal]="goal" class="height"></app-goal>
+                  <app-goal-footer [goal]="goal"></app-goal-footer>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="row" *ngFor="let goal of goals | slice:3:5">
+              <div class="col-sm-12">
+                <!--goal_list_small-->
+                <div class="row idea-item">
+                  <div class="col-sm-12">
+                    <figure>
+                      <app-goal [goal]="goal"></app-goal>
+                      <app-goal-footer [goal]="goal"></app-goal-footer>
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row idea-item">
+          <!--{% for goal in goals|slice(5, 2)  %}-->
+
+          <div *ngFor="let goal of goals | slice:5:7;let f = first" class="col-md-{{ f ?  8 : 4 }}">
+            <div class="row idea-item">
+              <div class="col-sm-12">
+                <figure>
+                  <app-goal [goal]="goal"></app-goal>
+                  <app-goal-footer [goal]="goal"></app-goal-footer>
+                </figure>
+              </div>
+            </div>
+            <!--goal_list_horizontal:goal_list_small-->
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <a routerLink="/ideas/discover" class="btn btn-purple">{{ 'btn_discover_more' | translate }}</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

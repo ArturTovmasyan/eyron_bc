@@ -1,0 +1,377 @@
+{% extends "::amp.html.twig" %}
+{% set author = goal.author %}
+{% if user.id is defined %}
+    {% set userId = user.id %}
+{% else %}
+    {% set userId = 0 %}
+{% endif %}
+
+{% block stylesheets %}
+     {% stylesheets output='css/amp-base.css'
+                'bundles/app/less/amp.less'
+            %}
+            {{ source(asset_url|remove_asset_version) }}
+            {% endstylesheets %}
+
+    {% stylesheets output='css/amp-base-show.css'
+    'bundles/app/less/ampShow.less'
+    'bundles/app/less/amp-bootstrap.less'
+    %}
+    {{ source(asset_url|remove_asset_version) }}
+    {% endstylesheets %}
+{% endblock %}
+{% block compoents %}
+    {{ parent() }}
+    {{ '<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>' }}    
+    {{ '<script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>' }}
+    {{ '<script async custom-element="amp-vimeo" src="https://cdn.ampproject.org/v0/amp-vimeo-0.1.js"></script>' }}
+{% endblock %}
+
+{%- block title -%}
+    {{ goal.title }}
+{%- endblock -%}
+{%- block meta_description -%}
+    {%- if goal.description is not empty -%}
+        {{- goal.description|markdown|replace({'#': ''})|striptags|sliceString -}}
+    {% else %}
+        {{- 'goal.view_description'|trans -}}
+    {%- endif -%}
+{%- endblock -%}
+{%- block og_image -%}
+    {%- if goal.getListPhoto -%}
+        {{- goal.getListPhoto.getDownloadLink|blImageFilter('goal_cover') -}}
+    {% else %}
+        {{ parent() }}
+    {%- endif -%}
+{%- endblock -%}
+{% block content %}
+    {% set cover = goal.getCoverPhotoDownloadLink %}
+    {% set goalInner = true %}
+    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.jpg' %}
+    <div class="cat-wrap">
+        <amp-img layout="responsive" height="1" width="1"
+                 src="{% if cover %}
+                            {{ cover|blImageFilter('goal_bg') }}
+                        {% else %}
+                            {{ asset(imgPath)}}
+                        {% endif %}"
+        ></amp-img>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-4 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="float-right col-md-10">
+                        <i class="quote float-right">"</i>
+                        <blockquote>
+                            {% if aphorisms %}
+                                <i class="icon-quote-left"></i>
+                                <i class="icon-quote-right"></i>
+                                <ul class="aphorism" data-delay-add-class data-delay="12000">
+                                    {% for aphorism in aphorisms %}
+                                        <li>{{ aphorism.content|length > 230 ? aphorism.content|slice(0, 230)|removeTag ~ '...' : aphorism.content|removeTag }}
+                                            <span class="float-right">{{ aphorism.author }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </blockquote>
+                        <i class="quote float-right">"</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-sm-8 sol-xs-12">
+                {% if author and not author.isAdmin %}
+                    {% set authorUrl = ang2_host~'/profile/'~author.uId %}
+
+                    <p class="autor">
+                        <a href="{{ authorUrl }}" class="text-gray bg-blue">{{ 'by' ~ " " ~ author.showName }} </a>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="goal-autor goal-inner-title
+                    {% if goal.title|length > 10 %}title-smaller{% endif %}">
+                    {{ goal.title }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+        {% set images = goal.images %}
+            <div class="col-md-8 main-slide col-sm-8 col-xs-12">
+                <amp-carousel width="7"
+                              height="4"
+                              layout="flex-item"
+                              type="slides"
+                              autoplay
+                              delay="2000">
+                {% for key, image in images %}
+                    <amp-img src="{{image.downloadLink}}"
+                             width="400"
+                             height="300"
+                             layout="responsive"
+                             alt="a sample image"></amp-img>
+                {% endfor %}
+                </amp-carousel>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrap main-part">
+        <div class="container mainframe">
+            <div class="row">
+                <div class="col-md-push-8 col-md-4 ">
+                    <div class="row bg-white">
+                    <div id="btn-p1" class="col-md-6 col-sm-6 col-xs-6 buttons">
+                        <a href="{{ ang2_host }}/login/add/{{ goal.id }}">
+                            <button  class="btn-top {{ goal.isMyGoal ? 'btn-done' : 'btn-notdone' }}">
+
+                                {% if goal.isMyGoal %}
+                                    <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                {% else %}
+                                    <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                {% endif %}
+
+                                <span class="text">
+                                    {{ (goal.isMyGoal ? 'Added' : 'Add')|trans | upper}}
+                                </span>
+                            </button>
+                        </a>
+                    </div>
+                    <div id="btn-p2" class=" buttoncol-md-6 col-sm-6 col-xs-6 buttons">
+                        <a href="{{ ang2_host }}/login/done/{{ goal.id }}">
+                            <button class="btn-top {{ goal.isMyGoal == 2 ? 'btn-done' : 'btn-notdone' }}">
+
+                                {% if goal.isMyGoal == 2 %}
+                                    <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                {% else %}
+                                    <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                                {% endif %}
+
+                                <span class="text">{{ (goal.isMyGoal == 2 ? 'Completed' : 'Complete')|trans | upper }}</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                    {% if goal.lat and goal.lng %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a href="https://www.google.com/maps/place/{{goal.lat}},{{goal.lng}}/@{{goal.lat}},{{goal.lng}},15z/">
+                                        <amp-img width="4" height="2"
+                                            layout="responsive"
+                                            src="https://maps.googleapis.com/maps/api/staticmap?center={{goal.lat}},{{goal.lng}}&zoom=16&size=600x300&maptype=roadmap&markers=color:red|label:S|{{goal.lat}},{{goal.lng}}">
+                                        </amp-img>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                </div>
+
+                <div class="col-md-pull-4 col-md-8 ">
+                    <div class="row">
+                        <div class="about col-xs-12 col-sm-6 col-md-6">
+                                <div class="row">
+                                        <p class="text-center">
+                                            COMPLETED BY
+                                            <span class="purple">
+                                                <a href="{{ ang2_host }}/login">
+                                                    {{ goal.stats.doneBy }}
+                                                </a>
+                                            </span>
+
+                                        </p>
+                                </div>
+                        </div>
+                        <div class="about col-xs-12 col-sm-6 col-md-6">
+                                <p class="text-center">
+                                    LISTED
+                                    <span class="purple">
+                                        <a href="{{ ang2_host }}/login">
+                                            {{ goal.stats.listedBy }}
+                                        </a>
+                                    </span>
+                                </p>
+                        </div>
+                    </div>
+
+
+                    {% if goal.description and not goal.description == '' %}
+                        {{ goal.description|removeTag|markdown }}
+                    {% endif %}
+                    {% if goal.videoLink and goal.videoLink is iterable %}
+                        {% for video in goal.videoLink %}
+                            {% if 'youtube.com' in video %}
+                                {% set youvd = video|split('v=')  %}
+                                {% if youvd[1] is defined %}
+                                    <amp-youtube
+                                    data-videoid="{{youvd[1]}}"
+                                    layout="responsive"
+                                    width="480" height="270"></amp-youtube>
+                                {% elseif 'embed' in video %}
+                                    {% set youvd = video|split('/')  %}
+                                    <amp-youtube
+                                            data-videoid="{{youvd | last }}"
+                                            layout="responsive"
+                                            width="480" height="270"></amp-youtube>
+                                {% endif %}
+                            {% elseif 'youtu.be' in video %}
+                                {% set youvd = video|split('/')  %}
+                                <amp-youtube
+                                data-videoid="{{youvd | last }}"
+                                layout="responsive"
+                                width="480" height="270"></amp-youtube>
+                            {% elseif 'vimeo.com' in video %}
+                                {% set youvd = video|split('/')  %}
+                                <amp-vimeo
+                                        data-videoid="{{ youvd | last }}"
+                                        layout="responsive"
+                                        width="480" height="270">
+                                </amp-vimeo>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="row">&nbsp;</div>
+                    {% endif %}
+
+
+                    {% set stories = goal.getSuccessStories %}
+                    {% if stories|length > 0 %}
+
+                        <div class="col-md-12">
+                            <p>
+                                <i class="story-icon">
+                                <amp-img
+                                    src="{{ asset('/bundles/app/images/success-story-icon.svg') }}"
+                                    layout="fixed"
+                                    width="25"
+                                    height="25">
+                                </amp-img>
+
+                                </i>
+                                Success stories
+                            </p>
+                            {% for key, story in stories %}
+                                {% set addedUser = story.user %}
+                                {% set files = story.files %}
+                                {% set videos = story.videoLink %}
+                                {% set class = (files|length > 0) ? 'no-padding' : '' %}
+                                <div class="wrap story-wrap  bg-light">
+
+                                    <div class="row">
+
+                                        <div class="rfloat col-xs-2 col-sm-2 col-md-2 pull-left">
+                                           {% if addedUser.getPhotoLink  %}
+                                               <a href="{{ ang2_host }}/login/user/{{ addedUser.uId }}">
+                                                    <amp-img
+                                                    src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}"
+                                                    class="img-circle"
+                                                    layout="fixed"
+                                                    width="36"
+                                                    height="36"
+                                                    alt="{{ addedUser.firstName }}"></amp-img>
+                                               </a>
+                                            {% else %}
+
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-6 col-md-7 pull-left">
+                                             <p class="uname">
+                                                <a href="{{ ang2_host }}/login/user/{{ addedUser.uId }}">{{story.user.firstname}} {{story.user.lastname}}</a>
+                                             </p>
+                                             <span class="datetime">{{story.created.date | date("M d")}} at {{story.created.date | date("H:i a")}}</span>
+                                        </div>
+
+                                        <div class="col-sm-2 col-xs-4 col-md-3 rfloat">
+                                            <span class="like-count">
+                                                    {{ story.successStoryVoters|length }}
+                                                <a href="{{ ang2_host }}/login/like/{{ story.id }}/{{ goal.slug }}">
+                                                    <div class="story-like"></div>
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-10 col-xs-offset-2 user-story">
+                                                {{ story.story }}
+                                        </div>
+                                    </div>
+
+
+                                     {% if files|length > 0 %}
+                                        <div class="story-img row" >
+                                            <div class="col-md-12 col-sm-12 col-xs-12"> <!--File row -->
+                                            <amp-carousel width="4"
+                                                  height="3"
+                                                  layout="responsive"
+                                                  type="slides">
+                                            {% for file in files %}
+                                                <amp-img
+                                                    src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}"
+                                                    alt="{{ file.fileName }}"
+                                                    layout="responsive" width="4" height="3"
+                                                ></amp-img>
+                                            {% endfor %}
+                                            </amp-carousel>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if videos|length > 0 %}
+
+                                    <div class="story-img story-video row" > <!--Video row -->
+                                         <div class="col-md-12 col-sm-12 col-xs-12"> <!--File row -->
+                                        <amp-carousel width="4"
+                                              height="3"
+                                              layout="responsive"
+                                              type="slides">
+                                    {% for video in videos %}
+                                        {% if 'youtube.com' in video %}
+                                            {% set youvd = video|split('v=')  %}
+                                            {% if youvd[1] is defined %}
+                                                <amp-youtube
+                                                        data-videoid="{{youvd[1]}}"
+                                                        layout="responsive"
+                                                        width="4" height="3"></amp-youtube>
+                                            {% elseif 'embed' in video %}
+                                                {% set youvd = video|split('/')  %}
+                                                <amp-youtube
+                                                        data-videoid="{{youvd | last }}"
+                                                        layout="responsive"
+                                                        width="4" height="3"></amp-youtube>
+                                            {% endif %}
+                                        {% elseif 'youtu.be' in video %}
+                                            {% set youvd = video|split('/')  %}
+                                            <amp-youtube
+                                                    data-videoid="{{youvd | last }}"
+                                                    layout="responsive"
+                                                    width="4" height="3"></amp-youtube>
+                                        {% elseif 'vimeo.com' in video %}
+                                            {% set youvd = video|split('/')  %}
+                                            <amp-vimeo
+                                                    data-videoid="{{ youvd | last }}"
+                                                    layout="responsive"
+                                                    width="4" height="3">
+                                            </amp-vimeo>
+                                        {% endif %}
+                                    {% endfor %}
+                                        </amp-carousel>
+                                    </div>
+                                </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

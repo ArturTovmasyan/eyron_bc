@@ -1,0 +1,72 @@
+@import "../../../app/bower_components/bootstrap/less/variables.less";
+@import "function.less";
+
+.notice{
+  position: relative;
+  height: 500px;
+
+  &>div{
+    position: absolute;
+    top:50%;
+    width: 100%;
+    transform: translateY(-50%);
+  }
+
+  .btn-purple{
+    margin-top:10px;
+  }
+
+  h4{
+    line-height: 25px;
+  }
+
+}
+
+.email{
+  padding: 5px;
+  text-align:center;
+  position: relative;
+  background: #7724F6;
+  color:#ffffff;
+  z-index: 10;
+  font-size:12px;
+  span{
+    display: inline-block;
+    margin: 8px 0 0;
+    font-size:12px;
+  }
+  a{
+    margin: 5px 0 0 5px;
+    display: inline-block;
+    font-weight:bold;
+    padding:2px 5px;
+    color: #ffffff;
+    border:1px solid #ffffff;
+    font-size:12px;
+
+    &:hover{
+      color:#7724F6;
+      background-color: #ffffff;
+    }
+  }
+}
+
+.error-message{
+  color:#FF0000 !important;
+  font-size:12px;
+  font-family: 'Open Sans', sans-serif;
+
+  ul{
+    padding-left:0;
+  }
+}
+
+@media (min-width: @screen-sm) {
+  .email{
+    padding: 15px 5px;
+    font-size:14px;
+    span{
+      font-size:14px;
+    }
+  }
+}

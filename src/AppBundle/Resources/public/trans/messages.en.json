@@ -1,0 +1,11 @@
+{
+  "leave_comment": "Leave a comment...",
+  "confirm_msg" : "Your goal will be permanently deleted",
+  "delete" : "Delete",
+  "cancel" : "Cancel",
+  "video_placeholder": "Type in a youtube or vimeo link in the field",
+  "cancel_upload": "Cancel upload",
+  "reply_comment": "Reply...",
+  "upload_error": "you cannot upload more than 6 files",
+  "remove_file": "Remove file"
+}

@@ -1,0 +1,21 @@
+services:
+
+    application_affiliate.admin.affiliate_type:
+        class: Application\AffiliateBundle\Admin\AffiliateTypeAdmin
+        arguments: [~, Application\AffiliateBundle\Entity\AffiliateType, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: group_name_affiliate, label: admin.label.name.affiliate_type }
+
+    application_affiliate.admin.affiliate:
+        class: Application\AffiliateBundle\Admin\AffiliateAdmin
+        arguments: [~, Application\AffiliateBundle\Entity\Affiliate, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: group_name_affiliate, label: admin.label.name.affiliate }
+
+    application_affiliate.form.type.admin_file:
+        class: Application\AffiliateBundle\Form\Type\AdminFileType
+        tags:
+            - { name: form.type }
+
+    application_affiliate.find_ufi:
+        class: Application\AffiliateBundle\Services\FindAffiliateUfiService

@@ -1,0 +1,11 @@
+{
+  "leave_comment": "Оставьте комментарии..",
+  "confirm_msg" : "Ваша цель будет окончательно удалена",
+  "delete" : "Удалить",
+  "cancel" : "Отменить",
+  "video_placeholder": "Введите в поле ссылку с youtube или vimeo",
+  "cancel_upload": "Отменить загрузку ",
+  "reply_comment": "Ответить...",
+  "upload_error": "вы не можете загрузить более 6 файлов",
+  "remove_file": "удалить файл"
+}

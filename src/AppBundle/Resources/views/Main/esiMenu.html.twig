@@ -1,0 +1,167 @@
+{% set user = app.user %}
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div id="line"></div>
+    <div class="container" id="main-nav" style="display: none" {% if user %}data-ng-controller="notificationController"{% endif %}>
+        <div class="navbar-header navbar-mobile">
+            {% if is_mobile() and not is_tablet() %}
+                {% if user %}
+                    <ul class="nav navbar-nav  hidden-sm hidden-md hidden-lg">
+                        {{ include('AppBundle:Main:esiActivity.html.twig',  {'route': app.request.get('_route')} ) }}
+                        <li data-ng-show="!joinToggle11">
+                            <a href="{{ path('goals_list') }}" {% if app.request.get('_route') == 'goals_list' %}class="active-mobile" data-ng-click="scrollTop()"{% endif %}>
+                                {#<i class="icon-ideas-icon"></i>#}
+                                <i class="icons ideas-icon"></i>
+                                <span class="hidden-xs hidden-sm">{{ 'ideas'|trans |upper }}</span>
+                            </a>
+                        </li>
+                        <li data-ng-show="!joinToggle11">
+                            <a href="{{ path('user_profile_single') }}" {% if app.request.get('_route') == 'user_profile_single' %}class="active-mobile" data-ng-click="scrollTop()"{% endif %}>
+                                <i class="icons mybucketlist-icon"></i>
+                                <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
+                            </a>
+                        </li>
+                        <li data-ng-show="!joinToggle11" id="notification">
+                            {{ include('AppBundle:Blocks:notification.html.twig') }}
+                        </li>
+                        <li>
+                            {{ include('AppBundle:Main:esiUser.html.twig') }}
+                        </li>
+                    </ul>
+
+                    <ul class="ng-hide hidden-sm hidden-md hidden-lg user-mobile-menu clearfix" data-ng-show="joinToggle11">
+                        <li class="clearfix">
+                            <a class="navbar-brand" href="{{ path("homepage") }}">
+                                <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
+                            </a>
+                            <a href="javascript:void(0)" data-ng-click="joinToggle11 = !joinToggle11;$parent.$parent.joinToggle11 = !$parent.$parent.joinToggle11" class="text-right"><i class="icon-remove-email"></i> </a>
+                        </li>
+
+                        {% if app.user and app.user.activity %}
+                            <li>
+                                <a href="{{ path('activity') }}">
+                                    <i class="icons activity-icon"></i>
+                                    <span>{{ 'activity'|trans }}</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+
+                        <li>
+                            <a href="{{ path('leaderboard') }}">
+                                <i class="icon-suggest-icon"></i>
+                                <span class="text">{{ 'leaderboard.name'|trans | capitalize }}</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ path('goal_friends') }}">
+                                <i class="menu-goalfrinds"></i>
+                                <span class="text">{{ 'goalfriends'|trans }}</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ path('goals_list') }}">
+                                <i class="icons ideas-icon"></i>
+                                <span>{{ 'ideas'| trans | capitalize }}</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ path('user_profile') }}">
+                                <i class="icons mybucketlist-icon"></i>
+                                <span>{{ 'my_bucketlist'|trans }}</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ path('add_goal') }}">
+                                <i class="icons add-goal"></i>
+                                <span>{{ 'create_goal'|trans }}</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ path("edit_user_profile") }}">
+                                <i class="icons settings-icon"></i>
+                                <span>{{ 'settings'|trans }}</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ path("fos_user_security_logout") }}">
+                                <i class="icons logout"></i>
+                                <span>{{ 'logout'|trans }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                {% else %}
+                    <div class="clearfix hidden-sm hidden-md hidden-lg">
+                        <a class="navbar-brand hidden-sm hidden-md hidden-lg" href="{{ path("homepage") }}">
+                            <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
+                        </a>
+
+                        <ul class="pull-right">
+                            <li>
+                                <a href="{{ path('goals_list') }}" class="hidden-sm hidden-md hidden-lg {% if app.request.get('_route') == 'goals_list' %}active-mobile{% endif %}">
+                                    <i class="icon-ideas-icon"></i>
+                                    <i class="ideas-icon"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)"
+                                        {% if app.user %}
+                                            style="display: none"
+                                        {% endif %}
+                                   data-authenticator-login-trigger
+                                   class="sign-in-popover pull-right">
+                                    <i class="icon-join-icon"></i>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            <a class="navbar-brand hidden-xs" href="{{ path("homepage") }}">
+                <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
+            </a>
+        </div>
+
+        {% if not is_mobile() or is_tablet() %}
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+                    {{ include('AppBundle:Main:esiActivity.html.twig',  {'route': app.request.get('_route')} ) }}
+                    <li {% if app.request.get('_route') == 'goals_list' %}class="active" data-ng-click="scrollTop()"{% endif %}>
+                        <a href="{{ path('goals_list') }}">
+                            <i class="icons ideas-icon"></i>
+                            <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
+                        </a>
+                    </li>
+
+                    {% if user %}
+                        <li {% if app.request.get('_route') == 'user_profile_single' %}class="active" data-ng-click="scrollTop()"{% endif %}>
+                            <a href="{{ path('user_profile_single') }}">
+                                <i class="icons mybucketlist-icon"></i>
+                                <span class="hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user %}
+                        <li id="notification">
+                            {{ include('AppBundle:Blocks:notification.html.twig') }}
+                        </li>
+                    {% endif %}
+                    <li>
+                        {{ include('AppBundle:Main:esiUser.html.twig') }}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</nav>

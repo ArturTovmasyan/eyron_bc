@@ -1,0 +1,176 @@
+<!DOCTYPE html >
+<html amp lang="en">
+
+{% set logo = asset('bundles/app/images/logo.png') %}
+{% set host = app.request.getSchemeAndHttpHost() %}
+
+<head>
+    <meta charset="utf-8" />
+    <title>{%- block title -%}BucketList{%- endblock -%}</title>
+    <meta name="description" content="{%- block meta_description -%}BucketList{%- endblock -%}">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <meta property="og:title" content="{%- block og_title -%}{{ block('title') }}{%- endblock -%}" />
+    <meta property="og:url" content="{%- block og_url -%}{{- app.request.uri -}} {%- endblock -%}" />
+    <meta property="og:description" content="{%- block og_description -%}{{ block('meta_description') }}{%- endblock -%}" />
+    <meta property="og:site_name" content="BucketList127" />
+    <meta property="og:image" content="{%- block og_image -%}{{ app.request.schemeAndHttpHost }}/bundles/app/images/bucketlist_new.png{%- endblock -%}" />
+    <meta property="og:type" content="article">
+    <meta property="fb:pages" content="1711606329055370" />
+    <meta property="fb:app_id" content="{{ facebook_api_id }}" />
+
+    {# this allows to add additional meta data #}
+    {% block meta %}{% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset('bucketlist152x152.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ asset('bucketlist120x120.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bucketlist72x72.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('bucketlist57x57.png') }}">
+    {#<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>#}
+    <link rel="canonical" href="https://www.bucketlist127.com{{ app.request.getPathInfo }}" />
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    {% block compoents %}
+    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+    <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    {#<script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>#}
+	{% endblock %}
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+    <style amp-custom>
+
+
+        {% block stylesheets %}
+            {% stylesheets output='css/amp-base.css'
+                'bundles/app/less/function.less'
+                'bundles/app/less/font.css'
+                'bundles/app/less/amp.less'
+            %}
+            {{ source(asset_url|remove_asset_version) }}
+            {% endstylesheets %}
+        {% endblock %}
+
+    </style>
+
+    {% block ampStyle %}
+    {% endblock %}
+</head>
+
+<body {%  block body_class %}{% endblock %}>
+{% block body %}
+
+    {{ render_esi(controller('AppBundle:Blog:ampMenu')) }}
+
+    <div id="mainframe">
+        <div id="wrap">
+            <header>
+                <nav class="amp-navbar">
+                    <div id="line"></div>
+                    <div class="category">
+                        <a class="logo" href="{{ path("homepage") }}">
+                            <amp-img src="{{ logo }}" alt="Bucket List 127" width="125" height="48"></amp-img>
+                        </a>
+
+                        <div class="sidebar-right">
+                            {{ render_esi(controller('AppBundle:Main:esiUserForAmp')) }}
+                        </div>
+
+                    </div>
+                </nav>
+            </header>
+            {% block content %}{% endblock %}
+        </div>
+
+        <footer class="amp-footer">
+
+            <div class="category">
+                <ul class="apps clear">
+                    <li>
+                        <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/appstore.png') }}" alt="Appstore" height="40" width="138"></amp-img>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/googleplay.png') }}" alt="Googleplay" height="40" width="138"></amp-img>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="social">
+                    <li>
+                        <a href="https://www.facebook.com/bucketlist127com/" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/facebook-icon.svg') }}" alt="Facebook" height="40" width="40"></amp-img>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.instagram.com/bucketlist127/" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/instagram-icon.svg') }}" alt="Instagram" height="40" width="40"></amp-img>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.twitter.com/bucketlist127" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/twitter-icon.svg') }}" alt="Twitter" height="40" width="40"></amp-img>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.pinterest.com/bucketlist127/" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/pinterest-icon.svg') }}" alt="Pinterest" height="40" width="40"></amp-img>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://plus.google.com/+Bucketlist127com" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/gplus-icon.svg') }}" alt="Google" height="40" width="40"></amp-img>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/youtube-icon.svg') }}" alt="Youtube" height="40" width="40"></amp-img>
+                        </a>
+                    </li>
+
+                </ul>
+
+                {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+
+            </div>
+
+            <div class="footer-bottom">
+                <div class="category">
+                    <small>&copy; {{ 'copyright'|trans | upper }}</small>
+                    {{ knp_menu_render('AppBundle:Builder:privacyMenu') }}
+                </div>
+            </div>
+
+        </footer>
+    </div>
+
+    {% if not app.debug %}
+        <amp-analytics type="googleanalytics" id="mainanalytics">
+            <script type="application/json">
+                {
+                    "vars": {
+                        "account": "{{ ga_id }}"
+                    },
+                    "triggers": {
+                        "trackPageview": {
+                            "on": "visible",
+                            "request": "pageview"
+                        }
+                    }
+                }
+            </script>
+        </amp-analytics>
+    {% endif %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,525 @@
+<div class="modal" id="goal-modal" data-ng-controller="goalEnd">
+    <div class="goal-container">
+        <div data-ng-if="newAdded" class="email">
+            {{ "goal.create_goal" | trans }}
+            <span data-ng-if="!newCreated"> {{ "addedU" | trans }}</span>
+            <span data-ng-if="newCreated"> {{ "admin.label.name.createdU" | trans }}</span>
+        </div>
+
+        <div class="modal-top">
+            <figure data-ng-if="userGoal.goal.cached_image">
+                <img data-ng-if="userGoal.goal.cached_image" data-ng-src="[[ userGoal.goal.cached_image]]"
+                     alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
+            </figure>
+
+            <span class="overlay"></span>
+
+            <div>
+                <h2>
+                    <span data-ng-class="{'title-smaller': userGoal.goal.title.length > 25, 'title-top': !userGoal.goal.author.show_name}">[[ userGoal.goal.title ]]</span>
+                </h2>
+                {% if app.user %}
+                    <p data-ng-if="userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == {{ app.user.id }}">
+                        [[ userGoal.goal.author.show_name ]]
+                    </p>
+                {% endif %}
+                <ul>
+                    <li>
+                        <a href="javascript:void(0)">
+                            {{ 'block_listed'|trans | capitalize }}
+                            <span>[[ userGoal.goal.stats.listedBy | number ]]</span>
+                            <i class="icon-user-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            {{ 'block_completed'|trans | capitalize }}
+                            <span>[[ userGoal.goal.stats.doneBy | number ]]</span>
+                            <i class="icon-user-small"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% set arrayMonth = {
+        0:'form.birth_date_month'|trans({}, 'FOSUserBundle'),
+        1:'form.month_january'|trans({}, 'FOSUserBundle'),
+        2:'form.month_february'|trans({}, 'FOSUserBundle'),
+        3:'form.month_march'|trans({}, 'FOSUserBundle'),
+        4:'form.month_april'|trans({}, 'FOSUserBundle'),
+        5:'form.month_may'|trans({}, 'FOSUserBundle'),
+        6:'form.month_june'|trans({}, 'FOSUserBundle'),
+        7:'form.month_july'|trans({}, 'FOSUserBundle'),
+        8:'form.month_august'|trans({}, 'FOSUserBundle'),
+        9:'form.month_september'|trans({}, 'FOSUserBundle'),
+        10:'form.month_october'|trans({}, 'FOSUserBundle'),
+        11:'form.month_november'|trans({}, 'FOSUserBundle'),
+        12:'form.month_december'|trans({}, 'FOSUserBundle') } %}
+
+        <form class="form-horizontal" method="post"
+              data-ng-init="myMonths={{ arrayMonth |json_encode() }}; redirectPath='{{ path('user_profile') }}'">
+            <div class="goal-end">
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+
+                        {# edit goal status #}
+                        <div class="clearfix ng-hide" data-ng-show="userGoal.id"
+                             data-ng-init="defaultYear = '{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}';
+                                    defaultDay = '{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}';
+                                    defaultMonth = '{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}'">
+                            <div class="no-marginb">
+
+                                <h3 class="text-left">
+                                    {{ "goal.status"|trans }}
+                                </h3>
+
+                                <p>{{ "goal.in_proces"|trans }}</p>
+
+
+                                <div data-ng-init="complete.switch=(userGoal.status==UserGoalConstant['ACTIVE']? 0:1)" class="clearfix purple-checkbox">
+
+                                    <label class="relative">
+                                        <span class="my-md-container" data-ng-class="{'my-md-checked': complete.switch == 0}">
+                                            <span class="md-off"></span>
+                                            <span class="md-on"></span>
+                                        </span>
+
+                                        <input type="radio" value="0" data-ng-model="complete.switch" style="display: none">
+
+                                        <span class="my-md-label">
+                                            <span class="ng-scope">{{ "user_goal.active"|trans }}</span>
+                                        </span>
+
+                                    </label>
+
+                                    <label class="relative">
+                                        <span class="my-md-container"  data-ng-class="{'my-md-checked': complete.switch == 1}">
+                                            <span class="md-off"></span>
+                                            <span class="md-on"></span>
+                                        </span>
+
+                                        <input type="radio" value="1"  data-ng-model="complete.switch" style="display: none">
+
+                                        <span class="my-md-label">
+                                            <span class="ng-scope">{{ "user_goal.completed"|trans }}</span>
+                                        </span>
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                        <h3 data-ng-class="{'text-purple': !(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1}"
+                            class="ng-hide" data-ng-show="!(complete.switch == 1) || userGoal.do_date">
+                            {{ "goal.deadline"|trans }}
+                            <i data-ng-show="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1"
+                               class="icon-info text-purple"></i>
+
+                            <span class="text-purple ng-hide"
+                                  data-ng-show="complete.switch == 1 && firefox_do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)">: [[ momentDateFormat(firefox_do_date, 'DD MMM YYYY') ]]</span>
+                            <span class="text-purple ng-hide"
+                                  data-ng-show="complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 2)">: [[ momentDateFormat(firefox_do_date, 'YYYY') ]]</span>
+                            <span class="text-purple ng-hide"
+                                  data-ng-show="complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 3)">: [[ momentDateFormat(firefox_do_date, 'MMM YYYY') ]]</span>
+                        </h3>
+
+                        <p class="text-gray text-left"
+                           data-ng-show="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1">
+                                {{ "goal.missed_deadline"|trans }}
+                        </p>
+
+                        <p data-ng-hide="userGoal.do_date || userGoal.completion_date || complete.switch == 1"
+                           class="text-left">
+                            {{ "dream"|trans }}
+                        </p>
+
+                        <h3 class="ng-hide" data-ng-show="complete.switch == 1">{{ "completed"|trans }}</h3>
+
+                        <div data-ng-cloak class="row">
+
+                            <div class="col-sm-4 date ng-hide" data-ng-show="!(complete.switch == 1)">
+                                <ui-select search-enabled="false" data-ng-model="$parent.year" skip-focusser="true">
+                                    <ui-select-match
+                                            placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
+                                        <span>[[ $select.selected ]]</span>
+                                    </ui-select-match>
+
+                                    <ui-select-choices repeat="y in years">
+                                        <span data-ng-bind="y"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-sm-4 ng-hide" data-ng-show="complete.switch == 1">
+                                <ui-select search-enabled="false" data-ng-model="$parent.year" skip-focusser="true">
+                                    <ui-select-match
+                                            placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
+                                        <span>[[ $select.selected ]]</span>
+                                    </ui-select-match>
+
+                                    <ui-select-choices repeat="y in completeYears">
+                                        <span data-ng-bind="y"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+
+                            <div class="col-sm-4 date ng-hide" data-ng-show="complete.switch == 1">
+                                <ui-select search-enabled="false" data-ng-model="$parent.month" skip-focusser="true">
+                                    <ui-select-match
+                                            placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
+                                        <span>[[ $select.selected ]]</span>
+                                    </ui-select-match>
+
+                                    <ui-select-choices repeat="m in months">
+                                        <span data-ng-bind="m"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-sm-4 date ng-hide" data-ng-show="!(complete.switch == 1)">
+                                <ui-select search-enabled="false" data-ng-model="$parent.month" skip-focusser="true">
+                                    <ui-select-match
+                                            placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
+                                        <span>[[ $select.selected ]]</span>
+                                    </ui-select-match>
+
+                                    <ui-select-choices repeat="m in months">
+                                        <span data-ng-bind="m"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-sm-4 date ng-hide" data-ng-show="complete.switch == 1">
+                                <ui-select search-enabled="false" data-ng-model="$parent.day" skip-focusser="true">
+                                    <ui-select-match
+                                            placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
+                                        <span>[[ $select.selected ]]</span>
+                                    </ui-select-match>
+
+                                    <ui-select-choices repeat="day in days">
+                                        <span data-ng-bind="day"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-sm-4 date ng-hide" data-ng-show="!(complete.switch == 1)">
+                                <ui-select search-enabled="false" data-ng-model="$parent.day" skip-focusser="true">
+                                    <ui-select-match
+                                            placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
+                                        <span>[[ $select.selected ]]</span>
+                                    </ui-select-match>
+
+                                    <ui-select-choices repeat="day in days">
+                                        <span data-ng-bind="day"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+
+                        <h3 data-ng-if="userGoal.goal.location">Location</h3>
+
+                        <div class="form-group row" data-ng-if="userGoal.goal.location">
+                            <div class="col-sm-12">
+                                <div class="location">
+                                    <i class="icon-location-icon"></i>
+                                    <input type="text"
+                                           data-ng-disabled="true"
+                                           data-ng-model="userGoal.goal.location.address"
+                                           class="form-control place-autocomplete"
+                                           placeholder="{{ "goal.location_ex"|trans }}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <h3>{{ 'goal.priority'|trans() }}</h3>
+                                <h6>{{ "goal.deside"|trans }}</h6>
+
+                                <div class="priority purple-checkbox">
+
+                                    <label class="relative">
+                                        <span class="my-md-container" data-ng-class="{'my-md-checked': userGoal.urgent}">
+                                            <span class="my-md-icon"></span>
+                                            <input type="checkbox" data-ng-model="userGoal.urgent" style="display: none">
+                                        </span>
+
+                                        <span class="my-md-label">
+                                            <span class="ng-scope">{{ 'goal.urgent'|trans }}</span>
+                                        </span>
+
+                                    </label>
+
+                                    <label class="relative">
+                                        <span class="my-md-container" data-ng-class="{'my-md-checked': userGoal.important}">
+                                            <div class="my-md-icon"></div>
+                                            <input type="checkbox" data-ng-model="userGoal.important" style="display: none">
+                                        </span>
+
+                                        <span class="my-md-label">
+                                            <span class="ng-scope">{{ 'goal.important'|trans }}</span>
+                                        </span>
+                                    </label>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <h3 class="no-marginb">{{ 'my_bucket_list.notes'|trans }}</h3>
+
+                        <p>
+                            <i class="icon-pencil"></i>
+                            {{ 'goal.take_note'|trans }}
+                        </p>
+
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+
+                                <textarea class="form-control"
+                                          data-ng-model="userGoal.note"
+                                          rows="3"
+                                          placeholder="{{ 'goal.note_p'|trans }}"></textarea>
+                                    </div>
+                        </div>
+
+                        <h3 class="no-marginb">{{ "tasks"|trans }}</h3>
+
+                        <p>
+                            <i title="Notes" class="icon-step-list"></i>
+                            {{ "goal.complete_step"|trans }}
+                        </p>
+
+                        <div class="progress ng-hide" data-ng-show="!(complete.switch == 1)">
+                            <div class="progress-bar progress-bar-striped"
+                                 role="progressbar"
+                                 aria-valuenow="45"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 style="width:[[ getCompleted(userGoal) | number:1 ]]%">
+                                [[ getCompleted(userGoal) | number:1 ]]% Complete
+                            </div>
+                        </div>
+
+                        <div data-dnd-list="userGoal.formatted_steps"
+                             data-dnd-disable-if="complete.switch == 1"
+                             data-dnd-dragover="dragoverCallback(event, index, external, type)"
+                             data-dnd-drop="dropCallback(event, index, item, external, type, '')">
+                            <div class="form-group row"
+                                 data-ng-repeat="(k, step) in userGoal.formatted_steps"
+                                 data-ng-init="myStep[k] = step.switch"
+                                 data-ng-if="(!step.switch || !myStep[k]) && !(!step.text && complete.switch == 1)"
+                                 data-dnd-draggable="step"
+                                 data-dnd-disable-if="!step.text || step.switch"
+                                 data-dnd-moved="moveElement($index)"
+                                 data-dnd-effect-allowed="move"
+                                 data-dnd-selected="models.selected = step"
+                                 data-ng-class="{'selected': models.selected === step, 'noselect': !step.text}">
+
+                                <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
+
+                                    <label class="relative">
+                                        <span class="my-md-container" data-ng-class="{'my-md-checked': step.switch}">
+                                            <span class="my-md-icon"></span>
+                                            <input id="myonoffswitch[[k]]"
+                                                    type="checkbox" aria-label="steps"
+                                                   name="{% if app.environment !='test' %}switch[ [[k]] ]{% endif %}"
+                                                   data-ng-model="step.switch"
+                                                   data-ng-change="myStep[k] = false"
+                                                   data-ng-disabled="complete.switch == 1 || !step.text"
+                                                   style="display: none" />
+                                        </span>
+
+                                    </label>
+
+                                </div>
+
+                                <div class="col-xs-10 col-sm-11">
+                                    <div class="to-do-list">
+
+                                        <input type="text"
+                                               class="form-control"
+                                               data-ng-class="{'market-step': step.switch}"
+                                               data-step
+                                               data-key="k"
+                                               data-array="userGoal.formatted_steps"
+                                               data-ng-model="step.text"
+                                               data-ng-disabled="complete.switch == 1 || step.switch"
+                                               name="{% if app.environment !='test' %}stepText[ [[ k ]] ]{% endif %}"
+                                               placeholder="{{ "goal.add_step"|trans }}">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <p data-ng-click="completedStepsShow = !completedStepsShow"
+                                 data-ng-show="completedStepCount" class="text-purple">
+                                <span data-ng-show="!completedStepsShow">{{ "show" |trans }}</span>
+                                <span data-ng-show="completedStepsShow">{{ "hide" |trans }}</span> [[ completedStepCount]] {{ "completed" |trans }}
+                            </p>
+
+                            <div class="form-group row"
+                                 data-ng-repeat="(k, step) in userGoal.formatted_steps | filter: {switch: true}"
+                                 data-ng-show="completedStepsShow">
+
+                                <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
+
+                                    <label class="relative">
+                                        <span class="my-md-container my-md-checked">
+                                            <span class="my-md-icon"></span>
+                                            <input id="myonoffswitch[[k]]" type="checkbox" aria-label="steps"
+                                                   name="{% if app.environment !='test' %}switch[ [[k]] ]{% endif %}"
+                                                   data-ng-model="step.switch"
+                                                   data-ng-disabled="complete.switch == 1 || !step.text"
+                                                   style="display: none" />
+                                        </span>
+
+                                    </label>
+                                </div>
+
+                                <div class="col-xs-10 col-sm-11">
+                                    <div class="to-do-list">
+                                        <input type="text"
+                                               class="form-control"
+                                               data-step
+                                               data-key="k"
+                                               data-array="userGoal.formatted_steps"
+                                               data-ng-model="step.text"
+                                               data-ng-disabled="complete.switch == 1"
+                                               name="{% if app.environment !='test' %}stepText[ [[ k ]] ]{% endif %}"
+                                               placeholder="{{ "goal.add_step"|trans }}">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="dndPlaceholder form-group row"></div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                        <div class="no-marginb">
+
+                            <h3 class="text-left no-marginb">
+                                {{ "goal.visibility"|trans }}
+                            </h3>
+
+                            <p class="text-gray">
+                                <i class="icon-eye-icon ng-hide" data-ng-show="userGoal.is_visible"></i>
+                                <i class="icon-eye ng-hide" data-ng-hide="userGoal.is_visible"></i>
+                                <span>{{ "goal.visible_text"|trans }}</span>
+                            </p>
+
+                            <div class="clearfix purple-checkbox" id="goal-is-visible" data-ng-model="userGoal.is_visible">
+
+                                <label class="relative">
+                                    <span class="my-md-container" data-ng-class="{'my-md-checked': userGoal.is_visible == true}">
+                                        <span class="md-off"></span>
+                                        <span class="md-on"></span>
+                                    </span>
+
+                                    <input type="radio" data-ng-model="userGoal.is_visible" data-ng-value="true" style="display: none">
+
+                                    <span class="my-md-label">
+                                        <span class="ng-scope">{{ "goal.visible"|trans }}</span>
+                                    </span>
+
+                                </label>
+
+                                <label class="relative">
+                                    <span class="my-md-container"  data-ng-class="{'my-md-checked': userGoal.is_visible == false}">
+                                        <span class="md-off"></span>
+                                        <span class="md-on"></span>
+                                    </span>
+
+                                    <input type="radio" data-ng-value="false" data-ng-model="userGoal.is_visible" style="display: none">
+
+                                    <span class="my-md-label">
+                                        <span class="ng-scope">{{ "my_bucket_list.invisible"|trans }}</span>
+                                    </span>
+
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                {% if app.user %}
+                    <hr/>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                            <div data-ng-if="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == {{ app.user.id }} && userGoal.goal.status == GoalConstant['PRIVATE_PRIVACY']">
+                                <p class="text-gray clearfix private-space">
+                                    <strong class="text-dark-gray">
+                                        <i class="icon-lock-white"></i>
+                                        <span>{{ 'user_goal.private' |trans }}</span>
+                                    </strong>
+                                    <span class="text-left">{{ 'goal.private_text'|trans }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+
+                        <p class="text-center error-message" data-ng-if="invalidYear">
+                            {{ 'success_story.error_day_in_month1'|trans }} [[dayInMonth]] {{ 'success_story.error_day_in_month2'|trans }}
+                        </p>
+
+                        <p class="text-center error-message"
+                           data-ng-if="uncompletedYear">{{ 'success_story.error_uncomplete_year'|trans }}
+                        </p>
+                    </div>
+                </div>
+
+                {#<hr />#}
+                <div class="modal-bottom">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                            <a href="javascript:void(0)" data-ng-click="save()"
+                               class="btn btn-purple usergoal-save">{{ "btn_save"|trans }}</a>
+                            <a href="javascript:void(0)" rel="modal:close" id="cancel"
+                               class="btn btn-transparent">{{ 'btn_cancel'|trans }}</a>
+                            <a href="javascript:void(0)" data-ng-click="showDetails = ! showDetails"
+                               class="btn btn-transparent">
+                                <span>{{ 'forget'|trans | upper }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div data-ng-show="showDetails">
+                    <div class="delete-message">
+                        <div>
+                            <h3>{{ 'delete_message'|trans|upper|raw }}</h3>
+                            <a href="javascript:void(0)" data-ng-click="removeUserGoal(userGoal.id)"
+                               class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>
+                            <a data-ng-click="showDetails=!showDetails" href="javascript:void(0)"
+                               class="btn btn-purple">{{ 'btn_cancel'|trans | upper }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,198 @@
+<div id="story-slider-homepage">
+
+    <div class="container">
+
+        <h2 class="text-center text-dark">{{ 'homepage_success_story'| trans }}</h2>
+
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="swiper-container" id="story-slider-homepage-container">
+                    <!-- Slides Container -->
+                    <div class="swiper-wrapper" data-story-count="{{ stories| length }}">
+                        {% for key, story in stories %}
+                            {% set addedUser = story.user %}
+                            {% set files = story.files %}
+                            {% set videos = story.videoLink %}
+                            <div class="swiper-slide comment-place story-fade-in"
+                                 data-ng-init="count[{{ story.id }}] = {{ story.getVotersCount() }}">
+
+                                <div class="row no-gutter">
+                                    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                                        <div class="bg-white">
+
+                                            <div class="row padding">
+
+                                                <div class="col-xs-9">
+
+                                                    <div class="clearfix">
+
+                                                        <div class="pull-left">
+                                                            <a href="{{ ang2_host }}/login/user/{{ addedUser.uId }}">
+                                                                {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
+                                                                {% set className = "user-no" ~ random(4) %}
+
+                                                                <figure class="user-image">
+                                                                    {% if addedUser.getPhotoLink %}
+                                                                        <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}"
+                                                                             class="img-circle img-responsive"
+                                                                             alt="{{ addedUser.firstName }}">
+                                                                    {% else %}
+                                                                        <span class="no-image text-white {{ className }}">{{ nameOnImage | upper }}</span>
+                                                                    {% endif %}
+                                                                </figure>
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="pull-left success-story-user">
+                                                            <p class="user-name">
+                                                                <a href="{{ ang2_host }}/login/user/{{ addedUser.uId }}" class="text-dark-gray">{{ addedUser.showName }}</a>
+                                                            </p>
+                                                            <span data-ng-cloak>
+                                                                [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-xs-3 text-right" data-ng-cloak >
+                                                    <span class="text-purple">[[ count[{{ story.id }}] ]]</span>
+                                                    <a data-ng-click="openSignInPopover({{ story.id }}, '{{ story.goal.slug }}')">
+                                                        <i class="like-icon"></i>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="border-left">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+
+                                                        <div data-ng-cloak data-ng-scrollbars data-ng-scrollbars-config="scroller_config" data-ng-scrollbars-update="updateScrollbar" class="success-scroll">
+                                                            <p>{{ story.story }}</p>
+
+                                                            {% if files and files|length %}
+
+                                                                    {% if files|length == 1 %}
+                                                                        {% set file = files.first %}
+                                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
+                                                                           class="swipebox-{{ key }}">
+                                                                            <i class="photo-icon"></i>
+                                                                            <img src="{{ file.getDownloadLink|blImageFilter('story_homepage_small') }}"
+                                                                                 alt="{{ file.fileName }}" height="83" width="106"/>
+                                                                        </a>
+                                                                    {% else %}
+                                                                        {% for k,file in files %}
+                                                                            <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
+                                                                               class="swipebox-{{ key }} {% if k > 0 %}ng-hide{% endif %}">
+                                                                                <i class="photo-icon"></i>
+                                                                                <img src="{{ file.downloadLink|blImageFilter('story_homepage_small') }}"
+                                                                                     alt="{{ file.fileName }}" height="83" width="106"/>
+                                                                            </a>
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                            {% endif %}
+
+                                                            {% if videos and videos|length %}
+
+                                                                {% if videos|length == 1 %}
+                                                                    {% set v = videos[0] %}
+                                                                    {#<span  data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"></span>#}
+                                                                    <a class="swipebox-video-{{ key }}" data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]">
+                                                                        <i class="video-icon"></i>
+                                                                        <embed-video
+                                                                                data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]"
+                                                                                data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
+                                                                                height="83" width="106">
+                                                                        </embed-video >
+                                                                    </a>
+                                                                {% else %}
+                                                                    {% for k,video in videos %}
+                                                                        {% if video %}
+                                                                            {#<span  data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"></span>#}
+                                                                            <a class="swipebox-video-{{ key }} {% if k > 0 %}ng-hide{% endif %}" data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">
+                                                                                <i class="video-icon"></i>
+                                                                                <embed-video
+                                                                                        u="image"
+                                                                                        data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
+                                                                                        height="83" width="106"
+                                                                                        data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">
+                                                                                </embed-video>
+                                                                            </a>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="idea-item">
+                                                <figure class="rounded-corners">
+                                                    <i class="icon-lock-white"></i>
+
+                                                    <a href="{{ path('inner_goal', {'slug': story.goal.slug }) }}"
+                                                       class="goalTitle">
+                                                        <span class="overlay"></span>
+                                                        <h3>{{ story.goal.title }}</h3>
+                                                        {% if story.goal.listPhotoDownloadLink %}
+                                                            <img src="{{ story.goal.listPhotoDownloadLink|blImageFilter('goal_list_horizontal') }}"
+                                                                 alt="{{ story.goal.title }}"/>
+                                                        {% endif %}
+                                                        <div class="absolute">
+                                                            <ul>
+                                                                <li>
+                                                                    <a data-ng-click="openSignInPopover()">
+                                                                        <span>
+                                                                            {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                                            {{ story.goal.stats.listedBy }}
+                                                                        </span>
+                                                                        <i class="icon-user-small"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a data-ng-click="openSignInPopover()">
+                                                                        <span>
+                                                                            {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                                            {{ story.goal.stats.doneBy }}
+                                                                        </span>
+                                                                        <i class="icon-user-small"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+
+                                                    </a>
+                                                </figure>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+
+                </div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next swiper-button-next-home-story"></div>
+                <div class="swiper-button-prev swiper-button-prev-home-story"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <a href="#" data-authenticator-login-trigger class="btn btn-purple">{{ 'join_now'|trans | upper }}</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

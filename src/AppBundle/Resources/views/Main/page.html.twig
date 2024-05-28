@@ -1,0 +1,95 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block content %}
+    {% set slug = app.request.attributes.get('_route_params').slug %}
+    {% if slug == 'contact-us' %}
+        {% if isSend == false %}
+            <div class="container">
+                <div  class="signup">
+                    <div class=" row">
+                        <h1 class="text-center">{{ page.title }}</h1>
+                        {{ page.description|markdown }}
+                        <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                            {{ form_start(form) }}
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{ form_widget(form.fullName , {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.full_name' } }) }}
+                                </div>
+                                <div class="error-message">{{ form_errors(form.fullName) }}</div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.email' } }) }}
+                                </div>
+                                <div class="error-message">{{ form_errors(form.email) }}</div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{ form_widget(form.subject, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.subject' } }) }}
+                                </div>
+                                <div class="error-message">{{ form_errors(form.subject) }}</div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{ form_widget(form.message, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.message' } }) }}
+                                </div>
+                                <div class="error-message">{{ form_errors(form.message) }}</div>
+                            </div>
+
+                            <div class="form-group row text-center padding-top">
+                                {{ form_widget(form.send, {'attr': {'class' : 'btn btn-purple', 'placeholder': 'page.contacr_us.form.send' } }) }}
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        {% else %}
+
+            <div class="container">
+                <div  class="signup notice">
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <h1 class="text-center">{{ 'page.contacr_us.message_title'|trans }}</h1>
+                                <h4 class="text-center text-gray">{{ 'page.contacr_us.message_content'|trans }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+    {% else %}
+        <div class="container standart-pages">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <h1 class="text-center"> {{ page.title }} </h1>
+                    {{ page.description|markdown }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{%- block title -%}
+    {{ page.name }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {% if page.description %}
+        {{- page.description|striptags|sliceString -}}
+    {% else %}
+        {{- 'page.description'|trans -}}
+    {% endif %}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}

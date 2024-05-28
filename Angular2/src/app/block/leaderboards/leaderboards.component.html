@@ -1,0 +1,28 @@
+<div id="leaderboard-list" *ngIf="normOfTop > 0">
+
+  <div class="bg-white padding round margin-top">
+    <div class="row">
+      <div class="col-xs-10">
+        <a routerLink="/leaderboard" routerLinkActive="active" class="heading text-gray">
+          <i class="icon-suggest-icon"></i>
+          <span class="text">{{ 'leaderboard.name'|translate }}</span>
+        </a>
+      </div>
+
+      <div class="col-xs-2 text-right">
+        <a (click)="refreshLeaderboards($event)" class="load" id="goalFriendLoad" #rotate></a>
+      </div>
+    </div>
+
+    <hr class="hr-margin"/>
+
+    <ul>
+      <li *ngFor="let badge of users;let i = index">
+        <leaderboard [badge]="badge" [index]="i">
+          <!--<leaderboard ></leaderboard>-->
+        </leaderboard>
+      </li>
+    </ul>
+
+  </div>
+</div>

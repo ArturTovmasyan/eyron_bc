@@ -1,0 +1,36 @@
+{% if user is defined%}
+    <div class="right-menu overall-progress" data-ng-controller="overallProgressController">
+        <div data-ng-cloak data-ng-show="overallProgress > 0"
+             class="slide ng-hide padding margin-top padding-bottom bg-white round">
+            <div>
+                <ul class="row">
+                    <li class="col-xs-7">
+                        <i class="overall-icon"></i>
+                        {#<a href="#">{{ "overall.progress" | trans }}</a>#}
+                        <span>{{ "overall.progress" | trans }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <hr/>
+
+            <p>
+                <span class="text-gray">{{ "achievment" | trans }}</span>
+                <span class="text-dark-gray">[[overallProgress]]%</span>
+            </p>
+
+            <div class="bg-grey">
+                <div data-ng-if="overallProgress == 100" class="bg-purple"></div>
+                <div data-ng-if="overallProgress > 100" class="excellent-progress"></div>
+                <div data-ng-if="overallProgress < 100" class="falling-progress"></div>
+            </div>
+
+            <small class="text-gray" data-ng-if="overallProgress == 100">{{ "overall.good" | trans }}</small>
+
+            <small class="text-gray" data-ng-if="overallProgress > 100">{{ "overall.excellent" | trans }}</small>
+
+            <small class="text-gray" data-ng-if="overallProgress < 100">{{ "overall.falling" | trans }}</small>
+
+        </div>
+    </div>
+{% endif %}

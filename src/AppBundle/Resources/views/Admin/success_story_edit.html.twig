@@ -1,0 +1,52 @@
+{% extends "SonataAdminBundle:CRUD:base_edit.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset("bundles/app/less/admin.css") }}">
+
+{% endblock %}
+
+{% block form %}
+    <div data-ng-app="videoComponent">
+        {{ block('parentForm') }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&language=en&key={{ google_api_key }}"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    {% javascripts output='js/app_admin_success_story_edit.js'
+        'app/bower_components/angular/angular.min.js'
+        'app/bower_components/angular-resource/angular-resource.min.js'
+        'app/scripts/Interpolation/Interpolation.js'
+        'app/scripts/Components/Components.js'
+        'app/scripts/PathPrefix/PathPrefix.js'
+        'app/scripts/Google/Google.js'
+        'app/bower_components/ng-videosharing-embed/build/ng-videosharing-embed.min.js'
+        'app/bower_components/angular-animate/angular-animate.min.js'
+        'app/bower_components/angular-sanitize/angular-sanitize.min.js'
+        'app/bower_components/angular-strap/dist/angular-strap.min.js'
+        'app/bower_components/angular-strap/dist/angular-strap.tpl.min.js'
+        'app/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
+        'bundles/app/js/images.js'
+        'app/scripts/Confirm/Confirm.js'
+        'app/scripts/Authenticator/Authenticator.js'
+        'bundles/app/js/angular/videoComponent.js'
+        'app/bower_components/angular-local-storage/dist/angular-local-storage.min.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        angular.module('Components').constant('UserContext',{
+            id: {% if app.user is defined and app.user %}{{ app.user.id }}{% else %}0{% endif %}
+        });
+    </script>
+
+    {{ tinymce_init() }}
+
+{% endblock %}

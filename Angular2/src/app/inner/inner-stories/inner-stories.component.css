@@ -1,0 +1,125 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.stories-place {
+  padding: 10px 19px 10px;
+  font-size: 17px;
+  position: relative;
+  margin: 0 0 9px;
+  color: #4a4a4a;
+  white-space: normal;
+  word-break: break-word;
+}
+.stories-place a {
+  cursor: pointer;
+}
+.stories-place figure {
+  margin-top: 10px;
+}
+.stories-place figure img {
+  width: 100%;
+}
+.stories-place figure p {
+  text-align: center;
+}
+.stories-place figure.user-image {
+  margin: 0 10px 8px 0;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+}
+.stories-place figure.user-image img,
+.stories-place figure.user-image span {
+  height: 40px;
+  width: 40px;
+  border: 2px solid #cecece;
+  line-height: 34px;
+}
+.stories-place figure.user-image span {
+  display: inline-block;
+}
+.stories-place p {
+  padding: 0;
+  font-size: 13px;
+  color: #666666;
+  margin: 0;
+  white-space: normal;
+  word-break: break-word;
+}
+.stories-place p:first-child {
+  font-weight: 600;
+}
+.stories-place p:last-child {
+  padding: 0 0 5px 0;
+  text-align: justify;
+  font-weight: normal;
+}
+.stories-place span {
+  font-size: 12px;
+  color: #999999;
+}
+.stories-place span.report {
+  font-size: 14px;
+  color: #666666;
+}
+.stories-place .border-left {
+  border-left: 2px solid #ccc;
+  margin: -26px 0 15px 5px;
+}
+.stories-place .border-left p {
+  padding-left: 28px;
+}
+.stories-place .swiper-container-free-mode .swiper-wrapper {
+  margin: 20px auto;
+}
+.report {
+  display: block;
+  font-weight: 600;
+  color: #666666;
+  white-space: normal;
+  font-size: 14px;
+  margin: 0 ;
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .stories-place {
+    padding: 15px 25px 10px;
+    margin-bottom: 10px;
+  }
+  .stories-place figure.user-image {
+    margin: 0 10px 15px 0;
+  }
+  .stories-place span {
+    font-size: 12px;
+  }
+  .stories-place p {
+    font-size: 14px;
+  }
+  .stories-place .border-left {
+    margin: -18px 0 15px 5px;
+  }
+  .report {
+    display: inline-block;
+    margin: 0 0 0 5px;
+  }
+}
+@media (min-width: 992px) {
+  .stories-place {
+    padding: 20px 30px 10px;
+    margin-bottom: 20px;
+  }
+  .stories-place figure.user-image {
+    margin: 0 20px 15px 0;
+  }
+  .stories-place span {
+    font-size: 13px;
+  }
+  .stories-place .border-left p {
+    padding-left: 38px;
+  }
+}

@@ -1,0 +1,11 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    <div>
+        {% if object is defined and object.id %}
+            <a href="{{ path('user_profile', {'user': object.uId, 'status' : 'all' }) }}" target="_blank">
+                {{ 'Profile' }}
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}

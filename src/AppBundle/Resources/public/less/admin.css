@@ -1,0 +1,178 @@
+/* For admin video link */
+
+.relative{
+    position: relative;
+    margin-bottom:10px;
+
+}
+
+.icon{
+    display: inline-block;
+    width: 28px;
+    height:28px;
+    vertical-align: middle;
+    margin-right: 2px;
+}
+
+/*.remove-icon{*/
+    /*background: url('../images/images.png') no-repeat -379px -222px;*/
+    /*position: absolute;*/
+    /*right: 10px;*/
+    /*top: 0;*/
+    /*height: 34px;*/
+/*}*/
+
+.remove-icon{
+    position: absolute;
+    right: 3px;
+    top: 2px;
+    background-color: #ffffff;
+    padding:0 0 0 3px;
+}
+.remove-icon:hover,:focus{
+      text-decoration: none;
+  }
+.remove-icon.icon-remove-video-link{
+    font-size: 25px;
+}
+.relative>iframe {
+    margin: 20px;
+    width: 33%;
+    height: 33%;
+}
+
+.images{
+    padding-left:0;
+    list-style: none;
+}
+
+.images figure{
+    text-align: center;
+    padding:25px 15px  15px;
+    background-color: #f4f4f4;
+    margin: 10px 0 15px;
+    height: 240px;
+    position: relative;
+}
+
+.images figure img{ margin:0 auto;}
+.images figcaption{
+    padding: 10px 20px 0;
+    position: absolute;
+    bottom: 15px;
+}
+
+.file-list{
+   margin:10px 0;
+}
+
+.images .delete-link{
+    vertical-align: middle;
+}
+
+.file-list .delete-link{
+    padding:0 25px;
+}
+
+.add-image{
+    clear: both;
+    margin:20px 15px 15px;
+}
+
+.facebook{
+    background: url('../images/facebook_admin.png') no-repeat center center;
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-size: 100%;
+}
+
+.twitter{
+    background: url('../images/twitter_admin.png') no-repeat center center;
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-size: 100%;
+}
+
+.google{
+    background: url('../images/google_admin.png') no-repeat center center;
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-size: 100%;
+}
+
+.android{
+    background: url('../images/android.png') no-repeat center center;
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-size: 100%;
+}
+
+.ios{
+    background: url('../images/ios.png') no-repeat center center;
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-size: 100%;
+}
+
+.more-content span {
+    display: none;
+}
+
+.admin-text {
+    width: 400px;
+    margin: 10px;
+}
+
+.sonata-preview-form-container .row {
+    display: none;
+}
+
+.add-button{
+    margin-bottom: 24px;
+}
+
+ul.blog {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 60%;
+}
+
+ul.blog > div {
+    border: 1px solid #cccccc;
+    padding: 20px;
+    border-radius: 8px;
+    -webkit-border-radius:8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #f4f4f4;
+}
+
+img.admin-preview {
+    max-height: 270px;
+    max-width: 270px;
+}
+
+.sonata-preview-form-container{
+    padding: 20px 0 25px 0;
+}
+
+.sonata-preview-form-container button{
+    margin: 0 5px;
+}
+
+ul li {margin-bottom:0;}
+
+header #notification a.relative {
+    padding: 25px 20px 15px !important;
+}
+
+/*ul.blog div span { position: absolute; margin-left: -1.3em; }*/
+

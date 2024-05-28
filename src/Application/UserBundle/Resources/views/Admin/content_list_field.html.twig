@@ -1,0 +1,17 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{%- block field %}
+    {% if value %}
+
+        {% if object.contentType == constant('Application\\UserBundle\\Entity\\Report::COMMENT') %}
+            <a href="{{ path('admin_application_comment_comment_edit', {'id' : value}) }}" target="_blank">
+                {{ value }}
+            </a>
+        {% elseif object.contentType == constant('Application\\UserBundle\\Entity\\Report::SUCCESS_STORY') %}
+            <a href="{{ path('admin_app_successstory_edit', {'id' : value}) }}" target="_blank">
+                {{ value }}
+            </a>
+        {% endif %}
+
+    {% endif %}
+{% endblock -%}

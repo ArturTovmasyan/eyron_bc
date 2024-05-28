@@ -1,0 +1,143 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <!-- Tag -->
+        <service id="sonata.admin.app.tag" class="AppBundle\Admin\TagAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.tag"/>
+            <argument/>
+            <argument>AppBundle\Entity\Tag</argument>
+            <argument/>
+        </service>
+
+        <!-- Category -->
+        <service id="sonata.admin.app.category" class="AppBundle\Admin\CategoryAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.category"/>
+            <argument/>
+            <argument>AppBundle\Entity\Category</argument>
+            <argument/>
+        </service>
+
+        <!-- Aphorism -->
+        <service id="sonata.admin.app.aphorism" class="AppBundle\Admin\AphorismAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.aphorism"/>
+            <argument/>
+            <argument>AppBundle\Entity\Aphorism</argument>
+            <argument/>
+        </service>
+
+        <!-- Place -->
+        <service id="sonata.admin.app.place" class="AppBundle\Admin\PlaceAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.place"/>
+            <argument/>
+            <argument>AppBundle\Entity\Place</argument>
+            <argument/>
+        </service>
+
+        <!-- PlaceType -->
+        <service id="sonata.admin.app.place_type" class="AppBundle\Admin\PlaceTypeAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.place_type"/>
+            <argument/>
+            <argument>AppBundle\Entity\PlaceType</argument>
+            <argument/>
+        </service>
+
+        <!-- SuccessStory -->
+        <service id="success.story.moderator" class="AppBundle\Admin\SuccessStoryAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.success_story"/>
+            <argument/>
+            <argument>AppBundle\Entity\SuccessStory</argument>
+            <argument/>
+            <call method="setTemplate">
+                <argument>edit</argument>
+                <argument>AppBundle:Admin:success_story_edit.html.twig</argument>
+            </call>
+            <call method="setTemplate">
+                <argument>show</argument>
+                <argument>AppBundle:Admin:success_story_show.html.twig</argument>
+            </call>
+        </service>
+
+        <!-- page -->
+        <service id="sonata.admin.app.page" class="AppBundle\Admin\PageAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.page"/>
+            <argument/>
+            <argument>AppBundle\Entity\Page</argument>
+            <argument/>
+            <call method="setTemplate">
+                <argument>edit</argument>
+                <argument>AppBundle:Admin:page_edit.html.twig</argument>
+            </call>
+        </service>
+
+        <!-- Goal -->
+        <service id="sonata.admin.app.goal" class="AppBundle\Admin\GoalAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.goal"/>
+            <argument/>
+            <argument>AppBundle\Entity\Goal</argument>
+            <argument>AppBundle:Admin/CRUD</argument>
+            <argument/>
+            <call method="setTemplate">
+                <argument>edit</argument>
+                <argument>AppBundle:Admin:goal_edit.html.twig</argument>
+            </call>
+            <call method="setTemplate">
+                <argument>show</argument>
+                <argument>AppBundle:Admin:goal_show.html.twig</argument>
+            </call>
+            <call method="setTemplate">
+                <argument>merge</argument>
+                <argument>AppBundle:Admin:goal_merge.html.twig</argument>
+            </call>
+        </service>
+
+        <service id="goal.moderator" class="AppBundle\Admin\ModeratorGoalAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.goal"/>
+            <argument/>
+            <argument>AppBundle\Entity\Goal</argument>
+            <argument>AppBundle:Admin/CRUD</argument>
+            <argument/>
+            <call method="setTemplate">
+                <argument>edit</argument>
+                <argument>AppBundle:Admin:goal_edit.html.twig</argument>
+            </call>
+            <call method="setTemplate">
+                <argument>show</argument>
+                <argument>AppBundle:Admin:goal_show.html.twig</argument>
+            </call>
+            <call method="setTemplate">
+                <argument>merge</argument>
+                <argument>AppBundle:Admin:goal_merge.html.twig</argument>
+            </call>
+        </service>
+
+        <!-- Blog -->
+        <service id="sonata.admin.app.blog" class="AppBundle\Admin\BlogAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.blog"/>
+            <argument/>
+            <argument>AppBundle\Entity\Blog</argument>
+            <argument>AppBundle:Admin/Blog</argument>
+        </service>
+
+        <!-- UserGoal -->
+        <service id="sonata.admin.app.user_goal" class="AppBundle\Admin\UserGoalAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.user_goal"/>
+            <argument/>
+            <argument>AppBundle\Entity\UserGoal</argument>
+            <argument/>
+        </service>
+
+        <service id="app.admin.email" class="AppBundle\Admin\EmailAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_email" label="admin.label.name.sent_email"/>
+            <argument/>
+            <argument>AppBundle\Entity\Email</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+
+    </services>
+
+</container>

@@ -1,0 +1,161 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+.stories-place{
+  padding: 10px 19px 10px;
+  font-size: 17px;
+  position: relative;
+  margin: 0 0 9px;
+  color:#4a4a4a;
+  white-space: normal;
+  word-break: break-word;
+
+  a{
+    cursor: pointer;
+  }
+
+  figure{
+    margin-top:10px;
+    img{
+      width: 100%;
+    }
+    p{
+      text-align: center;
+    }
+  }
+
+  figure.user-image{
+    margin: 0 10px 8px 0;
+    background-color: transparent;
+    width:40px;
+    height:40px;
+
+    img,span{
+      height:40px;
+      width:40px;
+      border:2px solid #cecece;
+      line-height: 34px;
+    }
+
+    span{
+      display: inline-block;
+    }
+  }
+
+  p{
+    padding:0;
+    font-size:13px;
+    color:#666666;
+    margin:0;
+    white-space: normal;
+    word-break: break-word;
+
+    &:first-child{
+      font-weight:600;
+    }
+
+    &:last-child{
+      padding:0 0 5px 0;
+      text-align: justify;
+      font-weight: normal;
+    }
+  }
+
+  span{
+    font-size:12px;
+    color:#999999;
+
+    &.report{
+      font-size:13px;
+      color: #666666;
+    }
+  }
+
+  .border-left{
+    border-left: 2px solid #ccc;
+    margin: -26px 0 15px 5px;
+
+    p{
+      padding-left: 28px;
+    }
+  }
+
+  .swiper-container-free-mode{
+    .swiper-wrapper{
+      margin: 20px auto;
+    }
+  }
+
+  .swiper-button-prev,.swiper-button-next{
+    background-size: 40%;
+  }
+}
+
+
+.image-slider{
+  margin-bottom: 10px;
+}
+
+.report{
+  display: block;
+  font-weight: 600;
+  color: #666666;
+  white-space: normal;
+  font-size: 14px;
+  margin: 0 ;
+  cursor: pointer;
+}
+
+@media (min-width: @screen-sm) {
+  .stories-place{
+    padding:15px 25px 10px;
+    margin-bottom: 10px;
+
+    figure.user-image{
+      margin: 0 10px 15px 0;
+    }
+
+    span{
+      font-size:12px;
+    }
+
+    p{
+      font-size: 14px;
+    }
+
+    .border-left{
+      margin: -18px 0 15px 5px;
+    }
+  }
+
+  .report{
+    display: inline-block;
+    margin:0 0 0 5px;
+  }
+
+  .swiper-button-prev,.swiper-button-next{
+    background-size: 100%;
+  }
+}
+
+@media (min-width: @screen-md) {
+  .stories-place{
+    padding:20px 30px 10px;
+    margin-bottom: 20px;
+
+    figure.user-image{
+      margin: 0 20px 15px 0;
+    }
+
+    span{
+      font-size:13px;
+    }
+
+    .border-left{
+      p{
+        padding-left: 38px;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,857 @@
+<lightbox *ngIf="lightbox && lightBoxData" [data]="lightBoxData" (onClose)="closeLightBox()"></lightbox>
+<div class="goal-preview" *ngIf="goal && type == 'view'">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-xs-1 suggest-input" style="pointer-events: none">
+                        <md-checkbox class="example-margin" name="isPublic" [(ngModel)]="goal.status" [disabled]="true">
+                        </md-checkbox>
+                    </div>
+
+                    <div class="col-xs-11">
+                        <h3 class="text-purple">
+                            {{ 'goal.public'|translate }}
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <p class="text-gray">{{ 'goal.agree'|translate }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 text-right">
+                <div class="buttons">
+                    <a md-button routerLink="/goal/create/{{ goal.id }}" type="button" class="btn btn-transparent">
+                        <i class="icon-arrow-left"><span class="path1"></span><span class="path2"></span></i>
+                        {{ 'draft.edit'|translate }}
+
+                    </a>
+                    <a md-button id="goal-create-form"
+                       class="btn btn-purple" (click)="save(goal.id)">{{ 'goal.publish'|translate }}
+                        <i class="icon-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="fb-root"></div>
+
+<bl-loading mode="indeterminate" *ngIf="!goal"></bl-loading>
+
+<div class="inner-container" *ngIf="goal"
+     [ngClass]="{'no-quote': !aphorisms, 'no-author': (!goal.author || goal.author.is_admin)}">
+    <!--{% set cover = goal.getCoverPhotoDownloadLink %}-->
+    <!--{% set goalInner = true %}-->
+    <!--{% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.jpg' %}-->
+    <figure class="goal-image" #goalImage [style.height]="goalImageHeight+'px'">
+        <span class="overlay"></span>
+        <img src="{{ (goal && goal.cached_image)?goal.cached_image: imgPath}}" alt="Profile Cover Photo"
+             class="img-responsive"/>
+    </figure>
+
+    <!--<div class="container"></div>-->
+    <!--data-ng-init="goal.public= {% if goal.status %} true {% else %} false {% endif %} "-->
+    <div class="goal-content">
+        <div class="container" #container>
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-7">
+                    <div class="quote" [style.height]="quoteHeight+'px'">
+
+                        <div class="ticker" *ngIf="aphorisms && aphorisms.length">
+                            <i class="icon-quote-left"></i>
+                            <i class="icon-quote-right"></i>
+                            <ul class="aphorism" #ticker>
+                                <!--data-delay-add-class data-delay="12000"-->
+                                <li *ngFor="let aphorism of aphorisms; let i = index"
+                                    [class.active]="i == aphorismIndex">
+                                    {{ aphorism.content.length > 230 ?(((aphorism.content|slice:0:230)|removeTag) +
+                                    '...' ):(aphorism.content | removeTag) }}
+                                    <span class="text-right">{{ aphorism.author }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="goal-author" *ngIf="goal.author && goal.author.is_admin">
+                        <a routerLink="/profile/{{ goal.author.u_id }}/activity" class="text-gray bg-blue">{{ 'by' + " "
+                            + goal.author.show_name }} </a>
+                    </p>
+
+                    <h2 class="goal-inner-title" [class.title-smaller]="goal.title.length > 40">{{ goal.title }}</h2>
+                </div>
+            </div>
+
+            <div class="inner-content">
+
+                <div class="row no-gutter">
+                    <div class="col-md-8" *ngIf="seeAlsoShow" (click)="openLightBox(goal)">
+
+                        <swiper [config]="config" id="main-slider" #mainSlider class="swiper-container"
+                                *ngIf="goal.images && goal.images.length">
+                            <!-- Slides Container -->
+                            <div style="height: 435px" class="swiper-wrapper">
+
+                                <div class="swiper-slide" [style.height]="slideHeight+'px'"
+                                     *ngFor="let image of goal.images">
+                                    <a class="swipebox-main">
+                                        <!--data-title="{{ goal.title }}"-->
+                                        <!--href="{{ image.downloadLink|blImageFilter('slide_max_size') }}"-->
+                                        <img #sliderImage class="img-responsive" src="{{ image.image_path }}"
+                                             alt="{{ goal.title }}" [class.fullHeight]="fullHeight"
+                                        />
+                                        <!--{% if image.imageSize["height"] < 435 %}style="height: 100%;" fullHeight = height 100% {% endif %}-->
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!--Add Pagination -->
+                            <div class="swiper-pagination swiper-pagination-white" *ngIf="goal.images.length > 1"></div>
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-next swiper-button-white" *ngIf="goal.images.length > 1"></div>
+                            <div class="swiper-button-prev swiper-button-white" *ngIf="goal.images.length > 1"></div>
+                        </swiper>
+
+                        <figure class="goal-preview" #mainSlider id="main-slider"
+                                *ngIf="!goal.images || !goal.images.length">
+                            <img class="img-responsive" src="{{ imgPath }}" alt="view goal img" style="height: 100%;"/>
+                        </figure>
+
+                    </div>
+                    <!--data-ng-init="success[ {{ goal.id }} ] = {% if goal.isMyGoal == 2 %} true {% else %} false {% endif %}"-->
+                    <div class="col-md-4 hidden-md hidden-lg">
+
+                        <div class="goal-information" *ngIf="type == 'inner'">
+
+                            <ul class="row no-gutter goal-links">
+
+                                <!--<li class="col-xs-3 clone" *ngIf="appUser && appUser.is_admin">-->
+                                    <!--<a>-->
+                                        <!--&lt;!&ndash;<a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">&ndash;&gt;-->
+                                        <!--<img src="assets/images/clone-icon.svg" width="25" height="25"/>-->
+                                        <!--<span class="text">{{ 'clone'|translate }}</span>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+
+                                <!--<li [ngClass]="{'col-xs-3': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">-->
+                                <li class="col-xs-6" [class.transparent]="goal.is_my_goal" [ngClass]="{'col-xs-4': appUser && userGoal}">
+                                    <a md-button *ngIf="!goal.is_my_goal" (click)="add(goal.id)">
+                                        <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span
+                                                class="path3"></span></i>
+                                        <span class="text">{{ 'add'|translate | uppercase}}</span>
+                                    </a>
+                                      <span *ngIf="goal.is_my_goal">
+                                          <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span
+                                                  class="path3"></span><span class="path4"></span></i>
+                                          <span class="text">{{ 'added'|translate | uppercase}}</span>
+                                      </span>
+                                </li>
+
+                                <li class="col-xs-6" [class.transparent]="goal.is_my_goal == 2">
+                                    <a md-button (click)="completeGoal(goal.id)" *ngIf="goal.is_my_goal != 2">
+                                        <i class="icon-ok-icon"><span class="path1"></span><span
+                                                class="path2"></span></i>
+                                        <span class="text">{{ 'done'|translate | uppercase }}</span>
+                                    </a>
+
+                                  <span *ngIf="goal.is_my_goal == 2">
+                                       <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span
+                                               class="path3"></span></i>
+                                       <span class="text">{{ 'completed'|translate | uppercase }}</span>
+                                  </span>
+                                </li>
+
+                                <li class="col-xs-2 text-left" *ngIf="appUser && userGoal">
+                                    <md-menu #settingsMenu="mdMenu">
+                                        <!--<button md-menu-item> Settings </button>-->
+                                        <!--<button md-menu-item> Help </button>-->
+
+                                        <ul class="goal-icons" *ngIf="(goal.is_my_goal == 1 || goal.is_my_goal == 2) && userGoal">
+                                            <!--data-ng-init="isAuthor=true"-->
+                                            <li *ngIf="goal.author && appUser && goal.author.id == appUser.id">
+                                                <a routerLink="/goal/create/{{goal.id}}/Public">
+                                                    <i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>
+                                                    <span>{{ 'my_bucket_list.edit'|translate | titlecase}}</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a md-button (click)="manageGoal()"
+                                                   class="text-gray manage-modal">
+                                                    <i class="icon-manage"></i>
+                                                    <span>{{ 'manage'|translate| titlecase }}</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <div class="check_status">
+                                                    <a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">
+                                                        <i class="icon-ok-icon"><span class="path1"></span><span
+                                                                class="path2"></span></i>
+                                                        <span>{{ 'done'|translate| titlecase }}</span>
+
+                                                    </a>
+
+                                                    <a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">
+                                                        <i class="icon-green-ok"><span class="path1"></span><span
+                                                                class="path2"></span><span class="path3"></span></i>
+                                                        <span>{{ "completed"|translate| titlecase }}</span>
+                                                    </a>
+
+                                                </div>
+                                            </li>
+
+                                            <li *ngIf="isLate(userGoal.do_date)">
+                                                <i title="{{ 'my_bucket_list.missed_deadline'|translate }}"
+                                                   class="icon-info text-purple"></i>
+
+                                                <span>{{ "goal.deadline"|translate | titlecase }}</span>
+                                            </li>
+
+                                            <li *ngIf="userGoal.note">
+                                                <i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>
+                                                <span>{{ 'my_bucket_list.notes'|translate | titlecase }}</span>
+                                            </li>
+
+                                            <li *ngIf="!isEmpty(userGoal.steps)">
+                                                <i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>
+                                                <span>{{ "tasks"|translate | titlecase }}</span>
+                                            </li>
+
+                                            <li *ngIf="userGoal.is_visible">
+                                                <i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>
+                                                <span>{{ "goal.visible"|translate | titlecase }}</span>
+                                            </li>
+                                            <li *ngIf="!userGoal.is_visible">
+                                                <i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>
+                                                <span>{{ "my_bucket_list.invisible"|translate | titlecase }}</span>
+                                            </li>
+
+                                            <li *ngIf="!goal.status">
+                                                <i title="{{ 'my_bucket_list.private'|translate }}" class="icon-lock-white"></i>
+                                                <span>{{ 'user_goal.private' |translate | titlecase }}</span>
+                                            </li>
+                                        </ul>
+
+                                    </md-menu>
+
+                                    <button md-icon-button [mdMenuTriggerFor]="settingsMenu">
+                                        <i></i>
+                                    </button>
+                                </li>
+
+                            </ul>
+
+                            <!--<ul class="goal-icons" *ngIf="(goal.is_my_goal == 1 || goal.is_my_goal == 2) && userGoal">-->
+                                <!--&lt;!&ndash;data-ng-init="isAuthor=true"&ndash;&gt;-->
+                                <!--<li *ngIf="goal.author && appUser && goal.author.id == appUser.id">-->
+                                    <!--<a routerLink="/goal/create/{{goal.id}}/Public">-->
+                                        <!--<i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+
+                                <!--<li class="bordered-list">-->
+                                    <!--<a md-button (click)="manageGoal()"-->
+                                       <!--class="text-gray manage-modal">-->
+                                        <!--<i class="icon-manage"></i>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+
+                                <!--<li class="bordered-list">-->
+                                    <!--<div class="check_status">-->
+                                        <!--<a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">-->
+                                            <!--<i class="icon-ok-icon"><span class="path1"></span><span-->
+                                                    <!--class="path2"></span></i>-->
+                                        <!--</a>-->
+                                        <!--<a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">-->
+                                            <!--<i class="icon-green-ok"><span class="path1"></span><span-->
+                                                    <!--class="path2"></span><span class="path3"></span></i>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</li>-->
+
+                                <!--<li *ngIf="isLate(userGoal.do_date)">-->
+                                    <!--<i title="{{ 'my_bucket_list.missed_deadline'|translate }}"-->
+                                       <!--class="icon-info text-purple"></i>-->
+                                <!--</li>-->
+
+                                <!--<li *ngIf="userGoal.note">-->
+                                    <!--<i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>-->
+                                <!--</li>-->
+
+                                <!--<li *ngIf="userGoal.steps">-->
+                                    <!--<i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>-->
+                                <!--</li>-->
+
+                                <!--<li *ngIf="userGoal.is_visible">-->
+                                    <!--<i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>-->
+                                <!--</li>-->
+                                <!--<li *ngIf="!userGoal.is_visible">-->
+                                    <!--<i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>-->
+                                <!--</li>-->
+
+                                <!--<li *ngIf="!goal.status">-->
+                                    <!--<i title="{{ 'my_bucket_list.private'|translate }}" class="icon-lock-white"></i>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+
+                            <!--{% if goal.lat is not null and goal.lng is not null %}-->
+
+                            <!--<div id="affiliate-right" class="right-menu-scroll bg-white" *ngIf="isDesktop">-->
+                            <!--<adds-affiliate class="affiliate-right" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--{% if page != view %}-->
+
+                <div class="row bg-white" *ngIf="type != 'view'">
+
+                    <div class="col-sm-12 col-md-8">
+                        <!--{% if page == inner %}-->
+                        <ul class="users-lists row" *ngIf="type == 'inner'">
+                            <li class="col-xs-7 col-sm-6">
+                                <ul class="row no-gutter">
+                                    <li class="col-xs-12">
+                                        {{ 'done_by'|translate | uppercase }}
+
+                                        <a *ngIf="goal.stats.doneBy != 0"
+                                           (click)="openUsersModal(goal.id, goal.stats.doneBy, 2)" class="text-purple">{{ goal.stats.doneBy }}
+                                        </a>
+                                        <!--<p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.doneBy }}</p>-->
+                                    </li>
+                                    <!--<li class="hidden-xs col-sm-7">-->
+                                        <!--<ul class="users">-->
+                                            <!--&lt;!&ndash;{% set left = 80 %}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;{% for doneByUser in doneByUsers %}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;{% set nameOnImage = doneByUser.firstName|slice(0,1) ~ doneByUser.lastName|slice(0,1) %}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;{% set className = "user-no" ~ random(4) %}&ndash;&gt;-->
+                                            <!--<li [style.right.px]="80 + (i + 1)*20"-->
+                                                <!--*ngFor="let user of doneByUsers;let i = index" >-->
+
+                                                <!--<figure *ngIf="user.cached_image">-->
+                                                    <!--<img src="{{ user.cached_image }}" class="img-circle img-responsive"-->
+                                                         <!--alt="{{ user.first_name }}">-->
+                                                <!--</figure>-->
+
+                                                <!--<p *ngIf="!user.cached_image" class="no-image user-no4">{{-->
+                                                    <!--(user.first_name | slice:0:1 | uppercase) + (user.last_name |-->
+                                                    <!--slice:0:1 | uppercase) }}</p>-->
+
+                                            <!--</li>-->
+                                            <!--&lt;!&ndash;{% set left = left + 20 %}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;{% endfor %}&ndash;&gt;-->
+
+                                            <!--<li class="users-arrow">-->
+                                                <!--<i *ngIf="goal.stats.doneBy == 0"></i>-->
+
+                                                <!--<a *ngIf="goal.stats.doneBy != 0"-->
+                                                   <!--(click)="openUsersModal(goal.id, goal.stats.listedBy, 2)">-->
+                                                <!--</a>-->
+                                            <!--</li>-->
+                                        <!--</ul>-->
+                                    <!--</li>-->
+                                </ul>
+                            </li>
+
+                            <li class="col-xs-5 col-sm-6">
+                                <ul class="row no-gutter">
+                                    <li class="col-xs-12">
+                                        {{ 'listed_by'|translate | uppercase }}
+                                        <a *ngIf="goal.stats.listedBy != 0"
+                                           (click)="openUsersModal(goal.id, goal.stats.listedBy, 1)" class="text-purple">{{ goal.stats.listedBy }}
+                                        </a>
+                                        <!--<p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.listedBy }}</p>-->
+                                    </li>
+                                    <!--<li class="hidden-xs col-sm-7">-->
+                                        <!--<ul class="users">-->
+                                            <!--&lt;!&ndash;{% set left = 80 %}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;{#{{ dump(listedByUsers) }}#}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;{% for listedByUser in listedByUsers %}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;{% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;{% set className = "user-no" ~ random(4) %}&ndash;&gt;-->
+                                            <!--<li [style.right.px]="80 + (i + 1)*20"-->
+                                                <!--*ngFor="let user of listedByUsers;let i = index">-->
+                                                <!--<figure *ngIf="user.cached_image">-->
+                                                    <!--<img src="{{ user.cached_image }}" class="img-circle img-responsive"-->
+                                                         <!--alt="{{ user.first_name }}">-->
+                                                <!--</figure>-->
+
+                                                <!--<p *ngIf="!user.cached_image" class="no-image user-no4">{{-->
+                                                    <!--(user.first_name | slice:0:1 | uppercase) + (user.last_name |-->
+                                                    <!--slice:0:1 | uppercase) }}</p>-->
+
+                                            <!--</li>-->
+                                            <!--&lt;!&ndash;{% set left = left + 20 %}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;{% endfor %}&ndash;&gt;-->
+                                            <!--<li class="users-arrow">-->
+                                                <!--<i *ngIf="goal.stats.listedBy == 0"></i>-->
+
+                                                <!--<a *ngIf="goal.stats.listedBy != 0"-->
+                                                   <!--(click)="openUsersModal(goal.id, goal.stats.listedBy, 1)">-->
+                                                <!--</a>-->
+                                            <!--</li>-->
+                                        <!--</ul>-->
+                                    <!--</li>-->
+                                </ul>
+                            </li>
+                        </ul>
+                        <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && !isDesktop">
+                            <map-single style="width: 99.8%; height: 215px"
+                                        [locations]="[{latitude: goal.location.latitude, longitude: goal.location.longitude, status: goal.is_my_goal?goal.is_my_goal:0, title: goal.title}]"
+                                        class="map-marker"></map-single>
+                        </div>
+                        <!--<div id="affiliate-right-mobile" class="right-menu-scroll bg-white" *ngIf="!isDesktop">-->
+                        <!--<adds-affiliate class="affiliate-right-mobile" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>-->
+                        <!--</div>-->
+
+                        <div class="row padding-top test" *ngIf="(type != 'view') && isDesktop">
+
+                            <!--<div class="col-sm-8">-->
+                                <!--<div class="row">-->
+                                    <div class="col-xs-8 col-sm-10">
+                                        <div class="fb-like"
+                                             [attr.data-href]="angularPath + goal.share_link"
+                                             data-layout="button_count"
+                                             data-action="like"
+                                             data-show-faces="false"
+                                             data-share="false">
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="col-xs-2 col-sm-1">-->
+                                        <!--<button md-button (click)="showComment()">-->
+                                            <!--<i class="comment-new-icon"></i>-->
+                                        <!--</button>-->
+                                    <!--</div>-->
+
+                                    <div class="col-xs-4 col-sm-2 text-right">
+                                        <!--<a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{goal.title}}"-->
+                                           <!--class="twitter-hashtag-button" data-related="BucketList127"-->
+                                           <!--[attr.data-url]="angularPath + goal.share_link" [attr.data-dnt]="true">Tweet-->
+                                            <!--#BucketList127</a>-->
+
+                                        <button md-button (click)="showComment()">
+                                            <i class="comment-new-icon"></i>
+                                        </button>
+
+                                        <button md-button (click)="openShare()">
+                                            <i class="share-new-icon"></i>
+                                        </button>
+                                        <!--<div class="addthis_counter" (click)="openShare()">-->
+
+                                            <!--(mouseleave)="isHover = false">-->
+                                            <!--<share-buttons [url]="linkToShare"-->
+                                            <!--(mouseover)="isHover = true"-->
+                                            <!--(mouseleave)="isHover = false"-->
+                                            <!--*ngIf="isHover"-->
+                                            <!--[facebook]="fbInner"-->
+                                            <!--[twitter]="twitterInner"-->
+                                            <!--[pinterest]="pintInner"-->
+                                            <!--[linkedIn]="inInner"-->
+                                            <!--[google]="googleInner"-->
+                                            <!--[tumblr]="false"-->
+                                            <!--[reddit]="false"-->
+                                            <!--[stumbleUpOn]="false">-->
+                                            <!--</share-buttons>-->
+
+                                        <!--</div>-->
+
+                                    </div>
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="col-sm-4">-->
+                                <!--&lt;!&ndash;<button md-button (click)="showComment()">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;Comments&ndash;&gt;-->
+                                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+
+                                <!--<div class="addthis_counter" (click)="openShare()">-->
+
+                                     <!--&lt;!&ndash;(mouseleave)="isHover = false">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<share-buttons [url]="linkToShare"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;(mouseover)="isHover = true"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;(mouseleave)="isHover = false"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;*ngIf="isHover"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[facebook]="fbInner"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[twitter]="twitterInner"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[pinterest]="pintInner"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[linkedIn]="inInner"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[google]="googleInner"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[tumblr]="false"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[reddit]="false"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[stumbleUpOn]="false">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</share-buttons>&ndash;&gt;-->
+
+                            <!--</div>-->
+
+                        <!--</div>-->
+
+
+
+
+
+
+
+                    </div>
+
+                        <div class="inner">
+                            <div class="comment goals-animate" [hidden]="!show" *ngIf="isDesktop">
+                                <app-comment *ngIf="type == 'inner'" [data]="{id: goal.id, slug:goal.slug,inner:true}"></app-comment>
+                            </div>
+                            <hr class="hidden-xs hidden-sm"/>
+                            <div class="text-dark-grey goal-info" *ngIf="goal.description && goal.description != ''"
+                                 [innerHTML]="goal.description|removeTag|MarkdownToHtml"></div>
+
+
+                            <div class="row" *ngIf="goal.video_link && goal.video_link.length == 1">
+                                <div class="col-sm-12">
+                                    <embed-video [href]="goal.video_link[0]"
+                                                 height="360px"
+                                                 width="100%">
+                                        <!--data-ng-init="mainSliderVideo='{{ v }}'"-->
+                                    </embed-video>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="goal.video_link && goal.video_link.length > 1">
+                                <swiper [config]="videoConfig" id="main-slider-video" class="swiper-container"
+                                        style="position: relative; top: 0; left: 0">
+                                    <!-- Slides Container -->
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide" *ngFor="let video of goal.video_link;let k = index">
+                                            <embed-video width="100%"
+                                                         height="300px"
+                                                         [href]="video">
+                                                <!--u="image"-->
+                                                <!--data-ng-init="mainSliderVideo[{{ k }}]='{{ video }}'"-->
+                                            </embed-video>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-pagination swiper-pagination-white"></div>
+                                    <!-- Add Arrows -->
+                                    <div class="swiper-button-next swiper-button-white"></div>
+                                    <div class="swiper-button-prev swiper-button-white"></div>
+                                </swiper>
+                            </div>
+
+                            <inner-stories [stories]="stories" [appUser]="appUser" [goal]="goal"
+                                           (onStoryClick)="openLightBox($event)"
+                                           *ngIf="type == 'inner' && stories && stories.length > 0">
+                            </inner-stories>
+
+                            <!--<app-comment *ngIf="type == 'inner'" [data]="{id: goal.id, slug:goal.slug,inner:true}">-->
+                            <!--</app-comment>-->
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 hidden-xs hidden-sm">
+
+                        <div class="goal-information" *ngIf="type == 'inner'">
+
+                            <ul class="row no-gutter goal-links">
+
+                                <!--<li class="col-xs-3 clone" *ngIf="appUser && appUser.is_admin">-->
+                                <!--<a>-->
+                                <!--&lt;!&ndash;<a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">&ndash;&gt;-->
+                                <!--<img src="assets/images/clone-icon.svg" width="25" height="25"/>-->
+                                <!--<span class="text">{{ 'clone'|translate }}</span>-->
+                                <!--</a>-->
+                                <!--</li>-->
+
+                                <!--<li [ngClass]="{'col-xs-3 col-sm-4': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">-->
+                                <li class="col-xs-6" [class.transparent]="goal.is_my_goal" [ngClass]="{'col-xs-4': appUser && userGoal}">
+                                    <a md-button *ngIf="!goal.is_my_goal" (click)="add(goal.id)">
+                                        <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span
+                                                class="path3"></span></i>
+                                        <span class="text">{{ 'add'|translate | uppercase}}</span>
+                                    </a>
+                                  <span *ngIf="goal.is_my_goal">
+                                      <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span
+                                              class="path3"></span><span class="path4"></span></i>
+                                      <span class="text">{{ 'added'|translate | uppercase}}</span>
+                                  </span>
+                                </li>
+
+                                <li class="col-xs-6" [class.transparent]="goal.is_my_goal == 2">
+                                    <a md-button (click)="completeGoal(goal.id)" *ngIf="goal.is_my_goal != 2">
+                                        <i class="icon-ok-icon"><span class="path1"></span><span
+                                                class="path2"></span></i>
+                                        <span class="text">{{ 'done'|translate | uppercase }}</span>
+                                    </a>
+
+                                      <span *ngIf="goal.is_my_goal == 2">
+                                           <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span
+                                                   class="path3"></span></i>
+                                           <span class="text">{{ 'completed'|translate | uppercase }}</span>
+                                      </span>
+                                </li>
+                                <li class="col-xs-2 text-left" *ngIf="appUser && userGoal">
+                                    <md-menu #settingsMenu="mdMenu">
+                                        <!--<button md-menu-item> Settings </button>-->
+                                        <!--<button md-menu-item> Help </button>-->
+                                        <ul class="goal-icons" *ngIf="(goal.is_my_goal == 1 || goal.is_my_goal == 2) && userGoal">
+                                            <!--data-ng-init="isAuthor=true"-->
+                                            <li *ngIf="goal.author && appUser && goal.author.id == appUser.id">
+                                                <a routerLink="/goal/create/{{goal.id}}/Public">
+                                                    <i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>
+                                                    <span>{{ 'my_bucket_list.edit'|translate | titlecase}}</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a md-button (click)="manageGoal()"
+                                                   class="text-gray manage-modal">
+                                                    <i class="icon-manage"></i>
+                                                    <span>{{ 'manage'|translate| titlecase }}</span>
+                                                </a>
+
+                                            </li>
+
+                                            <li>
+                                                <div class="check_status">
+                                                    <a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">
+                                                        <i class="icon-ok-icon"><span class="path1"></span><span
+                                                                class="path2"></span></i>
+                                                        <span class="text">{{ 'done'|translate | titlecase }}</span>
+                                                    </a>
+
+                                                    <a md-button *ngIf="goal.is_my_goal == 2"  disabled>
+                                                        <i class="icon-green-ok"><span class="path1"></span><span
+                                                                class="path2"></span><span class="path3"></span></i>
+                                                        <span class="text">{{ 'completed'|translate | titlecase }}</span>
+                                                    </a>
+                                                </div>
+                                            </li>
+
+                                            <li *ngIf="isLate(userGoal.do_date)">
+                                                <i title="{{ 'my_bucket_list.missed_deadline'|translate }}"
+                                                   class="icon-info text-purple"></i>
+                                                <span>{{ "goal.deadline"|translate|titlecase }}</span>
+                                            </li>
+
+                                            <li *ngIf="userGoal.note">
+                                                <i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>
+                                                <span>{{ 'my_bucket_list.notes'|translate| titlecase }}</span>
+                                            </li>
+
+                                            <li *ngIf="!isEmpty(userGoal.steps)">
+                                                <i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>
+                                                <span>{{ "tasks"|translate | titlecase }}</span>
+                                            </li>
+
+                                            <li *ngIf="userGoal.is_visible">
+                                                <i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>
+                                                <span>{{ "goal.visible"|translate | titlecase }}</span>
+                                            </li>
+                                            <li *ngIf="!userGoal.is_visible">
+                                                <i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>
+                                                <span>{{ "my_bucket_list.invisible"|translate | titlecase }}</span>
+                                            </li>
+
+                                            <li *ngIf="!goal.status">
+                                                <i title="{{ 'my_bucket_list.private'|translate }}" class="icon-lock-white"></i>
+                                                <span>{{ 'user_goal.private' |translate | titlecase }}</span>
+                                            </li>
+                                        </ul>
+
+                                    </md-menu>
+
+                                    <button md-icon-button [mdMenuTriggerFor]="settingsMenu">
+                                        <i></i>
+                                    </button>
+                                </li>
+
+                            </ul>
+
+                            <!--<ul class="goal-icons" *ngIf="(goal.is_my_goal == 1 || goal.is_my_goal == 2) && userGoal">-->
+                            <!--&lt;!&ndash;data-ng-init="isAuthor=true"&ndash;&gt;-->
+                            <!--<li *ngIf="goal.author && appUser && goal.author.id == appUser.id">-->
+                            <!--<a routerLink="/goal/create/{{goal.id}}/Public">-->
+                            <!--<i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>-->
+                            <!--</a>-->
+                            <!--</li>-->
+
+                            <!--<li class="bordered-list">-->
+                            <!--<a md-button (click)="manageGoal()"-->
+                            <!--class="text-gray manage-modal">-->
+                            <!--<i class="icon-manage"></i>-->
+                            <!--</a>-->
+                            <!--</li>-->
+
+                            <!--<li class="bordered-list">-->
+                            <!--<div class="check_status">-->
+                            <!--<a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">-->
+                            <!--<i class="icon-ok-icon"><span class="path1"></span><span-->
+                            <!--class="path2"></span></i>-->
+                            <!--</a>-->
+                            <!--<a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">-->
+                            <!--<i class="icon-green-ok"><span class="path1"></span><span-->
+                            <!--class="path2"></span><span class="path3"></span></i>-->
+                            <!--</a>-->
+                            <!--</div>-->
+                            <!--</li>-->
+
+                            <!--<li *ngIf="isLate(userGoal.do_date)">-->
+                            <!--<i title="{{ 'my_bucket_list.missed_deadline'|translate }}"-->
+                            <!--class="icon-info text-purple"></i>-->
+                            <!--</li>-->
+
+                            <!--<li *ngIf="userGoal.note">-->
+                            <!--<i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>-->
+                            <!--</li>-->
+
+                            <!--<li *ngIf="userGoal.steps">-->
+                            <!--<i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>-->
+                            <!--</li>-->
+
+                            <!--<li *ngIf="userGoal.is_visible">-->
+                            <!--<i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>-->
+                            <!--</li>-->
+                            <!--<li *ngIf="!userGoal.is_visible">-->
+                            <!--<i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>-->
+                            <!--</li>-->
+
+                            <!--<li *ngIf="!goal.status">-->
+                            <!--<i title="{{ 'my_bucket_list.private'|translate }}" class="icon-lock-white"></i>-->
+                            <!--</li>-->
+                            <!--</ul>-->
+
+                            <!--{% if goal.lat is not null and goal.lng is not null %}-->
+                            <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && isDesktop">
+                                <!--data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]"-->
+                                <!--<div *ngIf="location"-->
+                                <!--data-simple-map-marker-->
+                                <!--data-zoom="14"-->
+                                <!--data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"-->
+                                <!--data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"-->
+                                <!--data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"-->
+                                <!--data-markers="location"-->
+                                <!--style="width: 99.8%; height: 120px">-->
+                                <!--</div>-->
+                                <map-single style="width: 99.8%; height: 120px"
+                                            [locations]="[{latitude: goal.location.latitude, longitude: goal.location.longitude, status: goal.is_my_goal?goal.is_my_goal:0, title: goal.title}]"
+                                            class="map-marker"></map-single>
+                            </div>
+                            <!--<hr *ngIf="!goal.location"/>-->
+
+
+                            <!--<div id="affiliate-right" class="right-menu-scroll bg-white" *ngIf="isDesktop">-->
+                            <!--<adds-affiliate class="affiliate-right" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+
+
+                    <br class="hidden-xs"/>
+                <!--{% endif %}-->
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+        <see-also *ngIf="seeAlsoShow"></see-also>
+
+        <div class="inner-bottom" *ngIf="(type != 'view') && !isDesktop && appUser" [ngClass]="{'down':scroll,'up':!scroll}">
+            <div class="container">
+                <div class="row">
+
+                    <!--<div class="col-sm-8">-->
+                    <!--<div class="row">-->
+                    <div class="col-xs-8 col-sm-10">
+                        <div class="fb-like"
+                             [attr.data-href]="angularPath + goal.share_link"
+                             data-layout="button_count"
+                             data-action="like"
+                             data-show-faces="false"
+                             data-share="false">
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-4 col-sm-2 text-right">
+                        <!--<a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{goal.title}}"-->
+                        <!--class="twitter-hashtag-button" data-related="BucketList127"-->
+                        <!--[attr.data-url]="angularPath + goal.share_link" [attr.data-dnt]="true">Tweet-->
+                        <!--#BucketList127</a>-->
+                        <button md-button (click)="openComment()">
+                            <i class="comment-new-icon"></i>
+                        </button>
+
+                        <button md-button (click)="openShare()">
+                            <i class="share-new-icon"></i>
+                        </button>
+
+
+                        <!--<div class="addthis_counter" (click)="openShare()">-->
+
+                            <!--(mouseleave)="isHover = false">-->
+                            <!--<share-buttons [url]="linkToShare"-->
+                            <!--(mouseover)="isHover = true"-->
+                            <!--(mouseleave)="isHover = false"-->
+                            <!--*ngIf="isHover"-->
+                            <!--[facebook]="fbInner"-->
+                            <!--[twitter]="twitterInner"-->
+                            <!--[pinterest]="pintInner"-->
+                            <!--[linkedIn]="inInner"-->
+                            <!--[google]="googleInner"-->
+                            <!--[tumblr]="false"-->
+                            <!--[reddit]="false"-->
+                            <!--[stumbleUpOn]="false">-->
+                            <!--</share-buttons>-->
+
+                        <!--</div>-->
+
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-sm-4">-->
+                    <!--&lt;!&ndash;<button md-button (click)="showComment()">&ndash;&gt;-->
+                    <!--&lt;!&ndash;Comments&ndash;&gt;-->
+                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+
+                    <!--<div class="addthis_counter" (click)="openShare()">-->
+
+                    <!--&lt;!&ndash;(mouseleave)="isHover = false">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<share-buttons [url]="linkToShare"&ndash;&gt;-->
+                    <!--&lt;!&ndash;(mouseover)="isHover = true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;(mouseleave)="isHover = false"&ndash;&gt;-->
+                    <!--&lt;!&ndash;*ngIf="isHover"&ndash;&gt;-->
+                    <!--&lt;!&ndash;[facebook]="fbInner"&ndash;&gt;-->
+                    <!--&lt;!&ndash;[twitter]="twitterInner"&ndash;&gt;-->
+                    <!--&lt;!&ndash;[pinterest]="pintInner"&ndash;&gt;-->
+                    <!--&lt;!&ndash;[linkedIn]="inInner"&ndash;&gt;-->
+                    <!--&lt;!&ndash;[google]="googleInner"&ndash;&gt;-->
+                    <!--&lt;!&ndash;[tumblr]="false"&ndash;&gt;-->
+                    <!--&lt;!&ndash;[reddit]="false"&ndash;&gt;-->
+                    <!--&lt;!&ndash;[stumbleUpOn]="false">&ndash;&gt;-->
+                    <!--&lt;!&ndash;</share-buttons>&ndash;&gt;-->
+
+                    <!--</div>-->
+
+                    <!--</div>-->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>

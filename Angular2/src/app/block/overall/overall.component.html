@@ -1,0 +1,37 @@
+<div class="right-menu overall-progress">
+  <div *ngIf="overall > 0"
+       class="slide padding margin-top bg-white round">
+    <div>
+      <ul class="row">
+        <li class="col-xs-12">
+          <i class="overall-icon"></i>
+          <span>{{ "overall.progress" | translate }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <hr class="hidden-xs hidden-sm"/>
+
+    <p class="hidden-xs hidden-sm">
+      <span class="text-gray">{{ "achievment" | translate }}</span>
+      <span class="text-dark-gray">{{ overall }}%</span>
+    </p>
+
+    <div class="overall-bg">
+      <p class="achievement-percent  hidden-md hidden-lg">
+        <span class="text-white">{{ "achievment" | translate }}</span>
+        <span class="text-white">{{ overall }}%</span>
+      </p>
+      <div *ngIf="overall == 100" class="bg-purple"></div>
+      <div *ngIf="overall > 100" class="excellent-progress"></div>
+      <div *ngIf="overall < 100" class="falling-progress"></div>
+    </div>
+
+    <small class="text-gray hidden-xs hidden-sm" *ngIf="overall == 100">{{ "overall.good" | translate }}</small>
+
+    <small class="text-gray hidden-xs hidden-sm" *ngIf="overall > 100">{{ "overall.excellent" | translate }}</small>
+
+    <small class="text-gray hidden-xs hidden-sm" *ngIf="overall < 100">{{ "overall.falling" | translate }}</small>
+
+  </div>
+</div>

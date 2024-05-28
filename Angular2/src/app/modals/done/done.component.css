@@ -1,0 +1,195 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.modal-bottom {
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 12px 0 10px;
+}
+.goal-modal {
+  width: 280px;
+  margin: 0 auto;
+  overflow: hidden;
+  text-align: left;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+}
+.goal-modal .fb-share-button-style {
+  width: 93px;
+  height: 33px;
+  background: url('../../../assets/images/fb-share.svg') no-repeat center center;
+  margin: 10px 0;
+  cursor: pointer;
+}
+.goal-modal i {
+  font-size: 30px;
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  color: #a3a3a3;
+}
+.goal-modal .location {
+  position: relative;
+  z-index: inherit;
+}
+.goal-modal .location i {
+  position: absolute;
+  top: 2px;
+  margin-right: 0;
+  left: 5px;
+}
+.goal-modal hr {
+  margin: 5px 0;
+}
+.goal-modal h2 {
+  font-size: 20px;
+  margin-top: 10px;
+  font-weight: 400;
+}
+.modal-top {
+  position: relative;
+  overflow: hidden;
+  height: 158px;
+}
+.modal-top i {
+  color: #ffffff;
+}
+.modal-top div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.modal-top h2 {
+  color: #fff;
+  margin: 10px 0 5px 10px;
+  font-size: 18px;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 28px;
+  height: 30px;
+  width: 260px;
+  overflow: hidden;
+  padding: 0;
+}
+.modal-top h2 span {
+  background-color: #021523;
+  display: inline-block;
+  padding: 0 5px 5px;
+}
+.modal-top ul {
+  padding: 0 0 0 15px;
+}
+.modal-top ul li {
+  display: inline-block;
+}
+.modal-top a {
+  color: #fff;
+  font-size: 12px;
+}
+.modal-top figure {
+  position: absolute;
+  width: 100%;
+}
+.modal-top figure img {
+  width: 100%;
+}
+.modal-top .overlay {
+  height: 260px;
+  background: rgba(0, 0, 0, 0.28);
+}
+.priority {
+  padding-top: 10px;
+}
+.title-smaller {
+  font-size: 12px;
+  line-height: 28px;
+  height: 30px;
+  width: 260px;
+  overflow: hidden;
+}
+.story-title {
+  margin: 10px 0 15px;
+  font-size: 18px;
+  line-height: normal;
+  font-weight: normal;
+}
+@media (min-width: 768px) {
+  .goal-modal {
+    width: 530px;
+  }
+  .goal-modal i {
+    margin-right: 0;
+  }
+  .goal-modal hr {
+    margin: 15px 0;
+  }
+  .goal-modal h2 {
+    font-size: 24px;
+    padding: 11px 0;
+    margin: 10px 0;
+  }
+  .goal-modal .fb-share-button-style {
+    float: right;
+    margin: 18px 0 15px;
+  }
+  .modal-top {
+    height: 260px;
+  }
+  .modal-top h2 {
+    width: auto;
+    height: auto;
+    margin: 0 0 5px 30px;
+    font-size: 25px;
+    line-height: 38px;
+  }
+  .modal-top h2 span {
+    padding: 10px 30px;
+    font-size: 32px;
+  }
+  .modal-top .title-top {
+    margin: 150px 30px 5px 30px;
+  }
+  .modal-top ul {
+    padding: 0 0 0 35px;
+  }
+  .modal-top ul li {
+    margin-right: 15px;
+  }
+  .modal-top a {
+    font-size: 16px;
+  }
+  .modal-bottom {
+    padding: 20px 0 ;
+  }
+  .priority {
+    padding-top: 15px;
+  }
+  .title-smaller {
+    width: auto;
+    height: auto;
+    font-size: 18px;
+    line-height: 23px;
+  }
+}
+@media (min-width: 992px) {
+  .goal-modal h2 {
+    font-size: 27px;
+    line-height: 41px;
+  }
+  .goal-modal h2.text-grey-dark {
+    font-size: 24px;
+    padding: 2px 0;
+    margin: 10px 0;
+  }
+  .goal-modal .fb-share-button-style {
+    margin: 16px 0 14px;
+  }
+}

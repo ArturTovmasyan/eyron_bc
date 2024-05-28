@@ -1,0 +1,20 @@
+<div id="login-page">
+<div id="signin">
+    <h2>Join</h2>
+    <a class="close-icon" (click)="joinHide()"></a>
+    <form enctype="multipart/form-data" method="post" id="login-form" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
+        <!--<input type="hidden" name="_csrf_token" value="[[ csrfToken ]] "/>-->
+        <div class="form-group">
+            <input type="email" [(ngModel)]="loginForm.username" class="form-control" id="username" name="_username" required="required" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+            <input type="password" [(ngModel)]="loginForm.password" class="form-control" id="password" placeholder="Password" name="_password" required="required" required>
+        </div>
+
+            <div class="error-message" *ngIf="error">
+                {{ error }}
+            </div>
+
+        </div>
+    </div>
+</div>

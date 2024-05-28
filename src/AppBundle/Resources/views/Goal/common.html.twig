@@ -1,0 +1,114 @@
+<div data-ng-controller="commonController" class="bg-grey" id="common-modal">
+    <div class="bg-white" data-ng-show="goals.length">
+        <h3>{{ 'menu.common'|trans }} [[ goals.length ]] Goals</h3>
+        <a href="javascript:void(0)" rel="modal:close" class="close-icon"></a>
+    </div>
+
+    <div class="common-content">
+        <div data-ng-show="goals.length"
+             data-ng-cloak
+             class="ng-hide row"
+             data-ng-repeat="goal in goals">
+
+                <div class="col-sm-12">
+                    <div class="idea-item">
+                        <figure>
+                            <h3>
+                                <a href="{{ env_prefix }}/goal/[[ ::goal.slug]]">[[ ::goal.title ]]</a>
+                            </h3>
+
+                            <a href="{{ env_prefix }}/goal/[[ ::goal.slug]]" class="goalTitle">
+                                <span class="overlay"></span>
+                                <img data-ng-src="[[ ::goal.cached_image ]]" data-ng-if="goal.cached_image" alt="[[ ::goal.title ]]"/>
+                            </a>
+
+                            <div class="absolute">
+                                <ul>
+                                    <li>
+                                        <a data-ls-goal-users
+                                           href="javascript:void(0)"
+                                           data-ls-goal-id="[[ ::goal.id ]]"
+                                           data-ls-count="[[ ::goal.stats.listedBy ]]"
+                                           data-ls-category="1"
+                                           data-ng-show="castInt(goal.stats.listedBy)">
+                                            <span>
+                                                {{ 'home_listed_by'|trans({},'messages') }}
+                                                [[ ::goal.stats.listedBy ]]
+                                            </span>
+                                            <i class="icon-user-small"></i>
+                                        </a>
+                                        <span class="text-white" data-ng-hide="castInt(goal.stats.listedBy)">
+                                            {{ 'home_listed_by'|trans({},'messages') }}
+                                            [[ ::goal.stats.listedBy ]]
+                                        </span>
+                                        <i class="icon-user-small" data-ng-hide="castInt(goal.stats.listedBy)"></i>
+                                    </li>
+                                    <li>
+                                        <a data-ls-goal-users
+                                           href="javascript:void(0)"
+                                           data-ls-goal-id="[[ ::goal.id ]]"
+                                           data-ls-count="[[ ::goal.stats.doneBy ]]"
+                                           data-ng-show="castInt(goal.stats.doneBy)">
+                                            <span>
+                                                {{ 'home_complete'|trans({},'messages') }}
+                                                [[ ::goal.stats.doneBy ]]
+                                            </span>
+                                            <i class="icon-user-small"></i>
+                                        </a>
+                                        <span class="text-white" data-ng-hide="castInt(goal.stats.doneBy)">
+                                            {{ 'home_complete'|trans({},'messages') }}
+                                            [[ ::goal.stats.doneBy ]]
+                                        </span>
+                                        <i class="icon-user-small" data-ng-hide="castInt(goal.stats.doneBy)"></i>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <figcaption>
+                                <ul  data-ng-app="goal" data-ng-controller="goalFooter" class="row no-gutter"
+                                     data-ng-init="completed=true" data-ng-cloak>
+
+                                    <li class="col-xs-6 ng-hide" data-ng-show="!goal.is_my_goal && completed">
+                                        <a href="javascript:void(0)"
+                                           data-ng-cloak
+                                           data-ls-goal-manage
+                                           data-ls-goal-id="[[ ::goal.id ]]"
+                                           data-ng-click=" goal.is_my_goal = 1 {% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
+
+                                            <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                            <span class="text">{{ 'add'|trans | capitalize}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="col-xs-6 transparent ng-hide" data-ng-show="(goal.is_my_goal && goal.is_my_goal !== 0)|| !completed ">
+                                        <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                        <span class="text">{{ 'added'|trans | capitalize}}</span>
+                                    </li>
+
+
+                                    <li class="col-xs-6 ng-hide" data-ng-show="goal.is_my_goal !== 2 && completed">
+                                        <a href="javascript:void(0)"
+                                           data-ng-cloak
+                                           data-ls-user-goal-manage
+                                           data-ls-goal-id="[[ ::goal.id ]]"
+                                           data-ng-click=" completed = false {% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
+                                            <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                                            <span class="text">{{ 'done'|trans | capitalize}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="col-xs-6 transparent ng-hide" data-ng-show="(goal.is_my_goal && goal.is_my_goal === 2 )|| !completed">
+                                        <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                        <span class="text">{{ 'completed'|trans | capitalize}}</span>
+                                    </li>
+
+                                </ul>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+        </div>
+        <div data-ng-show="!goals.length" class="ng-hide" data-ng-cloak>
+            <p>{{ 'no_common'| trans }}</p>
+        </div>
+    </div>
+</div>

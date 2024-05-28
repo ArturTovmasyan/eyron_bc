@@ -1,0 +1,174 @@
+{% extends "::amp.html.twig" %}
+
+{% block meta %}
+    {{ parent() }}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "{{ host }}/{{ blog.slug }}"
+           },
+        "headline": "{{ blog.title }}",
+        "image": {
+          "@type": "ImageObject",
+          "url": "{{ blog.imagePath|blImageFilter('slide_max_size') }}",
+          "height": 900,
+          "width": 1280
+        },
+        "datePublished": "{{ blog.publishedDate|date('c') }}",
+        "dateModified": "{{ blog.updated|date('c') }}",
+        "author": {
+          "@type": "Organization",
+          "name": "Bucketlist127"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Bucketlist127",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "{{ host ~ logo }}"
+       }},
+    "description": "{{- blog.metaDescription|markdown|sliceString -}}"
+    }
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="bg-dark-grey padding-bottom">
+
+        {% set blogData = blog.data %}
+        {% set posts = blog.posts %}
+
+        <h1 class="text-blue text-center {% if blog.title|length > 40 %}title-small{% endif %}">{{ blog.title }}</h1>
+
+        <div class="header blog-inner">
+            <div>
+                <h1 class="text-white {% if blog.title|length > 35 %}title-small{% endif %}">{{ blog.title }}</h1>
+            </div>
+            <figure>
+                <span class="overlay"></span>
+                <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}"  layout="responsive"  width="1280"
+                         height="853"></amp-img>
+            </figure>
+        </div>
+
+
+        <div class="bg-white content-inner">
+            <figure class="goal-cover">
+                <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}"
+                         srcset="{{ blog.imagePath|blImageFilter('goal_bg') }} 1080w,
+                                 {{ blog.imagePath|blImageFilter('goal_bg') }} 500w,
+                                 {{ blog.imagePath|blImageFilter('goal_list_small') }} 400w,"
+                         layout="responsive"
+                         width="1080"
+                         height="610"
+                         alt="{{ blog.title }}" title="{{ blog.title }}"></amp-img>
+            </figure>
+
+            <div class="text-justify">
+                {% if blogData|length > 0 %}
+
+                    {% for data in blogData %}
+
+                        {% if data.type == 'text' %}
+
+                            <p>{{ data.content|removeTag|markdown }}</p>
+
+                        {% elseif data.type == 'goal' and data.goals is defined %}
+
+                            {% set goal = data.goals %}
+
+                            <div class="amp-goals-information">
+                                <figure>
+                                    <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}">
+                                        <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
+                                              srcset="{{ goal.imagePath|blImageFilter('goal_list_small') }} 1080w,
+                                                      {{ goal.imagePath|blImageFilter('goal_bg') }} 700w,
+                                                      {{ goal.imagePath|blImageFilter('goal_bg') }} 500w,
+                                                      {{ goal.imagePath|blImageFilter('goal_list_small') }} 400w,
+                                                      "
+                                              layout="responsive"
+                                              width="1080"
+                                              height="610"
+                                              alt="{{ goal.title }}" title="{{ goal.title }}">
+                                        </amp-img>
+                                    </a>
+                                </figure>
+
+                                <div>
+                                    <span class="transparent"></span>
+                                    <h3 class="goal-title">
+                                        <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" class="text-blue">{{ goal.title }}</a>
+                                    </h3>
+                                    {% if goal.description %}
+                                        {{ goal.description|removeTag|markdown }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                {#{% set pathComment = iframe_host ~ path('blog_comment', {'id' : blog.id, 'slug': blog.slug }) %}#}
+
+                {#<amp-iframe width="500"#}
+                            {#height="281"#}
+                            {#layout="responsive"#}
+                            {#sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"#}
+                            {#resizable#}
+                            {#frameborder="0"#}
+                            {#src="{{ pathComment }}">#}
+                    {#<div overflow tabindex=0 role=button aria-label="Read more">Read more!</div>#}
+                {#</amp-iframe>#}
+            </div>
+
+            <br />
+            <div id="socials-holder-blog">
+                <amp-social-share type="twitter"
+                                  width="60"
+                                  height="44"> </amp-social-share>
+                <amp-social-share type="gplus"
+                                  width="60"
+                                  height="44"></amp-social-share>
+                <amp-social-share type="email"
+                                  width="60"
+                                  height="44"></amp-social-share>
+                <amp-social-share type="pinterest"
+                                  width="60"
+                                  height="44"></amp-social-share>
+                {#<amp-social-share type="linkedin"#}
+                                  {#width="60"#}
+                                  {#height="44"></amp-social-share>#}
+                <amp-social-share type="facebook"
+                                  width="60"
+                                  height="44"
+                                  data-param-app_id="{{ facebook_api_id }}"></amp-social-share>
+            </div>
+        </div>
+
+        <div class="bg-grey">
+            {{ include('AppBundle:Blog:relatedPosts.html.twig',  {'posts': posts} ) }}
+        </div>
+
+
+    </div>
+
+
+
+{% endblock %}
+
+{%- block title -%}
+    {{ blog.title }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{- blog.metaDescription|markdown|sliceString -}}
+{%- endblock -%}
+
+{%- block og_image -%}
+    {{ blog.imagePath|blImageFilter('slide_max_size') }}
+{%- endblock -%}

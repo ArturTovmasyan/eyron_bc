@@ -1,0 +1,86 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+.complete-profile{
+  margin-bottom: 10px;
+
+  em{
+    padding: 0 0 5px 15px;
+    display: block;
+    font-size: 14px;
+  }
+
+  ol{
+    padding:10px 35px;
+    background-color: #e6e6e6;
+    li{
+      color:#7d7d7d;
+      clear: both;
+
+      i{
+        cursor: default;
+      }
+
+      a,span{
+        color:#666666;
+        font-size:14px;
+
+        i{
+          margin-left:25px;
+        }
+
+        i.question-icon{
+          float:right;
+        }
+
+      }
+
+      a{
+        i{
+          cursor:pointer;
+        }
+        &:hover{
+          color:#666666;
+          i{
+            color:#7724f6;
+          }
+        }
+
+      }
+    }
+  }
+
+  i{
+    font-size: 25px;
+    vertical-align: middle;
+  }
+}
+
+@media (min-width: @screen-sm) {
+  .complete-profile{
+    margin-bottom: 20px;
+
+    em{
+      padding: 0 0 5px 15px;
+      font-size: 16px;
+    }
+
+    ol{
+      padding:20px 15px 20px 50px;
+      li{
+        a,bdi{
+          font-size:16px;
+          i{
+            margin-left:25px;
+          }
+        }
+      }
+    }
+
+    i{
+      font-size: 27px;
+    }
+  }
+}
+
+

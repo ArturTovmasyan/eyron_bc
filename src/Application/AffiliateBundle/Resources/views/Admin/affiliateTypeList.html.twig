@@ -1,0 +1,13 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{%- block field %}
+
+    {% set imageLink = object.downloadLink ? object.downloadLink|imagine_filter('affiliate_image') : object.downloadLink %}
+    {{ object.setCacheDownloadLink(imageLink) }}
+
+    <div align="left">
+        {{ object.replacePlaceHolders(object.htmlContent)|raw }}
+        {{ object.replacePlaceHolders(object.jsContent)|raw }}
+    </div>
+
+{% endblock -%}

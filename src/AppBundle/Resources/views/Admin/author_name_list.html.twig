@@ -1,0 +1,9 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{%- block field %}
+    {% if object.author is null %}
+        {{ 'Admin' }}
+    {% else %}
+        {{ object.author.showName() }}
+    {% endif %}
+{% endblock -%}

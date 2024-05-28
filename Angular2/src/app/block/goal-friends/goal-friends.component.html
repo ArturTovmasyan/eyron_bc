@@ -1,0 +1,26 @@
+<div *ngIf="users">
+  <div class="bg-white padding round margin-top">
+
+  <div class="row">
+      <div class="col-xs-10">
+
+        <a routerLink="/goal-friends" class="heading text-gray">
+          <i class="goalfrined-icon"></i>
+          <span class="text">{{ 'goalfriends'|translate }} {{length}}</span>
+        </a>
+      </div>
+
+      <div *ngIf="length > 3" class="col-xs-2 text-right">
+        <a (click)="refreshGoalFriends()" class="load" id="goalFriendLoad" #rotate></a>
+      </div>
+    </div>
+
+    <hr class="hr-margin"/>
+
+    <ul class="list">
+      <li class="clearfix" *ngFor="let user of users">
+        <goal-friend [user]="user"></goal-friend>
+      </li>
+    </ul>
+  </div>
+</div>

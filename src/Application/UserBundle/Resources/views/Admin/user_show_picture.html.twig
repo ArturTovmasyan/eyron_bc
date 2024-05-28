@@ -1,0 +1,13 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    <div>
+        {% if object is defined and object.id %}
+            {% if object.getPhotoLink %}
+                <figure>
+                    <img src="{{ object.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ object.filename }}">
+                </figure>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% block subject %}
+    {% autoescape false %}
+        {{ 'resetting.email.subject'|trans({'%project_name%': project_name}, 'FOSUserBundle') }}
+    {% endautoescape %}
+{% endblock %}
+{% block body_text %}{% endblock %}
+
+{% block body_html %}
+        {#<p>{{ 'resetting.email.message_first'|trans({'%username%': user.firstname, '%email%': user.email}, 'FOSUserBundle') |raw }}</p>#}
+
+        {#<br />#}
+        Hello
+        <p>
+            <a href="{{ confirmationUrl}}" >{{ 'resetting.email.link'|trans({}, 'FOSUserBundle')|raw }} {{ confirmationUrl}}</a>
+        </p>
+        <br />
+
+        {#<p>#}
+            {#{{ 'resetting.email.message_second'|trans({}, 'FOSUserBundle')|raw }}#}
+            {#<a href="{{ path('page', { 'slug': 'contact-us' }) }}">{{ 'verification.help_center'|trans({}, 'FOSUserBundle') }}</a>#}
+        {#</p>#}
+{% endblock %}

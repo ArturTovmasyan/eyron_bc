@@ -1,0 +1,78 @@
+@import "../../../assets/less/variables.less";
+
+.overall-progress{
+  max-height: 204px;
+
+  a{
+    cursor:pointer;
+  }
+
+  .overall-icon{
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    background: url('../../../assets/images/overall-progress-icon.svg') no-repeat center center;
+    background-size: 100%;
+    margin-right: 10px;
+  }
+
+  p{
+    span{
+      margin-right: 5px;
+    }
+  }
+  .overall-bg{
+    //padding: 6px 7px;
+    margin: 10px 0 15px;
+    div{
+      height: 22px;
+    }
+  }
+}
+
+.excellent-progress{
+  background: #7724f6; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #7724f6, #70bd46); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #7724f6, #70bd46); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #7724f6, #70bd46); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #7724f6 , #70bd46); /* Standard syntax (must be last) */
+}
+
+.falling-progress{
+  background: #7724f6; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #7724f6, #ef4e45); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #7724f6, #ef4e45); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #7724f6, #ef4e45); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #7724f6 , #ef4e45);/* Standard syntax (must be last) */
+}
+
+.right-menu.overall-progress{
+
+  hr{
+    margin: 20px 0;
+  }
+  span{
+    &:hover{
+      color: #999999;
+    }
+  }
+}
+
+.achievement-percent{
+  position: absolute;
+  padding-left: 10px;
+
+    span{
+      font-size: 11px;
+      line-height: 18px;
+    }
+}
+
+@media (min-width: @screen-lg) {
+  .overall-progress{
+    small{
+      display: inline-block;
+      padding:0 0 15px 0;
+    }
+  }
+}

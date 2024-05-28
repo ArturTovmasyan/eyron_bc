@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>Hello, {{ name }}</title>
+</head>
+<body>
+<h3>Hello, {{ name }}!.  {{ data.fullName }} {{ data.email }} email has sent you a message from {{ link }}.</h3>
+
+{% if data != 'null' %}
+    <p> <b>Subject:</b> {{ data.subject }}</p>
+    <br/>
+    <p> <b>Message:</b>{{ data.message }}</p>
+{% endif %}
+</body>
+</html>

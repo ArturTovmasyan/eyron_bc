@@ -1,0 +1,28 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    <div>
+        {% if object is defined and object.id %}
+            {% set storys = object.getSuccessStories() %}
+            {% set storyCount = 0 %}
+
+            <ul>
+            {% for story in storys %}
+                {% set goal = story.goal %}
+                {% set oneGoalStoryCount = goal.successStories|length %}
+                {% set storyCount = storyCount + goal.successStories|length %}
+
+                <li>
+                    <a href="{{ path('inner_goal', {'slug': goal.slug}) }}" target="_blank" title="{{ goal.title }}">
+                        {{ goal.title }}
+                    </a>
+                    {{ oneGoalStoryCount }}
+
+                </li>
+            {% endfor %}
+            </ul>
+            <hr>
+        {{ 'count - ' ~ storyCount }}
+        {% endif %}
+    </div>
+{% endblock %}

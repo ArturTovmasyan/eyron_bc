@@ -1,0 +1,103 @@
+{% extends "::amp.html.twig" %}
+
+{% block meta %}
+    {{ parent() }}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "{{ host }}/blog"
+           },
+        "headline": "{{- 'goal.stories_title'|trans -}}",
+        "image": {
+          "@type": "ImageObject",
+          "url": "{{ blogs[0].imagePath|blImageFilter('goal_list_small') }}",
+          "height": 400,
+          "width": 700
+        },
+        "datePublished": "{{ blogs[0].publishedDate|date('c') }}",
+        "dateModified": "{{ updated|date('c') }}",
+        "author": {
+          "@type": "Organization",
+          "name": "Bucketlist127"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Bucketlist127",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "{{ host ~ logo }}"
+         }
+       },
+    "description": "{{- 'goal.stories_description'|trans -}}"
+    }
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    {% set className = "profile-image profile-image" ~ random(4) %}
+    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
+    {% set itemCount = blogs.getTotalItemCount() %}
+
+    <div class="header">
+
+        <h1 class="text-white text-center stories-title">{{ 'menu.bucketlist_stories'|trans }}</h1>
+
+        <figure>
+            {% if itemCount %}
+                {% set image = blogs[0].imagePath|blImageFilter('user_cover') %}
+            {% else %}
+                {% set image = asset(imgPath) %}
+            {% endif %}
+            <span class="overlay"></span>
+            <amp-img src="{{ image }}"  layout="responsive"  width="1280"
+                     height="853"></amp-img>
+        </figure>
+
+    </div>
+
+    <section class="category">
+
+        <div class="samples">
+            <div class="amp-live-list-item">
+                {% for blog in blogs %}
+                    <figure class="blog">
+                        <a href="{{ path('blog_show', {'slug' : blog.slug}) }}">
+                            <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
+                                     layout="responsive"
+                                     width="1280"
+                                     height="853"
+                                     alt="{{ blog.title }}">
+                            </amp-img>
+
+                            <figcaption>
+                                <span class="transparent"></span>
+                                <h3 class="text-center text-blue">{{ blog.title }}</h3>
+
+                                <p class="text-center text-blue">{{ blog.metaDescription|markdown|striptags }}</p>
+                            </figcaption>
+                        </a>
+
+                    </figure>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="text-center">
+            {{ knp_pagination_render(blogs) }}
+        </div>
+
+    </section>
+
+{% endblock %}
+
+{%- block title -%}
+    {{- 'goal.stories_title'|trans -}}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{- 'goal.stories_description'|trans -}}
+{%- endblock -%}

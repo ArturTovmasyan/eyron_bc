@@ -1,0 +1,11 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{%- block field %}
+
+    {% for link in object.links %}
+        {% set slug = link|split('/') %}
+        <a href="{{ link }}" target="_blank">{{ slug[slug|length - 1] }}</a>
+        <br />
+    {% endfor %}
+
+{% endblock -%}

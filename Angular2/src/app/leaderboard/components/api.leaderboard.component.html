@@ -1,0 +1,185 @@
+<div id="leaderboard">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-8">
+        <div id="leaderboard-place">
+          <figure class="round">
+
+            <img src="{{ isMobile?'assets/images/leaderboard-phone.svg':'assets/images/leaderboard-image.jpg'}}" alt="Bucket List 127" class="img-responsive"/>
+
+            <figcaption>
+              <ul class="badge-place">
+                <!--<li>-->
+                  <!--<a routerLink="/leaderboard/traveler">-->
+                    <!--<i class="badge-1"></i>-->
+                    <!--<span class="text-dark-gray" [ngClass]="{'text-orange': category == 'traveler'}">{{ 'leaderboard.traveler'| translate }}</span>-->
+                  <!--</a>-->
+                <!--</li>-->
+                <li>
+                  <a routerLink="/leaderboard/innovator">
+                    <i class="badge-3"></i>
+                    <span class="text-dark-gray" [ngClass]="{'text-orange': category == 'innovator'}">{{ 'leaderboard.innovator'| translate }}</span>
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="/leaderboard/mentor">
+                    <i class="badge-2"></i>
+                    <span class="text-dark-gray" [ngClass]="{'text-orange': category == 'mentor'}">{{ 'leaderboard.writer'| translate }}</span>
+                  </a>
+                </li>
+              </ul>
+            </figcaption>
+          </figure>
+
+          <h3 class="text-dark-gray">{{ 'leaderboard.top'| translate }}</h3>
+
+          <div class="leaderboard-space">
+            <div class="row no-gutter">
+              <bl-loading mode="indeterminate" *ngIf="!data"></bl-loading>
+              <div class="col-xs-7 col-sm-9">
+
+                <ul class="leaderboard-titles left-corner clearfix">
+                  <li class="rank">{{ 'leaderboard.rank'| translate }}</li>
+                  <li>{{ 'leaderboard.leaders'| translate }}</li>
+                </ul>
+
+              </div>
+              <div class="col-xs-5 col-sm-3">
+
+                <ul class="leaderboard-titles right-corner clearfix">
+                  <li>{{ 'leaderboard.score'| translate }}</li>
+                  <li class="level">{{ 'leaderboard.level'|translate }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="leaderboard-space">
+            <div class="row no-gutter">
+              <div class="col-xs-7 col-sm-9">
+                <ul [ngClass]="{'no-border-top-left': !i}" *ngFor="let user of data  | slice:0:10; let i = index" class="bg-white left-corner goals-animate">
+                  <li class="text-orange">{{i + 1}}</li>
+                  <li>
+                    <figure class="img-circle">
+                      <!--{% set className = "user-no" ~ random(4) %}-->
+                      <img class="img-circle" *ngIf="user.user.image_path" src="{{ serverPath + user.user.image_path }}" alt="user image"/>
+                      <p *ngIf="!user.user.image_path" class="no-image text-white user-no3">{{ user.user.first_name  | slice:0: 1 | uppercase }} {{ user.user.last_name | slice:0: 1 | uppercase }}</p>
+                    </figure>
+                  </li>
+
+                  <li>
+                    <a routerLink="/profile/{{ user.user.u_id }}/activity" class="text-dark-gray">{{ getFullName(user.user)}}</a>
+                  </li>
+
+                </ul>
+              </div>
+              <div class="col-xs-5 col-sm-3">
+
+                <ul class="bg-white leaderboard-right goals-animate" [ngClass]="{'no-border-top-right': !i}" *ngFor="let user of data  | slice:0:10; let i = index">
+                    <!--data-ng-cloak-->
+                  <li class="text-orange">{{ user.points}}</li>
+                  <li class="text-orange level">{{ user.score}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!--{% if app.user %}-->
+          <h3 class="text-dark-gray" *ngIf="appUser && data &&  data.length > 10">{{ 'leaderboard.position'|translate }}</h3>
+
+          <div class="round goals-animate" [hidden]="!appUser || !data || !data.length" [ngClass]="{'margin-top': i == 0,'bg-white': user.user.id == appUser.id}" *ngFor="let user of data |slice: 10: 15; let i = index">
+
+            <div class="leaderboard-space">
+              <div class="row no-gutter">
+                <div class="col-xs-7 col-sm-9">
+                  <ul class="bg-grey-darker left-corner" [ngClass]="{'bg-white': user.user.id == appUser.id }">
+                    <li class="text-orange">{{ user.position }}</li>
+
+                    <li>
+                      <figure class="img-circle">
+                        <!--{% set className = "user-no" ~ random(4) %}-->
+                        <img *ngIf="user.user.image_path.length" src="{{ serverPath + user.user.image_path}}" alt="user image"/>
+                        <p *ngIf="!user.user.image_path.length" class="no-image text-white user-no1">{{ user.user.first_name  | slice:0: 1 | uppercase }} {{ user.user.last_name | slice:0: 1 | uppercase ]]</p>
+                      </figure>
+                    </li>
+
+                    <li>
+                      <a routerLink="/profile/{{ user.user.u_id }}/activity" class="text-dark-gray">{{ getFullName(user.user)}}</a>
+                    </li>
+
+                  </ul>
+                </div>
+                <div class="col-xs-5 col-sm-3">
+                  <ul class="bg-grey-darker leaderboard-right" [ngClass]="{'bg-white': user.user.id == appUser.id }">
+
+                    <li class="text-orange">{{ user.points }}</li>
+
+                    <li class="text-orange level">{{ user.score}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div [hidden]="user.user.id != appUser.id">
+                <p class="text-gray leaderboard-text">{{ 'leaderboard.position_text'|translate }}</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!--{% endif %}-->
+        </div>
+      </div>
+
+      <div class="col-md-4">
+
+        <div class="right-block padding padding-no round">
+          <div class="right-menu">
+            <div class="bg-white round">
+
+              <ul class="row">
+                <li class="col-xs-10">
+                   <span>
+                     <i class="icon-top-idea"></i>
+                     <span class="text-gray" [innerHTML]>{{ 'leaderboard.rewards'|translate }}</span>
+                    </span>
+                </li>
+              </ul>
+
+              <hr/>
+
+              <div class="badge-place" id="rewards">
+
+                <div class="row no-gutter">
+                  <div class="col-xs-1">
+                    <i class="badge-1"></i>
+                  </div>
+                  <div class="col-xs-11">
+                    <p class="text-justify text-gray" [innerHTML]="'leaderboard.travelerText'|translate"></p>
+                  </div>
+                </div>
+
+                <div class="row no-gutter">
+                  <div class="col-xs-1">
+                    <i class="badge-3"></i>
+                  </div>
+                  <div class="col-xs-11">
+                    <p class="text-justify text-gray" [innerHTML]="'leaderboard.innovatorText'|translate"></p>
+                  </div>
+                </div>
+
+                <div class="row no-gutter">
+                  <div class="col-xs-1">
+                    <i class="badge-2"></i>
+                  </div>
+                  <div class="col-xs-11">
+                    <p class="text-justify text-gray" [innerHTML]="'leaderboard.motivatorText'|translate"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

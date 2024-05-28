@@ -1,0 +1,36 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+#draft-delete{
+  //width: 280px;
+  margin: 10% auto;
+  position: relative;
+  padding: 23px 15px;
+  .rounded-corners(8px);
+
+  .modal-footer{
+    border-top: 0;
+    text-align: center;
+
+    a[md-button]{
+      padding: 3px 35px;
+    }
+
+    .btn-transparent[md-button]{
+      &:focus,&:active{
+        background-color: #fff;
+        border: 1px solid #e3e3e3;
+        color: #999999;
+      }
+    }
+
+  }
+}
+
+@media (min-width: @screen-sm) {
+  #draft-delete{
+    margin: 15% auto 0;
+    width: 530px;
+    overflow: hidden;
+  }
+}

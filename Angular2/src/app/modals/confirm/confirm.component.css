@@ -1,0 +1,39 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+#draft-delete {
+  width: 280px;
+  margin: 0 auto;
+  position: relative;
+  padding: 23px 1px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+#draft-delete .modal-footer {
+  border-top: 0;
+  text-align: center;
+}
+#draft-delete .modal-footer a[md-button] {
+  padding: 3px 35px;
+}
+#draft-delete .modal-footer .btn-transparent[md-button]:focus,
+#draft-delete .modal-footer .btn-transparent[md-button]:active {
+  background-color: #fff;
+  border: 1px solid #e3e3e3;
+  color: #999999;
+}
+@media (min-width: 768px) {
+  #draft-delete {
+    top: 15%;
+    width: 530px;
+    overflow: hidden;
+  }
+}

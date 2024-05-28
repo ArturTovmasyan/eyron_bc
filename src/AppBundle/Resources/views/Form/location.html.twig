@@ -1,0 +1,27 @@
+{% block bl_location_widget %}
+
+    <input type="text"
+           data-google-places-autocomplete
+           placeholder="{{ "goal.location_ex"|trans }}"
+           data-hidden-storage="#{{ form.vars.id }}"
+           class="form-control"
+           value="[[ goal_location['address'] ]]"/>
+    <input type="hidden"
+           name="{{ form.vars.full_name }}"
+           id="{{ form.vars.id }}"
+           data-ng-init="goal_location={{ form.vars.value|default("{}") }}"
+           value="{{ form.vars.value }}">
+
+    <div class="map-marker"
+         data-simple-map-marker
+         data-zoom="14"
+         data-hidden-storage="#{{ form.vars.id }}"
+         data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"
+         data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"
+         data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
+         data-markers="[goal_location.location]"
+
+         style="width: 99.8%; height: 500px">
+    </div>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+<div id="draft-delete" class="bg-white" (clickOutside)="closeModal()">
+  <div class="modal-content">
+    <div class="modal-body text-center">
+      <h4 *ngIf="!lsText">{{'confirm_msg' | translate}}</h4>
+      <h4 *ngIf="lsText">{{ lsText | translate}}</h4>
+      <br/>
+    </div>
+    <div class="modal-footer">
+      <a md-button (click)="dialogRef.close('yes'); isOpen = false" class="btn btn-transparent">{{'delete' | translate}}</a>
+      <a md-button (click)="dialogRef.close('no'); isOpen = false" class="btn btn-purple">{{'cancel' | translate}}</a>
+    </div>
+  </div>
+</div>

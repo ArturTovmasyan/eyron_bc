@@ -1,0 +1,45 @@
+<div class="modal-top">
+
+    {% set image = goal.getListPhoto  %}
+    {% set author = goal.author %}
+    {% set show = true %}
+
+    <figure>
+       {% if image %} <img src="{{image.getDownloadLink|blImageFilter('goal_bucketlist') }}" alt="{{ goal.title }}" class="img-responsive" />{% endif %}
+    </figure>
+
+    <span class="overlay"></span>
+
+    <div>
+
+        <h2  class="{% if goal.title|length > 35 %}title-smaller {% endif %}{% if goal.author.showName is not defined or goal.author.showName is null %}title-top {% endif  %}">
+            <span>{{ goal.title }}</span>
+        </h2>
+
+        {% if user and author and user.id == author.id %}
+            {% set show = false %}
+        {% endif %}
+
+        {% if author and not author.isAdmin and show %}
+            <p>{{ goal.author.showName }}</p>
+        {% endif %}
+
+        <ul>
+            <li>
+                <a href="#">
+                    {{ 'block_listed'|trans | capitalize }}
+                    <span>{{ goal.stats.listedBy }}</span>
+                    <i class="icon-user-small"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    {{ 'block_completed'|trans | capitalize }}
+                    <span>{{ goal.stats.doneBy }}</span>
+                    <i class="icon-user-small"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>

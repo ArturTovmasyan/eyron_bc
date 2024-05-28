@@ -1,0 +1,6 @@
+{% if object.registrationIds is defined and object.registrationIds %}
+    <a href="{{ path("sand-test-message", {'userId': object.id }) }}" class="btn btn-sm btn-default edit_link">
+        <i class="glyphicon glyphicon-envelope"></i>
+        {{ 'admin.label.name.messages'|trans({}, 'messages') }}
+    </a>
+{% endif %}

@@ -1,0 +1,16 @@
+{% block admin_file_widget %}
+
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_widget(form) }}
+        </div>
+        <div class="col-md-10">
+            {% if form.parent.vars.value.downloadLink %}
+                {{ form.parent.vars.value.downloadLink }}<br />
+                <img src="{{ form.parent.vars.value.downloadLink|imagine_filter('affiliate_image') }}" />
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

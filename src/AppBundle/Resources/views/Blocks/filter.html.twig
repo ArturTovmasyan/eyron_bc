@@ -1,0 +1,88 @@
+ <div data-ng-cloak class="filters-slider swiper-container">
+    <ul class="filter swiper-wrapper ng-hide" data-ng-cloak data-ng-show="filterVisibility" data-ng-init="categoriesLength = {{ categories|length }}">
+
+        {% set mostPopular = false %}
+        {% set featured = false %}
+        {% set nearby = false %}
+
+        {% if categories|length > 0 %}
+            {% for i in 0..(categories|length -1) %}
+                {% if categories[i].getSlug() == 'most-popular' %}
+                    {% set mostPopular = true %}
+                {% endif %}
+                {% if categories[i].getSlug() == 'featured' %}
+                    {% set featured = true %}
+                {% endif %}
+                {% if categories[i].getSlug() == 'nearby' %}
+                    {% set nearby = true %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <li class="swiper-slide {% if selected and selected == 'discover'%}active-category{% endif %}"
+            data-ng-class="{'active-category': activeCategory == ''}">
+            <a href="#discover"
+               data-ng-click="goTo('')">
+                <img src="{{ asset('bundles/app/images/discover.svg') }}" class="svg"/>
+                <span>{{ 'discover'|trans }}</span>
+            </a>
+        </li>
+
+        <li class="swiper-slide"
+            data-ng-class="{'active-category': activeCategory == 'nearby'}">
+            <a href="#nearby"
+               data-ng-click="goTo('nearby')"
+               data-slug="nearby">
+                <img src="{{ asset('bundles/app/images/nearby.svg') }}" class="svg"/>
+                <span>{{ 'nearby'|trans }}</span>
+            </a>
+        </li>
+
+        {% if featured %}
+            <li class="swiper-slide {% if selected and selected == 'featured' %}active-category{% endif %}"
+                data-ng-class="{'active-category': activeCategory == 'featured'}">
+                <a href="#featured"
+                   data-ng-click="goTo('featured')"
+                   data-slug="featured">
+                    <img src="{{ asset('bundles/app/images/featured.svg') }}" class="svg"/>
+                    <span>{{ 'featured'|trans }}</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if mostPopular %}
+        <li class="swiper-slide {% if selected and selected == 'most-popular' %}active-category{% endif %}"
+            data-ng-class="{'active-category': activeCategory == 'most-popular'}">
+            <a href="#most-popular"
+               data-ng-click="goTo('most-popular')">
+                <img src="{{ asset('bundles/app/images/most-popular.svg') }}"  class="svg"/>
+                <span>{{ 'most_popular'|trans }}</span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% for category in categories %}
+            {% if category.slug != 'most-popular' and category.slug != 'featured' and category.slug != 'nearby' %}
+                <li class="swiper-slide {% if selected and selected == category.slug %}active-category{% endif %}"
+                    data-ng-class="{'active-category': activeCategory == '{{ category.slug }}'}">
+                    <a href="#{{ category.slug }}"
+                       data-ng-click="goTo('{{ category.slug }}')"
+                       data-slug="{{ category.slug }}">
+                        <img src="{{ category.downloadLink }}" class="svg"/>
+                        <span>{{ category.title }}</span>
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+     <div class="hidden-lg">
+         <div class="bg-left">
+             <i class="swiper-button-prev"></i>
+         </div>
+         <div  class="bg-right">
+            <i class="swiper-button-next"></i>
+         </div>
+     </div>
+</div>
+

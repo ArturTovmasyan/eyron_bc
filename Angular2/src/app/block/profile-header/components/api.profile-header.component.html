@@ -1,0 +1,274 @@
+<div class="api-content-header">
+    <bl-loading mode="indeterminate" *ngIf="!profileUser"></bl-loading>
+    <figure [class.my-profile]="!userInfo || userInfo == 'my'" *ngIf="profileUser">
+
+        <span class="overlay"></span>
+        <img src="{{ (profileUser && profileUser.cached_image)?profileUser.cached_image: imgPath}}"
+             alt="Profile Cover Photo" class="img-responsive"/>
+
+    </figure>
+
+    <div class="profile api-profile" *ngIf="appUser && profileUser">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <figure>
+
+                        <form class="row no-gutter">
+                            <div class="col-xs-3 col-sm-12">
+                                <div class="api-user-image">
+                                <!--<span class="camera-icon" *ngIf="type == 'settings' && !profileUser.cached_image"></span>-->
+                                    <label class="camera-icon" for="file" *ngIf="type == 'settings'"></label>
+                                    <div class="hide" *ngIf="type == 'settings'">
+                                        <input type="file" id="file" name="file" (change)="showUploadedImage($event)">
+                                    </div>
+
+                                    <!--<span *ngIf="errorMessage && errorMessage.file" style="text-align: center;color: red">{{ errorMessage.file }}</span>-->
+                                    <p *ngIf="errorMessage && errorMessage.file" [innerHTML]="errorMessage.file"></p>
+
+                                    <img src="{{ profileUser.cached_image }}" *ngIf="profileUser.cached_image"
+                                         alt="Profile image" class="img-responsive img-circle"/>
+                                    <!--{{ profileUser.cached_image|blImageFilter('user_image') }}-->
+                                    <span class="no-image profile-image profile-image1" *ngIf="!profileUser.cached_image">
+                                      {{ profileUser.first_name |slice:0:1 |uppercase }} {{ profileUser.last_name |slice:0:1 |uppercase }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-9 text-left">
+                                <h3 [class.user-name]="!userInfo || userInfo == 'my'">
+                                    <span *ngIf="isMobile && profileUser.show_name"
+                                          [class.title-smaller]="profileUser.show_name && profileUser.show_name.length > 12">
+                                        {{ profileUser.show_name }}
+                                    </span>
+                                </h3>
+
+                                <!--{% if profileUser.id != app.user.id %}-->
+                                <!--data-ls-follow-manage-->
+
+                              <span class="close-friends hidden-sm hidden-md hidden-lg"
+                                    *ngIf="userInfo && userInfo != 'my'"
+                                    (click)="toggleFollow()"
+                                    [mdTooltip]="(isFollow?'my_bucket_list.un_follow':'my_bucket_list.follow')|translate">
+
+                                <i class="follow-icon" *ngIf="!isFollow" title="{{ 'my_bucket_list.follow'|translate }}"></i>
+                                <i class="closefriend-icon" *ngIf="isFollow" title="{{ 'my_bucket_list.un_follow'|translate }}"></i>
+                                <span *ngIf="!isFollow">{{ 'my_bucket_list.follow' | translate | uppercase }}</span>
+                                <span *ngIf="isFollow">{{ 'my_bucket_list.un_follow' | translate | uppercase }}</span>
+                              </span>
+                                <!--{% endif %}-->
+                            </div>
+                        </form>
+
+                        <figcaption>
+                            <ul>
+                                <li>
+                                    <span>{{ 'block_listed'|translate | titlecase }}</span>
+                                    <span>{{ listedBy }}</span>
+                                </li>
+
+                                <li>
+                                    <span>{{ 'user_goal.active'|translate | titlecase }}</span>
+                                    <span>{{ active }}</span>
+                                </li>
+
+                                <li>
+                                    <span>{{ 'block_completed'|translate |titlecase }}</span>
+                                    <span>{{ doneBy }}</span>
+                                </li>
+                            </ul>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="col-sm-4 hidden-xs relative">
+
+                    <!--{% if profileUser.show_name %}-->
+                    <h1 *ngIf="!isMobile && profileUser.show_name">
+                        <span class="bg-blue" [class.title-smaller]="profileUser.show_name.length > 11">{{ profileUser.show_name }}</span>
+                    </h1>
+                    <!--{% endif %}-->
+
+          <span class="close-friends hidden-xs"
+                *ngIf="userInfo && userInfo != 'my'"
+                (click)="toggleFollow()"
+                [mdTooltip]="(isFollow?'my_bucket_list.un_follow':'my_bucket_list.follow')|translate">
+
+                <i class="follow-icon" *ngIf="!isFollow" title="{{ 'my_bucket_list.follow'|translate }}"></i>
+                <i class="closefriend-icon" *ngIf="isFollow" title="{{ 'my_bucket_list.un_follow'|translate }}"></i>
+                <span *ngIf="!isFollow">{{ 'my_bucket_list.follow' | translate | uppercase }}</span>
+                <span *ngIf="isFollow">{{ 'my_bucket_list.un_follow' | translate | uppercase }}</span>
+          </span>
+
+                    <!--{% set badges = profileUser.getBadges %}-->
+
+                    <ul class="badge-place">
+
+                        <!--{% set badgeTitles = {-->
+                        <!--1 : 'leaderboard.traveler'|translate,-->
+                        <!--2 : 'leaderboard.writer'|translate,-->
+                        <!--3 : 'leaderboard.innovator'|translate-->
+                        <!--} %}-->
+
+                        <!--{% for badge in badges %}-->
+
+                        <!--{% set score = badgeNormalizer(badge.type, badge.Score) %}-->
+
+                        <!--{% if score  > 0 %}-->
+                        <li *ngFor="let badge of badges">
+                            <i title="{{ (badge.type == 1?'leaderboard.traveler': badge.type == 2?'leaderboard.writer':'leaderboard.innovator')|translate }}"
+                               class="badge-{{ badge.type }}"></i>
+                            <a routerLink="/leaderboard/{{ (badge.type == 2?'mentor':'innovator')}}"
+                               routerLinkActive="active">{{ badge.points }}</a>
+                            <!--{{ score|round(0, 'ceil')}}-->
+                        </li>
+                        <!--{% endif %}-->
+
+                        <!--{% endfor %}-->
+                    </ul>
+                </div>
+
+                <!--{% if profileUser.id == app.user.id %}-->
+                <div class="col-sm-4 relative" [class.bg-white]="isMobile" *ngIf="!userInfo || userInfo == 'my'">
+
+                    <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
+                    <div class="profile-information" *ngIf="appUser.completed_percent != 100">
+                        <em>{{ 'complete_message'|translate }}</em>
+
+                        <div class="row no-gutter">
+                            <div class="col-xs-10">
+                                <div class="progress">
+                                    <section class="progress-section">
+                     <span>
+                       {{ appUser.completed_percent|round }}%
+                     </span>
+                                        <md-progress-bar
+                                                class="example-margin"
+                                                [value]="appUser.completed_percent">
+                                        </md-progress-bar>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <a class="text-gray" (click)="completeProfileMyBucketList=!completeProfileMyBucketList">
+                                    <i class="question-icon-new" *ngIf="!completeProfileMyBucketList && !isMobile"></i>
+                                    <i class="icon-question-icon" *ngIf="!completeProfileMyBucketList && isMobile"><span
+                                            class="path1"></span><span class="path2"></span></i>
+                                    <i class="icon-icon-up" *ngIf="completeProfileMyBucketList"><span
+                                            class="path1"></span><span class="path2"></span></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--{% endif %}-->
+                </div>
+            </div>
+            <!--<div *ngIf="flashBag && flashBag.length">-->
+                <!--<div *ngFor="let msg of flashBag;let i = index"-->
+                     <!--class="accordion alert alert-success alert-dismissible ">-->
+                    <!--{{ msg | translate}}-->
+                    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"-->
+                            <!--(click)="closeFlashBug(i)">-->
+                        <!--<span aria-hidden="true">&times;</span>-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</div>-->
+
+
+            <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
+            <div class="row slide" *ngIf="appUser.completed_percent != 100 && completeProfileMyBucketList">
+                <!--data-ng-cloak *ngIf="completeProfileMyBucketList" style="display: none"-->
+                <div class="col-sm-6">
+                    <ol style="position: relative;">
+                        <li>
+              <span class="profile-title">
+                  {{ 'security.login.sign_up'|translate }}
+                  <i class="icon-ok-only"></i>
+              </span>
+                            <span class="text-gray">{{ 'my_list.signed_up'|translate }}</span>
+                        </li>
+                        <li>
+              <span class="profile-title">{{ 'account.complete_text'|translate }}
+                  <i *ngIf="appUser.is_confirmed == true" class="icon-ok-only"></i>
+                    <i *ngIf="appUser.is_confirmed !== true" class="icon-question-only"></i>
+              </span>
+                            <span class="text-gray">{{ 'my_list.verification'|translate }}</span>
+                            <span class="text-gray">{{ 'my_list.confirm'|translate }}</span>
+                        </li>
+                        <li>
+                            <!--{% if user.socialPhotoLink or  user.fileName %}-->
+                <span class="profile-title"
+                      *ngIf="appUser.social_photo_link || appUser.file_name || appUser.image_path">{{ 'image_complete_text'|translate }}
+                    <i class="icon-ok-only"></i>
+                </span>
+                            <!--{% else %}-->
+
+                            <a *ngIf="!appUser.social_photo_link && !appUser.file_name && !appUser.image_path"
+                               routerLink='/edit/profile'>
+                                <strong>{{ 'image_complete_text'|translate }}</strong>
+                                <i class="icon-question-only"></i>
+                            </a>
+
+                            <!--{% endif %}-->
+                            <span class="text-gray">{{ 'my_list.add_image'|translate }}</span>
+
+                        </li>
+                        <li>
+                            <a routerLink="/goal/create"><strong>{{ 'my_bucket_list.add_goal'|translate |titlecase
+                                }}</strong>
+                                <!--{% if user.userGoalCount > 0 %}-->
+                                <i *ngIf="appUser.draft_count > 0" class="icon-ok-only"></i>
+                                <!--{% else %}-->
+                                <i *ngIf="appUser.draft_count == 0 " class="icon-question-only"></i>
+                                <!--{% endif %}-->
+                            </a>
+
+                            <span class="text-gray">{{ 'my_list.want_control'|translate }}</span>
+                            <span class="text-gray">{{ 'my_list.follow_link'|translate }}</span>
+                        </li>
+                    </ol>
+
+                </div>
+
+                <div class="col-sm-6">
+                    <ol style="position: relative" start="5">
+                        <li>
+              <span class="profile-title">{{ 'deadline.complete_text'|translate }}
+                <!--{% if user.checkDeadLines() %}-->
+                    <i *ngIf="appUser.check_deadline == true" class="icon-ok-only"></i>
+                <!--{% else %}-->
+                    <i *ngIf="appUser.check_deadline !== true" class="icon-question-only"></i>
+                <!--{% endif %}-->
+            </span>
+                            <span class="text-gray">{{ 'my_list.dream_text'|translate }}</span>
+                        </li>
+                        <li>
+              <span class="profile-title">{{ 'goal.complete_text'|translate }}
+                <!--{% if user.checkCompletedGoals() %}-->
+                    <i *ngIf="appUser.check_completed_goals == true" class="icon-ok-only"></i>
+                <!--{% else %}-->
+                    <i *ngIf="appUser.check_completed_goals !== true" class="icon-question-only"></i>
+                <!--{% endif %}-->
+              </span>
+                            <span class="text-gray">{{ 'my_list.have_goal'|translate }}</span>
+                        </li>
+
+                        <li>
+              <span class="profile-title">{{ 'success_story.complete_text'|translate }}
+                <!--{% if user.checkSuccessStory() %}-->
+                    <i *ngIf="appUser.check_success_story == true" class="icon-ok-only"></i>
+                <!--{% else %}-->
+                    <i *ngIf="appUser.check_success_story !== true" class="icon-question-only"></i>
+                <!--{% endif %}-->
+            </span>
+                            <span class="text-gray">{{ 'my_list.complete_goal'|translate }}</span>
+                        </li>
+                    </ol>
+
+                </div>
+            </div>
+            <!--{% endif %}-->
+
+        </div>
+    </div>
+</div>

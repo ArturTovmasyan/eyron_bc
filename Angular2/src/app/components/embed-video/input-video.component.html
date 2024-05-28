@@ -1,0 +1,15 @@
+<div class="relative">
+    <input type="text"
+           class="form-control"
+           name="videoLink{{ key }}"
+           placeholder="{{'video_placeholder'|translate}}"
+           [ngModel]="link"
+           (ngModelChange)="changeLink($event)">
+
+    <a *ngIf="array[key]" (click)="removeItem()" class="remove-icon">
+        <span class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </a>
+
+    <embed-video width="100%" height="500px" [href]="array[key]" *ngIf="isVideoLink(array[key])">
+    </embed-video>
+</div>

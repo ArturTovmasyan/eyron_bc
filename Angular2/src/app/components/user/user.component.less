@@ -1,0 +1,84 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+.users-list{
+  background-color: #ffffff;
+  padding:15px 10px 15px 15px;
+  margin-bottom:10px;
+
+  h4{
+    padding: 3px 0 1px 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin:0;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  figure, .no-image{
+    height: 45px;
+    width: 45px;
+    margin: 0 auto;
+    line-height: 40px;
+
+    img{
+      border: 2px solid #cecece;
+      width: 45px;
+      height: 45px;
+    }
+  }
+
+  span{
+    font-size:13px;
+  }
+}
+
+@media (min-width: @screen-sm) {
+  .users-list{
+    padding:20px 10px 20px 20px;
+    margin-bottom:15px;
+    min-height: 101px;
+
+    h4{
+      font-size: 16px;
+    }
+
+    figure, .no-image{
+      height: 60px;
+      width: 60px;
+      line-height: 55px;
+
+      img{
+        width: 60px;
+        height: 60px;
+      }
+
+      p{
+        font-size:14px;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md) {
+  .users-list{
+    padding:20px 25px;
+    margin-bottom:25px;
+
+    //figure, .no-image{
+    //  height: 60px;
+    //  width: 60px;
+    //  line-height: 55px;
+    //
+    //  img{
+    //    width: 60px;
+    //    height: 60px;
+    //  }
+    //
+    //  p{
+    //    font-size:14px;
+    //  }
+    //}
+  }
+}

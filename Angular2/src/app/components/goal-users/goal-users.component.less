@@ -1,0 +1,53 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+.like-active{
+  background: url('../../../assets/images/like-active.png') no-repeat center center;
+  background-size: 100%;
+}
+
+button[md-button]{
+  padding: 0;
+  min-width: 20px;
+  line-height: 20px;
+}
+
+span{
+  font-size:12px;
+  color:#999999;
+
+  &.text-purple{
+    vertical-align: top;
+    padding: 2px 0 0;
+    display: inline-block;
+    margin: 3px 12px 0 0;
+  }
+}
+
+.like-icon{
+  margin: 0;
+}
+
+@media (min-width: @screen-sm) {
+  .like-icon {
+    height: 31px;
+    width: 59px;
+    //margin: 0 0 0 12px;
+  }
+
+  span{
+    font-size:12px;
+    &.text-purple{
+      vertical-align: middle;
+      margin: 0 12px 0 0;
+    }
+  }
+}
+
+@media (min-width: @screen-sm) {
+  span {
+    &.text-purple {
+      font-size: 14px;
+    }
+  }
+}

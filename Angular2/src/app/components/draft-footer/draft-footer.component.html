@@ -1,0 +1,19 @@
+<figcaption>
+
+    <ul class="row no-gutter">
+      <li class="col-xs-6">
+        <a md-button routerLink="/goal/create/{{ goals[index].id }}/{{ slug?slug: 'Private'}}">
+          <i class="icon-manage-in-circle"><span class="path1"></span><span class="path2"></span></i>
+          <span class="text">{{ 'btn_edit'|translate | titlecase}}</span>
+        </a>
+      </li>
+
+      <li class="col-xs-6" (click)="openDialog(goals[index].id)">
+          <a md-button>
+              <i class="icon-delete-in-circle"><span class="path1"></span><span class="path2"></span></i>
+              <span class="text">{{ 'btn_remove'|translate | titlecase}}</span>
+          </a>
+      </li>
+    </ul>
+
+</figcaption>

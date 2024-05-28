@@ -1,0 +1,23 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+#leaderboard-list {
+  margin: 0 0 20px 0;
+}
+#leaderboard-list ul li {
+  margin-bottom: 10px;
+}
+#leaderboard-list ul li:first-child {
+  border-bottom: 1px solid #eeeeee;
+}
+#leaderboard-list ul li ul li {
+  margin-bottom: 0;
+}
+#leaderboard-list ul li ul li:first-child {
+  border-bottom: 0;
+}

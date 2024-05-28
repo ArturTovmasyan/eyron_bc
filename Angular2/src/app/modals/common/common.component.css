@@ -1,0 +1,53 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+#common-modal {
+  width: 280px;
+  margin: 0 auto;
+}
+#common-modal h3 {
+  margin: 0;
+  padding: 20px 10px;
+  font-size: 18px;
+  color: #021523;
+}
+#common-modal .common-content {
+  padding: 15px 15px 5px;
+  border-top: 1px solid #ccc;
+}
+#common-modal .common-content .idea-item h3 {
+  margin: 0;
+  font-size: 18px;
+  padding: 10px;
+  color: #021523;
+}
+#common-modal .common-content .idea-item .goal-item-image,
+#common-modal .common-content .idea-item .overlay {
+  height: 130px;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  #common-modal {
+    width: 390px;
+  }
+  #common-modal h3 {
+    padding: 20px;
+    font-size: 22px;
+  }
+  #common-modal .common-content {
+    padding: 20px 20px 0;
+  }
+  #common-modal .common-content .idea-item h3 {
+    padding: 20px;
+    font-size: 22px;
+  }
+  #common-modal .common-content .idea-item .goal-item-image,
+  #common-modal .common-content .idea-item .overlay {
+    height: 180px;
+  }
+}

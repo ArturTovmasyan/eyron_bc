@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+    <services>
+
+        <!-- Comment -->
+        <service id="comment.moderator" class="Application\CommentBundle\Admin\CommentAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.comment"/>
+            <argument/>
+            <argument>Application\CommentBundle\Entity\Comment</argument>
+            <argument/>
+        </service>
+
+        <!-- Thread -->
+        <service id="thread.moderator" class="Application\CommentBundle\Admin\ThreadAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.thread"/>
+            <argument/>
+            <argument>Application\CommentBundle\Entity\Thread</argument>
+            <argument/>
+        </service>
+
+    </services>
+
+</container>

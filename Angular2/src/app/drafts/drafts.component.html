@@ -1,0 +1,63 @@
+<!--{% extends "AppBundle:BucketList:baseList.html.twig" %}-->
+
+<!--{% block content_container %}-->
+<profile-header [userInfo]="'my'"></profile-header>
+<div class="bucketlist settings-menu">
+    <div class="container">
+        <div class="row">
+            <nav md-tab-nav-bar>
+                <a md-tab-link
+                   routerLink="/goal/my-ideas/private"
+                   [active]="type == 'private'">
+                    {{ 'right_menu.private'|translate }}
+                </a>
+                <a md-tab-link
+                   routerLink="/goal/my-ideas/drafts"
+                   [active]="type == 'drafts'">
+                    {{ 'right_menu.draft'|translate }}
+                </a>
+            </nav>
+            <!--<ul class="menu">-->
+            <!--<li [ngClass]="{'active':slug != 'drafts'}" >-->
+            <!--&lt;!&ndash;{% if slug != "drafts" %} class="active" {% endif %}&ndash;&gt;-->
+            <!--<a  routerLink="/goal/my-ideas">{{ 'right_menu.private'|translate }}</a>-->
+            <!--&lt;!&ndash;{{ 'right_menu.private'|translate }}&ndash;&gt;-->
+            <!--</li>-->
+            <!--<li [ngClass]="{'active':slug == 'drafts'}">-->
+            <!--&lt;!&ndash;{% if slug == "drafts" %} class="active" {% endif %}&ndash;&gt;-->
+            <!--<a  routerLink="/goal/my-ideas/draft">{{ 'right_menu.draft'|translate }}</a>-->
+            <!--&lt;!&ndash;{{ 'right_menu.draft'|translate }}&ndash;&gt;-->
+            <!--</li>-->
+            <!--</ul>-->
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <bl-loading mode="indeterminate" *ngIf="!goals"></bl-loading>
+    <!--{% if goals.getTotalItemCount > 0 %}-->
+
+    <div  class="row drafts idea-item"
+          infinite-scroll
+          [infiniteScrollDistance]="1"
+          [infiniteScrollThrottle]="500"
+          (scrolled)="onScroll()">
+        <div class="col-sm-6 col-md-4" *ngFor="let goal of goals;let i = index">
+            <figure>
+                <app-goal [goal]="goal" [type]="type"></app-goal>
+                <draft-footer [goals]="goals" [index]="i" [slug]="type"></draft-footer>
+            </figure>
+                <!--{% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/> {% endif %}-->
+        </div>
+
+        <p class="empty-text text-center" *ngIf="empty && type == 'drafts'">
+        {{ 'goal.empty_draft'|translate }}
+        </p>
+
+        <p class="empty-text text-center" *ngIf="empty && type != 'drafts'">
+            {{ 'goal.empty_private_ideas'|translate }}
+        </p>
+
+    </div>
+</div>
+

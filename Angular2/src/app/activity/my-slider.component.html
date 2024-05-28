@@ -1,0 +1,51 @@
+<!--<swiper [config]="config" class="activity-slider swiper-container" #slide>-->
+<div class=" swiper-container" id="activity-slider-{{index}}-on">
+    <div class="idea-item swiper-wrapper goals-animate">
+        <div class="swiper-slide" *ngFor="let goal of reserveGoals">
+
+            <figure class="rounded-corners-bottom">
+
+                <h3>
+                    <a *ngIf="goal.publish" routerLink="/goal/{{ goal.slug }}">{{ goal.title }}</a>
+                    <a *ngIf="!goal.publish">{{ goal.title }}</a>
+                </h3>
+
+                <a *ngIf="goal.publish" routerLink="/goal/{{ goal.slug }}"
+                   class="goalTitle">
+                    <span class="overlay"></span>
+                    <img src="{{ goal.cached_image }}"
+                         alt="{{ goal.title }}"
+                         *ngIf="goal.cached_image"/>
+                </a>
+                <a *ngIf="!goal.publish"
+                   class="goalTitle">
+                    <span class="overlay"></span>
+                    <img src="{{ goal.cached_image }}"
+                         alt="{{ goal.title }}"
+                         *ngIf="goal.cached_image"/>
+                </a>
+
+                <div class="absolute" *ngIf="goal.stats.listedBy">
+                    <ul>
+                        <li>
+                            <goal-users [goal]="goal" type="1"></goal-users>
+                        </li>
+                        <li>
+                            <goal-users [goal]="goal" type="2"></goal-users>
+                        </li>
+                    </ul>
+                </div>
+
+                <figcaption>
+                    <activity-goal-footer [goal]="goal" [activity]="activity"></activity-goal-footer>
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <div *ngIf="activity && activity.goals.length > 1">
+        <!-- Add Arrows -->
+        <div class="swiper-button-next swiper-button-white"></div>
+        <div class="swiper-button-prev swiper-button-white"></div>
+    </div>
+</div>

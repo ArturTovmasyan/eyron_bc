@@ -1,0 +1,29 @@
+default:
+  suites:
+      my_suite:
+          type: symfony_bundle
+          bundle: AppBundle
+          mink_session: symfony2
+          contexts:
+              - AppBundle\Features\Context\FeatureContext:
+                  simpleArg: 'string'
+                  session:   '@session'
+  extensions:
+      Behat\Symfony2Extension:
+          kernel:
+              env: behat
+              debug: true
+      Behat\MinkExtension:
+          default_session: symfony2
+          javascript_session: selenium2
+          selenium2:
+            capabilities: { "browserName": "firefox", "browser": "firefox", "version": "45"}
+          goutte: ~
+          base_url: http://behat.bucketlist.loc/
+          sessions:
+              symfony2:
+                  symfony2: ~
+
+paths:
+    features: %behat.paths.base%/src
+    bootstrap: %behat.paths.features%/Context

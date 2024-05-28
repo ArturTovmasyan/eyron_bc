@@ -1,0 +1,93 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
+
+ {% block content %}
+
+     <div class="content-top">
+         <div class="container">
+             <div class="row">
+                 <div class="col-sm-7">
+
+                     <div class="row">
+                         <div class="col-xs-1 suggest-input" style="pointer-events: none">
+                             {% if goal.status == constant("AppBundle\\Entity\\Goal::PUBLIC_PRIVACY") %}
+                                 <input type="checkbox" checked>
+                             {% else %}
+                                 <input type="checkbox">
+                             {% endif %}
+                         </div>
+
+                         <div class="col-xs-11">
+                             <h3 class="text-purple">
+                                 {{ 'goal.public'|trans }}
+                             </h3>
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="col-sm-10 col-sm-offset-1">
+                             <p class="text-gray">{{ 'goal.agree'|trans }}</p>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-sm-5 text-right">
+                     <div class="buttons">
+                         <a href="{{ path('add_goal', {'id' : goal.id }) }}" type="button" class="btn btn-transparent">
+                             <i class="icon-arrow-left"><span class="path1"></span><span class="path2"></span></i>
+                             {{ 'draft.edit'|trans }}
+
+                         </a>
+                         <a href="javascript:void(0)"
+                            id="goal-create-form"
+                            data-ls-goal-id="{{ goal.id }}"
+                            data-ls-goal-manage
+                            class="btn btn-purple">{{ 'goal.publish'|trans }}
+                             {#<i class="icon icon-right"></i>#}
+                             <i class="icon-arrow-right"></i>
+                         </a>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+     {{ render(controller('AppBundle:Goal:innerContent', { 'id': goal.id , page : constant("AppBundle\\Entity\\Goal::VIEW") })) }}
+
+
+ {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts output='js/app_goal_view.js'
+        'app/bower_components/jquery-dateFormat/dist/jquery-dateFormat.min.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+{%- block title -%}
+    {{ goal.title }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {%- if goal.description is not empty -%}
+        {{- goal.description|markdown|replace({'#': ''})|striptags|sliceString -}}
+    {% else %}
+        {{- 'goal.view_description'|trans -}}
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block og_image -%}
+    {%- if goal.getListPhoto -%}
+        {{- host ~ goal.getListPhoto.getDownloadLink|blImageFilter('goal_cover') -}}
+    {% else %}
+        {{ parent() }}
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block og_url -%}
+{{- app.request.uri -}}
+{%- endblock -%}

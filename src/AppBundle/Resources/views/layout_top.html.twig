@@ -1,0 +1,43 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
+    {#<link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"#}
+          {#rel="stylesheet">#}
+    {#<link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">#}
+    {% stylesheets output='css/layout_top.css'
+    'app/bower_components/icheck/skins/square/_all.css'
+    'app/bower_components/icheck/skins/minimal/_all.css'
+    'app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'
+    'bundles/app/less/taggle_button.css'
+    %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+
+    {% block content_header %}
+    {% endblock %}
+
+    {% block content_container%}
+    {% endblock %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#<script src="https://www.youtube.com/iframe_api"></script>#}
+    {% javascripts output='js/app_layout_top.js'
+        'app/bower_components/icheck/icheck.min.js'
+        'app/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js'
+        'app/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
+        'bundles/app/js/angular/goal.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}

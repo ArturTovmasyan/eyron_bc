@@ -1,0 +1,412 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.date-left > p {
+  margin-bottom: 0;
+}
+.date-left > div.img-circle {
+  border: 2px solid #c2c2c2;
+  background: white;
+  padding: 8px 10px;
+  font-size: 32px;
+  line-height: 40px;
+  text-align: center;
+  position: absolute;
+  top: -1px;
+  left: 6px;
+  width: 60px;
+  height: 60px;
+}
+.date-left > div.img-circle:hover {
+  color: #7724F6;
+  border: 2px solid #7724F6;
+}
+.date-left .img-circle {
+  color: #999999;
+}
+.date-left .dreaming {
+  display: block;
+  position: relative;
+  left: -46px;
+  top: -24px;
+}
+.date-left .dreaming:hover {
+  color: #7724F6;
+}
+.date-left .dreaming-mobile {
+  display: block;
+  padding: 10px 16px 10px 20px;
+  position: relative;
+  left: -40px;
+  top: -36px;
+}
+.date-left .dreaming-mobile i {
+  font-size: 75px;
+}
+.date-left .data-mobile div:first-child {
+  height: 50px;
+  border-left: 1px solid #c2c2c2;
+  position: absolute;
+  left: 49%;
+}
+.date-left .data-mobile div:last-child {
+  height: 50px;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+.date-left .data-mobile div:last-child p {
+  background: #ffffff;
+  color: #7724F6;
+  display: inline-block;
+  border: 1px solid #c2c2c2;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  font-size: 11px;
+  line-height: 17px;
+  padding: 2px 15px 3px 15px;
+  margin: 13px 5px 0 0;
+}
+.date-left .elipse {
+  height: 50px;
+}
+.date-left .elipse div {
+  border: 1px solid #c2c2c2;
+  background: white;
+  padding: 2px 15px 3px 15px;
+  position: absolute;
+  left: 44%;
+  top: 26%;
+  font-size: 11px;
+  line-height: 17px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+.date-left span {
+  width: 10px;
+  height: 115px;
+  display: block;
+  position: absolute;
+  margin-top: 65px;
+  margin-left: -5px;
+  background: #f4f4f4;
+}
+.date-left span.space {
+  margin: 0 auto;
+  z-index: 10;
+  height: 13px;
+  left: 48%;
+}
+.goals-information {
+  margin-bottom: 10px;
+}
+.goals-information .bg-white {
+  overflow: hidden;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.goals-information figure {
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.goals-information figure .addthis_native_toolbox {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  z-index: 10;
+}
+.goals-information figure a {
+  text-align: center;
+}
+.goals-information figure img {
+  width: 100%;
+  height: 180px;
+}
+.goals-information figure figcaption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 15px;
+  background: transparent;
+}
+.goals-information figure figcaption a,
+.goals-information figure figcaption span.text-white {
+  color: #ffffff;
+  font-size: 12px;
+}
+.goals-information figure figcaption a:hover span,
+.goals-information figure figcaption span.text-white:hover span {
+  text-decoration: underline;
+}
+.goals-information figure figcaption a:last-child,
+.goals-information figure figcaption span.text-white:last-child {
+  padding-left: 15px;
+}
+.goals-information figure figcaption span.text-white:hover span {
+  text-decoration: none;
+}
+.goals-information .overlay {
+  height: 180px;
+}
+.goals-information .active-idea .img-circle {
+  color: #7724F6;
+  border: 2px solid #7724F6;
+}
+.goals-information .active-idea .information h3 a {
+  color: #021523;
+}
+.goals-information .right-block {
+  margin-top: 10px;
+}
+.goals-information .right-block figure .addthis_native_toolbox {
+  position: static;
+}
+.goals-information .right-block figure figcaption {
+  padding: 0 5px;
+  background-color: transparent;
+}
+.goals-information .information .text-gray span {
+  vertical-align: middle;
+}
+.goals-information .information .addthis_native_toolbox {
+  float: right !important;
+}
+.goals-information .information p {
+  margin: 0 0 0 10px;
+}
+.goals-information .information .progress {
+  padding: 4px;
+  background: #f4f4f4;
+}
+.goals-information .information h3 {
+  font-size: 16px;
+  line-height: 20px;
+  margin: 5px 0 5px 10px;
+  white-space: normal;
+}
+.goals-information .information .addthis_native_toolbox {
+  margin-top: 15px;
+}
+.goals-information .information p {
+  color: #7a7a7a;
+}
+.goals-information .information i {
+  font-size: 30px;
+  color: #a3a3a3;
+  vertical-align: middle;
+}
+.goals-information .information .icon-eye {
+  width: 32px;
+  font-size: 40px;
+  margin: -3px 0 0 -5px;
+  display: block;
+}
+.goals-information .information .edit-note {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url('../../../assets/images/edit-note.svg') no-repeat center center;
+  background-size: 100%;
+}
+.goals-information .information .icon-success,
+.goals-information .information .icon-done-icon {
+  font-size: 30px;
+  vertical-align: middle;
+}
+.goals-information .information a.manage-modal[md-button] {
+  padding: 0 16px 0 0;
+}
+.goals-information .information a:hover,
+.goals-information .information a:focus {
+  text-decoration: none;
+}
+.goals-information .information a:hover .icon-manage,
+.goals-information .information a:focus .icon-manage {
+  color: #5e1dc3;
+}
+.goals-information .information a:hover .edit-note,
+.goals-information .information a:focus .edit-note {
+  background: url('../../../assets/images/note-hover.svg') no-repeat center center;
+}
+.goals-information .information .btn-transparent {
+  padding: 0 15px 0 5px;
+}
+.goals-information .information .btn-transparent:hover .done-icon {
+  background: url('../../../assets/images/images.png') no-repeat 8px -19px;
+}
+.goals-information .information .successtory:hover {
+  background: transparent;
+  color: #999999;
+}
+.goals-information .information ul {
+  padding: 0 0 0 5px;
+  margin-bottom: 0;
+}
+.goals-information .information ul li {
+  float: left;
+  margin-right: 1px;
+  height: 30px;
+  overflow: hidden;
+}
+.goals-information .information ul li span {
+  color: #666666;
+}
+.goals-information .information ul.progress-section {
+  padding: 0 0 0 10px;
+}
+.goals-information .information ul.progress-section li:nth-child(2) {
+  width: 140px;
+  margin-right: 10px;
+}
+.goals-information .information .green-bg {
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.icon-user-small {
+  margin-left: -10px;
+}
+@media (min-width: 768px) {
+  .date-left {
+    border-left: 1px solid #c2c2c2;
+    height: 180px;
+    margin-left: 20px;
+  }
+  .date-left > div:nth-child(1) {
+    border: 2px solid #c2c2c2;
+    background: white;
+    padding: 8px 10px;
+    font-size: 32px;
+    line-height: 40px;
+    text-align: center;
+    position: absolute;
+    top: -1px;
+    left: 6px;
+    width: 60px;
+    height: 60px;
+  }
+  .date-left > div:nth-child(1):hover {
+    color: #7724F6;
+    border: 2px solid #7724F6;
+  }
+  .date-left .elipse {
+    border-top: 1px solid #c2c2c2;
+    height: 175px;
+    margin-top: 30px;
+  }
+  .date-left .elipse div {
+    padding: 2px 15px 3px 15px;
+    left: -4%;
+    top: 40%;
+  }
+  .date-left .elipse div.only-year {
+    margin: 0 0 0 12px;
+  }
+  .date-left span {
+    width: 10px;
+    height: 115px;
+    display: block;
+    position: absolute;
+    margin-top: 65px;
+    margin-left: -5px;
+    background: #f4f4f4;
+  }
+  .goals-information figure {
+    border-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-bottomright: 0;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .goals-information figure img {
+    width: auto;
+  }
+  .goals-information figure figcaption {
+    padding: 10px 15px 5px;
+  }
+  .goals-information figure figcaption a,
+  .goals-information figure figcaption span.text-white {
+    font-size: 13px;
+  }
+  .goals-information .information h3 {
+    margin: 10px 0 0;
+    height: 68px;
+    overflow: hidden;
+    font-size: 18px;
+    line-height: 23px;
+  }
+  .goals-information .information ul {
+    height: 30px;
+    padding: 0;
+  }
+  .goals-information .information ul.progress-section {
+    padding: 0 0 0 5px;
+  }
+  .goals-information .information li a:hover .icon-pencil {
+    color: #7724F6;
+  }
+  .goals-information .information .addthis_native_toolbox {
+    margin-top: 10px;
+  }
+  .goals-information .information i {
+    font-size: 30px;
+  }
+  .goals-information .information .icon-eye {
+    width: 32px;
+    font-size: 40px;
+    margin: -3px 0 0 -5px;
+    display: block;
+  }
+  .goals-information .information .btn-transparent {
+    padding: 0 15px 0 5px;
+  }
+  .goals-information .right-block {
+    margin-top: 0;
+  }
+}
+@media (min-width: 992px) {
+  .date-left .elipse div {
+    left: -4%;
+  }
+  .date-left .elipse div.only-year {
+    margin: 0 0 0 12px;
+  }
+}

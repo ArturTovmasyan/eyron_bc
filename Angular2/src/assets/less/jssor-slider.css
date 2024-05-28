@@ -1,0 +1,67 @@
+/*--Arrow style--*/
+.jssora13l, .jssora13r, .jssora13ldn, .jssora13rdn {
+    position: absolute;
+    cursor: pointer;
+    display: block !important;
+    background: url(/app/bower_components/jssor-slider/img/a10.png) no-repeat;
+    overflow: hidden;
+}
+
+.jssora13l {
+    background-position: -10px -35px;
+    width: 40px;
+    height: 50px;
+    top: 123px;
+    left: 10px;
+}
+
+.jssora13r {
+    background-position: -70px -35px;
+    width: 40px;
+    height: 50px;
+    top: 123px;
+    right: 10px;
+}
+
+.jssora13l:hover {
+    background-position: -130px -35px;
+}
+
+.jssora13r:hover {
+    background-position: -190px -35px;
+}
+
+.jssora13ldn {
+    background-position: -250px -35px;
+}
+
+.jssora13rdn {
+    background-position: -310px -35px;
+}
+
+/*--Bullet style--*/
+
+.jssorb14 {
+    position: absolute;
+}
+.jssorb14 div, .jssorb14 div:hover, .jssorb14 .av {
+    position: absolute;
+    /* size of bullet elment */
+    width: 21px;
+    height: 21px;
+    text-align: center;
+    line-height: 21px;
+    color: white;
+    font-size: 12px;
+    background: url(/app/bower_components/jssor-slider/img/b14.png) no-repeat;
+    overflow: hidden;
+    cursor: pointer;
+}
+.jssorb14 div { background-position: -5px -4px; }
+.jssorb14 div:hover, .jssorb14 .av:hover { background-position: -35px -4px; }
+.jssorb14 .av { background-position: -65px -4px; }
+.jssorb14 .dn, .jssorb14 .dn:hover { background-position: -95px -4px; }
+
+.story-slider-arrow {
+    top: 80px !important;
+}

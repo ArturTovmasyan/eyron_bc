@@ -1,0 +1,13 @@
+{% if admin.isGranted('VIEW', object) and admin.hasRoute('show') %}
+
+    {% if object.contentType == constant('Application\\UserBundle\\Entity\\Report::COMMENT') and admin.comments[object.contentId] is defined %}
+
+        <a href="{{ getThreadInnerLink(admin.comments[object.contentId].thread.id) }}" target="_blank" class="btn btn-sm btn-default view_link" title="{{ 'admin.label.name.goal_link'|trans() }}">
+            <i class="glyphicon glyphicon-home"></i>
+        </a>
+    {% elseif object.contentType == constant('Application\\UserBundle\\Entity\\Report::SUCCESS_STORY') and admin.successStories[object.contentId] is defined %}
+        <a href="{{ path( 'inner_goal', {'slug': admin.successStories[object.contentId].goal.slug}) }}" target="_blank" class="btn btn-sm btn-default view_link" title="{{ 'admin.label.name.goal_link'|trans() }}">
+            <i class="glyphicon glyphicon-home"></i>
+        </a>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,167 @@
+<form id="goal-create-form" class="main-form">
+    <div class="content-top bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="row">
+                        <div  class="suggest-input">
+                            <md-checkbox class="example-margin" name="isPublic" [(ngModel)]="isPublic" disableRipple>
+                                <span class="text-purple">
+                                    {{ 'goal.public'|translate }}
+                                </span>
+                            </md-checkbox>
+                        </div>
+                    </div>
+
+                    <div class="suggest-test hidden-xs">
+                        <p class="text-gray">{{ 'goal.agree'|translate }}</p>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 text-right">
+                    <div class="buttons">
+
+                        <button md-button (click)="preview()" class="btn btn-transparent goal-view-submit"
+                                name="btn_preview">
+                            <span>{{ 'goal.preview'|translate }}</span>
+                        </button>
+
+                        <button md-button *ngIf="!isPrivate" (click)="createDraft()" class="btn btn-transparent draft-save-submit" name="btn_save_draft">
+                            <span *ngIf="!id">{{ 'draft.create'|translate }}</span>
+                            <span *ngIf="id">{{ 'draft.update'|translate }}</span>
+                        </button>
+
+                        <button md-button type="submit" (click)="save()"
+                                class="btn btn-purple goal-create-submit"
+                                name="btn_publish">
+                            <span *ngIf="id && isPrivate">{{ 'goal.edit'|translate }}</span>
+                            <span *ngIf="!id || !isPrivate">{{ 'goal.publish'|translate }}</span>
+                            <i class="icon-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="goals">
+
+                    <div class="row bg-white">
+                        <div class="col-xs-10 col-xs-offset-1">
+                            <div class="form-group">
+                                <input type="text" name="title" required="required" maxlength="64" pattern=".{3,}"
+                                       class="form-control title" placeholder="Title" autocomplete="off"
+                                       [(ngModel)]="title"
+                                       (ngModelChange)="getGoals($event)">
+
+                            </div>
+                            <div *ngIf="haveIdeas && showIdeas" class="padding-top"></div>
+                        </div>
+                    </div>
+
+                    <div class="row bg-grey" *ngIf="haveIdeas && showIdeas">
+                        <swiper [config]="config" class="swiper-container col-xs-12">
+                            <div class="row no-gutter existing-menu">
+                                <div class="col-xs-10">
+                                    <h3 class="text-left pull-left text-dark">{{ 'goal.existing'|translate }}</h3>
+
+                                    <a>
+                                        <i class="icon-arrow-left">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </a>
+
+                                    <a>
+                                        <i class="icon-arrow-right"></i>
+                                    </a>
+
+                                </div>
+                                <div class="col-xs-2 text-right" *ngIf="isMore">
+
+                                    <a (click)="showIdeas = false">
+                                        <i class="icon-remove-video-link"><span class="path2"></span><span
+                                                class="path3"></span></i>
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <div class="row idea-item swiper-wrapper">
+                                <div class="col-md-4 goals-animate swiper-slide" style="margin-top: 10px" *ngFor="let goal of goals">
+
+                                    <div class="row idea-item">
+                                        <div class="col-sm-12">
+                                            <figure>
+                                                <app-goal [goal]="goal">
+                                                </app-goal>
+
+                                                <app-goal-footer [goal]="goal"></app-goal-footer>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </swiper>
+                    </div>
+
+                    <div class="row bg-white">
+                        <div class="col-xs-10 col-xs-offset-1 ">
+
+                            <div class="form-group">
+
+                                <textarea [class.border-purple]="invalidDescription" [ngClass]="{'resize':isMobile}" class="form-control margin-top" [(ngModel)]="description" name="description" placeholder="Description" rows="4" (ngModelChange)="changeDescription()"></textarea>
+                                <div *ngIf="invalidDescription" class="description-tooltip">
+                                    <span class="arrow-up"></span>
+                                        Please fill out this field
+                                </div>
+
+                                <div class="tags">
+                                    <button md-button *ngFor="let tag of tags" type="button" class="btn btn-purple">
+                                        {{tag }}
+                                    </button>
+                                </div>
+
+                                <p class="text-gray hidden-xs" [innerHTML]="'goal.description_title' | translate"></p>
+                                <p class="text-gray hidden-sm hidden-md hidden-lg" [innerHTML]="'goal.description_title_mob' | translate"></p>
+
+
+                            </div>
+
+                            <div class="text-center">
+                                <my-dropzone [files]="files" [type]="'goal'" [existing]="existingFiles" [count]="imageCount"></my-dropzone>
+                            </div>
+                            <br/>
+
+                            <div class="language lng" [class.sr-only]="!appUser.is_admin">
+                                <md-select placeholder="Language" style="width: 100%" [(ngModel)]="language" name="language">
+                                    <md-option *ngFor="let language of languages" [value]="language.value">
+                                        {{ language.name }}
+                                    </md-option>
+                                </md-select>
+                            </div>
+
+                            <br class="hidden-xs"/>
+                            <label class="text-dark-gray">Video</label>
+                            <input-video *ngFor="let video of videos_array; let i = index"
+                                         [key]="i"
+                                         [limit]="3"
+                                         [link]="video"
+                                         [array]="videos_array">
+                            </input-video>
+                            <br />
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</form>

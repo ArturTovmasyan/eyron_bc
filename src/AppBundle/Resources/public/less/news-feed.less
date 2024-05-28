@@ -1,0 +1,694 @@
+@import "../../../app/bower_components/bootstrap/less/variables.less";
+@import "function.less";
+
+#news-feed,#goal-friends,#goal-users-modal{
+
+  padding:10px 0;
+  margin-top:5px;
+
+  .goalfrineds-menu{
+    padding:5px 0 0;
+    margin-bottom:0;
+
+    li{
+      display: inline-block;
+
+      a{
+        padding: 5px 10px;
+        color: #333333;
+        font-size:15px;
+
+        &:hover{
+          color: #7724F6;
+        }
+      }
+    }
+  }
+
+  .common-goals{
+    display: block;
+  }
+
+  form{
+    .icon-search-icon{
+      position: absolute;
+      font-size: 24px;
+      color: #cccccc;
+    }
+
+    input{
+      border: 0;
+      font-size:14px;
+      box-shadow: none;
+      border-radius: 0;
+      border-bottom: 1px solid #cccccc;
+      padding: 0 5px 9px 35px;
+      color:#333333;
+      &:hover,&:active{
+        border-bottom: 1px solid #7724F6;
+      }
+    }
+  }
+
+  .users-list{
+    background-color: #ffffff;
+    padding:15px 10px 15px 15px;
+    margin-bottom:10px;
+
+    h4{
+      padding: 3px 0 1px 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      //width: 100%;
+      white-space: nowrap;
+    }
+
+    span{
+      font-size:13px;
+    }
+  }
+
+  .icon-lock-white {
+    right: 15px;
+    top: 15px;
+    color: #B3B3B3;
+    z-index: 10;
+    cursor: pointer;
+  }
+
+  .image{
+    margin:0 10px 0 0;
+    float:left;
+
+    a{
+      height:auto;
+    }
+
+    img{
+      width:40px;
+      height:40px;
+      margin:0 auto;
+      border:2px solid #cecece;
+    }
+
+    .no-image{
+      height: 40px;
+      width: 40px;
+      line-height: 35px;
+      color:#ffffff;
+    }
+
+  }
+
+  i{
+    font-size: 25px;
+    vertical-align: middle;
+    cursor:pointer;
+
+    &.leaderboard-small{
+      vertical-align: top;
+    }
+  }
+
+  p{
+    font-size:12px;
+    color:#999999;
+
+  }
+
+  .image-goalfrinds{
+    width:45px;
+    height:45px;
+    margin:0 auto;
+
+    img{
+      width:45px;
+      height:45px;
+      border:2px solid #cecece;
+    }
+
+    .no-image{
+      width:45px;
+      height:45px;
+      margin:0 auto;
+      line-height: 40px;
+      color:#ffffff;
+    }
+
+  }
+
+  em{
+    padding: 0 0 5px 15px;
+    display: block;
+    font-size: 14px;
+  }
+
+  hr{
+    margin-top:5px;
+  }
+
+  h3{
+    font-size:18px;
+
+    a{
+      font-size:18px;
+    }
+  }
+
+  h4{
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 0 2px 0;
+    margin: 0;
+
+    a{
+      font-size:14px;
+      padding-bottom: 2px;
+      display: inline-block;
+    }
+
+    span{
+      display: block;
+    }
+  }
+
+  .goalTitle{
+
+    height:230px;
+    width:100%;
+
+    h3{
+      position: absolute;
+      color:#ffffff;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 0 25px;
+      line-height: normal;
+    }
+    i.lock-icon{
+      position: absolute;
+      right: 35px;
+      color: #ffffff;
+      top: 20px;
+    }
+
+  }
+
+  figure{
+    background-color: transparent;
+    position: relative;
+    overflow: hidden;
+    &>a{
+      display: block;
+    }
+    figcaption{
+      margin-bottom:0;
+      ul{
+        li{
+          i.icon-green-plus,i.icon-green-ok{
+            font-size: 30px;
+          }
+          i{
+            font-size:20px;
+          }
+        }
+        &.news-footer{
+          li{
+            .comment-icon{
+              margin-left: -17px;
+              width:25px;
+              height:20px;
+              margin-right: 1px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .idea-item{
+    figure{
+      margin-bottom: 0;
+    }
+  }
+
+  .swiper-slide{
+    figure{
+      .rounded-corners-bottom;
+    }
+  }
+
+  .right-block{
+    margin-bottom:10px;
+  }
+
+  .padding{
+    padding:10px 10px 1px;
+  }
+
+  .padding-no{
+    padding-bottom:0
+  }
+
+  ol{
+    padding:10px 35px;
+    background-color: #e6e6e6;
+    li{
+      color:#7d7d7d;
+      clear: both;
+
+      i{
+        cursor: default;
+      }
+
+      a,span{
+        color:#666666;
+        font-size:14px;
+
+        i{
+          margin-left:25px;
+        }
+
+        i.question-icon{
+         float:right;
+        }
+
+      }
+
+      a{
+        i{
+          cursor:pointer;
+        }
+        &:hover{
+          color:#666666;
+          i{
+            color:#7724f6;
+          }
+        }
+
+      }
+    }
+  }
+
+  .list{
+    padding-left:0;
+    li{
+      border-bottom:1px solid #eeeeee;
+      margin-bottom:7px;
+      padding-bottom:7px;
+
+      &:last-child{
+        border-bottom:0;
+        margin-bottom:0;
+        padding-bottom:0;
+      }
+
+      figure{
+        margin:0 10px 0;
+      }
+
+      .image{
+        float:left;
+      }
+
+      h4{
+        padding-top:0;
+        margin-top:5px;
+
+        span{
+          display: inline-block;
+        }
+      }
+
+      a{
+        font-size:13px;
+      }
+    }
+  }
+}
+
+.user-activities{
+  padding: 0 !important;
+  margin-top:0 !important;
+}
+
+.goals-animate{
+
+  .swiper-button-next, .swiper-button-prev{
+    top:42%;
+  }
+
+  .swiper-pagination{
+    text-align: right;
+    position: absolute;
+    right: 3px;
+    top: 36px;
+    width: 100px;
+    height: 25px;
+    font-size: 14px;
+    left: auto;
+
+    .swiper-pagination-bullet{
+      margin: 0 5px;
+    }
+  }
+
+  p{
+    padding-bottom:0;
+  }
+
+  .idea-item{
+    figure{
+
+      &.rounded-corners{
+        .rounded-corners-top;
+      }
+    }
+  }
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #f2f2f2;
+  position: absolute;
+  top: -8px;
+  left:14px;
+}
+
+.horizontal-menu{
+
+  padding:0 5px 0 0;
+  li{
+    display: inline-block;
+    border-right:1px solid #cccccc;
+    padding:0 15px 0 10px;
+
+    strong{
+      display:block;
+      color:#666666;
+      font-size:13px;
+    }
+
+    span{
+      display:block;
+      color:#7d7d7d;
+
+      &:last-child{
+        font-size:18px;
+      }
+    }
+    &:last-child{
+      border:0;
+    }
+    &:hover{
+      background-color: transparent;
+    }
+  }
+}
+
+@media (min-width: @screen-sm) {
+  #news-feed,#goal-friends{
+
+    padding:20px 0;
+    margin-top:10px;
+
+    .users-list{
+      padding:20px 10px 20px 20px;
+      margin-bottom:15px;
+      min-height: 101px;
+    }
+
+    .image{
+      margin:0 15px 0 0;
+      float:left;
+
+      a{
+        height:auto;
+      }
+
+      img{
+        width:50px;
+        height:50px;
+        margin:0 auto;
+        border:2px solid #cecece;
+      }
+
+      .no-image{
+        height: 50px;
+        width: 50px;
+        line-height: 45px;
+      }
+    }
+
+    i{
+      font-size: 30px;
+    }
+
+    p{
+      font-size:13px;
+    }
+
+    .image-goalfrinds{
+
+      width: 60px;
+      height: 60px;
+
+      img{
+        width: 60px;
+        height: 60px;
+      }
+
+      .no-image{
+        height: 60px;
+        width:60px;
+        line-height: 50px;
+        font-size:16px;
+      }
+    }
+
+    figure{
+
+      &>a{
+        display: block;
+      }
+      figcaption{
+
+        ul{
+          li{
+            i.icon-green-plus,i.icon-green-ok{
+              font-size: 49px;
+            }
+            i{
+              font-size:30px;
+            }
+          }
+          &.news-footer{
+            li{
+              .comment-icon{
+                width:30px;
+                height:24px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    em{
+      padding: 0 0 5px 15px;
+      font-size: 16px;
+    }
+
+    hr{
+      margin-top:10px;
+    }
+
+    h3{
+      font-size:22px;
+
+      a{
+        font-size:22px;
+      }
+    }
+
+    h4{
+      font-size:16px;
+      padding:9px 0 2px 0;
+
+      a{
+        font-size:16px;
+        padding: 0 10px 0 0;
+      }
+
+      span{
+        display: inline-block;
+      }
+    }
+
+    .horizontal-menu{
+      padding:0 10px 0 0;
+      li{
+        strong{
+          font-size:14px;
+        }
+
+        span{
+
+          &:last-child{
+            font-size:22px;
+          }
+        }
+
+      }
+    }
+
+    .en{
+      li{
+        padding:0 14px 0 10px;
+      }
+    }
+
+    .ru{
+      li{
+        padding:0 9px;
+      }
+    }
+
+    .goalTitle{
+
+      h3{
+        font-size:24px;
+        padding: 0 25px;
+        line-height: 30px;
+        margin-top:15px;
+      }
+
+      i.lock-icon{
+        right: 35px;
+        top: 20px;
+      }
+    }
+
+    ol{
+      padding:20px 15px 20px 50px;
+      li{
+        a,bdi{
+          font-size:16px;
+          i{
+            margin-left:25px;
+          }
+        }
+      }
+    }
+
+    .right-block{
+      padding:15px 40px;
+      margin-bottom:10px;
+    }
+
+    .padding{
+      padding:20px 20px 10px;
+    }
+
+    .padding-no{
+      padding-bottom:0
+    }
+
+    .list{
+      li{
+        margin-bottom:10px;
+        padding-bottom:10px;
+
+        figure{
+          margin:0 20px 0 0;
+        }
+
+        h4{
+          margin-top:5px;
+        }
+
+        a{
+          font-size:13px;
+        }
+      }
+    }
+  }
+
+  .goals-animate{
+    .swiper-pagination{
+      top: 6px;
+      font-size: 16px;
+    }
+
+    p{
+      padding-bottom:0;
+    }
+  }
+}
+
+@media (min-width: @screen-md) {
+  #news-feed,#goal-friends,#goal-users-modal{
+    padding:30px 0;
+
+    .users-list{
+      padding:20px 25px;
+      margin-bottom:25px;
+    }
+
+    .image-goalfrinds{
+      margin-top: 0;
+      width: 60px;
+      height: 60px;
+
+      img{
+        width: 60px;
+        height: 60px;
+      }
+
+      .no-image{
+        height: 60px;
+        width:60px;
+        line-height: 50px;
+      }
+    }
+
+    .right-block{
+      padding:20px 15px;
+    }
+
+    .padding{
+      padding:20px 20px 10px;
+    }
+
+    .padding-no{
+      padding-bottom:0
+    }
+  }
+
+  .goals-animate{
+
+    p{
+      padding-bottom: 8px;
+    }
+  }
+
+}
+
+@media (min-width: @screen-lg) {
+  #news-feed,#goal-friends{
+    .en{
+      li{
+        padding:0 20px 0 10px;
+      }
+    }
+
+    .ru{
+      li{
+        padding:0 9px;
+      }
+    }
+  }
+}

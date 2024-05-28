@@ -1,0 +1,67 @@
+{% if app.user %}
+    {% set user = app.user %}
+    {% set lastName = user.lastName %}
+    {% set firstName = user.firstName %}
+    {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
+    {% set className = "user-no" ~ random(4) %}
+
+    <a href="{{ path("edit_user_profile") }}"
+       style="display: none"
+       class="settings-modal">
+    </a>
+
+    <a  
+       href="javascript:void(0);"
+       class="user user-popover clearfix hidden-xs"
+       data-placement="bottom-left"
+       data-ng-click="joinToggle1 = !joinToggle1;$parent.joinToggle1 = !$parent.joinToggle1;"
+       data-html="true"
+       data-auto-close="true"
+       data-ng-class="{'join-class': joinToggle1}"
+       data-content='{{ include("AppBundle:Blocks:user.widget.html.twig",{"addr":app.request.server.get('PHP_SELF')}) }}'
+       data-animation="am-fade-and-scale"
+       data-bs-popover>
+        {% if user.getPhotoLink %}
+            <figure class="img-circle">
+                <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-responsive">
+            </figure>
+        {% else %}
+            <p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>
+        {% endif %}
+
+        <span class="name hidden-xs">{{ user.firstName|slice(0, 8) }} {{ user.firstName|length > 8 ? '...' : '' }}
+        <br class="hidden-xs"/>
+            {#{{ user.lastName|slice(0, 9) }} {{ user.lastName|length > 9 ? '...' : '' }}#}
+        </span>
+
+        {% if not isMobile() %}
+            <i class="menu-hamburger" data-ng-hide="$parent.joinToggle1"></i>
+            <i class="menu-remove ng-hide" data-ng-show="$parent.joinToggle1"></i>
+        {% else %}
+            {#todo it automaticaly opened in ipad#}
+            {#<div data-open-popover data-dir="true"></div>#}
+        {% endif %}
+    </a>
+
+    {#when mobile menu#}
+    <a href="javascript:void(0)" data-ng-click="joinToggle11 = !joinToggle11;$parent.joinToggle11 = !$parent.joinToggle11;$parent.$parent.joinToggle11 = !$parent.$parent.joinToggle11" class="ng-hide mobile-user hidden-sm hidden-md hidden-lg" data-ng-show="!joinToggle11">
+        {% if user.getPhotoLink %}
+            <figure class="img-circle" data-ng-show="!joinToggle11">
+                <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ nameOnImage | upper}}" class="img-responsive img-circle" height="40">
+            </figure>
+        {% else %}
+            <p class="no-image {{ className }}" data-ng-show="!joinToggle11">{{ nameOnImage | upper}}</p>
+        {% endif %}
+    </a>
+
+{% endif %}
+
+<a href="javascript:void(0)"
+    {% if app.user %}
+        style="display: none"
+    {% endif %}
+    data-authenticator-login-trigger
+    class="sign-in-popover">
+    <i class="icon-join-icon"></i>
+    {{ 'join'|trans }}
+</a>

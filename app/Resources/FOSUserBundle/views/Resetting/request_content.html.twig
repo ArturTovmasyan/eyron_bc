@@ -1,0 +1,25 @@
+<div class="container">
+    <div  class="signup notice">
+        <div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <h1 class="text-center">{{ 'resetting.request.reset'|trans({}, 'FOSUserBundle') }}</h1>
+
+                    <h4 class="text-center text-gray">{{ 'resetting.request.reset_text'|trans({}, 'FOSUserBundle') }}</h4>
+
+                    <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request form-horizontal">
+                        <div class="form-group">
+                            {% if invalid_username is defined %}
+                                <p class="error-message text-center">{{ 'resetting.request.invalid_username'|trans({}, 'FOSUserBundle') }}</p>
+                            {% endif %}
+                            <input type="email" oninvalid="EmailValidation(this)" oninput="EmailValidation(this)" class="form-control" id="username" name="username" required="required"  placeholder="{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}"/>
+                        </div>
+                        <div class="form-group text-right">
+                            <input type="submit" class="btn btn-purple" value="{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

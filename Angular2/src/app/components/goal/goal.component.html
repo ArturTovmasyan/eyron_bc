@@ -1,0 +1,68 @@
+<!--<div class="row idea-item">-->
+  <!--<div class="col-sm-12">-->
+    <!--<figure>-->
+
+      <span class="hide-nearby"
+            *ngIf="type == 'nearby' && !hideDisableNearBy && isLoggedIn"
+            (click)="notInterest()"
+            (mouseleave)="hoverEmitter.emit(null)"
+            (mousemove)="hoverEmitter.emit({
+            ev:$event,
+            val:'hide_nearby'})">
+      </span>
+
+      <h3 [ngClass]="{'nearby': (type== 'nearby')}">
+          <a *ngIf="goal.publish" routerLink="/goal/{{ goal.slug }}">{{ goal.title }}</a>
+          <a *ngIf="!goal.publish">{{ goal.title }}</a>
+      </h3>
+
+      <!--<a routerLink="/goal/{{ goal.slug }}" class="goal-item-image">-->
+        <!--<span class="overlay"></span>-->
+        <!--<img src="{{ goal.cached_image }}" *ngIf="goal.cached_image" alt="{{ goal.title }}"/>-->
+      <!--</a>-->
+
+        <a *ngIf="goal.publish" routerLink="/goal/{{ goal.slug }}"
+           class="goalTitle goal-item-image">
+            <span class="overlay"></span>
+            <preload-img *ngIf="goal.cached_image" [img]="goal.cached_image" [title]="goal.title"></preload-img>
+            <!--<img src="{{ goal.cached_image }}"-->
+                 <!--alt="{{ goal.title }}"-->
+                 <!--*ngIf="goal.cached_image"/>-->
+        </a>
+        <a *ngIf="!goal.publish"
+           class="goalTitle goal-item-image">
+            <span class="overlay"></span>
+            <preload-img *ngIf="goal.cached_image" [img]="goal.cached_image" [title]="goal.title"></preload-img>
+            <!--<img src="{{ goal.cached_image }}"-->
+                 <!--alt="{{ goal.title }}"-->
+                 <!--*ngIf="goal.cached_image"/>-->
+        </a>
+
+      <a class="nearby-distance"
+         target="_blank"
+         *ngIf="type == 'nearby' && goal.location && userLocation && goal.distance > 0"
+         href="https://www.google.com/maps/dir/{{ goal.location.latitude}},{{ goal.location.longitude}}/{{ userLocation.latitude }},{{ userLocation.longitude }}/"
+         (mouseleave)="hoverEmitter.emit(null)"
+         (mousemove)="hoverEmitter.emit({
+            ev:$event,
+            val:'goal.get_direction'})">
+      <i></i>
+      <!--<span class="text-center" *ngIf="goal.distance > 10">{{ goal.distance | number: 0 }} km</span>-->
+      <span class="text-center">{{ goal.distance | number:'1.0-3' }} km</span>
+      </a>
+
+      <div class="absolute" >
+        <ul *ngIf="type != 'drafts' && goal && goal.stats">
+          <li>
+            <goal-users [goal]="goal" type="1"></goal-users>
+          </li>
+          <li>
+            <goal-users [goal]="goal" type="2"></goal-users>
+          </li>
+        </ul>
+      </div>
+
+
+    <!--</figure>-->
+  <!--</div>-->
+<!--</div>-->

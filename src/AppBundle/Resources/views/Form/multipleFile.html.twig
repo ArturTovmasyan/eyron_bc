@@ -1,0 +1,83 @@
+{% block bl_multiple_file_widget %}
+<div class="form-group clearfix">
+    <ul class="images  control-label" data-prototype="{{ _self.multiple_prototype(form.vars.prototype)|e }}">
+        {% set count = 0 %}
+        {% for child in form %}
+
+            {% set listHiddenId = child.list.vars.id %}
+            {% set listId =  'list_show_id' %}
+            {% set listName =  'list_show_name' %}
+
+            {% set coverHiddenId = child.cover.vars.id %}
+            {% set coverId =  'cover_show_id' %}
+            {% set coverName =  'cover_show_name' %}
+
+            {% if child.vars.value is not null and child.vars.value.filename is not null %}
+
+                <li class="col-sm-3">
+                    <figure>
+                        <a href="{{ child.vars.value.downloadLink }}" target="_blank">
+                            <img class="img-responsive" width="260" height="160" src="{{asset(child.vars.value.downloadLink)}}" alt="child.vars.value.filename">
+                        </a>
+
+                        <figcaption class="row">
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                    <input onclick="toHiddenList('{{ listHiddenId }}' )" class="bl-radio" type="radio" id="{{ listId }}" name="{{ listName }}"
+                                           value="1"{% if child.list.vars.value == 1 %} checked {% endif %}/> List
+                                </label>
+
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                    <input onclick="toHiddenCover('{{ coverHiddenId }}' )" class="bl-radio" type="radio" id="{{ coverId }}" name="{{ coverName }}"
+                                           value="1"{% if child.cover.vars.value == 1 %} checked {% endif %}/> Cover
+                                </label>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <a class="delete-link" href="{{ path("app_get_rest_goal_removeimage", {'id' : child.vars.value.id } ) }}" >{{ 'btn_delete'|trans }}</a>
+                            </div>
+
+                        </figcaption>
+                    </figure>
+
+                </li>
+        {% endif %}
+
+            {{ form_widget(child.list, {'attr': {'class' : 'bl_list_hidden'} } ) }}
+            {{ form_widget(child.cover, {'attr': {'class' : 'bl_cover_hidden'} } ) }}
+
+            {% set count = count + 1 %}
+
+
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
+
+{% macro multiple_prototype(form) %}
+
+    {% set listHiddenId = form.list.vars.id %}
+    {% set listId =  'list_show_id' %}
+    {% set listName =  'list_show_name' %}
+
+    {% set coverHiddenId = form.cover.vars.id %}
+    {% set coverId =  'cover_show_id' %}
+    {% set coverName =  'cover_show_name' %}
+
+    {{ form_widget(form.file) }}
+
+    <label class="radio-inline">
+        <input onclick="toHiddenList('{{ listHiddenId }}' )" class="bl-radio" type="radio" id="{{ listId }}" name="{{ listName }}" value="1" /> List
+    </label>
+
+    <label class="radio-inline">
+        <input onclick="toHiddenCover('{{ coverHiddenId }}' )" class="bl-radio" type="radio" id="{{ coverId }}" name="{{ coverName }}" value="1"> Cover
+    </label>
+
+    {{ form_widget(form.list, {'attr': {'class' : 'bl_list_hidden'} } ) }}
+    {{ form_widget(form.cover, {'attr': {'class' : 'bl_cover_hidden'} } ) }}
+{% endmacro %}

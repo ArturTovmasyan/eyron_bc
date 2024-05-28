@@ -1,0 +1,65 @@
+{% set path = addr|split('/') %}
+{% set current = path[path|length - 1]|trim %}
+{% set edit = path[path|length - 2]|trim %}
+{% set edit = edit == 'edit' %}
+{% set style = 'style="background:black"' %}
+
+<ul class="user-menu hidden-xs">
+
+    {% if app.user and app.user.activity %}
+        <li>
+            <a {{ current == 'activity' ? style}} href="{{ path('activity') }}">
+                <i  class="icons activity-icon"></i>
+                <span>{{ 'activity'|trans }}</span>
+            </a>
+        </li>
+    {% endif %}
+    
+    <li >
+        <a {{ current == 'leaderboard' ? style}} href="{{ path('leaderboard') }}">
+            <i class="icon-suggest-icon"></i>
+            <span class="text">{{ 'leaderboard.name'|trans | capitalize}}</span>
+        </a>
+    </li>
+
+    <li>
+        <a {{ current == 'goal-friends' ? style}} href="{{ path('goal_friends') }}">
+            <i class="menu-goalfrinds"></i>
+            <span class="text">{{ 'goalfriends'|trans }}</span>
+        </a>
+    </li>
+
+    <li>
+        <a {{ current == 'ideas' ? style}} href="{{ path('goals_list') }}">
+            <i class="icons ideas-icon"></i>
+            <span>{{ 'ideas'|trans | capitalize }}</span>
+        </a>
+    </li>
+    <li>
+        <a {{ current == 'profile' and not edit ? style}} href="{{ path('user_profile') }}">
+            <i class="icons mybucketlist-icon"></i>
+            <span>{{ 'my_bucketlist'|trans }}</span>
+        </a>
+    </li>
+
+    <li>
+        <a {{ current == 'create' ? style}} href="{{ path('add_goal') }}">
+            <i class="icons add-goal"></i>
+            <span>{{ 'create_goal'|trans }}</span>
+        </a>
+    </li>
+
+    <li>
+        <a {{ edit ? style}} href="{{ path("edit_user_profile") }}">
+            <i class="icons settings-icon"></i>
+            <span>{{ 'settings'|trans }}</span>
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ path("fos_user_security_logout") }}">
+            <i class="icons logout"></i>
+            <span>{{ 'logout'|trans }}</span>
+        </a>
+    </li>
+</ul>

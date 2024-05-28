@@ -1,0 +1,9 @@
+application_affiliate:
+    resource: "@ApplicationAffiliateBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+application_afiliate_rest:
+    type:     rest
+    resource: Application\AffiliateBundle\Controller\Rest\AffiliateController
+    prefix:   /

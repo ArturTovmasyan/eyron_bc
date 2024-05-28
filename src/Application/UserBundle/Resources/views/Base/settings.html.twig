@@ -1,0 +1,76 @@
+{% extends "AppBundle:BucketList:baseList.html.twig" %}
+
+{% block profileImage %}
+
+<form id="settings-form" action="#" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
+    <div xmlns="http://www.w3.org/1999/html">
+        {#<span class="overlay"></span>#}
+
+        <figure>
+
+            <div data-ng-show="imageUrl" class="setting-bg relative">
+                <img data-ng-src="[[ imageUrl ]]" alt="{{ user.filename }}" class="img-responsive img-circle">
+                <figcaption data-ng-show="imageUrl">
+                    {{ form_label(form.file, 'change profile picture'|trans({}, 'FOSUserBundle'|capitalize)) }}
+                </figcaption>
+            </div>
+
+            {#<div class="relative">#}
+
+                <div data-ng-show="imageUrl">
+                    <img data-ng-src="[[ imageUrl ]]"
+                         data-ng-init="imageUrl='{{ user.getPhotoLink|blImageFilter('user_image')|default("") }}'"
+                         alt="{{ user.fileOriginalName }}" class="uploaded-image" width="145" height="145">
+                </div>
+
+                <div data-ng-hide="imageUrl">
+                    {{ form_label(form.file, null,  {'label_attr' : {'class':'upload'} }) }}
+                </div>
+
+                <div class="hide">
+                    {{ form_widget(form.file, {'attr': {'data-ls-file-upload-preview': '', 'data-image-url': 'imageUrl'} }) }}
+                </div>
+
+
+            {#</div>#}
+        </figure>
+    </div>
+    {% endblock %}
+
+    {% block content_container %}
+
+    {% set routeName = app.request.attributes.get('_route') %}
+
+    <div xmlns="http://www.w3.org/1999/html">
+        <div class="bucketlist settings-menu">
+            <div class="container">
+                <div class="row">
+                    <ul class="menu">
+                        <li {% if routeName == 'edit_user_profile' %}class="active"{% endif %}>
+                            <a href="{{ path('edit_user_profile') }}">{{ 'user.profile'|trans({}, 'FOSUserBundle') }}</a>
+                        </li>
+                        <li {% if routeName == 'edit_user_notify' %}class="active"{% endif %}>
+                            <a href="{{ path('edit_user_notify') }}">{{ 'user.notification'|trans({}, 'FOSUserBundle') }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr/>
+        </div>
+        <div class="container">
+            {% block settings_content %}{% endblock %}
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets output='css/layout_settings.css'
+    'bundles/app/less/settings.less'
+    filter='less,cssrewrite'
+    %}
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}

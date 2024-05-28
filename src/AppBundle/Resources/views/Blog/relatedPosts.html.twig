@@ -1,0 +1,35 @@
+{% if posts|length > 0 %}
+
+<section class="category">
+
+    <h2 class="text-center text-dark title">{{ 'goal.see_also'|trans }}</h2>
+
+    <div class="samples">
+        <div class="amp-live-list-item">
+            {% for post in posts %}
+                <figure class="blog">
+                    <a href="{{ path('blog_show', {'slug' : post.slug}) }}">
+                        <amp-img src="{{ post.imagePath|blImageFilter('goal_list_small') }}"
+                                 layout="responsive"
+                                 width="1280"
+                                 height="853"
+                                 alt="{{ post.title }}">
+                        </amp-img>
+
+                        <figcaption>
+                            <span class="transparent"></span>
+                            <h3 class="text-center">{{ post.title }}</h3>
+
+                            {% if post.metaDescription %}
+                                <p>{{ post.metaDescription|markdown|sliceString }}</p>
+                            {% endif %}
+
+                        </figcaption>
+                    </a>
+
+                </figure>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

@@ -1,0 +1,11 @@
+notification:
+  comment: commented on your goal
+  important_goal_comment: commented on your important goal
+  reply: replied to a comment on your goal
+  important_goal_reply: replied to a comment on your important goal
+
+admin:
+  label:
+    name:
+      comment: Comment
+      thread: Thread

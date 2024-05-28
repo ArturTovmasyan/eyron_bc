@@ -1,0 +1,51 @@
+<ul data-ng-controller="goalFooter" class="row {% if inner is defined %} goal-links {% endif %} news-footer no-gutter ng-hide" data-ng-show="singleGoal.publish">
+
+    <li class="col-xs-4" data-ng-class="{transparent: (singleGoal.is_my_goal && singleGoal.is_my_goal !== 0) || !completed}">
+        <a href="javascript:void(0)"
+           data-ng-cloak
+           data-ls-goal-manage
+           data-ls-goal-id="[[ singleGoal.id ]]"
+           data-ng-show="!singleGoal.is_my_goal && completed"
+           data-ng-click="singleGoal.is_my_goal = 1"
+           class="ng-hide">
+            <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+            <span class="text">{{ 'add'|trans | capitalize}}</span>
+        </a>
+        <span class="ng-hide" data-ng-show="(singleGoal.is_my_goal && singleGoal.is_my_goal !== 0)|| !completed">
+            <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+            <span class="text">{{ 'added'|trans | capitalize}}</span>
+        </span>
+    </li>
+{#todo binding in activity when done in goal end #}
+    <li class="col-xs-4" data-ng-class="{transparent: (singleGoal.is_my_goal && singleGoal.is_my_goal === 2 )|| !completed}" data-ng-init="success[ singleGoal.id ] = false">
+        <span class="ng-hide" data-ng-show="singleGoal.is_my_goal !== 2 && completed">
+            <a href="javascript:void(0)"
+               data-ng-cloak
+               data-ls-user-goal-manage
+               data-ls-goal-id="[[ singleGoal.id ]]"
+               data-ng-click="completed = false">
+                 <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                 <span class="text">{{ 'done'|trans | capitalize }}</span>
+             </a>
+        </span>
+
+        <span  class="ng-hide" data-ng-show="(singleGoal.is_my_goal && singleGoal.is_my_goal === 2)|| !completed" id="success[[ ::singleGoal.id]]">
+            <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+            <span class="text">{{ 'completed'|trans | capitalize}}</span>
+        </span>
+    </li>
+
+    <li class="col-xs-4" data-ng-click="showComment(activity, singleGoal)" data-ng-class="{'bg-purple': (activity.showComment || goal.showComment)}">
+        <a href="javascript:void(0)">
+            <i class="comment-icon"></i>
+            <span class="text" data-ng-class="{'text-white': (activity.showComment || goal.showComment)}">{{ 'comments'|trans }}</span>
+        </a>
+    </li>
+    
+</ul>
+<ul data-ng-show="!singleGoal.publish" class="ng-hide row">
+    <li class="col-xs-12 transparent">
+        <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon-lock-white text-gray"></i>
+        <span class="text text-gray">{{ 'user_goal.private' | trans }}</span>
+    </li>
+</ul>

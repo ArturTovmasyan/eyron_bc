@@ -1,0 +1,22 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+<div class="container">
+    <div  class="signup notice">
+        <div>
+            <div class="row">
+
+                <h1 class="text-center">{{ 'resetting.check_email.title'|trans({}, 'FOSUserBundle') }}</h1>
+
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <h4 class="text-gray">{{ 'resetting.check_email.check_email_first_text'|trans({'%email%': email}, 'FOSUserBundle') }}</h4>
+                    <h4 class="text-gray">{{ 'resetting.check_email.check_email_second_text'|trans({}, 'FOSUserBundle') }}</h4>
+                    <h4 class="text-gray">
+                        <a href="{{ path('fos_user_resetting_check_email') }}" class="text-purple">{{ 'resetting.check_email.have_not_received'|trans({}, 'FOSUserBundle') }}</a>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

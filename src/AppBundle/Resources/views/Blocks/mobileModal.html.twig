@@ -1,0 +1,39 @@
+<div id="mobile-modal" data-ng-controller="mobileModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--<button type="button" class="close" aria-label="Close" rel="modal:close">-->
+                <!--<span aria-hidden="true" class="icon-remove-email" rel="modal:close"></span>-->
+                <!--&lt;!&ndash;<span class="icon-remove-email"></span>&ndash;&gt;-->
+                <!--</button>-->
+                <a href="javascript:void(0)" rel="modal:close" class="icon-remove-email"></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <h5 class="ng-hide" data-ng-show="isRuLanguage">
+                    Bucket List 127 доступен повсеместно!
+                    Скачайте приложение, чтобы воспользоваться его разнообразными возможностями и открыть для себя множество вдохновляющих идей для ваших целей.
+                </h5>
+
+                <h5 class="ng-hide" data-ng-hide="isRuLanguage">
+                    Bucket List 127 is available everywhere!
+                    Download the app, discover great features and explore over thousand exciting ideas for your goals.
+                </h5>
+
+                <ul class="apps clearfix">
+                    <li>
+                        <a data-ng-show="deviceDetector.raw.os.ios" href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
+                            <img src="{{ asset('bundles/app/images/appstore.png') }}" alt="Appstore" class="img-responsive"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-ng-show="deviceDetector.raw.os.android" href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play" target="_blank">
+                            <img src="{{ asset('bundles/app/images/googleplay.png') }}" alt="Googleplay" class="img-responsive"/>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>

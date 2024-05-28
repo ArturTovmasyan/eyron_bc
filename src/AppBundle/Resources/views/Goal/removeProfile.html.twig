@@ -1,0 +1,233 @@
+<div data-ng-controller="removeProfileController" data-ng-class="{'bg-grey': !deleted, 'min-modal-container': step == 3, 'back-transparent':deleted}" id="remove-profile-modal">
+    <div  data-ng-class="{'min-modal-container': step == 3,'modal-container': step !=3}" data-ng-show="!deleted">
+        <div data-ng-class="{'modal-top-pad': isMobile && (step == 3),'remove-modal-top': isMobile || !isMobile}">
+            <a href="javascript:void(0)" rel="modal:close" class="close-icon"></a>
+            <h2  data-ng-show="step == 1">{{"delete_profile.title_1" | trans }}</h2>
+            <h2  data-ng-show="step == 2">{{"delete_profile.title_2" | trans }}</h2>
+            <h2 class="modal-title" data-ng-show="step == 3">{{"delete_profile.title_3" | trans}}</h2>
+            <div class="modal-top-content" data-ng-show="step == 1">
+                <p>
+                    {{"delete_profile.top_content" | trans }}
+                </p>
+            </div>
+        </div>
+        <div class="modal-body text-left">
+            <div class="clearfix purple-checkbox" data-ng-show="step == 1">
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container" data-ng-class="{'my-md-checked': complaintType == complaintTypes.notificationsOf}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-model="complaintType" data-ng-value="[[ complaintTypes.notificationsOf ]]" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{"delete_profile.notifications" | trans }}</span>
+                        </span>
+
+                    </label>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': complaintType == complaintTypes.privateGoal}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ complaintTypes.privateGoal ]]" data-ng-model="complaintType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{"delete_profile.goals" | trans }}</span>
+                        </span>
+
+                    </label>
+                </div>
+                {#<div>#}
+                    {#<label class="relative">#}
+                        {#<span class="my-md-container"  data-ng-class="{'my-md-checked': complaintType == complaintTypes.googleSearch}">#}
+                            {#<span class="md-off"></span>#}
+                            {#<span class="md-on"></span>#}
+                        {#</span>#}
+
+                        {#<input type="radio" data-ng-value="[[ complaintTypes.googleSearch ]]" data-ng-model="complaintType" style="display: none">#}
+
+                        {#<span class="my-md-label">#}
+                            {#<span class="ng-scope">{{ "my_bucket_list.invisible"|trans }}</span>#}
+                        {#</span>#}
+
+                    {#</label>#}
+                {#</div>#}
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': complaintType == complaintTypes.signOut}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ complaintTypes.signOut ]]" data-ng-model="complaintType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{"delete_profile.sign_out" | trans }}</span>
+                        </span>
+
+                    </label>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': complaintType == complaintTypes.deleteAccount}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ complaintTypes.deleteAccount ]]" data-ng-model="complaintType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{ "delete_profile.delete_prof" | trans }}</span>
+                        </span>
+
+                    </label>
+                </div>
+
+            </div>
+            <div class="clearfix purple-checkbox" data-ng-show="step == 2">
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container" data-ng-class="{'my-md-checked': deleteType == deleteTypes.elswhere}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-model="deleteType" data-ng-value="[[ deleteTypes.elswhere ]]" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{"delete_profile.something_else" | trans }}</span>
+                        </span>
+
+                    </label>
+                    <div data-ng-show="deleteType == deleteTypes.elswhere" class="helper row">
+                        <div class="helper-icon col-xs-2"><i class="icons delete_prof_info"></i></div>
+                        <div class="helper-text col-xs-10">
+                            <p>{{"delete_profile.something_else_text" | trans({'%href%': path("page", { 'slug' : 'how-it-works'})}) |raw }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': deleteType == deleteTypes.moreNotification}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ deleteTypes.moreNotification ]]" data-ng-model="deleteType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{"delete_profile.many_notify" | trans }}</span>
+                        </span>
+
+                    </label>
+                    <div data-ng-show="deleteType == deleteTypes.moreNotification" class="helper row">
+                        <div class="helper-icon col-xs-2"><i class="icons delete_prof_info"></i></div>
+                        <div class="helper-text col-xs-10">
+                            <p>{{"delete_profile.many_notify_text" | trans({'%href%': path("edit_user_notify")}) |raw }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': deleteType == deleteTypes.notExpected}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ deleteTypes.notExpected ]]" data-ng-model="deleteType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{"delete_profile.not_expected" | trans }}</span>
+                        </span>
+
+                    </label>
+                    <div data-ng-show="deleteType == deleteTypes.notExpected" class="helper row">
+                        <div class="helper-icon col-xs-2"><i class="icons delete_prof_info"></i></div>
+                        <div class="helper-text col-xs-10">
+                            <p>{{"delete_profile.not_expected_text" | trans }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': deleteType == deleteTypes.doneEverything}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ deleteTypes.doneEverything ]]" data-ng-model="deleteType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{ "delete_profile.done_everything" | trans }}</span>
+                        </span>
+
+                    </label>
+                    <div data-ng-show="deleteType == deleteTypes.doneEverything" class="helper row">
+                        <div class="helper-icon col-xs-2"><i class="icons delete_prof_info"></i></div>
+                        <div class="helper-text col-xs-10">
+                            <p>{{"delete_profile.done_everything_text" | trans }} </p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': deleteType == deleteTypes.other}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ deleteTypes.other ]]" data-ng-model="deleteType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{"delete_profile.other" | trans }}</span>
+                        </span>
+
+                    </label>
+                </div>
+                <div>
+                    <label class="relative">
+                        <textarea data-ng-model="deleteReason" class="form-control"
+                                  data-ng-class="{'invalid-reason': isInvalid && !deleteReason && deleteType == deleteTypes.other}"
+                                  placeholder="[[ (deleteType == deleteTypes.other ? '{{ 'delete_profile.other_placeholder' | trans }}' : '{{ 'delete_profile.placeholder' | trans }}')]]">
+                        </textarea>
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="clearfix purple-checkbox pass-content" data-ng-show="step == 3">
+                <div>
+                    <span>{{"delete_profile.password" | trans }}</span>
+                    <label class="relative">
+                        <input type="password" data-ng-model="password" class="pass-input">
+                    </label>
+                    <div class="tooltip">
+                        <i class="icons delete_prof_pass"></i>
+                        <div class="link-pass">
+                            <a href="{{ path("fos_user_resetting_check_email") }}">{{"delete_profile.forgot_pass" | trans }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <div class="btn btn-purple" data-ng-click="stay()">{{"delete_profile.stay" | trans }}</div>
+            <div class="continue-button" data-ng-show="complaintType == complaintTypes.deleteAccount && step != 3" data-ng-click="continue()"><p>{{"delete_profile.continue" | trans }}</p></div>
+            <div class="continue-button" data-ng-show="complaintType == complaintTypes.deleteAccount && step == 3" data-ng-click="checkAccount()"><p>{{"delete_profile.delete_acc" | trans }}</p></div>
+        </div>
+    </div>
+    <div class="helper-del row burger" data-ng-if="deleted">
+        <div class="helper-icon col-xs-2"><i class="icons delete_prof_info"></i></div>
+        <div class="helper-text-del col-xs-10">
+            <p>{{"delete_profile.profile_was_deleted_title" | trans}}</p>
+            <p>{{"delete_profile.profile_was_deleted" | trans}}</p>
+        </div>
+    </div>
+</div>

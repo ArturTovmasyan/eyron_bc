@@ -1,0 +1,7 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{%- block field %}
+    {% if value and value.first %}
+        <img src="{{ value.first.getImagePath()|blImageFilter('goal_admin_list') }}" />
+    {% endif %}
+{% endblock -%}

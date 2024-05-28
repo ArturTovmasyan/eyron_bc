@@ -1,0 +1,20 @@
+
+<div class="bg-grey">
+    <div class="container" id="random_goals">
+
+        <h2 class="text-center text-dark">{{ 'goal.see_also'|translate }}</h2>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+                <div class="row idea-item ">
+                    <div class="col-md-4 goals-animate" *ngFor="let goal of items">
+                        <figure>
+                            <app-goal [goal]="goal"></app-goal>
+                            <app-goal-footer [goal]="goal"></app-goal-footer>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

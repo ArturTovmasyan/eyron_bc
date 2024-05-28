@@ -1,0 +1,32 @@
+@import "../../../assets/less/variables.less";
+
+.api-profile-content{
+  .goals-information{
+    padding: 0 30px;
+    .information{
+      a.manage-modal[md-button]{
+        margin: 0 0 0 20px;
+      }
+
+      .check_status{
+        padding: 0 25px 7px 0;
+      }
+    }
+  }
+}
+@media (min-width: @screen-sm) {
+  .api-profile-content{
+    .goals-information{
+      padding: 0;
+      .information{
+        a.manage-modal[md-button]{
+          margin: 0;
+        }
+
+        .check_status{
+          padding: 0 0 5px;
+        }
+      }
+    }
+  }
+}

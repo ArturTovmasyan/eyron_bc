@@ -1,0 +1,39 @@
+{% if user is defined %}
+    <div class="bg-white round padding {% if user.getCompletedPercent()|round(1, 'floor') != 100 %}margin-top {% endif %}" data-ng-controller="userStatesController">
+
+        <a href="{{ path('user_profile') }}" class="heading text-gray">
+            <i class="mybuucketlist"></i>
+            {{ 'my_bucketlist'|trans }}
+        </a>
+
+        <hr/>
+
+        {% set stats = user.getStats %}
+
+        <ul class="horizontal-menu {{ app.request.locale }}" data-ng-init="isChange = false" data-ng-cloak>
+            <li>
+                <a href="{{ path('user_profile_single', {'status': 'active-goals' }) }}">
+                    <strong>{{ 'user_goal.active'|trans }}</strong>
+                    <span data-ng-if="!isChange">{{ stats.active }}</span>
+                    <span data-ng-if="isChange" data-ng-bind="stats.listedBy"></span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('user_profile') }}">
+                    <strong>{{ 'block_listed'|trans }}</strong>
+                    <span data-ng-if="!isChange">{{ stats.listedBy }}</span>
+                    <span data-ng-if="isChange" data-ng-cloak>[[ stats.listedBy - (-1)*stats.doneBy ]]</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('user_profile_single', {'status': 'completed-goals' }) }}">
+                    <strong>{{ 'block_completed'|trans |capitalize }}</strong>
+                    <span data-ng-if="!isChange">{{ stats.doneBy }}</span>
+                    <span data-ng-if="isChange" data-ng-bind="stats.doneBy"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+{% endif %}

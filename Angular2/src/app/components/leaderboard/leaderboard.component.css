@@ -1,0 +1,47 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.leaderboard-list {
+  padding: 3px 0 7px 0;
+}
+.leaderboard-list li {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  font-size: 14px;
+}
+.leaderboard-list li figure,
+.leaderboard-list li p {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  line-height: 45px;
+}
+.leaderboard-list li:last-child {
+  float: right;
+  margin: 13px 0 0;
+}
+.leaderboard-list li a:hover {
+  color: #7724f6 !important;
+}
+.leaderboard-list li a:focus {
+  text-decoration: none;
+}
+@media (min-width: 768px) {
+  .leaderboard-list li {
+    font-size: 16px;
+    margin-right: 7px;
+  }
+  .leaderboard-list li:last-child {
+    margin: 13px 0 0;
+  }
+}

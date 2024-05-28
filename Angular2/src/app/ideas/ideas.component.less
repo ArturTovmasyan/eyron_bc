@@ -1,0 +1,366 @@
+@import "../../assets/less/variables.less";
+@import "../../assets/less/function.less";
+
+[hidden] {
+  display: none;
+}
+
+.ideas-result{
+  padding-top: 20px;
+}
+
+#hide-completed{
+  display: inline-block;
+  //margin-right: 25px;
+  margin: 15px 25px 0 0 ;
+  .purple-checkbox{
+
+    .my-md-container{
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      box-sizing: border-box;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      left: 0;
+      right: auto;
+    }
+
+    .my-md-icon {
+      box-sizing: border-box;
+      -webkit-transition: .24s;
+      transition: .24s;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(0,0,0,0.4);
+      border-radius: 2px;
+    }
+
+    .my-md-label{
+      box-sizing: border-box;
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+      white-space: normal;
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+      margin-left: 30px;
+      margin-right: 0;
+      font-size: 16px;
+      color: #333333;
+    }
+
+    .my-md-checked {
+      .my-md-icon {
+        background-color: #7724F6;
+        border: 2px solid #7724f6;
+      }
+
+      .my-md-icon {
+        &:after{
+          box-sizing: border-box;
+          -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+          position: absolute;
+          left: 4.66667px;
+          top: .22222px;
+          display: table;
+          width: 6.66667px;
+          height: 13.33333px;
+          border: 2px solid;
+          border-top: 0;
+          border-left: 0;
+          content: '';
+          color: #ffffff;
+        }
+      }
+
+      .md-on {
+        -webkit-transform: scale(0.5);
+        /* transform: scale(0.5); */
+        background-color: #7724F6;
+      }
+    }
+
+
+    .md-off,.md-on {
+      box-sizing: border-box;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #7724F6;
+    }
+
+  }
+}
+.content-top{
+  background-color: #ffffff;
+}
+
+.ideas-top{
+  min-height: 105px;
+  .search{
+    height:51px;
+  }
+}
+
+hr{
+  margin: 0;
+}
+
+.filters-slider{
+  height: 50px;
+  .bg-left,.bg-right{
+    position: absolute;
+    z-index: 10;
+    height: 100%;
+    width: 20px;
+    top: 0;
+    //background: rgba(255, 255, 255, 0.6);
+    background: #ffffff;
+    cursor: pointer;
+  }
+
+  .bg-left{
+    left: -7px;
+    top: 4px;
+  }
+
+  .bg-right{
+    right: -7px;
+    top: 4px;
+  }
+
+  .swiper-button-prev,.swiper-button-next{
+    width: 10px;
+    height: 19px;
+    top: 65%;
+    cursor: pointer;
+  }
+
+  .swiper-button-prev{
+    background: url('../../assets/images/left-slide.png') no-repeat center center;
+    background-size: 80%;
+    left: 7px;
+  }
+
+  .swiper-button-next{
+    background: url('../../assets/images/right-slide.png') no-repeat center center;
+    background-size: 80%;
+    right:7px;
+  }
+}
+
+ul.filter{
+  padding: 7px 0 10px;
+  margin-bottom:0;
+  //min-width:125px;
+  height: 60px;
+
+  li{
+    display:inline-block;
+    cursor: pointer;
+    padding: 0 5px 0 0;
+
+    a{
+      color:#666666;
+      display: block;
+      vertical-align: middle;
+      font-weight: 500;
+      font-size: 11px;
+      padding: 0;
+      text-align: center;
+
+      span{
+        display: block;
+        vertical-align: middle;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      img{
+        height: 25px;
+      }
+
+      .svg{
+        width: 25px;
+        height: 25px;
+      }
+
+      &:hover,&:active,&:focus{
+        text-decoration: none;
+        color: #7725f6 ;
+
+        span{
+          color: #7725f6 ;
+        }
+      }
+    }
+
+    &.active-category{
+      .most-popular{
+        stroke: #7725f6;
+      }
+
+      svg path,circle,polygon,rect,line,polyline,.st0{
+        stroke: #7725f6;
+        //fill: #7725f6;
+      }
+
+      a{
+        color: #7725f6;
+      }
+
+      a[data-slug=nearby]{
+        svg {
+          //path{
+          //  fill: #7725f6;
+          //}
+          ellipse{
+            stroke: #7725f6;
+          }
+        }
+      }
+
+      a[data-slug=travel]{
+        svg path{
+          fill: #7725f6;
+          stroke: transparent;
+        }
+      }
+
+      a[data-slug=experience]{
+        svg polygon{
+          fill: #7725f6;
+        }
+      }
+
+      a[data-slug=newskills]{
+        svg circle{
+          fill: #7725f6;
+        }
+      }
+
+      a[data-slug=social]{
+        svg {
+          g {
+            g{
+              path{
+                fill: #7725f6;
+              }
+            }
+          }
+
+        }
+      }
+
+      a[data-slug=personal]{
+        svg g{
+          path{
+            &:first-child{
+              fill: #7725f6;
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
+
+.list-tooltip{
+  position: absolute;
+  z-index: 1000;
+  text-align: center;
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #b0b0b0;
+  min-width: 150px;
+  height: 34px;
+  line-height: normal;
+  padding: 5px 10px;
+  .rounded-corners(4px);
+  .arrow-up{
+    top: -7px;
+    left: 60px;
+    position: absolute;
+    border-bottom-color: #ffffff;
+    border-top-color: #ffffff;
+  }
+}
+
+@media (min-width: @screen-sm) {
+  .filters-slider{
+    height: 70px;
+    .bg-left{
+      top: 0;
+    }
+
+    .bg-right{
+      right: -1px;
+      top: 0;
+    }
+
+    .swiper-button-prev{
+      background-size: 100%;
+    }
+
+    .swiper-button-next{
+      background-size: 100%;
+    }
+  }
+
+  .ideas-top{
+    min-height: 146px;
+    .search{
+      height:75px;
+    }
+  }
+
+  ul.filter{
+    min-width:170px;
+    padding: 8px 0 11px;
+
+    li{
+      padding: 0;
+
+      a{
+        font-size:13px;
+        span{
+          padding: 3px 0 0;
+        }
+
+        img{
+          height: 30px;
+        }
+
+        .svg{
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-sm) {
+  ul.filter{
+    li{
+      a{
+        font-size:14px;
+      }
+    }
+  }
+}

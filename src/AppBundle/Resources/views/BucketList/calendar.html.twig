@@ -1,0 +1,61 @@
+<div class="calendar-place"
+     data-ng-if="showCalendar"
+     data-ng-cloak
+     data-ng-controller="calendarController">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-5">
+                <section>
+                    <md-button class="groupX left" data-ng-class="{'md-active': type == 'month'}" data-ng-click="type = 'month'">Month</md-button>
+                    <md-button class="groupX middle" data-ng-class="{'md-active': type == 'year'}" data-ng-click="type = 'year'">Year</md-button>
+                    <md-button class="groupX right" data-ng-class="{'md-active': type == 'all'}" data-ng-click="type = 'all'">All</md-button>
+                </section>
+            </div>
+            <div class="col-xs-9 col-sm-4">
+                <h3 data-ng-if="type == 'month'">[[ dateByFormat(currentYear, currentMonth, 1, 'MMMM YYYY')]]</h3>
+                <h3 class="year" data-ng-if="type == 'year'">Years</h3>
+                <h3 data-ng-if="type == 'all'">Lifetime</h3>
+            </div>
+            <div class="col-xs-3 col-sm-3 text-right">
+
+                <a href="#" data-ng-click="prev()">
+                    <i class="icon-arrow-left"><span class="path1"></span><span class="path2"></span></i>
+                </a>
+
+                <a href="#" data-ng-click="next()">
+                    <i class="icon-arrow-right"></i>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive ng-hide" data-ng-show="type == 'month'">
+                    {%  include "AppBundle:BucketList:calendarMonth.html.twig"  %}
+                </div>
+
+            </div>
+        </div>
+
+        {# start year calendar#}
+        <div class="row ng-hide" data-ng-show="type == 'year'">
+            {%  include "AppBundle:BucketList:calendarYear.html.twig"  %}
+        </div>
+        {# end year calendar#}
+
+        <div class="row ng-hide" data-ng-show="type == 'all'">
+            {% for i in 0..11 %}
+                {%  include "AppBundle:BucketList:calendarAllYear.html.twig" with {'index': i}  %}
+            {% endfor %}
+        </div>
+
+    </div>
+    <div class="calendar-tooltip ng-hide"
+         data-ng-show="isHover">
+        <span class="arrow-up"></span>
+        [[ hoveredText]]
+    </div>
+</div>

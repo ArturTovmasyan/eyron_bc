@@ -1,0 +1,156 @@
+<div class="story-count">
+    <div class="row">
+        <div class="col-xs-12">
+            <a name="success_story"></a>
+            <h4 class="text-dark-gray">
+                <i class="success-icon"></i>
+                {{ 'success_stories'|translate }}
+            </h4>
+        </div>
+    </div>
+    <hr/>
+</div>
+
+
+<!--{% if app.user and story.user.id == app.user.id %};showMyStory[{{ story.id }}] = true{% endif %}"-->
+<div class="bg-grey stories-place story-fade-in " *ngFor="let story of stories | sortArray; let k = index" [hidden]="!story.show">
+    <!--{% if app.user and story.user.id == app.user.id %} && showMyStory[{{ story.id }}]{% endif %}-->
+    <div class="row no-gutter">
+        <div class="col-xs-9">
+            <div class="clearfix">
+                <a [routerLink]="(appUser ? ('/profile/' + story.user.u_id +'/activity'): '/login/user/' + story.user.u_id)" class="pull-left">
+
+                    <figure class="user-image">
+                        <img *ngIf="story.user.cached_image" src="{{ story.user.cached_image }}"
+                             alt="{{ story.user.filename }}" class="img-circle img-responsive">
+
+                        <p *ngIf="!story.user.cached_image" class="no-image user-no3 text-white">
+                            {{ story.user.first_name |slice:0:1 |uppercase }} {{ story.user.last_name |slice:0:1
+                            |uppercase }}
+                        </p>
+                    </figure>
+
+                </a>
+
+                <div class="pull-left">
+                    <p>
+                        <a [routerLink]="(appUser ? ('/profile/' +  story.user.u_id + '/activity'): '/login/user/' + story.user.u_id)" class="text-dark-gray">
+                            {{ story.user.show_name }}
+                        </a>
+                        <!--<span *ngIf="!appUser" class="text-dark-gray">{{ story.user.show_name }}</span>-->
+                    </p>
+
+            <span>
+              {{ story.created | date:'MMMM dd,  yyyy' }} at {{ story.created | date:'shortTime' }}
+            </span>
+
+            <span class="report" (click)="report(1, story.id)" *ngIf="appUser && story.user.id != appUser.id">
+              {{ 'report.title'|translate }}
+            </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class=" col-xs-3 text-right">
+            <goal-users [story]="story" [type]="3" [user]="story.user" [goal]="goal"></goal-users>
+        </div>
+
+    </div>
+
+    <div class="border-left" *ngIf="story">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>{{ story.story }} </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="story.files && story.files.length == 1">
+        <div class="col-sm-12">
+            <figure>
+                <img src="{{ story.files[0].image_path }}" alt="{{ story.files[0].file_name }}" height="360"/>
+            </figure>
+        </div>
+    </div>
+
+
+    <div class="story-remove text-right" *ngIf="appUser && story.user.id == appUser.id">
+        <a md-button (click)="openDialog(story.id, k)">
+            <span class="report">{{ 'btn_delete'|translate }}</span>
+        </a>
+
+        <!--data-ls-text="{{ 'success_story.delete_confirm'|trans }}" data-ls-confirm="removeStory({{ story.id }})"-->
+    </div>
+
+
+    <div class="row" *ngIf="story.files && story.files.length > 1">
+        <div class="col-sm-12">
+            <swiper [config]="fileConfig" class="swiper-container story-slider image-slider">
+                <!--id="story-slider-image{{ key }}" data-ng-init="successStoryImageKeys[{{ key }}] = {{ key }}"-->
+                <!-- Slides Container -->
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" (click)="openLightBox(story)" *ngFor="let file of story.files">
+                        <a>
+                            <!--|blImageFilter('slide_max_size') class="swipebox-key-{{ key }}"-->
+                            <img   class="img-responsive" src="{{ file.image_path }}" alt="{{ file.file_name }}"/>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="swiper-pagination swiper-pagination-white" *ngIf="story.files.length > 2"></div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next swiper-button-white" *ngIf="story.files.length > 2"></div>
+                <div class="swiper-button-prev swiper-button-white" *ngIf="story.files.length > 2"></div>
+            </swiper>
+        </div>
+    </div>
+
+
+    <div class="row" *ngIf="story.video_link && story.video_link.length == 1">
+        <div class="col-sm-12">
+            <figure>
+                <embed-video [href]="story.video_link[0]" height="360px" width="100%">
+                    <!--data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"-->
+                </embed-video>
+            </figure>
+        </div>
+    </div>
+    <!--{% else %}-->
+    <div class="row" *ngIf="story.video_link && story.video_link.length > 1">
+        <div class="col-sm-12">
+            <swiper [config]="videoConfig" class="swiper-container story-slider video-slider">
+                <!--id="story-slider-video{{ key }}"-->
+                <!-- Slides Container -->
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide" *ngFor="let video of story.video_link">
+                        <embed-video width="100%" height="360px" [href]="video">
+                            <!--u="image"-->
+                            <!--data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"-->
+                        </embed-video>
+                    </div>
+
+                </div>
+
+                <div class="swiper-pagination swiper-pagination-white"></div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next swiper-button-white"></div>
+                <div class="swiper-button-prev swiper-button-white"></div>
+            </swiper>
+        </div>
+    </div>
+
+</div>
+
+<div class="row" *ngIf="stories.length > storiesCount">
+    <div class="col-xs-12">
+        <div class="text-right">
+            <a *ngIf="activeIndex !== stories.length"
+               (click)="showMoreSuccessStory()"
+               class="text-purple view-more-comments">
+                Show More +<span>{{ storyLength }}</span>
+            </a>
+        </div>
+    </div>
+</div>

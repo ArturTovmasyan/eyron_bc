@@ -1,0 +1,22 @@
+<ul class="badge-place leaderboard-list" *ngIf="user">
+  <li class="text-gray">
+    <i class="badge-{{ badge.type }}" *ngIf="badge"></i>
+  </li>
+
+  <li>
+    <figure class="img-circle">
+      <!--{% set className = "user-no" ~ random(4) %}-->
+      <img *ngIf="user.cached_image" src="{{ user.cached_image }}" alt="user image" class="img-circle"/>
+      <p *ngIf="!user.cached_image" class="no-image text-white user-no1">
+        {{ user.first_name  | slice:0:1 | uppercase }}
+        {{ user.last_name | slice:0:1 | uppercase }}
+      </p>
+    </figure>
+  </li>
+
+  <li>
+    <a routerLink="/profile/{{ user.u_id }}/activity"  class="text-dark-gray">{{ getFullName(user) }} </a>
+  </li>
+
+  <li class="text-gray">{{ score }}</li>
+</ul>

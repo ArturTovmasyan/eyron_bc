@@ -1,0 +1,213 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.border-left {
+  border-left: 2px solid #ccc;
+  margin: 0 0 15px 15px;
+}
+.comments-column figure {
+  width: 40px;
+  height: 40px;
+  margin: 0 10px 15px 0;
+  overflow: hidden;
+}
+.comments-column figure img {
+  height: 40px;
+  border: 2px solid #cecece;
+}
+.comments-column figure p {
+  width: 40px;
+  height: 40px;
+  line-height: 35px;
+  color: #ffffff;
+}
+.comments-column .leave-comment {
+  width: 77%;
+  margin: 0 0 0 5px;
+}
+.fos_comment_comment_authorname,
+.fos_comment_comment_new_form {
+  position: relative;
+  background-color: #f4f4f4;
+  display: block;
+  margin-bottom: 15px;
+}
+.fos_comment_comment_authorname i,
+.fos_comment_comment_new_form i {
+  position: absolute;
+}
+.fos_comment_comment_authorname i.arrow-left,
+.fos_comment_comment_new_form i.arrow-left {
+  left: -8px;
+  top: 5px;
+}
+.fos_comment_comment_authorname textarea,
+.fos_comment_comment_new_form textarea {
+  height: auto !important;
+  background-color: #f4f4f4;
+  border: 0;
+  box-shadow: none;
+}
+.fos_comment_comment_authorname p,
+.fos_comment_comment_new_form p {
+  margin: 0 ;
+  padding: 0 !important;
+  font-weight: 600;
+  color: #666666;
+  white-space: normal;
+  text-align: justify;
+}
+.fos_comment_comment_authorname p:last-child,
+.fos_comment_comment_new_form p:last-child {
+  font-weight: normal;
+}
+.fos_comment_comment_authorname span,
+.fos_comment_comment_new_form span {
+  color: #999999;
+  font-size: 13px;
+}
+.fos_comment_comment_authorname {
+  padding: 15px 15px 20px;
+}
+.fos_comment_comment_authorname i.arrow-up {
+  top: -9px;
+}
+.fos_comment_comment_new_form {
+  padding: 0;
+}
+.reply {
+  display: inline-block;
+  padding: 1px 15px 10px;
+  cursor: pointer;
+}
+.comment-place {
+  display: block;
+  padding: 10px;
+  background-color: #f4f4f4;
+  font-size: 17px;
+  position: relative;
+  margin: 0 0 9px;
+  color: #4a4a4a;
+  white-space: normal;
+  word-break: break-word;
+}
+.comment-place a {
+  cursor: pointer;
+}
+.comment-place figure {
+  margin-top: 10px;
+}
+.comment-place figure img {
+  width: 100%;
+}
+.comment-place figure.user-image {
+  margin: 0 10px 8px 0;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+}
+.comment-place figure.user-image img,
+.comment-place figure.user-image span {
+  height: 40px;
+  width: 40px;
+  border: 2px solid #cecece;
+  line-height: 34px;
+}
+.comment-place figure.user-image span {
+  display: inline-block;
+}
+.comment-place p {
+  padding: 0;
+  font-size: 13px;
+  color: #666666;
+  margin: 0;
+  white-space: normal;
+  word-break: break-word;
+}
+.comment-place p:first-child {
+  font-weight: 600;
+}
+.comment-place p:last-child {
+  padding: 0 0 5px 0;
+  text-align: justify;
+  font-weight: normal;
+}
+.comment-place span {
+  font-size: 12px;
+  color: #999999;
+}
+.comment-place span.report {
+  font-size: 14px;
+  color: #666666;
+  cursor: pointer;
+}
+.comment-place span.arrow-up {
+  position: absolute;
+  top: -8px;
+  left: 14px;
+}
+.comment-place .swiper-container-free-mode .swiper-wrapper {
+  margin: 20px auto;
+}
+.comment-information p {
+  margin: 0;
+  padding: 0 !important;
+  font-weight: 600;
+  color: #666666;
+  white-space: normal;
+}
+.comment-information span {
+  color: #999999;
+  font-size: 13px;
+}
+.comment-information span.report {
+  color: #666666;
+  font-size: 14px;
+  cursor: pointer;
+}
+.comment-icon {
+  vertical-align: middle;
+  display: inline-block;
+  width: 30px;
+  height: 24px;
+  background: url('../../../assets/images/comment-icon.svg') no-repeat center center;
+}
+@media (min-width: 768px) {
+  .comments-column .leave-comment {
+    width: 90%;
+    margin: 0 0 0 10px;
+  }
+  .comments-column .report {
+    color: #666666;
+    font-size: 14px;
+  }
+  .comment-place {
+    padding: 15px 15px 20px;
+    margin: 6px 0 10px;
+  }
+  .comment-place figure.user-image {
+    margin: 0 10px 15px 0;
+  }
+  .comment-place span {
+    font-size: 12px;
+  }
+  .comment-place p {
+    font-size: 14px;
+  }
+}
+@media (min-width: 992px) {
+  .comment-place figure.user-image {
+    margin: 0 20px 15px 0;
+  }
+  .comment-place span {
+    font-size: 13px;
+  }
+  .comment-place span.text-purple {
+    font-size: 14px;
+  }
+}

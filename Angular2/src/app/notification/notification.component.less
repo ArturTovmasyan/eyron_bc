@@ -1,0 +1,159 @@
+@import "../../assets/less/variables.less";
+@import "../../assets/less/function.less";
+
+#notifications-list{
+  margin-top: 10px;
+}
+
+#notification-list{
+  padding: 0;
+  margin: 0 0 5px;
+  min-height: 350px;
+  height: auto !important;
+  height: 350px;
+
+  li{
+    &:first-child{
+      padding-bottom: 10px;
+    }
+  }
+
+  .close-icon{
+    top: 36%;
+    right: 10px;
+    display: none;
+  }
+
+  h3,a{
+    font-size: 13px !important;
+    line-height: 20px;
+    padding:0 10px;
+    margin: 0;
+  }
+
+  h3{
+    font-weight: 600;
+  }
+
+  a{
+    font-weight: 400;
+    display: inline-block;
+  }
+
+  ul{
+    padding:10px 0;
+    position: relative;
+    margin-bottom: 0;
+    cursor: pointer;
+    border-top: 1px solid #e5e5e5;
+
+    li{
+      figure{
+        text-align: center;
+        width: 40px;
+        height:40px;
+        margin: 0 10px;
+        img{
+          height:40px;
+        }
+
+        p{
+          width: 40px;
+          height: 40px;
+          color: #ffffff;
+          line-height: 36px;
+        }
+      }
+
+      p{
+        padding: 0 11px;
+
+        span{
+          display: block;
+          white-space: normal;
+          word-break: break-word;
+          font-size: 13px;
+          line-height: 20px;
+
+          a{
+            font-weight: 600;
+            padding: 0;
+            color: #666666;
+          }
+        }
+      }
+      &:first-child{
+        padding-bottom:0;
+      }
+    }
+
+    &.unread{
+      background: #f4f4f4;
+    }
+
+    &:hover{
+      background-color: #e8e8e8;
+      .close-icon{
+        display: block;
+      }
+    }
+  }
+  .goals-animate{
+    p{
+      margin-bottom: 0;
+      padding: 0 5px 0 10px;
+    }
+  }
+}
+
+@media (min-width: @screen-sm) {
+  #notifications-list{
+    padding: 20px 0;
+    margin-top: 10px;
+
+    li{
+      &:first-child{
+        padding-bottom: 21px;
+        a{
+          &:hover{
+            color: #7724F6 !important;
+          }
+        }
+      }
+    }
+
+    h3,a{
+      font-size: 14px !important;
+      line-height: 21px;
+    }
+
+    ul{
+      li{
+        p{
+
+          padding: 0 30px 0 11px;
+
+          span{
+            font-size: 14px;
+            line-height: 21px;
+          }
+        }
+      }
+    }
+
+    .goals-animate{
+      p{
+        padding: 0 25px 0 10px;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md) {
+  #notifications-list{
+    padding:30px 0;
+  }
+}
+.snackclass{
+
+}

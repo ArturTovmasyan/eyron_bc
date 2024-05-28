@@ -1,0 +1,41 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
+    {#<link href="{{ asset('bundles/app/less/animation.css') }}" rel="stylesheet"/>#}
+    {#<link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"#}
+          {#rel="stylesheet">#}
+    {#<link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">#}
+    {% stylesheets output='css/layout.css'
+        'app/bower_components/icheck/skins/square/_all.css'
+        'bundles/app/less/taggle_button.css'
+        'app/bower_components/swipebox/src/css/swipebox.min.css'
+        'app/bower_components/swiper/dist/css/swiper.min.css'
+        'app/bower_components/dropzone/downloads/css/dropzone.css'
+        filter='cssrewrite' %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#<script src="https://www.youtube.com/iframe_api"></script>#}
+
+    {% javascripts output='js/app_layout.js'
+        'app/bower_components/icheck/icheck.min.js'
+        'app/bower_components/dropzone/downloads/dropzone.min.js'
+        'app/scripts/Ticker/jquery.ticker.min.js'
+        'app/bower_components/ScrollToFixed/jquery-scrolltofixed-min.js'
+        'bundles/app/js/angular/goal.js'
+        'bundles/app/js/angular/modules/goal/controllers/goalAddToMe.js'
+        'app/bower_components/swipebox/src/js/jquery.swipebox.min.js'
+        'app/bower_components/swiper/dist/js/swiper.min.js'
+        'bundles/app/js/swiper-inner.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}

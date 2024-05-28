@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="signup notice" *ngIf="ready">
+    <div>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center">
+          <h1>{{ 'verification.verified'|translate }}</h1>
+          <h4 class="text-gray">{{ 'registration.confirmed'|translate:{username: username } }}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

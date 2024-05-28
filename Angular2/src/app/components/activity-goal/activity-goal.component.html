@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-sm-12 idea-item">
+    <figure *ngFor="let goal of activity.reserveGoals" class="rounded-corners">
+      <i class="icon-lock-white" *ngIf="!goal.status"></i>
+
+      <!--<a [href]="goal.publish? 'goal/' + goal.slug : '#'"-->
+         <!--class="goalTitle goal-item-image">-->
+        <!--<span class="overlay"></span>-->
+        <!--<h3>{{ goal.title }}</h3>-->
+        <!--<img *ngIf="goal.cached_image" src="{{ goal.cached_image }}" alt="{{ goal.title }}"/>-->
+
+        <!--<div class="absolute" *ngIf="goal.stats.listedBy && goal.stats.doneBy">-->
+          <!--<ul>-->
+            <!--<li>-->
+              <!--<goal-users [goal]="goal" type="1"></goal-users>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<goal-users [goal]="goal" type="2"></goal-users>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
+
+      <!--</a>-->
+
+      <app-goal [goal]="goal"></app-goal>
+
+      <activity-goal-footer [goal]="goal" [activity]="activity"></activity-goal-footer>
+
+    </figure>
+  </div>
+</div>

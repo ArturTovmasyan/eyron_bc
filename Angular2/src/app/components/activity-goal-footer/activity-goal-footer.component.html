@@ -1,0 +1,43 @@
+<figcaption>
+    <ul class="row news-footer no-gutter " *ngIf="goal.publish">
+
+      <li class="col-xs-4" [ngClass]="{transparent: (goal.is_my_goal && goal.is_my_goal !== 0) }">
+        <a md-button *ngIf="!goal.is_my_goal"
+           (click)="addGoal(goal.id)">
+          <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+          <span class="text">{{ 'add'|translate | titlecase }} </span>
+        </a>
+
+        <span *ngIf="goal.is_my_goal && goal.is_my_goal !== 0">
+                <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                <span class="text">{{ 'added'|translate | titlecase }} </span>
+        </span>
+      </li>
+        <!--data-ng-init="success[ goal.id ] = false"-->
+      <li class="col-xs-4" [ngClass]="{transparent: (goal.is_my_goal && goal.is_my_goal === 2 )}">
+        <a md-button *ngIf="!goal.is_my_goal || goal.is_my_goal !== 2" (click)="completeGoal(goal.id)">
+             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+             <span class="text">{{ 'done'|translate | titlecase }}</span>
+        </a>
+
+        <span *ngIf="goal.is_my_goal && goal.is_my_goal === 2 " id="success{{ goal.id }}">
+             <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+            <span class="text">{{ 'completed'|translate | titlecase }}</span>
+        </span>
+      </li>
+
+      <li class="col-xs-4" (click)="showComment(activity, goal)" [ngClass]="{'bg-purple': ((activity && activity.showComment) || (goal && goal.showComment))}">
+        <a md-button>
+          <i class="comment-icon"></i>
+          <span class="text" [ngClass]="{'text-white': ((activity && activity.showComment) || (goal && goal.showComment))}">{{ 'comments'|translate | titlecase }}</span>
+        </a>
+      </li>
+
+    </ul>
+    <ul *ngIf="!goal.publish" class="row">
+      <li class="col-xs-12 transparent">
+        <i title="{{ 'my_bucket_list.private'|translate }}"  class="icon-lock-white text-gray"></i>
+        <span class="text text-gray">{{ 'user_goal.private' | translate | titlecase}}</span>
+      </li>
+    </ul>
+</figcaption>

@@ -1,0 +1,333 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+.modal-bottom{
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 12px 0 10px;
+  .rounded-corners-bottom(8px);
+  button,a[md-button]{
+    padding: 0;
+    min-width: 74px;
+    color: #666666;
+    font-size:12px;
+    text-transform: uppercase;
+    margin-right: 3px;
+    font-weight:bold;
+    line-height: 30px;
+    .rounded-corners(4px);
+
+    &:hover,&:focus,&.btn-purple{
+      color: #ffffff;
+    }
+  }
+}
+
+.goal-modal{
+  width: 280px;
+  margin: 0 auto;
+  overflow: hidden;
+  text-align: left;
+  .rounded-corners(6px);
+
+  .fb-share-button-style{
+    width: 93px;
+    height: 33px;
+    background: url('../../../assets/images/fb-share.svg') no-repeat center center;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+
+  i{
+    font-size: 30px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    color: #a3a3a3;
+  }
+
+  .location {
+    position: relative;
+    z-index: inherit;
+    i {
+      position: absolute;
+      top: 2px;
+      margin-right: 0;
+      left: 5px;
+    }
+  }
+
+  hr{
+    margin: 5px 0;
+  }
+
+  h2{
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: 400;
+  }
+}
+
+.done-modal{
+  h2{
+    font-size: 17px;
+    margin: 10px 5px 10px 25px;
+  }
+
+  .fb-share-button-style{
+    min-width: 55px;
+    width: 90px;
+    height: 30px;
+    background-size: 100%;
+    margin-left: 20px;
+  }
+
+  textarea.form-control{
+    resize: none;
+    height: 43px;
+  }
+}
+
+.modal-top{
+  position: relative;
+  overflow: hidden;
+  height: 112px;
+
+  i{
+    color: #ffffff;
+  }
+
+  div{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  h2{
+    color: #fff;
+    margin: 10px 0 5px 10px;
+    font-size: 18px;
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 28px;
+    height: 30px;
+    width: 260px;
+    overflow: hidden;
+    padding: 0;
+
+    span{
+      background-color: #021523;
+      display: inline-block;
+      padding: 0 5px 5px;
+    }
+  }
+
+  p{
+    background-color: #021523;
+    color:#ffffff;
+    font-size:12px;
+    padding:5px 10px;
+    display: inline-block;
+    margin:0 0 5px 10px;
+  }
+
+  ul{
+    padding: 0 0 0 15px;
+    li{
+      display: inline-block;
+    }
+  }
+
+  a{
+    color: #fff;
+    font-size: 12px;
+  }
+
+  figure{
+    position: absolute;
+    width: 100%;
+
+    img{
+      width: 100%;
+    }
+  }
+
+  .overlay{
+    height: 112px;
+    background: rgba(0,0,0,0.28);
+  }
+}
+
+.priority{
+  padding-top: 10px;
+}
+
+.title-smaller {
+  font-size: 12px;
+  line-height: 28px;
+  height: 30px;
+  width: 260px;
+  overflow: hidden;
+}
+
+.story-title {
+  margin: 5px 0 10px;
+  font-size: 16px;
+  line-height: normal;
+  font-weight: normal;
+}
+
+@media (min-width: @screen-sm) {
+  .story-title {
+    margin: 10px 0 15px;
+    font-size: 18px;
+  }
+
+  .modal-bottom{
+    button,a[md-button]{
+      padding: 2px 42px;
+      font-size: 14px;
+      margin-right: 5px;
+      line-height: 36px;
+    }
+  }
+
+  .goal-modal{
+    width: 530px;
+
+    i{
+      margin-right: 0;
+    }
+
+    hr{
+      margin: 15px 0;
+    }
+
+    h2{
+      font-size: 24px;
+      padding: 11px 0;
+      margin: 10px 0;
+    }
+
+    .fb-share-button-style{
+      float: right;
+      margin: 18px 0 15px;
+    }
+  }
+
+  .done-modal{
+    h2{
+      font-size: 24px;
+      padding: 2px 0;
+      margin: 10px 0;
+      line-height: 41px;
+    }
+
+    .fb-share-button-style{
+      //min-width: 55px;
+      width: 93px;
+      height: 33px;
+      background-size: 100%;
+    }
+
+    textarea.form-control{
+      height: 94px;
+    }
+  }
+
+  .modal-top{
+    height: 200px;
+
+    .overlay{
+      height: 200px;
+    }
+    h2{
+      width: auto;
+      height: auto;
+      margin: 0 0 5px 30px;
+      font-size: 25px;
+      line-height: 38px;
+
+      span{
+        padding: 10px 30px;
+        font-size: 32px;
+      }
+    }
+
+    p{
+      font-size:14px;
+      line-height:21px;
+      padding:10px 30px;
+      margin:0 0 10px 30px;
+    }
+
+    .title-top {
+      margin: 150px 30px 5px 30px;
+    }
+
+
+    ul{
+      padding: 0 0 0 35px;
+      li{
+        margin-right: 15px;
+      }
+    }
+
+    a{
+      font-size: 16px;
+    }
+
+  }
+
+  .modal-bottom{
+    padding: 20px 0 ;
+  }
+
+  .priority{
+    padding-top: 15px;
+  }
+
+  .title-smaller {
+    width: auto;
+    height: auto;
+    font-size: 18px;
+    line-height: 23px;
+  }
+
+}
+.modal-container {
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+  width: auto;
+  max-height: 249px;
+}
+
+@media (min-width: @screen-md) {
+  .goal-modal{
+    h2{
+      font-size: 27px;
+      line-height: 41px;
+
+      &.text-grey-dark{
+        font-size: 22px;
+        padding: 2px 0;
+        margin: 10px 0;
+      }
+    }
+
+    .fb-share-button-style{
+      margin: 16px 0 14px;;
+    }
+  }
+
+  .modal-bottom{
+    button,a[md-button]{
+      width: 135px;
+      padding: 3px 42px;
+      font-size:15px;
+      margin-right: 5px;
+      text-align: center;
+    }
+  }
+}

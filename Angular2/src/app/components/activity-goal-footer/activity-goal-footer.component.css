@@ -1,0 +1,89 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+figcaption {
+  background-color: #ffffff;
+}
+figcaption ul li {
+  height: 35px;
+  line-height: 31px;
+}
+figcaption ul li a:hover,
+figcaption ul li a:focus {
+  text-decoration: none;
+}
+figcaption ul li i {
+  font-size: 25px;
+  vertical-align: middle;
+  margin-right: 0;
+}
+figcaption ul li i.comment-icon {
+  vertical-align: middle;
+  display: inline-block;
+  background: url('../../../assets/images/comment-icon.svg') no-repeat center center;
+  width: 21px;
+  height: 20px;
+  margin: 0 0 0 -16px;
+}
+figcaption ul li i.icon-green-ok,
+figcaption ul li .icon-green-plus {
+  font-size: 36px;
+  vertical-align: middle;
+}
+figcaption ul li:hover {
+  color: #fff;
+}
+figcaption ul li:hover a .text {
+  color: #ffffff;
+}
+figcaption ul li .text {
+  font-size: 12px;
+}
+figcaption ul li:last-child {
+  text-align: left;
+  padding-left: 1px;
+}
+figcaption ul .transparent .text {
+  color: #a4a4a4;
+}
+figcaption ul .transparent:hover {
+  background-color: transparent;
+}
+figcaption ul .transparent:hover a,
+figcaption ul .transparent:hover .text {
+  color: #a4a4a4;
+}
+@media (min-width: 768px) {
+  figcaption ul li {
+    height: 50px;
+    line-height: 45px;
+  }
+  figcaption ul li i.icon-green-ok,
+  figcaption ul li .icon-green-plus {
+    font-size: 49px;
+  }
+  figcaption ul li i {
+    font-size: 30px;
+  }
+  figcaption ul li i.comment-icon {
+    width: 30px;
+    height: 24px;
+    margin: 3px 1px 0 -17px;
+  }
+  figcaption ul li .text {
+    font-size: 14px;
+  }
+  figcaption ul li:last-child {
+    text-align: center;
+  }
+}
+@media (min-width: 992px) {
+  figcaption ul li:not(.transparent):hover {
+    color: #ffffff;
+  }
+}

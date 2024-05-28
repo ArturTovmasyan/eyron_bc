@@ -1,0 +1,92 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    {% set user = object.user %}
+    {% set content = object.content %}
+    {% set baseUrl = app.request.getSchemeAndHttpHost()|default("www.bucketlist127.com") %}
+    {% set homePageUrl = url('homepage') %}
+    {% set email = user.email %}
+
+        {% autoescape false %}
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Bucket List 127</title>
+            </head>
+            <body>
+                <div style="width: 510px;font-family: 'Open Sans', arial, sans-serif;">
+
+                    <figure style="margin:0;padding:25px 20px;">
+                        <a href="{{ baseUrl }}">
+                            <img src="{{ baseUrl }}/bundles/app/images/email-bucketlist127.png" alt="Bucket List 127" height="50" />
+                        </a>
+                    </figure>
+
+                    <hr style="border: 1px solid #cccccc;margin:0;"/>
+
+                    {{ value|raw }}
+
+                    <hr style="border:1px solid #cccccc;margin:0;" />
+
+                    <div>
+
+                        <ul style="list-style-type:none;text-align:center;padding:20px 0;margin:0;">
+                            <li style="display: inline-block;">
+                                <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" target="_blank" style="display:block;">
+                                    <img src="{{ baseUrl ~ '/bundles/app/images/email-app-store.png' }}" alt="Appstore" height="40"/>
+                                </a>
+                            </li>
+                            <li style="display: inline-block;margin-left:10px;">
+                                <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" target="_blank" style="display:block;">
+                                    <img src="{{ baseUrl ~ '/bundles/app/images/email-google-play.png' }}" alt="Googleplay" height="40"/>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul style="list-style-type:none;text-align:center;padding-left:0;margin:0;">
+                            <li style="display: inline-block;">
+                                <a href="https://www.facebook.com/bucketlist127com/" target="_blank" style="display:block;">
+                                    <img src="{{ baseUrl }}/bundles/app/images/email-facebook.png" height="32"/>
+                                </a>
+                            </li>
+
+                            <li style="display: inline-block;margin-left:20px;">
+                                <a href="https://www.twitter.com/bucketlist127" target="_blank" style="display:block;">
+                                    <img src="{{ baseUrl }}/bundles/app/images/email-twitter.png" height="32"/>
+                                </a>
+                            </li>
+
+                            <li style="display: inline-block;margin-left:20px;">
+                                <a href="https://www.pinterest.com/bucketlist127/" target="_blank" style="display:block;">
+                                    <img src="{{ baseUrl }}/bundles/app/images/email-pinterest.png" height="32"/>
+                                </a>
+                            </li>
+
+                            <li style="display: inline-block;margin-left:20px;">
+                                <a href="https://www.instagram.com/bucketlist127/" target="_blank" style="display:block;">
+                                    <img src="{{ baseUrl }}/bundles/app/images/email-instagram.png" height="32"/>
+                                </a>
+                            </li>
+
+                            <li style="display: inline-block;margin-left:20px;">
+                                <a href="https://plus.google.com/+Bucketlist127com" target="_blank" style="display:block;">
+                                    <img src="{{ baseUrl }}/bundles/app/images/email-gplus.png" height="32"/>
+                                </a>
+                            </li>
+
+                            <li style="display: inline-block;margin-left:20px;">
+                                <a href="https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g" target="_blank" style="display:block;">
+                                    <img src="{{ baseUrl }}/bundles/app/images/email-youtube.png" height="32"/>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <p style="text-align:center;color: #666666;font-size:12px;line-height: 17px;"> {{ 'notify_email_footer'|trans({'%email%': user}, 'email', user.language) }}</p>
+
+                    </div>
+                </div>
+            </body>
+            </html>
+        {% endautoescape %}
+{% endblock %}

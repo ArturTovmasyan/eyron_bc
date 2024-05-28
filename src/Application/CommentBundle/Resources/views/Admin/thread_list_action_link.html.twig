@@ -1,0 +1,7 @@
+{% if admin.isGranted('VIEW', object) and admin.hasRoute('show') %}
+
+    <a href="{{ getThreadInnerLink(object.id) }}" target="_blank" class="btn btn-sm btn-default view_link" title="{{ 'admin.label.name.goal_link'|trans() }}">
+        <i class="glyphicon glyphicon-home"></i>
+    </a>
+
+{% endif %}

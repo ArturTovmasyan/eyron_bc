@@ -1,0 +1,41 @@
+<div id="homepage">
+
+    <div class="homepage text-center">
+        <div class="container">
+            <h1 [innerHTML]="'homepage_title' | translate"></h1>
+
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+                    <h4 class="text-white">
+                        {{ 'homepage_description' | translate}}
+                    </h4>
+                </div>
+            </div>
+            <div></div>
+
+            <ul class="apps clearfix">
+                <li>
+                    <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
+                        <img src="assets/images/appstore.png" alt="Appstore" class="img-responsive"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play" target="_blank">
+                        <img src="assets/images/googleplay.png" alt="Googleplay" class="img-responsive"/>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="absolute text-center hidden-xs hidden-sm hidden-md hidden-lg">
+        <a href="javascript:void(0)" data-target-selector="#scroll-button" data-ls-scroll-to >
+            <i class="icon-scroll-down"><span class="path1"></span><span class="path2"></span></i>
+        </a>
+    </div>
+
+</div>
+
+<app-discover-goal></app-discover-goal>
+<app-base-stories></app-base-stories>

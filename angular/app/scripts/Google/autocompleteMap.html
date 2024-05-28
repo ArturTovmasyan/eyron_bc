@@ -1,0 +1,16 @@
+<input id="pac-input" class="mapControls" type="text"
+       placeholder="Enter a location">
+<div id="type-selector" class="mapControls">
+    <input type="radio" name="type" id="changetype-all" checked="checked" data-ng-click="setType([])">
+    <label for="changetype-all">All</label>
+
+    <input type="radio" name="type" id="changetype-establishment" data-ng-click="setType(['establishment'])">
+    <label for="changetype-establishment">Establishments</label>
+
+    <input type="radio" name="type" id="changetype-address" data-ng-click="setType(['address'])">
+    <label for="changetype-address">Addresses</label>
+
+    <input type="radio" name="type" id="changetype-geocode" data-ng-click="setType(['geocode'])">
+    <label for="changetype-geocode">Geocodes</label>
+</div>
+<div id="autocompleteMap"></div>

@@ -1,0 +1,35 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.relative {
+  margin-bottom: 5px;
+}
+.remove-icon {
+  position: absolute;
+  right: 3px;
+  top: 2px;
+  background-color: #ffffff;
+  padding: 0 0 0 3px;
+}
+.remove-icon .icon-remove-video-link {
+  font-size: 25px;
+}
+.remove-icon:hover,
+.remove-icon :focus {
+  text-decoration: none;
+}
+@media (min-width: 768px) {
+  .remove-icon {
+    right: 10px;
+  }
+}
+@media (min-width: 992px) {
+  .remove-icon .icon-remove-video-link {
+    font-size: 27px;
+  }
+}

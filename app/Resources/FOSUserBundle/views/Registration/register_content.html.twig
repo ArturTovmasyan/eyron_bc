@@ -1,0 +1,153 @@
+<div class="container">
+    <div  class="signup">
+        <div class="row">
+            <h1 class="text-center">{{ 'registration.sign_up_title'|trans({}, 'FOSUserBundle') }}</h1>
+
+            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
+
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            {{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}
+
+                            <div class="registration-image">
+                                <img src="#" class="uploaded-image" alt="User Image"  style="display: none">
+                            </div>
+                        </div>
+
+                        <div class="hide">
+                            {{ form_widget(form.file, {'attr': {'onchange': "showUploadedImage(this)" } }) }}
+                        </div>
+                    </div>
+
+                    <div class="error-message">{{ form_errors(form.file) }}</div>
+
+                    <div class="form-group row no-padding">
+                        <div class="col-sm-6">
+                            {{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}
+                            <div class="error-message">{{ form_errors(form.firstName) }}</div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            {{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|trans({}, 'FOSUserBundle') } }) }}
+                            <div class="error-message">{{ form_errors(form.lastName) }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
+                        </div>
+
+                        <div class="error-message">{{ form_errors(form) }}</div>
+
+                    </div>
+
+                    {% set errorMessage = form.plainPassword.first.vars.errors[0] is defined ? form.plainPassword.first.vars.errors[0].message : '' %}
+
+                    <div class="form-group row no-padding">
+                        <div class="col-sm-6">
+                            {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
+                            {% if errorMessage != 'password.validation'|trans({}, 'FOSUserBundle') %}
+                                <div class="error-message">{{ errorMessage }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1">
+
+                                <p {% if errorMessage == 'password.validation'|trans({}, 'FOSUserBundle') %}class="error-message"{% endif %} class="text-gray">
+                                    {{ 'password.validation'|trans({}, 'FOSUserBundle') }}
+                                </p>
+
+                        </div>
+                    </div>
+
+                    <p class="text-dark-gray">{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>
+
+                    <div class="form-group row">
+                        <div class="col-sm-4 date">
+
+                            {% set months = form.birthDate.month.vars.choices %}
+
+                            {% set arrayMonth = {
+                            1:'form.month_january'|trans({}, 'FOSUserBundle'),
+                            2:'form.month_february'|trans({}, 'FOSUserBundle'),
+                            3:'form.month_march'|trans({}, 'FOSUserBundle'),
+                            4:'form.month_april'|trans({}, 'FOSUserBundle'),
+                            5:'form.month_may'|trans({}, 'FOSUserBundle'),
+                            6:'form.month_june'|trans({}, 'FOSUserBundle'),
+                            7:'form.month_july'|trans({}, 'FOSUserBundle'),
+                            8:'form.month_august'|trans({}, 'FOSUserBundle'),
+                            9:'form.month_september'|trans({}, 'FOSUserBundle'),
+                            10:'form.month_october'|trans({}, 'FOSUserBundle'),
+                            11:'form.month_november'|trans({}, 'FOSUserBundle'),
+                            12:'form.month_december'|trans({}, 'FOSUserBundle') } %}
+
+                            <select id="fos_user_registration_form_birthDate_month" name="fos_user_registration_form[birthDate][month]">
+                                <option value="" selected>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
+                                {% for month in months %}
+                                    <option value="{{ month.value }}">{{ arrayMonth[month.value] }}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                        <div class="col-sm-4 date">
+
+                            {% set days = form.birthDate.day.vars.choices %}
+
+                            <select id="fos_user_registration_form_birthDate_day" name="fos_user_registration_form[birthDate][day]">
+                                <option value="" selected>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
+                                {% for day in days %}
+                                    <option value="{{ day.value }}">{{ day.value }}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                        <div class="col-sm-4 date">
+
+                            {% set years = form.birthDate.year.vars.choices %}
+
+                            <select id="fos_user_registration_form_birthDate_year" name="fos_user_registration_form[birthDate][year]">
+                                <option value="" selected>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
+                                {% for year in years %}
+                                    <option value="{{ year.value }}">{{ year.value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="error-message">{{ form_errors(form.birthDate) }}</div>
+
+                    </div>
+                    {% set menu = knp_menu_get('AppBundle:Builder:privacyMenu') %}
+                    {% if menu.children|length > 0 %}
+                        <div class="form-group row">
+                            <p class="text-gray">{{ 'registration.agreement'|trans({}, 'FOSUserBundle') }}
+                                <a href="{{ (menu.children|first).uri }}" class="text-purple">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>
+                            </p>
+                        </div>
+                    {% endif %}
+
+                    <button type="submit" name="register" class="btn btn-purple">{{ 'registration.sign_up_btn'|trans({}, 'FOSUserBundle') | upper }}</button>
+
+                    {{ form_widget(form._token) }}
+
+                </form>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center margin-top text-gray">{{ 'registration.have_account'|trans({}, 'FOSUserBundle') }}
+                    <a href="javascript:void(0)" data-ng-click="openSignInPopover()" class="text-purple">
+                        {{ 'registration.sign_in_btn'|trans({}, 'FOSUserBundle') | capitalize}}
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+

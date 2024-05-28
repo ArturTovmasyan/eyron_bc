@@ -1,0 +1,295 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+#leaderboard{
+  padding:10px 0;
+  margin-top:5px;
+}
+
+#leaderboard-place{
+  overflow: hidden;
+
+  ul{
+    padding: 10px;
+    clear: both;
+
+    li{
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 14px;
+      margin-right: 6px;
+
+      &:hover{
+        background-color: transparent;
+      }
+
+      a{
+        &:hover{
+          color: #7724f6 !important;
+        }
+        &:focus{
+          text-decoration: none;
+        }
+      }
+    }
+
+    &.badge-place{
+
+      padding: 5px 4px;
+      li{
+        margin-right: 7px;
+        a{
+          cursor:pointer;
+
+          i{
+            width: 30px;
+            height: 30px;
+            margin-right: 3px;
+          }
+
+          span{
+            font-size: 13px;
+          }
+
+          &:hover{
+            span{
+              color: #ff5500 !important;
+            }
+          }
+        }
+      }
+    }
+
+    &.leaderboard-right{
+      .rounded-corners-right;
+      li{
+        line-height: 45px;
+
+        &.level{
+          float: right;
+          margin-right: 10px
+        }
+      }
+    }
+
+    &.leaderboard-titles{
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      padding: 8px 0;
+      background-color: #d8d8d8;
+      margin-bottom: 0;
+
+      li{
+        font-size:12px;
+        color: #666666;
+        display: block;
+        float: left;
+        margin-right: 0;
+        padding: 0 0 0 10px;
+
+        &.rank{
+          width: 67px;
+        }
+
+        &.level{
+          float: right;
+          margin-right: 10px
+        }
+      }
+    }
+
+    &.bg-white,&.bg-grey-darker{
+      margin-bottom: 10px;
+      figure{
+        width: 45px;
+        height: 45px;
+        .rounded-corners;
+
+        img{
+          height: 45px;
+          width: 45px;
+        }
+
+        p{
+          width: 45px;
+          height: 45px;
+          line-height: 40px;
+        }
+      }
+    }
+  }
+
+  .leaderboard-space{
+    padding:0 15px;
+  }
+
+  h3{
+    padding-left:10px;
+    margin: 10px 0;
+  }
+
+  .leaderboard-text{
+    border-top: 1px solid #eeeeee;
+    padding: 5px;
+    font-size: 13px;
+  }
+
+  figure{
+    figcaption{
+      ul{
+        li{
+          border-right:0;
+
+          &:last-child{
+            float: none;
+          }
+          a:hover{
+            background-color: transparent !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+#rewards{
+
+  padding: 0 17px;
+
+  div.row{
+    border-bottom: 1px solid #eeeeee;
+    padding: 10px 0;
+
+    &:first-child{
+      padding-top: 0;
+    }
+
+    &:last-child{
+      border-bottom: 0;
+    }
+  }
+
+  p{
+    margin: 2px 0 2px 15px;
+  }
+
+}
+
+@media (min-width: @screen-sm) {
+  #leaderboard{
+    padding:20px 0;
+    margin-top:10px;
+  }
+
+  #leaderboard-place{
+
+    h3{
+      padding-left: 20px;
+      margin: 20px 0;
+    }
+
+    .leaderboard-text{
+      border-top: 1px solid #eeeeee;
+      padding: 15px 5px;
+      font-size: 15px;
+    }
+
+    ul{
+      padding: 20px;
+
+      li{
+        font-size: 22px;
+        margin-right: 20px;
+      }
+
+      &.badge-place{
+        padding: 10px 20px;
+        li{
+          margin-right: 30px;
+          a{
+            i{
+              margin-right: 10px;
+            }
+            span{
+              font-size: 15px;
+            }
+          }
+
+          &:hover{
+            background-color: transparent;
+          }
+        }
+      }
+
+      &.leaderboard-right{
+        li{
+          line-height: 60px;
+        }
+      }
+
+      &.leaderboard-titles{
+        padding: 15px 7px;
+
+        li{
+          font-size:15px;
+
+          &.rank{
+            width: 117px;
+          }
+        }
+      }
+
+      &.bg-white,&.bg-grey-darker{
+
+        figure{
+          width: 60px;
+          height: 60px;
+
+          img{
+            height: 60px;
+            width: 60px;
+          }
+
+          p{
+            width: 60px;
+            height: 60px;
+            line-height: 55px;
+          }
+        }
+      }
+    }
+
+    figure{
+      figcaption{
+        ul{
+          li{
+            border-right:0;
+
+            &:last-child{
+              float: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md) {
+  #leaderboard{
+    padding:30px 0;
+  }
+  #rewards{
+
+    div.row{
+      padding: 20px 0;
+
+      p{
+        font-size: 14px;
+        margin: 2px 10px;
+      }
+    }
+
+
+  }
+}

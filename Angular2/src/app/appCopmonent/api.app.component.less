@@ -1,0 +1,247 @@
+@import "../../assets/less/variables.less";
+
+.user-menu{
+  position: absolute;
+}
+
+body{
+  padding-top: 0;
+}
+
+#api-mainframe{
+  padding-top: 62px;
+  min-height: 100%;
+  position: relative;
+
+  //#wrap{
+  //  min-height: 350px;
+  //  height: auto !important;
+  //  height: 350px;
+  //}
+}
+
+.down{
+  display: none;
+}
+.up{
+  display: block;
+}
+
+.mat-sidenav-container{
+  background-color: transparent;
+  z-index: 1000001;
+  //top: 0;
+  //height: auto;
+}
+
+.mat-sidenav-backdrop.mat-sidenav-shown{
+  background-color: transparent;
+}
+
+.min-height{
+  min-height: 450px;
+
+  &+div#api-mainframe{
+    //padding-top:0;
+    margin: -640px 0 0 0;
+  }
+}
+
+md-sidenav.mat-sidenav{
+  width: 250px;
+  padding: 10px 0;
+  background: #021523;
+}
+
+.api-user-menu{
+  //width: 250px;
+  padding-top: 10px;
+
+  li{
+    display: block;
+    border-left: 0;
+    text-align: left;
+    margin-bottom: 0;
+    padding: 0 10px;
+    a{
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+      color: #e5e5e5;
+      font-family: 'Open Sans',sans-serif;
+
+      i{
+        vertical-align: middle;
+        width: 25px;
+        height: 25px;
+        margin: 0 5px 0 0;
+
+        &.activity-icon{
+          background: url('../../assets/images/activity.svg') no-repeat left center;
+          background-size: 100%;
+        }
+
+        &.mybucketlist-icon{
+          background: url('../../assets/images/my-bucketlist.svg') no-repeat left center;
+          //margin-right: 0;
+          background-size: 100%;
+        }
+
+        &.my-ideas-icon{
+          margin: 0 5px 0 -1px;
+        }
+
+        &.icon-suggest-icon{
+          width: 27px;
+          height:  27px;
+          color: #e5e5e5;
+          margin: 0 0 0 -3px;
+        }
+
+        &.icon-goalfrined-icon{
+          margin: 0 -2px 0 -3px;
+        }
+
+        &.menu-goalfrinds{
+          background-size: 90%;
+        }
+
+        &.menu-leaderbord{
+          background: url('../../assets/images/leaderboard-blog.svg') no-repeat left center;
+          background-size: 91%;
+        }
+
+        &.logout{
+          background: url('../../assets/images/logout.svg') no-repeat left center;
+          background-size: 100%;
+        }
+
+        &.settings-icon{
+          background: url('../../assets/images/settings.svg') no-repeat left center;
+          background-size: 85%;
+          margin: 0 3px 0 3px;
+        }
+
+        &.add-goal{
+          background: url('../../assets/images/add-goal.svg') no-repeat left center;
+          background-size: 100%;
+        }
+      }
+
+      &:hover,&:focus{
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.close-menu{
+  position: absolute;
+  right: 15px;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: url('../../assets/images/white-remove.svg') no-repeat right center;
+}
+
+.md-dialog-container{
+  max-width: 95vw;
+}
+
+.nearby-button{
+  padding: 5px;
+  z-index: 2000;
+  position: fixed ;
+  bottom: 8px;
+  right: 8px;
+}
+.nearby-button  img {
+  height: 28px;
+}
+.nearby-button  button{
+  background-color: whitesmoke;
+}
+.nearby-button-stop{
+  padding: 5px;
+  z-index: 1000000;
+  position: absolute ;
+  bottom: 300px;
+  right: 8px;
+}
+.nearby-button-stop  img {
+  height: 28px;
+}
+.nearby-button-stop  button{
+  background-color: whitesmoke;
+}
+.up-button{
+  padding: 5px;
+  z-index: 2000;
+  position: fixed ;
+  bottom: 8px;
+  right: 15px;
+}
+.up_img {
+  height: 100%;
+  width: 100%;
+}
+.up-button_btn{
+  zoom: 1;
+  background-color: whitesmoke;
+  color: #fff;
+  opacity: 0.8;
+}
+//.up-button_btn:hover{
+//
+//}
+.up-button-stop{
+  padding: 5px;
+  z-index: 2000;
+  position: absolute;
+  bottom: 300px;
+  right: 15px;
+}
+.up-button-hide{
+  display: none;
+}
+.up-button-inIdeas{
+  padding: 5px;
+  z-index: 2000;
+  position: fixed ;
+  bottom: 67px;
+  right: 16px;
+}
+.up-button-inIdeas-stop{
+  padding: 5px;
+  z-index: 2000;
+  position: absolute;
+  bottom: 360px;
+  right: 16px;
+}
+.up-button-inInner{
+  padding: 5px;
+  z-index: 2000;
+  position: fixed ;
+  bottom: 8px;
+  right: 15px;
+}
+.up-button-stop-inInner{
+  padding: 5px;
+  z-index: 2000;
+  position: absolute;
+  bottom: 350px;
+  right: 15px;
+}
+.up-button-inInner-menu{
+  padding: 5px;
+  z-index: 2000;
+  position: fixed ;
+  bottom: 49px;
+  right: 15px;
+}
+@media (min-width: @screen-sm) {
+  #api-mainframe{
+    padding-top: 80px;
+  }
+}

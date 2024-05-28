@@ -1,0 +1,720 @@
+# base
+toogle_navigation: Toggle navigation
+activity: Activity
+ideas: IDEAS
+search: SEARCH
+join: JOIN
+copyright: 2015 Bucketlist 127
+join_now: Join Now
+hide: Hide
+show: Show
+tasks: Tasks
+
+#blocks
+most_popular: Most Popular
+discover: Discover
+add: ADD
+done: complete
+clone: CLONE
+success_stories: Success stories
+successtory: Success story
+comments: Comments
+reply: Reply
+replied: replied
+create_goal: Create Goal
+settings: Settings
+logout: Logout
+my_bucketlist: My Bucketlist
+statistic_view: Statistic
+bucketlist: Bucket List 127
+featured_ideas: Featured Ideas
+featured: Featured
+
+#settings
+setting:
+  invalid_user_name: Name cannot be symbols or numbers. Please, enter a valid name!
+
+#remove profile
+delete_profile:
+        title_1: Are you sure you want to delete your account?
+        title_2: We're sad you're leaving. Why do you want to delete your account?
+        title_3: Please type your current password to delete your account.
+        top_content: This will disable your profile,which means you'll miss all those weird, unique lifegoal ideas we add every day.If you'd rather just take a break or strat over, you can
+        notifications: Switch notifications off
+        goals: Make all your goals invisible,hide it from others
+        sign_out: Just sign out instead
+        delete_prof: Delete your account
+        something_else: I found something elswhere
+        something_else_text: Bucketlist127 is used by thousands of people around the world to dream organized.We have a <a class="links" href="%href%">guide</a> on how to make the most of Bucket List 172.
+        many_notify: I receive too many notifications
+        many_notify_text: You can limit the number of notifications you receive from us <a class="links" href="%href%">here</a>
+        not_expected: Bucket List 127 is just not what I expected
+        not_expected_text: Let us know what you expected from the service below and we'll be sure to take your views on board
+        done_everything: I've done everything on my bucket list
+        done_everything_text: That's impossible dude. We were just kidding. You will have life goals until you're alive.
+        other: Other
+        placeholder: Give us more details if you`d like to
+        other_placeholder: Show you creativity with your feedback
+        password: Current password
+        forgot_pass: Click here if you forgot your password
+        stay: Stay on Bucketlist127
+        continue: Continue
+        delete_acc: Delete account
+        profile_was_deleted_title:  Your account has been deleted.
+        profile_was_deleted: You can recover your account within a year, just log in like you used to. We hope you come back soon.
+
+#Share
+message_on_top_of_the_page: Congrats! You have successfully completed the goal!
+share_title: Share your achievement
+facebook_post_text: I have completed another goal on Bucket List 127. This is how dreams turn into memories! It’s time to take on some more.
+
+# goal
+goal:
+      user_description: User goal description
+      user_title: User goal
+      friend_inner_title: Bucket List 127- Goalfriend inner page
+      friend_inner_description: Description:If you are interested in your goalfriends' interests and want to see their activities and goals, visit their page and get aware of the action he/she takes up.
+      friends_title: Bucket List 127-Goalfriends
+      friends_description: Start over and see the list of your goalfriends with whom you have common goals. Be active and see the people that have the same taste and interest.
+      view_description: See what the idea/goal contains in its inner page. It may have a list of pictures, videos, success stories and comments. Success stories inform you of the experience people have had about it. Leave you own comment and express your thought!
+      ideas_title: Bucket List 127-Ideas
+      stories_title: Bucket List 127-Stories
+      stories_description:  Check out Bucket List 127 Stories, where you can find crazy and motivational stories, creative articles and much more. Let Bucket List 127 lead you to success
+      list_description: The list of ideas that will help you to research awesome goals to add to your own Bucketlist page. You may combine any idea with your own goals to make your bucketlist creative and imaginative.
+      complete_text: Complete a goal
+      public: Suggest as public
+      agree: By checking you suggest your goal to be listed in the Ideas list
+      preview: Preview
+      publish: Save as a Goal
+      edit: Update Goal
+      description_title: Place a hash character (#) in front of a word or unspaced phrase in title and description to convert it into hashtag. <br /> You can use simple Markdown elements for emphasizing a snippet of text with a <strong>heavier font-weight</strong> and <em>italics</em>: **bold**, *italics*
+      search_title: Bucket List 127-search result-
+      search_description:  Here is the list of goal you searched for. Search bucketlist, share ideas and examples from your goalfriends. Search Things To Do In Bucket Lists.
+      successfully_add: Your idea has been added successfully.
+      is_dream: A goal without target date is a dream ...
+      location_ex: Location
+      note_p: Add a note ...
+      add_step: Add a step
+      add_title: Create goal
+      add_description: The first step to dream big is to create a bucketlist. If you want to fulfill your dreams, experience life goals before you die, start just now by creating goals.
+      to_do: To Do
+      type: Type in a youtube or vimeo link in the field
+      done: complete
+      as_priority: Set a priority
+      critical_activities: Manage critical activities
+      avoid_interruptions: Avoid interruptions
+      focus_goal: Focus on goal
+      avoid_distractions: Avoid distractions
+      as_private: Set as private
+      as_invisible: Set as Invisible
+      as_visible: Set as Visible
+      visible: Visible
+      see_also: See also
+      in_proces: An active goal is a goal in process
+      status: Goal Status
+      take_note: Take notes, follow your goal
+      deside: Be better prepared to decide on goals
+      visibility: Visibility
+      not_found: |
+                    <p class="empty-text text-center">
+                         Sorry, we couldn't find anything.
+                     </p>
+
+                     <p  class="empty-text text-center ng-hide" data-ng-show='%isSearch%'>
+                         <span>You can create this goal:</span>
+                         <span class="text-purple">%search%</span>
+                         <a  class="btn btn-purple" href="%href%">Start</a>
+                     </p>
+
+                     <p  class="empty-text text-center ng-hide" data-ng-show='%isSearch%'>or you can explore other ideas:</p>
+      list_title: Discover ideas that inspire you
+      is_completed: Goal is completed
+      is_active: Goal is active
+      completed_text: If you believe your Goal is still Active, you can undo it
+      active_text: If you accomplished your Goal, just mark it
+      completion_date: Completion date :
+      complete_step: Take steps - Complete your Goal!
+      private_text: You created this Goal only for your Bucketlist
+      invisible_text: You can make the Goal invisible for other users
+      visible_text: Show or hide your goal from others
+      missed_deadline: You missed your deadline, please set new one
+      scheduled_date: Scheduled Date
+      create_goal: CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY
+      create_idea: CONGRATULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
+      empty_draft: Currently there are no draft goals in your draft list
+      empty_private_ideas: Currently there are no Private goals in your Private goal list
+      deadline: Deadline
+      priority: Priority
+      steps: Steps
+      view_access_denied: You can't view this goal
+      edit_access_denied: You can't edit this goal
+      delete_access_denied: You can't remove this goal
+      add_access_denied: You can't add this goal
+      done_access_denied: You can't complete this goal
+      was_created:
+          public: Your goal has been successfully created
+          private: Your private goal has been successfully created
+      existing: Existing similar goals
+      importance: Importance
+      important: important
+      not_important: not important
+      urgency: Urgency
+      urgent: urgent
+      not_urgent: not urgent
+      get_direction: Get directions
+
+goal_friend_menu:
+      all: All
+      recently_matched: Recently Matched
+      most_matching: Most Matching
+      most_activity: Most Active
+      follow: Following
+
+activities:
+      title: Bucket List 127-Activity
+      description: It is the list of goals that your goalfriends have listed, done or completed. Be aware of your goalfriends' activity, it may end up on yours.
+
+Title: Title
+Description: Description
+Type in a youtube or vimeo link in the field: Type in a youtube or vimeo link in the field
+Done: complete
+
+ideas_list_title: Explore thousands of great ideas for your Bucket List
+ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Allow</span> your Browser Location Service or enter your location
+nearby: Nearby
+hide_nearby: Hide from Nearby
+explore: Confirm
+
+# home
+homepage_title: The goal is to have memories, <br /> not only dreams!
+homepage_list_title: Discover thousands of great ideas for your Bucket List
+homepage_description: Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.
+homepage_success_story: Stories that inspire
+
+#notification
+notification_menu: Notifications
+test_message: testing notifications in BucketList
+reminder_message: Your goal deadline is close to end.Do your best to meet the deadline.
+progress_bad: Get a move on! You are falling behind your goals.
+progress_good: Good job! You are in sync with your projected goals.
+progress_excellent: Excellent! You are outperforming! You can do more. Discover thousands of great ideas for your Bucket List.
+notify:
+      now: Just now
+      minute:  minutes ago
+      hour:  hour ago
+      hours:  hours ago
+      yesterday: yesterday at
+
+# buttons
+btn_delete: Remove
+btn_publish: PUBLISH
+btn_back_and_edit: EDIT
+btn_discover_more: DISCOVER MORE
+btn_start_now: START NOW
+btn_cancel: Cancel
+btn_save: Save
+btn_edit: EDIT
+btn_remove: Remove
+
+# user goal form
+user_goal:
+      public: Public
+      private: Private
+      privacy: Privacy
+      quality: Quality
+      important: Important
+      not_important: Not Important
+      urgent: Urgent
+      not_urgent: Not Urgent
+      active: Active
+      completed: Completed
+
+# success story form
+success_story:
+      error_year: You cannot complete your goal at a future date
+      error_day_in_month1: This month possesses
+      error_day_in_month2: days. Please enter a valid date
+      error_uncomplete_year: You should select at least the year.
+      error_without_file: Please, enter at least 3 words if there is no image or video!
+      error_widht_file:  Please, write success story!
+      completion_date: Completion date
+      complete_text: Write a success story
+      complete_edit_text: Please, specify the date when you completed your goal.
+      title: Write a success story,please !
+      description: Success story ...
+      files: Files
+      url: Video URL: https://www...
+      add: Success story ...
+
+      view_access_denied: You can't view this success story
+      edit_access_denied: You can't edit this success story
+      delete_access_denied: You can't remove this success story
+      delete_confirm: You are about to remove your success story. Are you sure?
+
+register_text:  Confirm your email address to access all of %XXX%'s features.
+
+filters:
+   import_urgent: |
+                   Important, <br />
+                   <span>urgent<span/>
+
+   not_import_urgent: |
+                      Not important, <br />
+                      <span>urgent<span/>
+
+   import_not_urgent: |
+                     Important, <br />
+                      <span> not urgent<span/>
+
+   not_import_not_urgent: |
+                          Not important, <br />
+                          <span>not urgent<span/>
+
+
+account:
+  complete_text: Confirm your account
+  complete: Complete
+
+file:
+    width_extension: The minimum image size is 400x400 px
+    heigh_extension: The minimum image size is 400x400 px
+    extension_error: Wrong format of file
+    size_error: Wrong size of file
+
+filter:
+   dream: Dreams
+   import_urgent: Important, urgent
+   not_import_urgent: Not important, urgent
+   import_not_urgent: Important, not urgent
+   not_import_not_urgent: Not important, not urgent
+
+menu:
+  bucket: My Bucketlist
+  active: Active
+  activity: Activity
+  completed: Completed
+  map: Map
+  common: In Common
+  owned: Created
+  bucketlist_stories: Bucket List Blog
+
+right_menu:
+  my_ideas: My Ideas
+  private: My Private Ideas
+  create: Create a Goal
+  draft: Drafts
+  ideas: Top Ideas
+  suggested: Suggested Ideas
+  show: All Goals
+
+active:
+  not_have: You have no goals, please, start
+manage: MANAGE
+
+home_ideas:
+  title: Bucket List 127 - The goal is to have memories, not only dreams!
+  description: Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.
+
+page:
+  title: Page
+  description: Page description
+  contacr_us:
+    form:
+      full_name: Full Name
+      email: Email
+      subject: Subject
+      message: Message
+      send: Send
+    message_title: Thank you, your message has been sent.
+    message_content: We will get in touch with you as soon as possible.
+
+# my bucket list
+my_bucket_list:
+  title: Bucket List 127-My Bucketlist
+  active_goals: My Bucket List 127-Active Goals
+  completed_goals: My Bucket List 127-Competed Goals
+  description: Look at the things you did and the things you are about to do. See the list of your own goals, manage and share your own 'bucketlist'.
+  add_goal: add some goals
+  doing_here: What are you doing here? Come on,
+  need_goal: Your life needs goals,
+  add_some: add some more.
+  some_goal: some goals.
+  complete: It’s time to act and complete
+  filter: There are no goals to correspond to this priority combination
+  private: Private
+  invisible: Invisible
+  notes: Notes
+  steps: Steps
+  edit: edit
+  missed_deadline: Missed deadline
+  year_old: y.o.
+  follow: Follow
+  un_follow: Unfollow
+  completed_description: See the list of goals you have to completed. Get inspired of them and continue working hard to achieve your goals and make your dreams come true.
+  active_description: See the list of your active goals. Be aware of the deadline and completion date of your goals and do your best to meet the scheduled date.
+
+
+  dream_title: - dreams
+  dream_description: If you have created a goal but haven't set a deadline it automatically becomes a dream. No completion date, no scheduled date! You are just dreaming.
+  iu_title: - important, urgent
+  iu_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are both important and urgent.
+  noiu_title: - not important, urgent
+  noiu_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are not important, but urgent.
+  inou_title: - important, not urgent
+  inou_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are important but not urgent.
+  noinou_title: - not important, not urgent
+  noinou_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are neither important, nor urgent.
+
+  calendar:
+    completed: Completed goal
+    theCompleted: Completed goals
+    deadline: Overdue goal
+    deadlines: Overdue goals
+    active: Active goal
+    actives: Active goals
+draft:
+  edit: Edit
+  update: Update Draft
+  create: Save as a Draft
+  title: Bucket List 127-Drafts
+  description: If you hesitate to start a goal and still think over to create it or not, don't delay. Draft list gives you an opportunity to see the goals you have worked on but not yet published.
+
+private_ideas:
+  title: Bucket List 127-Private Ideas
+  description: If you want to have a look at your private ideas, here you can see your own ideas list that will remind you of your activities.
+
+done_by: Completed by
+home_complete: Completed by
+home_voters: Liked by
+mobile_modal: |
+              Bucket List 127 is available everywhere!
+              Download the app, discover great features and explore over thousand exciting ideas for your goals.
+home_listed_by: Listed by
+listed_by: Listed
+block_listed: Listed
+block_completed: Completed
+Add an email : Add an email
+social_post_text: |
+                   I just started my Bucket List: so far the best tool to make sure I have memories, not just dream;) Join Bucket List 127, it's amazing!
+forget: Remove
+dream: No deadline, No goal! You are just dreaming
+
+drag_drop: You can upload up to 6 images
+drag_drop_story: Select photos for your story
+
+upload: |
+  An image must have minimum dimensions 800x600px with recommended dimensions of 1280x720px. <br />
+   The maximum size of an image must not exceed 4MB.
+
+delete_message: |
+  You are about to remove your goal. <br />
+  Are you sure?
+
+delet_profile: Delete Profile
+
+complete_message: Complete your profile
+
+most-popular: Most popular
+added: Added
+addedU: ADDED
+completed: Completed
+no_common: You haven`t common goals
+submit: Submit
+search_placeholder: Search for Goalfriends ...
+no_friends: No result
+profile_empty: No such Goals
+activity_empty: No Activity
+
+deadline:
+  complete_text: Set a deadline
+
+image_complete_text: Upload an image
+goalfriends: Goalfriends
+Add a note: Add a note
+
+#static translations
+dreaming: Dreaming
+users: users
+is empty: is empty
+is not empty: is not empty
+between: between
+not between: not between
+From: From
+To: To
+Story Goal: Story Goal
+Report Type: Report Type
+Name: Name
+Page Create: Page Create
+Dashboard: Dashboard
+
+notification:
+  no_notification: No notifications
+  success_story: wrote success story on your goal
+  important_goal_success_story: wrote success story on your important goal
+  success_story_vote: voted for your success story
+  publish_goal: Your '%goal%' goal has been published
+  confirm_goal: Yours '%goal%' goal has been confirmed as done
+  done_goal: You done '%goal%' goal
+  title: Bucketlist 127-Notifications
+  description: Make sure to turn on notifications on Bucketlist 127 and you'll always stay uptodate to any action.
+  following_story: follower wrote success story
+  following_comment: follower wrote comment
+
+# sonata admin lable
+admin:
+  label:
+    name:
+      user: User
+      tag: Tag
+      category: Category
+      aphorism: Aphorism
+      time_sentence: Time Sentence
+      success_story: Success Story
+      page: Page
+      goal: Goal
+      id: Id
+      title: Title
+      tags: Tags
+      slug: Slug
+      downloadLink: Icon
+      file: File
+      author: Author
+      author_email: Authhor Email
+      author_first_name: Author First Name
+      author_last_name: Author last name
+      content: Content
+      content_type: Content Type
+      replaceString: Replace String
+      replaceWith: Replace With
+      name: Name
+      title: Title
+      description: Description
+      position: Position
+      videoLink: Video
+      images: Images
+      publish: Publish
+      getListPhoto: List Photo
+      email: Email
+      firstName: First Name
+      lastName: Last Name
+      first_name: password
+      password: Password
+      repeat_password: Repeat Password
+      employee_id: Employee ID
+      username: Username
+      created: Created
+      createdU: CREATED
+      updated: Updated
+      goal_link: Goal link
+      comments: Comments
+      action_merge: Merge
+      goal_status: Public
+      archived: Archived
+      merged_id: Merged id
+      author_name: Author
+      email_username: Email\Username
+      messages: Message
+      enabled: Enabled
+      goal_public: Public goal
+      featured_date: Featured Date
+      place: Place
+      type: Type
+      report_type: Report Type
+      report_user: Report User
+      place_type: Place Type
+      user_place: User Place
+      goal: Goal
+      type_name: Name
+      place_name: Name
+      blog: Blog
+      blog_data: Data
+      blog_link: Blog link
+      position: Position
+      meta_description: Meta Desc.
+      generate_affiliate: Generate Affiliate
+      published_date: Published Date
+      posts: Posts
+      blog_images: Images *
+      left: Left
+      right: Right
+      top: Top
+      bottom: Bottom
+      inner: Inner
+      zone: Zone
+      default_link: Default Link
+      html_content: Html Content
+      js_content: Js Content
+      affiliate: Affiliate
+      affiliate_type: Affiliate Type
+      sent_email: Sent Email
+      link: Link
+      links: Links
+      ufi: Ufi
+      type_name: Type Name
+      type_id: Type Id
+      size: Size
+      city: City
+      region: region
+      country: Country
+      en: english
+      ru: russian
+      fr: French
+      dutch: Dutch
+      language: Language
+      text: Text
+      is_inspire: Is Inspire
+      story: Story
+      video_link: Video Link
+      report_spam: It's annoying or spam
+      report_not: I think it shouldn't be on BucketList127
+      body: Body
+      thread: Thread
+      num_comments: Num Comments
+      translations: Translations
+      device: Device
+      seen: Seen
+      sent: Sent
+      select_goal: Select goal
+      user_goal: User Goal
+      status: Status
+      date_status: Date Status
+      do_date_status: Do Date Status
+      is_visible: Is Visible
+      urgent: Urgent
+      important: Important
+      note: Note
+      do_date: Do Date
+      completion_date: Completion Date
+      listed_date: Listed Date/Created
+      goal_title: Goal Title
+      user_name: User Name
+      confirmed: Confirmed
+      android: Android
+      ios: Ios
+      all: All
+      only_year: Only Year
+      only_year_month: Only Year Month
+      is_term: Is Term
+
+
+# sonata admin breadcrumb and filter
+User List: User List
+Tag List: Tag List
+Category List: Category List
+Aphorism List: Aphorism List
+Time Sentence List: Time Sentence List
+Page List: Page List
+Goal List: Goal List
+Action: Action
+contains: contains
+does not contain: does not contain
+is equal to: is equal to
+is not equal to: is not equal to
+Affiliate Type List: Affiliate Type List
+Affiliate List: Affiliate List
+Place List: Place List
+Place Type List: Place Type List
+Blog List: Blog List
+Success Story List: Success Story List
+Report List: Report List
+Comment List: Comment List
+Email List: Email List
+Thread List: Thread List
+
+=: =
+>=: >=
+>: >
+<: <
+<=: <=
+
+# end sonata admin breadcrumb and filter
+
+#
+#<trans-unit id="label_name_">
+#                <source>label_name_tag</source>
+#                <target></target>
+#            </trans-unit>
+#
+#            <trans-unit id="label_name_">
+#                <source>label_name_category</source>
+#                <target>Category</target>
+#            </trans-unit>
+#            <trans-unit id="label_name_">
+#                <source>label_name_aphorism</source>
+#                <target>Aphorism</target>
+#            </trans-unit>
+#            <trans-unit id="label_name_time_sentence">
+#                <source>label_name_time_sentence</source>
+#                <target></target>
+#            </trans-unit>
+#            <trans-unit id="label_name_page">
+#                <source>label_name_page</source>
+#                <target></target>
+#            </trans-unit>
+#            <trans-unit id="label_name_goal">
+#                <source>label_name_goal</source>
+#                <target></target>
+#            </trans-unit>
+
+report:
+  title: Report
+  spam: It's annoying or spam
+  opinion: I think it shouldn't be on BucketList127
+  other: Other
+  thanks: Thank you
+  message: We have received your report
+
+achievment: Achievement
+
+overall:
+  progress: Overall Progress
+  good: Good job! You are in sync with your projected goals.
+  excellent: Excellent! You are outperforming!
+  falling: Get a move on! You are falling behind your goals.
+
+
+#notify settings
+notify_settings:
+  user_activity: Highlights
+  comment_goal: Goals commented
+  comment_goal_desc: Comment on your added goals that are set important
+  comment_idea: Ideas commented
+  comment_idea_desc: Comment on your own ideas published by admin
+  success_story_goal: Success stories for Goals
+  success_story_goal_desc: Notification for your success stories written on your added goals that are set important
+  success_story_idea: Success stories for Ideas
+  success_story_idea_desc: Notification for success stories written on your own ideas published by admin
+  success_story_like: Success stories liked
+  success_story_like_desc: Likes for your written success stories
+  publish_goal: Published Ideas
+  publish_goal_desc: Notification from admin to let you know your goal has been published
+  reply_comment: Comments replied
+  reply_comment_desc: Notification for a reply to your comment
+  deadline: Deadline expires
+  deadline_desc: Notification you get when your goal deadline expires
+  new_goalfriend: New Goalfriends
+  new_goalfriend_desc: Notification you get when you make new goalfriends
+  new_idea: New Ideas
+  new_idea_desc: Notification for new ideas suggested by Bucket List 127
+
+leaderboard:
+  name: leaderboard
+  title: Bucketlist 127-Leaderboard
+  description: The Bucket List 127 Leaderboard is used to display the rank among people based on their activity.
+  traveler: Traveler
+  innovator: Innovator
+  writer: Mentor
+  position: Your Position
+  position_text: Want to rise on the leaderboard? Devote more time to your Bucket List.
+  rewards: Rewards
+  travelerText: <strong class="text-dark-gray">Traveler</strong> is a person who has seen the world more than users does
+  innovatorText: <strong class="text-dark-gray">Innovator</strong> is a person who has suggested a lot of goal ideas that we have accepted and shared
+  motivatorText: <strong class="text-dark-gray">Mentor</strong> is a person who has inspired a lot of people, with his motivational success stories
+  top: Top 10
+  rank: Rank
+  leaders: Leaders
+  score: Score
+  level: Level
+
+goalfriend: Goalfriend
+closefriend: Closefriend

@@ -1,0 +1,19 @@
+<a routerLink="/profile/{{ user.u_id }}/activity">
+
+  <figure class="image img-circle">
+    <img *ngIf="user.cached_image.length != 2" src="{{ user.cached_image }}" alt="" class="img-circle img-responsive"/>
+    <p *ngIf="user.cached_image.length == 2" class="no-image user-no4">{{ user.cached_image | uppercase }}</p>
+  </figure>
+
+  <div class="pull-left text-gray">
+    <h4 class="text-dark-gray">
+      <span class="text-dark-gray" title="{{ name }}">
+          {{ name.length < 22 ? name: ((name | slice:0:19)  + '...')}}
+      </span>
+      <i class="leaderboard-small" *ngIf="user.innovator || user.mentor || user.traveler"></i>
+    </h4>
+
+    <span class="text-gray">{{ 'listed_by'|translate }} <span>{{ user.stats.listedBy }}</span></span> |
+    <span class="text-gray">{{ 'completed'|translate }} <span>{{ user.stats.doneBy}}</span></span>
+  </div>
+</a>

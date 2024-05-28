@@ -1,0 +1,253 @@
+<div id="mainframe">
+    <div id="wrap">
+        <div [class.bg-transparent]="isMobile && joinToggle1"></div>
+        <header>
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div id="line"></div>
+                <div class="container" id="main-nav">
+                    <div id="navbar" class="clearfix">
+
+                        <a class="navbar-brand" [class.hidden-xs]="appUser" routerLink="/" routerLinkActive="active">
+                            <img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>
+                        </a>
+
+                        <ul class="nav navbar-nav pull-left" *ngIf="!isMobile || !joinToggle1">
+
+                            <li *ngIf="appUser && appUser.activity">
+                                <a routerLink="/activity" routerLinkActive="active">
+                                    <i class="icons activity-icon"></i>
+                                    <span class="hidden-xs hidden-sm">{{ 'activity'|translate | uppercase }}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a routerLink="/ideas" routerLinkActive="active">
+                                    <i class="icons ideas-icon"></i>
+                                    <span class="hidden-xs hidden-sm">{{ 'ideas'|translate | uppercase }}</span>
+                                </a>
+                            </li>
+
+                            <li *ngIf="appUser">
+                                <a routerLink="/profile/my/all" routerLinkActive="active">
+                                    <i class="icons mybucketlist-icon"></i>
+                                    <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|translate | uppercase}}</span>
+                                </a>
+                            </li>
+                        </ul>
+
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="notification" *ngIf="appUser && (!isMobile || !joinToggle1)">
+
+                                <a (click)="toogleNote()" class="relative notify">
+                                    <i class="bell"></i>
+                                    <sup *ngIf="newNotCount && newNotCount != 0">{{ newNotCount }}</sup>
+                                </a>
+
+                                <notification-dropdown  (count)="newCount($event)" (changeNote)="hideNote($event)" [hidden]="!show" (clickOutside)="closeDropdown()"></notification-dropdown>
+
+                            </li>
+                            <li *ngIf="appUser" [class.block]="isMobile && joinToggle1">
+                                <!--{% if app.user %}-->
+                                <!--{% set user = app.user %}-->
+                                <!--{% set lastName = appUser.lastName %}-->
+                                <!--{% set firstName = appUser.firstName %}-->
+                                <!--{% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}-->
+                                <!--{% set className = "user-no" ~ random(4) %}-->
+                                <!--data-animation="am-fade-and-scale"-->
+                                <!--data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'-->
+
+
+                                <a class="user user-popover clearfix"
+                                   (click)="joinToggle1 = !joinToggle1;timeStep(joinToggle1)"
+                                   [ngClass]="{'join-class': joinToggle1}"
+                                   (clickOutside)="joinToggle1 = false;timeStep(false)">
+                                    <figure class="img-circle hidden-xs" *ngIf="appUser.cached_image && (!isMobile || !joinToggle1)">
+                                        <img data-click="true" src="{{ appUser.cached_image }}" alt="{{ appUser.filename }}" class="img-responsive">
+                                    </figure>
+                                    <p *ngIf="!appUser.cached_image && (!isMobile || !joinToggle1)" class="no-image user-no2 hidden-xs" data-click="true">{{ appUser.first_name|slice:0:1| uppercase }}{{ appUser.last_name|slice:0:1 | uppercase}}</p>
+
+                                    <span class="name hidden-xs">{{ appUser.first_name|slice:0: 8 }} {{ appUser.first_name && appUser.first_name.length > 8 ? '...' : '' }}
+                                        <br class="hidden-xs"/>
+                                    </span>
+                                    <a class="navbar-brand" routerLink="/" routerLinkActive="active" *ngIf="isMobile && joinToggle1">
+                                        <img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>
+                                    </a>
+
+                                    <!--{% if not isMobile() %}-->
+                                    <i class="menu-hamburger" *ngIf="!joinToggle1" data-click="true"></i>
+                                    <i [ngClass]="{'menu-remove': !isMobile, 'icon-remove-email': isMobile}" *ngIf="joinToggle1"></i>
+                                    <!--{% endif %}-->
+                                </a>
+                                <ul class="user-menu" *ngIf="joinToggle1 || readyBurger" [class.burger]="joinToggle1" [class.close-burger]="!joinToggle1">
+
+                                    <!--{% if app.user and app.user.activity %}-->
+                                    <li *ngIf="appUser && appUser.activity">
+                                        <a routerLink="/activity" (click)="joinToggle1 = false;timeStep(false)">
+                                            <i  class="icons activity-icon"></i>
+                                            <span>{{ 'activity'|translate }}</span>
+                                        </a>
+                                    </li>
+                                    <!--{% endif %}-->
+
+                                    <li>
+                                        <a routerLink="/profile/my/all" (click)="joinToggle1 = false;timeStep(false)">
+                                            <i class="icons mybucketlist-icon"></i>
+                                            <span>{{ 'my_bucketlist'|translate }}</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a routerLink="/goal/my-ideas/private" *ngIf=" appUser.draft_count && appUser.draft_count !=0" (click)="joinToggle1 = false;timeStep(false)">
+                                            <i class="icons my-ideas-icon"></i>
+                                            <span>{{ 'right_menu.my_ideas'|translate | titlecase }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/goal-friends" (click)="joinToggle1 = false;timeStep(false)">
+                                            <i class="menu-goalfrinds"></i>
+                                            <span class="text">{{ 'goalfriends'|translate }}</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a routerLink="/ideas" (click)="joinToggle1 = false;timeStep(false)">
+                                            <i class="icons ideas-icon"></i>
+                                            <span>{{ 'ideas'|translate | titlecase }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/goal/create" (click)="joinToggle1 = false;timeStep(false)">
+                                            <i class="icons add-goal"></i>
+                                            <span>{{ 'create_goal'|translate }}</span>
+                                        </a>
+                                    </li>
+
+
+                                    <li>
+                                        <a routerLink="/leaderboard" (click)="joinToggle1 = false;timeStep(false)">
+                                            <i class="icon-suggest-icon"></i>
+                                            <span class="text">{{ 'leaderboard.name'|translate | titlecase}}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/edit/profile" (click)="joinToggle1 = false;timeStep(false)">
+                                            <i class="icons settings-icon"></i>
+                                            <span>{{ 'settings'|translate }}</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a (click)="logout();joinToggle1 = false;timeStep(false)">
+                                            <i class="icons logout"></i>
+                                            <span>{{ 'logout'|translate }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li *ngIf="!appUser">
+                                <a (click)="joinShow = !joinShow"
+                                   class="sign-in-popover">
+                                    <i class="icons join-icon"></i>
+                                    <span class="hidden-xs">{{ 'join'|translate }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div *ngIf="joinShow">
+            <my-login (changeJoin)="hideJoin($event)"></my-login>
+        </div>
+
+        <div class="email" *ngIf="appUser && appUser.registration_token && regConfirmMenu">
+            <div class="container">
+                <div class="row no-gutter">
+                    <div class="col-sm-9">
+                            <span>
+                                {{ 'register_text'|translate:{XXX: projectName } }}
+                                {{ 'registration.check_email'|translate:{email: updatedEmail } }}
+                            </span>
+                    </div>
+                    <div class="col-sm-3">
+                        <a id="resend_message" routerLink="/resetting/resend-message">{{ 'email.resend'|translate|uppercase }}</a>
+                        <a routerLink="/resetting/update-email">{{ 'email.update'|translate|uppercase }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <router-outlet></router-outlet>
+    </div>
+    <div *ngIf="inIdeasPage" [ngClass]="{'nearby-button':!nearbyscroll,'nearby-button-stop':nearbyscroll}" #nearbybutton>
+        <button  md-fab routerLink="/ideas/nearby" routerLinkActive="active">
+            <img src="assets/images/nearby_new.svg" class="svg"/>
+        </button>
+    </div>
+    <div #UpButton *ngIf="!inSettings && !inLeaderboard && !inCreateGoal"
+          [ngClass]="{'up-button':upButton && !inIdeasPage && !nearbyscroll,'up-button-stop': upButton && !inIdeasPage && nearbyscroll ,'up-button-hide':!upButton,
+          'up-button-inIdeas':inIdeasPage && upButton && !nearbyscroll,'up-button-inIdeas-stop':upButton && inIdeasPage && nearbyscroll}">
+        <button class="up-button_btn"  md-mini-fab (click)="goUp()">
+            <img  src="assets/images/top_grey.png" class="svg up_img"/>
+        </button>
+    </div>
+    <footer #footer>
+        <div class="container">
+
+            <ul class="apps clearfix">
+                <li>
+                    <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
+                        <img src="assets/images/appstore.png" alt="Appstore" class="img-responsive"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play" target="_blank">
+                        <img src="assets/images/googleplay.png" alt="Googleplay" class="img-responsive"/>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="social">
+                <li>
+                    <a href="https://www.facebook.com/bucketlist127com/" target="_blank" class="facebook-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://www.instagram.com/bucketlist127/" target="_blank" class="instagram-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://www.twitter.com/bucketlist127" target="_blank" class="twitter-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://www.pinterest.com/bucketlist127/" target="_blank" class="pinterest-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://plus.google.com/+Bucketlist127com" target="_blank" class="gplus-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g" target="_blank" class="youtube-icon"></a>
+                </li>
+
+            </ul>
+
+            <!--Bottom menu-->
+            <ul>
+                <li class="first" *ngFor="let menu of menus; let i = index, let f = first, let l = last" [hidden]="menu.isTerm" [class.first]="f" [class.last]="l" >
+                    <a *ngIf="menu.slug" routerLink="/page/{{ menu.slug}}">{{ menu.name }}</a>
+                    <a *ngIf="!menu.slug" href="{{ menu.url }}">{{ menu.name }}</a>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="footer-bottom">
+            <home-footer [privacyMenu]="privacyMenu"></home-footer>
+        </div>
+
+    </footer>
+</div>

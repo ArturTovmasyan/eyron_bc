@@ -1,0 +1,81 @@
+{% extends "AppBundle:BucketList:baseList.html.twig" %}
+
+{% block content_container %}
+    <div class="bucketlist settings-menu">
+        <div class="container">
+            <div class="row">
+                <ul class="menu">
+                    <li {% if slug != "drafts" %} class="active" {% endif %} >
+                        <a  href="{{ path('my_ideas', {'slug': 'private'}) }}">{{ 'right_menu.private'|trans }}</a>
+                    </li>
+                    <li {% if slug == "drafts" %} class="active" {% endif %}>
+                        <a  href="{{ path('my_ideas', {'slug': 'drafts'}) }}">{{ 'right_menu.draft'|trans }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        {% if goals.getTotalItemCount > 0 %}
+
+            <div class="row drafts idea-item">
+                {% for goal in goals %}
+                    <div class="col-sm-6 col-md-4">
+                        <figure class="relative">
+                            <h3>
+                                <a href="{% if slug == "drafts" %}{{ path('add_goal', {'id': goal.id }) }}{% else%}{{ path('inner_goal', {'slug' : goal.slug }) }}{% endif %}">{{ goal.title }}</a>
+                            </h3>
+                            {% set image = goal.getListPhoto %}
+
+                            <a href="{% if slug == "drafts" %}{{ path('add_goal', {'id': goal.id }) }}{% else%}{{ path('inner_goal', {'slug' : goal.slug }) }}{% endif %}">
+                                <span class="overlay"></span>
+                                {% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/> {% endif %}
+                            </a>
+                            <figcaption>
+                                {%  include "AppBundle:Blocks:draftGoalFooter.html.twig" with {'goal' : goal }  %}
+                            </figcaption>
+                        </figure>
+                    </div>
+                {% endfor %}
+            </div>
+        {% elseif slug == "drafts" %}
+            <p class="empty-text text-center">
+                {{ 'goal.empty_draft'|trans }}
+            </p>
+        {% else%}
+            <p class="empty-text text-center">
+                {{ 'goal.empty_private_ideas'|trans }}
+            </p>
+        {% endif %}
+
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(goals) }}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{%- block title -%}
+    {% if slug == "drafts" %}
+        {{ 'draft.title'|trans }}
+    {% else%}
+        {{ 'private_ideas.title'|trans }}
+    {% endif %}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {% if slug == "drafts" %}
+        {{ 'draft.description'|trans }}
+    {% else%}
+        {{ 'private_ideas.description'|trans }}
+    {% endif %}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}
+
+

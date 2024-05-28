@@ -1,0 +1,118 @@
+<div class="container">
+  <div class="signup notice">
+    <div>
+      <div class="row">
+
+        <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3" *ngIf="type == 'request' && ready">
+
+          <h1 class="text-center">{{ 'resetting.request.reset'|translate }}</h1>
+          <h4 class="text-center text-gray">{{ 'resetting.request.reset_text'|translate }}</h4>
+
+          <form method="POST" action="#" [formGroup]="form" class="fos_user_resetting_request form-horizontal" (ngSubmit)="sendResettingEmail(form.value)">
+            <div class="form-group">
+
+              <p class="error-message text-center" *ngIf="errorMessage && errorMessage.email">{{ errorMessage.email }}</p>
+
+              <input type="email" formControlName="email" name="email" class="form-control" placeholder="{{ 'resetting.request.username'|translate }}"/>
+              <control-messages [control]="form.controls.email"></control-messages>
+              <span *ngIf="errorMessage && errorMessage.user" style="text-align: center;color: red">{{ errorMessage.user }}</span>
+              <span *ngIf="errorMessage && errorMessage.expires" style="text-align: center;color: red">{{ errorMessage.expires }}</span>
+            </div>
+            <div class="form-group text-right">
+              <button md-button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple">{{ 'resetting.request.submit'|translate }}</button>
+            </div>
+          </form>
+          <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
+            <bl-loading mode="indeterminate"></bl-loading>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 col-sm-offset-3" *ngIf="type == 'reset' && secret && ready">
+          <h1 class="text-center">{{ 'resetting.request.reset'|translate }}</h1>
+
+          <p class="text-center">
+            {{ 'resetting.request.password'|translate }}
+          </p>
+
+          <form method="POST" action="#" [formGroup]="form" class="fos_user_resetting_request form-horizontal" (ngSubmit)="changePassword(form.value)">
+            <div class="form-group">
+              <input type="password" formControlName="password" class="form-control" placeholder="{{ 'resetting.password'|translate }}">
+              <control-messages [control]="form.controls.password"></control-messages>
+            </div>
+
+            <div class="form-group">
+              <input type="password" class="form-control" formControlName="plainPassword" placeholder="{{ 'resetting.confirm_password'|translate }}">
+              <control-messages [control]="form"></control-messages>
+
+            </div>
+
+            <span *ngIf="errorMessage && errorMessage.password" style="text-align: center;color: red">{{ errorMessage.password }}</span>
+            <div class="form-group text-right">
+              <button md-button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple">{{ 'change_password.submit'|translate }}</button>
+            </div>
+
+          </form>
+          <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
+            <bl-loading mode="indeterminate"></bl-loading>
+          </div>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2 text-center" *ngIf="type == 'check-email'">
+
+          <h1 class="text-center">{{ 'resetting.check_email.title'|translate }}</h1>
+          <h4 class="text-gray">
+            {{ 'resetting.check_email.check_email_first_text'|translate:{email: email|sliceEmail} }}
+          </h4>
+
+          <h4 class="text-gray">
+            {{ 'resetting.check_email.check_email_second_text'|translate }}
+          </h4>
+
+          <h4 class="text-gray">
+              <a routerLink="/resetting/request"  class="text-purple">{{ 'resetting.check_email.have_not_received'|translate }}</a>
+          </h4>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2 text-center" *ngIf="type == 'update-email' && ready">
+
+          <h1 class="text-center">{{ 'email.update'|translate }}</h1>
+          <h4 class="text-gray">
+            {{ 'email.update_message'|translate:{email: updatedEmail} }}
+          </h4>
+
+          <form method="POST" action="#" [formGroup]="form" class="form-horizontal" (ngSubmit)="sendConfirmRegistrationEmail(form.value)">
+            <div class="form-group">
+              <input type="email" formControlName="email" class="form-control" placeholder="{{ 'resetting.request.username'|translate }}">
+              <control-messages [control]="form.controls.email"></control-messages>
+            </div>
+
+            <div class="form-group text-right">
+              <button md-button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple">{{ 'Done'|translate }}</button>
+            </div>
+
+          </form>
+
+          <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
+            <bl-loading mode="indeterminate"></bl-loading>
+          </div>
+
+        </div>
+
+        <div class="col-md-8 col-md-offset-2 text-center" *ngIf="type == 'resend-message' && ready">
+
+          <h1 class="text-center">{{ 'email.resend'|translate }}</h1>
+          <h4 class="text-gray">
+            {{ 'registration.resend_message'|translate:{email: resendEmail} }}
+          </h4>
+          <h4 class="text-gray">
+            {{ 'register_text'|translate:{XXX: projectName} }}
+          </h4>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

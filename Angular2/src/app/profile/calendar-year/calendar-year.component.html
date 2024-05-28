@@ -1,0 +1,37 @@
+<div class="col-sm-6" *ngFor="let i of colArray">
+  <div class="table-responsive">
+    <table class="table table-bordered year-calendar">
+      <caption class="text-center">
+          {{ +currentYear + i }}
+      </caption>
+      <tbody>
+          <tr *ngFor="let j of trArray">
+            <td *ngFor="let k of tdArray">
+                <span>
+                    <sup>
+                        {{ dateByFormat(currentYear, 3 * j + k, 1)| date :'MMM' }}
+                    </sup>
+                </span>
+                <span  class="absolute" *ngIf="myYAMonths && myYAMonths[+currentYear + i ] && myYAMonths[+currentYear + i ][3 * j + k + 1]">
+                    <span id="{{i}}-{{j}}-{{k}}" class="goal-count bg-green" (touchstart)="mouseDown($event,i + '-'+j+'-'+k)" (touchend)="mouseUp($event,i + '-'+j+'-'+k)"
+                          *ngIf="myYAMonths[+currentYear + i ][3 * j + k + 1] && myYAMonths[+currentYear + i ][3 * j + k + 1].complete > 0"
+                          [mdTooltip]="myYAMonths[+currentYear + i ][3 * j + k + 1].complete + ' ' + (myYAMonths[+currentYear + i ][3 * j + k + 1].complete > 1?('my_bucket_list.calendar.theCompleted'|translate):('my_bucket_list.calendar.completed'|translate))">
+                          {{ myYAMonths[+currentYear + i][3 * j + k + 1].complete }}
+                    </span>
+                    <span id="{{i}}-{{j}}-{{k}}" class="goal-count bg-gradinet"   (touchstart)="mouseDown($event,i + '-'+j+'-'+k)" (touchend)="mouseUp($event,i + '-'+j+'-'+k)"
+                          *ngIf="myYAMonths[+currentYear + i ][3 * j + k + 1].deadline > 0"
+                          [mdTooltip]="myYAMonths[+currentYear + i ][3 * j + k + 1].deadline + ' ' + (myYAMonths[+currentYear + i ][3 * j + k + 1].deadline > 1?('my_bucket_list.calendar.deadlines'|translate):('my_bucket_list.calendar.deadline'|translate))">
+                        {{ myYAMonths[+currentYear + i][3 * j + k + 1].deadline }}
+                    </span>
+                    <span id="{{i}}-{{j}}-{{k}}" class="goal-count bg-purple" (touchstart)="mouseDown($event,i + '-'+j+'-'+k)" (touchend)="mouseUp($event,i + '-'+j+'-'+k)"
+                          *ngIf="myYAMonths[+currentYear + i ][3 * j + k + 1].current > 0"
+                          [mdTooltip]="myYAMonths[+currentYear + i ][3 * j + k + 1].current + ' ' + (myYAMonths[+currentYear + i ][3 * j + k + 1].current > 1?('my_bucket_list.calendar.actives'|translate):('my_bucket_list.calendar.active'|translate))">
+                        {{ myYAMonths[+currentYear + i][3 * j + k + 1].current }}
+                    </span>
+                </span>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

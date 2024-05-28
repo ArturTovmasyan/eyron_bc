@@ -1,0 +1,33 @@
+<div class="bg-grey my-modal" id="common-modal">
+    <bl-loading mode="indeterminate" *ngIf="!goals"></bl-loading>
+    <div class="bg-white" *ngIf="goals && commonCount">
+        <h3 class="text-left">{{ 'menu.common'|translate }} {{ commonCount }} Goals</h3>
+        <a  (click)="dialogRef.close(); isOpen = false" class="close-icon"></a>
+    </div>
+    <perfect-scrollbar [ngClass]="{'modal-container':isMobile,'modal-Dcontainer':!isMobile}" [config]="config" *ngIf="goals">
+
+        <div class="common-content"
+         infinite-scroll
+         [infiniteScrollDistance]="1"
+         [infiniteScrollThrottle]="500"
+         (scrolled)="onScroll()">
+            <div [hidden]="!goals.length"
+                 class=" row"
+                 *ngFor="let goal of goals">
+
+                <div class="col-sm-12">
+                    <div class="idea-item">
+                        <figure>
+                            <app-goal [goal]="goal"></app-goal>
+                            <app-goal-footer [goal]="goal"></app-goal-footer>
+                        </figure>
+                    </div>
+                </div>
+
+            </div>
+            <div *ngIf="!commonCount" >
+                <p>{{ 'no_common'| translate  }}</p>
+            </div>
+        </div>
+    </perfect-scrollbar>
+</div>

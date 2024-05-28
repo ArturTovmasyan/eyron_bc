@@ -1,0 +1,124 @@
+<div id="activities">
+     <!--{% if single  and activity is defined and userId is defined%}-->
+     <!--data-ls-count="10"-->
+     <!--data-ls-user="{{ userId }}"-->
+     <!--{% endif %}>-->
+
+    <!--{% if not single%}-->
+    <!--data-ng-init="activityPage = true"-->
+    <bl-loading mode="indeterminate" *ngIf="!Activities && !noActivities"></bl-loading>
+    <div class="new-activity" *ngIf="newActivity && !single">
+        <button md-button (click)="addNew()">{{ 'new_activity'|translate }}</button>
+    </div>
+    <h3 class="text-dark-gray empty-text" *ngIf="noActivities && !single" id="non-activity" >{{ 'active.not_have'|translate }}
+        <a routerLink="/ideas" class="text-purple">adding</a>
+    </h3>
+    <!--{% else %}-->
+        <!--<span class="empty-text  text-center" *ngIf="Activities.noItem && !Activities.items.length && single" id="non-activity" >-->
+            <!--{{ 'activity_empty'|translate }}-->
+        <!--</span>-->
+    <!--{% endif %}-->
+
+    <!--data-ng-init="activity.activeIndex = 1"-->
+    <div [class.goals-animate]="activity && activity.forBottom" [class.comingByTop]="activity && activity.forTop"
+         *ngFor="let activity of Activities;let i = index">
+        <!--Activities -> Activities.items-->
+
+        <div *ngIf="activity.comment || activity.success_story">
+            <activity-goal [activity]="activity"></activity-goal>
+        </div>
+
+        <div [ngClass]="{'line': activity.comment || activity.success_story}"></div>
+
+        <div class="bg-white" [ngClass]="{'rounded-corners-bottom': activity.comment || activity.success_story, 'round': !activity.comment && !activity.success_story}">
+            <div class="padding" [ngClass]="{'padding-no': !activity.comment && !activity.success_story}">
+                <div class="clearfix relative">
+
+                    <figure class="image img-circle">
+
+                        <!--{% set className = "user-no" ~ random(4) %}-->
+
+                        <img *ngIf="activity.user.cached_image" src="{{ activity.user.cached_image }}" alt="{{ activity.user.filename }}" class="img-circle img-responsive">
+                        <p *ngIf="!activity.user.cached_image" class="no-image user-no3">
+                            {{ activity.user.first_name |slice:0:1 |uppercase }} {{ activity.user.last_name |slice:0:1 |uppercase }}
+                        </p>
+                    </figure>
+
+                    <div class="pull-left text-gray">
+                        <h4>
+
+                            <a routerLink="/profile/{{ activity.user.u_id }}/activity" class="text-dark-gray">
+                                {{ activity.user.first_name }} {{ activity.user.last_name }}
+                                <i class="leaderboard-small" *ngIf="haveTop && inArray(activity.user.id)"></i>
+                            </a>
+
+                            <span class="text-gray" *ngIf="activity.action == 0 ">
+                                <span *ngIf="activity.goals.length < 2">{{ 'goal.create'|translate }}</span>
+                                <span *ngIf="activity.goals.length > 1">{{ 'goal.create_goals'|translate }} {{ activity.goals.length }} {{ 'goal.goals'|translate }}</span>
+                            </span>
+
+                             <span class="text-gray" *ngIf="activity.action == 1">
+                                <span *ngIf="activity.goals.length < 2">{{ 'goal.add'|translate }}</span>
+                                <span *ngIf="activity.goals.length > 1">{{ 'goal.add_goals'|translate }} {{ activity.goals.length }} {{ 'goal.goals'|translate }}</span>
+                             </span>
+
+                             <span class="text-gray" *ngIf="activity.action == 2">
+                                <span *ngIf="activity.goals.length < 2">{{ 'goal.complete'|translate }}</span>
+                                <span *ngIf="activity.goals.length > 1">{{ 'goal.complete_goals'|translate }} {{ activity.goals.length }} {{ 'goal.goals'|translate }}</span>
+                             </span>
+
+                             <span class="text-gray" *ngIf="activity.action == 3">
+                                {{ 'goal.success_story'|translate }}
+                             </span>
+
+                             <span class="text-gray" *ngIf="activity.action == 4">
+                                {{ 'goal.comment'|translate }}
+                             </span>
+
+                        </h4>
+
+                        <p>{{ activity.datetime | date:'dd MMMM,  yyyy' }} at {{ activity.datetime | date:'HH:mm' }}</p>
+
+                    </div>
+                    <div class="pull-right" *ngIf="activity.goals.length > 1">
+                        <div class="swiper-pagination text-dark-grey">{{ (activeIndex && activeIndex[activity.id])?activeIndex[activity.id]:1 }} / {{ activity.goals.length }}</div>
+                    </div>
+                    <div class="text-right pull-right" *ngIf="activity.success_story">
+                        <goal-users [story]="activity.success_story" [type]="3" [user]="activity.user"></goal-users>
+                    </div>
+                </div>
+
+                <div class="comment-place " *ngIf="activity.comment">
+                    <span class="arrow-up"></span>
+                    {{ activity.comment.comment_body }}
+                </div>
+
+                <div class="comment-place " *ngIf="activity.success_story">
+                    <span class="arrow-up"></span>
+                    {{ activity.success_story.story }}
+                </div>
+
+            </div>
+
+            <my-slider *ngIf="!activity.comment && !activity.success_story" [reserveGoals]="activity.reserveGoals" [activity]="activity" [index]="i"></my-slider>
+
+            <div [ngClass]="{'line': activity.createComment && activity.showComment}"></div>
+            <app-comment *ngIf="activity.createComment" [hidden]="!activity.showComment"
+                         [data]="{id: activity.reserveGoals[((activeIndex && activeIndex[activity.id])?(activeIndex[activity.id] - 1):0)].id, slug:activity.reserveGoals[((activeIndex && activeIndex[activity.id])?(activeIndex[activity.id] - 1):0)].slug,inner:false}">
+            </app-comment>
+        </div>
+        <br/>
+    </div>
+    <!--*ngIf="!single"-->
+    <div class="navigation text-center">
+        <button md-button *ngIf="!busy && reserve && reserve.length > 0 && !haveCache"
+           (click)='getReserve()'
+           class="show-more ">
+            <!--ActivitiesName -> Activities.name-->
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+</div>

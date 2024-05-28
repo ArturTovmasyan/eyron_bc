@@ -1,0 +1,271 @@
+<div data-ls-activities
+     id="activities"
+     data-ng-cloak
+     {% if single  and activity is defined and userId is defined%}
+        data-ls-count="10"
+        data-ls-user="{{ userId }}"
+     {% endif %}>
+
+    {% if not single%}
+        <div class="new-activity ng-hide" data-ng-show="newActivity" data-ng-cloak data-ng-init="activityPage = true">
+            <a href="javascript:void(0)" data-ng-click="addNew()">{{ 'new_activity'|trans({},'newsFeed') }}</a>
+        </div>
+        <h3 class="text-dark-gray ng-hide" data-ng-show="showNoActivities" id="non-activity" data-ng-cloak>{{ 'active.not_have'|trans }}
+            <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
+        </h3>
+    {% else %}
+        <span class="empty-text ng-hide text-center" data-ng-show="Activities.noItem && !Activities.items.length" id="non-activity" data-ng-cloak>
+            {{ 'activity_empty'|trans }}
+        </span>
+    {% endif %}
+
+    <div class="goals-animate"
+            {#data-ng-class="{'padding-no': !activity.comment && !activity.success_story}"#}
+         data-ng-repeat="activity in Activities.items"
+         data-ng-init="activity.activeIndex = 1">
+
+        <div data-ng-show="activity.comment || activity.success_story">
+            {{ _self.goal(env_prefix) }}
+        </div>
+
+        <div data-ng-class="{'line': activity.comment || activity.success_story}"></div>
+
+        <div class="bg-white" data-ng-class="{'rounded-corners-bottom': activity.comment || activity.success_story, 'round': !activity.comment && !activity.success_story}">
+            <div class="padding" data-ng-class="{'padding-no': !activity.comment && !activity.success_story}">
+                <div class="clearfix relative">
+
+                    <figure class="image img-circle">
+
+                        {% set className = "user-no" ~ random(4) %}
+
+                        <img data-ng-if="activity.user.cached_image" data-ng-src="[[ ::activity.user.cached_image]]" alt="{{ user.filename }}" class="img-circle img-responsive">
+                        <p data-ng-if="!activity.user.cached_image" class="no-image {% if className is defined %}{{ className }}{% endif %}">
+                            [[ ::activity.user.first_name|limitTo:1|uppercase ]][[ ::activity.user.last_name|limitTo:1|uppercase ]]
+                        </p>
+                    </figure>
+
+                    <div class="pull-left text-gray">
+                        <h4>
+
+                            <a data-ng-href="{{ env_prefix  }}/profile/[[ ::activity.user.u_id ]]" class="text-dark-gray">
+                                [[ ::activity.user.first_name ]] [[ ::activity.user.last_name ]]
+                                <i class="leaderboard-small" data-ng-if="haveTop && inArray(activity.user)"></i>
+                            </a>
+
+                            <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_CREATE') }}">
+                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.create'|trans({},'newsFeed') }}</span>
+                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.create_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
+                            </span>
+
+                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_ADD') }}">
+                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.add'|trans({},'newsFeed') }}</span>
+                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.add_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
+                             </span>
+
+                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_COMPLETE') }}">
+                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.complete'|trans({},'newsFeed') }}</span>
+                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.complete_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
+                             </span>
+
+                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::SUCCESS_STORY') }}">
+                                {{ 'goal.success_story'|trans({},'newsFeed') }}
+                             </span>
+
+                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::COMMENT') }}">
+                                {{ 'goal.comment'|trans({},'newsFeed') }}
+                             </span>
+
+                        </h4>
+
+                        <p>[[ ::activity.datetime | date:'dd MMMM,  yyyy' ]] at [[ ::activity.datetime | date:'HH:mm' ]]</p>
+
+                    </div>
+                    <div class="pull-right" data-ng-show="activity.goals.length > 1">
+                        <div class="swiper-pagination text-dark-grey">[[ activity.activeIndex ]] / [[ activity.goals.length ]]</div>
+                    </div>
+                    <div class="text-right pull-right"
+                         data-ng-cloak data-ng-show="activity.success_story"
+                         data-ng-init="$parent.count[ activity.success_story.id ] = activity.success_story.voters_count;
+                         $parent.vote[activity.success_story.id] = isVoting(activity.success_story.is_vote, activity.success_story)">
+                        <span class="text-purple ng-hide" data-ng-show="$parent.count[ activity.success_story.id ] < 1">0</span>
+                        <a data-ls-goal-users
+                           class="text-purple ng-hide"
+                           data-ng-show="$parent.count[ activity.success_story.id ] > 0"
+                           href="javascript:void(0)"
+                           data-ls-item-id="[[ activity.success_story.id ]]"
+                           data-ls-count="[[ $parent.count[ activity.success_story.id ] ]]"
+                           data-ls-category="3">[[ $parent.count[ activity.success_story.id ] ]]</a>
+                        <i data-ng-class="{'like-active': $parent.vote[activity.success_story.id],'user-story':(activity.success_story.user.id == {{ app.user.id }})}" data-ng-click="manageVote(activity.success_story.id, (activity.success_story.user.id != {{ app.user.id }}))" class="like-icon"></i>
+                    </div>
+                </div>
+
+                <div class="comment-place ng-hide" data-ng-show="activity.comment">
+                    <span class="arrow-up"></span>
+                    [[ ::activity.comment.comment_body ]]
+                </div>
+
+                <div class="comment-place ng-hide" data-ng-show="activity.success_story">
+                    <span class="arrow-up"></span>
+                    [[ ::activity.success_story.story ]]
+                </div>
+
+            </div>
+
+            <div data-ng-show="!activity.comment && !activity.success_story" data-index="[[ $index ]]" class="activity-slider swiper-container">
+                <div class="idea-item swiper-wrapper goals-animate">
+                    <div class="swiper-slide"
+                         data-ng-cloak
+                         data-ng-repeat="singleGoal in activity.reserveGoals">
+
+                        <figure class="rounded-corners-bottom">
+
+                            <h3>
+                                <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
+                            </h3>
+
+                            <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
+                               class="goalTitle">
+                                <span class="overlay"></span>
+                                <img
+                                        data-ng-src="[[ singleGoal.cached_image ]]"
+                                        alt="[[ singleGoal.title ]]"
+                                        data-ng-if="singleGoal.cached_image"/>
+                            </a>
+
+                            <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
+                                <ul>
+                                    <li>
+                                        <a data-ls-goal-users
+                                           href="javascript:void(0)"
+                                           data-ls-goal-id="[[ singleGoal.id ]]"
+                                           data-ls-category="1"
+                                           data-ls-count="[[ ::singleGoal.stats.listedBy ]]"
+                                           data-ng-show="castInt(singleGoal.stats.listedBy)">
+                                            <span>
+                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                [[ singleGoal.stats.listedBy ]]
+                                            </span>
+                                            <i class="icon-user-small"></i>
+                                        </a>
+                                        <span data-ng-hide="castInt(singleGoal.stats.listedBy)">
+                                            {{ 'home_listed_by'|trans({},'messages') }}
+                                            [[ ::singleGoal.stats.listedBy ]]
+                                        </span>
+                                        <i class="icon-user-small" data-ng-hide="castInt(singleGoal.stats.listedBy)"></i>
+                                    </li>
+                                    <li>
+                                        <a data-ls-goal-users
+                                           href="javascript:void(0)"
+                                           data-ls-goal-id="[[ singleGoal.id ]]"
+                                           data-ls-count="[[ ::singleGoal.stats.doneBy ]]"
+                                           data-ng-show="castInt(singleGoal.stats.doneBy)">
+                                            <span>
+                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                [[ singleGoal.stats.doneBy ]]
+                                            </span>
+                                            <i class="icon-user-small"></i>
+                                        </a>
+                                        <span data-ng-hide="castInt(singleGoal.stats.doneBy)">
+                                            {{ 'home_complete'|trans({},'messages') }}
+                                            [[ ::singleGoal.stats.doneBy ]]
+                                        </span>
+                                        <i class="icon-user-small" data-ng-hide="castInt(singleGoal.stats.doneBy)"></i>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <figcaption>
+                                {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig"  %}
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div data-ng-show="activity.goals.length > 1">
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next swiper-button-white"></div>
+                    <div class="swiper-button-prev swiper-button-white"></div>
+                </div>
+            </div>
+
+            <div data-ng-class="{'line': activity.createComment && activity.showComment}"></div>
+
+            <div data-ls-comment-manage
+                 class="padding slide ng-hide"
+                 data-ng-if="activity.createComment"
+                 data-ng-show="activity.showComment"
+                 data-ls-goal-id="[[ activity.reserveGoals[activity.activeIndex - 1].id ]]"
+                 data-ls-slug="[[ activity.reserveGoals[activity.activeIndex - 1].slug ]]"
+                 data-ls-reply="{{ 'reply'|trans }}"
+                 data-ls-replied="{{ 'replied'|trans }}"
+                 data-ls-logged="true"
+                 data-ls-report-title="{{ 'report.title'|trans({},'messages') }}"
+                 data-ls-title="{{ 'comments'|trans }}"
+                 data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
+                {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
+                {{ nameOnImage  |upper}}{% endif %}">
+            </div>
+        </div>
+        <br/>
+    </div>
+    {% if not single %}
+        <div class="navigation text-center">
+            <a href="javascript:void(0)"
+               data-ng-cloak
+               data-ng-show="!Activities.busy && Activities.request >= 1"
+               data-ng-click='Activities.getReserve()'
+               class="show-more ng-hide">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+    {% endif %}
+
+</div>
+{% macro goal(env_prefix) %}
+    <div class="row">
+        <div class="col-sm-12 idea-item">
+            <figure data-ng-repeat="singleGoal in activity.reserveGoals" class="rounded-corners">
+                <i class="icon-lock-white" data-ng-show="!singleGoal.status"></i>
+
+                <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
+                   class="goalTitle">
+                    <span class="overlay"></span>
+                    <h3>[[ ::singleGoal.title ]]</h3>
+                    <img data-ng-if="singleGoal.cached_image" data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]"/>
+
+                    <div class="absolute" data-ng-show="singleGoal.stats.listedBy && singleGoal.stats.doneBy">
+                        <ul>
+                            <li>
+                                <a data-ls-goal-users
+                                   href="javascript:void(0)"
+                                   data-ls-goal-id="[[ singleGoal.id ]]"
+                                   data-ls-category="1"
+                                   data-ls-count="[[ ::singleGoal.stats.listedBy ]]"
+                                   class="ng-scope">
+                                    <span class="ng-binding">{{ 'home_listed_by'|trans({},'messages') }} [[ ::singleGoal.stats.listedBy ]] </span>
+                                    <i class="icon-user-small"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a data-ls-goal-users
+                                   href="javascript:void(0)"
+                                   data-ls-goal-id="[[ singleGoal.id ]]"
+                                   data-ls-count="[[ ::singleGoal.stats.doneBy ]]"
+                                   class="ng-scope">
+                                    <span class="ng-binding">{{ 'home_complete'|trans({},'messages') }} [[ ::singleGoal.stats.doneBy ]]</span>
+                                    <i class="icon-user-small"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </a>
+                <figcaption>
+                    {% include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" %}
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+{% endmacro %}

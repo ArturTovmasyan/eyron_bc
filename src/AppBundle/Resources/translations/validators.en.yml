@@ -1,0 +1,9 @@
+success_story:
+      max_files: Success Story can has only 6 images
+badge:
+    duplicate: bagde with this user already exists.
+    type:
+        notBlank: Please enter a type
+        choice: Please enter a vakude type
+    score:
+        blank: Please enter a score

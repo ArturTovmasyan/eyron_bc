@@ -1,0 +1,76 @@
+imports:
+    - { resource: config.yml }
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing_dev.yml"
+        strict_requirements: true
+    profiler: { only_exceptions: false }
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+    excluded_ajax_paths:  ^/bundles|^/_wdt|^/uploads
+
+monolog:
+    handlers:
+        main:
+            type:   stream
+            path:   "%kernel.logs_dir%/%kernel.environment%.log"
+            level:  debug
+        console:
+            type:   console
+            bubble: false
+            verbosity_levels:
+                VERBOSITY_VERBOSE: INFO
+                VERBOSITY_VERY_VERBOSE: DEBUG
+            channels: ["!doctrine"]
+        console_very_verbose:
+            type:   console
+            bubble: false
+            verbosity_levels:
+                VERBOSITY_VERBOSE: NOTICE
+                VERBOSITY_VERY_VERBOSE: NOTICE
+                VERBOSITY_DEBUG: DEBUG
+            channels: ["doctrine"]
+        # uncomment to get logging in your browser
+        # you may have to allow bigger header sizes in your Web server configuration
+        #firephp:
+        #    type:   firephp
+        #    level:  info
+        #chromephp:
+        #    type:   chromephp
+        #    level:  info
+
+assetic:
+    use_controller: false
+
+twig:
+    globals:
+        env_prefix: '/app_dev.php'
+
+swiftmailer:
+#    disable_delivery:  true
+#    delivery_address: andranik.hovhan@gmail.com
+
+bazinga_faker:
+    orm: doctrine
+    entities:
+        Application\UserBundle\Entity\User:
+            number: 10
+            custom_formatters:
+                gender:   { method: null }
+                website:  { method: null }
+                uId:     { method: lexify, parameters: [ '?????????' ], unique: true }
+                registrationToken:     { method: lexify, parameters: [ '???????????' ], unique: true }
+                email:  { method: email, unique: true }
+                salt:     { method: lexify, parameters: [ '?' ] }
+                password:     { method: lexify, parameters: [ '?' ] }
+                lastLogin:     { method: null }
+                confirmationToken:  { method: null }
+                passwordRequestedAt:  { method: null }
+
+        AppBundle\Entity\Notification:
+            number: 10000
+            custom_formatters:
+                created: { method: dateTimeBetween, parameters: [ '-10 days', 'now' ] }

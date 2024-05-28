@@ -1,0 +1,26 @@
+<div id="map-modal">
+    <figure>
+        <h3>[[ goal.title ]]</h3>
+        <img data-ng-src="[[ goal.image ]]" alt="[[ goal.title ]]" width="150" class="img-responsive"/>
+        <figcaption>
+            <a href="javascript:void(0)"
+               data-ls-jquery-modal
+               data-ls-template-url="/goal/add-to-me/[[ goal.id ]]"
+               data-ls-identity="goalManageMapModal[[ goal.id ]]">
+                <i class="icon cog-icon-white"></i>Manage
+            </a>
+
+            <a data-ng-href="/goal/done/[[ goal.id ]]" data-ng-show="goal.status==1">
+                <i class="icon ok-icon-white"></i>Done
+            </a>
+
+            <a href="javascript:void(0)"
+               data-ls-jquery-modal
+               data-ls-template-url="/goal/add-story/[[ goal.id ]]"
+               data-ls-identity="goalAddSuccessStoryMapModal[[ goal.id ]]"
+               data-ng-show="goal.status==2">Success Story</a>
+        </figcaption>
+    </figure>
+
+
+</div>

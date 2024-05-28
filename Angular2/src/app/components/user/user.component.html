@@ -1,0 +1,34 @@
+<div class="users-list round clearfix">
+  <a style="display:block;" class="text-gray">
+    <div class="row no-gutter">
+      <div class="col-xs-3" routerLink="/profile/{{ user.u_id }}/activity">
+        <figure class="image-goalfrinds img-circle ">
+          <img *ngIf="user.image_path" src="{{ serverPath + user.image_path }}" alt="{{ user.first_name }}" class="img-circle img-responsive" />
+          <!--{% set className = "user-no" ~ random(4) %}-->
+          <p *ngIf="!user.image_path" class="no-image user-no2">{{ (user.first_name | slice:0:1 | uppercase) + (user.last_name | slice:0:1 | uppercase) }}</p>
+        </figure>
+      </div>
+
+      <div class="col-xs-9 text-left">
+        <div class="text-gray">
+          <h4 class="text-dark-gray" routerLink="/profile/{{ user.u_id }}/activity">
+            {{ user.first_name }} {{ user.last_name }}
+          </h4>
+          <span class="text-gray">{{ 'listed_by'|translate }}
+            {{ user.stats.listedBy }}
+          </span> |
+          <span class="text-gray">{{ 'completed'|translate }}
+            {{ user.stats.doneBy }}
+          </span><br />
+          <a class="text-gray"
+             [hidden]="user.common_goals_count == 0" (click)="openCommons(user.id)">
+            {{ 'menu.common'|translate }}
+
+            <!--data-ls-user="[[ ::user.id ]]"-->
+            {{ user.common_goals_count }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

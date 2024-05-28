@@ -1,0 +1,20 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+ {% block content %}
+
+     {% include 'AppBundle:Main:home_videos.html.twig' %}
+     {% include 'AppBundle:Main:ideas.html.twig' %}
+     {% include 'AppBundle:Main:successStory.html.twig' %}
+ {% endblock %}
+
+{%- block meta_description -%}
+    {{ 'home_ideas.description'|trans({},'messages') }}
+{%- endblock -%}
+
+{%- block title -%}
+    {{ 'home_ideas.title'|trans({},'messages') }}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}

@@ -1,0 +1,3 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{%- block field %}<img src="{{ value|blImageFilter('user_goal') }}" height="150px" />{% endblock -%}

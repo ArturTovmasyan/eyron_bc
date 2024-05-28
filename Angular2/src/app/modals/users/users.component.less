@@ -1,0 +1,69 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+#goal-users-modal{
+  width: 280px;
+  margin: 0 auto;
+  min-height: 100px;
+
+  h3{
+    margin: 0;
+    padding: 20px 10px;
+    font-size: 18px;
+    color: #021523;
+  }
+
+  .users-content{
+    padding: 15px 15px 5px;
+    border-top: 1px solid #ccc;;
+
+    h4{
+
+      strong{
+        font-size:14px;
+      }
+
+      span{
+        font-size: 12px;
+      }
+    }
+  }
+
+}
+.modal-container {
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+  width: auto;
+  max-height: 450px;
+}
+
+
+@media (min-width: @screen-sm) {
+  #goal-users-modal{
+    width: 390px;
+
+    h3{
+      padding: 20px;
+      font-size: 22px;
+    }
+
+    .users-content{
+      padding: 20px 20px 0;
+
+      h4{
+        strong{
+          font-size:16px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 767px){
+  #goal-users-modal{
+    top: 30px;
+  }
+  .modal-container{
+
+  }
+}

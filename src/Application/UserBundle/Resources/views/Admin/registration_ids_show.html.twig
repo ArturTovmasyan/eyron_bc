@@ -1,0 +1,36 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    <div>
+        {% if object.registrationIds is defined and object.registrationIds %}
+            {% for key, value in object.registrationIds %}
+                {{ key }} <br />
+                <ul>
+                    {% for val in value %}
+                        <li>
+                            {{ val }} <br />
+                            <a href="{{ admin.generateObjectUrl('sendMessage', object, {'userId' : object.id, 'deviceId': val, 'mobileOS': key }) }}" class="btn btn-sm btn-default edit_link">
+                                <i class="glyphicon glyphicon-envelope"></i>
+                                {{ 'admin.label.name.messages'|trans({}, 'messages') }}
+                            </a>
+                        </li>
+                        <br />
+
+                        {% if app.request.query.get('data') and app.request.query.get('data')[val] is defined %}
+                            {% set response = app.request.query.get('data') %}
+                            <b>Response:</b> <br />
+                            {% if response[key]|length == 3 %}
+                                {{ 'command' ~ ' =>' ~ response[key]['command'] }}<br />
+                                {{ 'status' ~ ' =>' ~ response[key]['status'] }}<br />
+                                {{ 'identifier' ~ ' =>' ~ response[key]['identifier'] }}
+                            {% else %}
+                                {{ response[key] }}
+                            {% endif %}
+                        {% endif %}
+                        <hr>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

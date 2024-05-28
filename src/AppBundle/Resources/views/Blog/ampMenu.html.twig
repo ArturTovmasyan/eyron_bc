@@ -1,0 +1,90 @@
+{% set user = app.user %}
+
+<amp-sidebar id='sidebar'
+             layout="nodisplay"
+             side="right">
+    <amp-img class='amp-close-image'
+             src="{{ asset('bundles/app/images/white-remove.svg') }}"
+             width="20"
+             height="20"
+             alt="close sidebar"
+             on="tap:sidebar.close"
+             role="button"
+             tabindex="0"></amp-img>
+
+    <ul class="sidebar">
+
+        {% if user %}
+            <li>
+                <a href="{{ path('notifications') }}">
+                    <amp-img src="{{ asset('bundles/app/images/bell.png') }}" alt="Notifications" width="20" height="24"></amp-img>
+                    <span class="note-text">{{ 'notification_menu'|trans | capitalize}}</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if user and user.activity %}
+            <li>
+                <a href="{{ path('activity') }}">
+                    <amp-img src="{{ asset('bundles/app/images/activity.svg') }}" alt="Activity" width="27" height="30"></amp-img>
+                    <span>{{ 'activity'|trans }}</span>
+                </a>
+            </li>
+        {% endif %}
+
+        <li>
+            <a href="{{ path('leaderboard') }}">
+                <amp-img src="{{ asset('bundles/app/images/leaderboard-blog.svg') }}" alt="Leaderboard" width="27" height="27"></amp-img>
+                <span class="text">{{ 'leaderboard.name'|trans | capitalize}}</span>
+            </a>
+        </li>
+        {% if user %}
+
+            <li>
+                <a href="{{ path('goal_friends') }}">
+                    <i class="menu-goalfrinds"></i>
+                    <amp-img src="{{ asset('bundles/app/images/menu-goalfrinds.svg') }}" alt="Goalfrinds" width="24" height="30"></amp-img>
+                    <span class="text">{{ 'goalfriends'|trans }}</span>
+                </a>
+            </li>
+        {% endif %}
+
+        <li>
+            <a href="{{ path('goals_list') }}">
+                <amp-img src="{{ asset('bundles/app/images/ideas.svg') }}" alt="Ideas" width="25" height="25"></amp-img>
+                <span>{{ 'ideas'|trans | capitalize }}</span>
+            </a>
+        </li>
+
+        {% if user %}
+
+            <li>
+                <a href="{{ path('user_profile') }}">
+                    <amp-img src="{{ asset('bundles/app/images/my-bucketlist.svg') }}" alt="My-bucketlist" width="25" height="30"></amp-img>
+                    <span>{{ 'my_bucketlist'|trans }}</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('add_goal') }}">
+                    <amp-img src="{{ asset('bundles/app/images/add-goal.svg') }}" alt="Add-goal" width="28" height="30"></amp-img>
+                    <span>{{ 'create_goal'|trans }}</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path("edit_user_profile") }}">
+                    <amp-img src="{{ asset('bundles/app/images/settings.svg') }}" alt="Settings" width="24" height="30"></amp-img>
+                    <span>{{ 'settings'|trans }}</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path("fos_user_security_logout") }}">
+                    <amp-img src="{{ asset('bundles/app/images/logout.svg') }}" alt="Logout" width="30" height="30"></amp-img>
+                    <span>{{ 'logout'|trans }}</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</amp-sidebar>

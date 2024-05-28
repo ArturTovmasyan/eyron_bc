@@ -1,0 +1,32 @@
+{% block bl_multiple_video_widget %}
+
+    {% set videoLink = [] %}
+
+    {% if form.vars.value %}
+        {% set videoLink = [] %}
+        {% for vl in form.vars.value %}
+            {% set videoLink = videoLink|merge([{'link': vl}]) %}
+        {% endfor %}
+    {% endif %}
+
+    {% set videoLink = videoLink|merge([{'id': ''}]) %}
+
+    <div class="form-group" data-ng-init="videos={{ videoLink|json_encode }}">
+        <label class="text-dark-gray">Video</label>
+        {{ form_errors(form) }}
+
+        <videos data-ng-repeat="(k, video) in videos"
+            data-form-id="{{ form.vars.id }}"
+            data-form-name="{{ form.vars.full_name }}"
+            data-key="k"
+            data-limit="3"
+            data-link="video.link"
+            {% if app.request.attributes.get('_route') == "admin-goal_create" or
+                app.request.attributes.get('_route') == "admin-goal_edit" %}
+                data-for="admin"
+            {% endif %}
+            data-array="videos">
+        </videos>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,174 @@
+<div class="content-top ideas-top">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="search">
+          <form class="navbar-form" role="search">
+          <span class="icon-search-icon" [ngClass]="{'text-purple': search}"></span>
+          <input type="text"
+                 name="search"
+                 [(ngModel)]="search"
+                 autocomplete="off"
+                 placeholder="{{ 'search'|translate | titlecase}}"
+                 (keyup.enter)="doSearch()"
+                 class="form-control">
+
+          <i class="close-icon hidden-sm hidden-md hidden-lg"
+             [ngClass]="{'hidden-xs': !search}"
+             (click)="search = ''">
+          </i>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="container">
+    <div class="row no-gutter">
+      <div class="col-xs-12">
+        <swiper [config]="config" class="filters-slider swiper-container" *ngIf="filterVisibility">
+          <ul class="filter swiper-wrapper">
+            <li class="swiper-slide" [ngClass]="{'active-category': category == 'discover'}">
+              <a routerLink="/ideas/discover">
+                <img src="assets/images/discover.svg" class="svg"/>
+                <span>{{ 'discover'|translate }}</span>
+              </a>
+            </li>
+
+            <!--<li class="swiper-slide"  [ngClass]="{'active-category': category == 'nearby'}">-->
+              <!--<a routerLink="/ideas/nearby" routerLinkActive="active">-->
+                <!--<img src="assets/images/nearby.svg" class="svg"/>-->
+                <!--<span>{{ 'nearby'|translate }}</span>-->
+              <!--</a>-->
+            <!--</li>-->
+
+            <!--{% if featured %}-->
+            <li class="swiper-slide" [ngClass]="{'active-category': category == 'featured'}">
+              <a routerLink="/ideas/featured">
+                <img src="assets/images/featured.svg" class="svg"/>
+                <span>{{ 'featured'|translate }}</span>
+              </a>
+            </li>
+            <!--{% endif %}-->
+
+            <!--{% if mostPopular %}-->
+            <li class="swiper-slide" [ngClass]="{'active-category': category == 'most-popular'}">
+              <a routerLink="/ideas/most-popular">
+                <img src="assets/images/most-popular.svg"  class="svg"/>
+                <span>{{ 'most_popular'|translate }}</span>
+              </a>
+            </li>
+            <!--{% endif %}-->
+
+            <!--{% for category in categories %}-->
+            <!--{% if category.slug != 'most-popular' and category.slug != 'featured' and category.slug != 'nearby' %}-->
+            <li class="swiper-slide" *ngFor="let cat of categories" [style.display]="(cat.slug == 'most-popular' || cat.slug == 'featured' || cat.slug == 'nearby')?'none':'inline-block'" [ngClass]="{'active-category': category == cat.slug}">
+              <a routerLink="/ideas/{{ cat.slug }}">
+                <img src="{{ serverPath + cat.image_download_link }}" class="svg"/>
+                <span>{{ cat.title }}</span>
+              </a>
+            </li>
+            <!--{% endif %}-->
+            <!--{% endfor %}-->
+          </ul>
+
+          <!--<div class="hidden-lg">-->
+            <div class="bg-left">
+              <i class="swiper-button-prev"></i>
+            </div>
+            <div  class="bg-right">
+              <i class="swiper-button-next"></i>
+            </div>
+          <!--</div>-->
+        </swiper>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="container"  *ngIf="category == 'nearby'">
+  <map-autocomplate [locations]="locations"></map-autocomplate>
+
+  <div>
+    <label>
+      <div id="hide-completed" class="task-checkbox purple-checkbox">
+        <label class="relative">
+            <span class="my-md-container" [ngClass]="{'my-md-checked': isCompletedGoals}">
+                <span class="my-md-icon"></span>
+                <input type="checkbox" aria-label="steps"
+                       name="completed"
+                       [(ngModel)]="isCompletedGoals"
+                       (change)="completedChange()"
+                       style="display: none" />
+            </span>
+        </label>
+      </div>
+      Show Completed
+    </label>
+  </div>
+
+</div>
+
+<div class="container ideas-list" >
+
+  <!--{% set href = path('add_goal')~'?title=[[search]]'  %}-->
+  <h2 *ngIf="noIdeas" class=" text-center creating-goal">
+    <!-- {{ ({'%search%' : '[[search]]', '%href%': href, '%isSearch%' : '!!search'})|raw }}-->
+    <div class="empty-text text-center" [innerHTML]="'goal.not_found'|translate"></div>
+    <p  class="empty-text textc-enter" *ngIf='searchError'>
+      <span>{{ 'goal.not_found2'| translate}}</span>
+      <span class="text-purple">{{ searchError }}</span>
+      <a  class="btn btn-purple" routerLink="/goal/create/{{ search }}">{{'goal.start'| translate}}</a>
+    </p>
+    <p class="empty-text text-center" *ngIf='searchError'>{{ 'goal.not_found3'| translate}}</p>
+  </h2>
+
+  <!--{% if not search %}-->
+  <!--<h2 *ngIf="!search && ideas && ideas.length && !noIdeas && ideasTitle" class="text-center text-dark">-->
+    <!--{{ 'ideas_list_title'|translate }}-->
+  <!--</h2>-->
+  <!--{% endif %}-->
+
+  <div class="row" [ngClass]="{'no-gutter overflow' : isMobile}">
+
+    <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+      <div class="row idea-item ideas-result">
+        <!--{% if search %} ideas-result {% endif %}-->
+        <bl-loading mode="indeterminate" *ngIf="!ideas && !noIdeas && category != 'nearby'"></bl-loading>
+        <div class="col-md-{{ ((+i + 1) % 7) < 5 ? 4 : 8 }} goals-animate"
+             *ngFor="let goal of ideas; let i = index">
+          <div class="row idea-item">
+            <div class="col-sm-12">
+              <figure>
+                <app-goal [goal]="goal" [type]="(category == 'nearby')?'nearby':''"
+                          (onHover)="hideJoin($event)" [userLocation]="userLocation"
+                          [ngClass]="{height: ((+i + 1) % 7) == 6 || ((+i + 1) % 7) == 0}"></app-goal>
+
+                <app-goal-footer [goal]="goal"></app-goal-footer>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-tooltip"
+       [hidden]="!isHover" #tooltip>
+    <span class="arrow-up"></span>
+    {{ hoveredText |translate}}
+  </div>
+
+  <div class="navigation text-center">
+    <a md-button *ngIf="reserve && reserve.length > 0"
+       (click)='getReserve()'
+       class="show-more ">
+      <span></span>
+      <span></span>
+      <span></span>
+    </a>
+  </div>
+</div>

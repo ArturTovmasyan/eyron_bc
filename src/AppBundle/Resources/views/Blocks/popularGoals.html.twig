@@ -1,0 +1,166 @@
+{% if isProfile is defined and isProfile%}
+    <div class="right-menu">
+        <div class="padding padding-bottom bg-white round">
+            <ul class="row">
+                <li class="col-xs-7">
+                    <i class="icon-creat-icon"></i>
+                    <a href="{{ path('add_goal') }}">{{ 'right_menu.create'|trans }}</a>
+                </li>
+                <li class="col-xs-5 text-right">
+                    {% if profileUser.id == app.user.id %}
+                        <a href="{{ path('my_ideas') }}">{{ 'right_menu.my_ideas'|trans }} {{ myIdeasCount }}</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% if profileUser.id == app.user.id %}
+        {%  include "AppBundle:Blocks:overall.html.twig" with { 'user': user}%}
+    {% endif %}
+{% endif  %}
+<div class="right-block padding padding-no round margin-top" data-ng-controller="popularGoalsController">
+    <div class="right-menu">
+        {% if isProfile is defined and isProfile%}
+
+            <div class="bg-white round">
+                <ul class="row">
+                    <li class="col-xs-10">
+                        <span>
+                            {#<i class="icons ideas-icon svg"></i>#}
+                            <img src="{{ asset('bundles/app/images/ideas.svg') }}" class="svg">
+                            <a href="{{ path("goals_list") }}"> {{ 'right_menu.suggested'|trans }}</a>
+                        </span>
+                    </li>
+                    <li class="col-xs-2 text-right">
+                        <a href="#" class="load" id="popularLoad" data-ng-click="refreshPopulars()"></a>
+                    </li>
+                </ul>
+            </div>
+        {% else %}
+
+            <div class="bg-white round">
+
+                <ul class="row" style="padding-left:0;margin-bottom:0;">
+                    <li class="col-xs-10">
+                       <span>
+                         <i class="icon-top-idea"></i>
+                         <a href="{{ path("goals_list", {'category': 'most-popular'} ) }}">{{ 'right_menu.ideas'|trans }}</a>
+                        </span>
+                    </li>
+                    <li class="col-xs-2 text-right">
+                        <a href="#" class="load" id="popularLoad" data-ng-click="refreshPopulars()"></a>
+                    </li>
+                </ul>
+
+            </div>
+        {% endif %}
+
+    </div>
+
+    <hr/>
+
+    <div class="row">
+    {% if user is defined and count is defined%}
+        <div data-ng-cloak
+             data-ng-init = "userId = {{ user.id }}; count = {{ count }}">
+            <div class="col-sm-6 col-md-12 idea-item"
+                 data-ng-cloak
+                 data-ng-repeat="popularGoal in popularGoals">
+                <div class="ideas">
+                    <figure>
+                        <h3>
+                            <a href="{{ env_prefix }}/goal/[[ ::popularGoal.slug]]">[[ ::popularGoal.title ]]</a>
+                        </h3>
+
+                        <a href="{{ env_prefix }}/goal/[[ ::popularGoal.slug]]" class="goalTitle">
+                            <span class="overlay"></span>
+                            <img data-ng-if="popularGoal.cached_image" data-ng-src="[[ ::popularGoal.cached_image ]]" alt="[[ ::popularGoal.title ]]"/>
+                        </a>
+
+                        <div class="absolute">
+                            <ul>
+                                <li>
+                                    <a data-ls-goal-users
+                                       href="javascript:void(0)"
+                                       data-ls-goal-id="[[ popularGoal.id ]]"
+                                       data-ls-category="1"
+                                       data-ls-count="[[ ::popularGoal.stats.listedBy ]]"
+                                       data-ng-show="castInt(popularGoal.stats.listedBy)" >
+                                        <span>
+                                            {{ 'home_listed_by'|trans({},'messages') }}
+                                            [[ ::popularGoal.stats.listedBy ]]
+                                        </span>
+                                        <i class="icon-user-small"></i>
+                                    </a>
+                                    <span class="text-white" data-ng-hide="castInt(popularGoal.stats.listedBy)">
+                                        {{ 'home_listed_by'|trans({},'messages') }}
+                                        [[ ::popularGoal.stats.listedBy ]]
+                                    </span>
+                                    <i class="icon-user-small" data-ng-hide="castInt(popularGoal.stats.listedBy)"></i>
+                                </li>
+                                <li>
+                                    <a data-ls-goal-users
+                                       href="javascript:void(0)"
+                                       data-ls-goal-id="[[ popularGoal.id ]]"
+                                       data-ls-count="[[ ::popularGoal.stats.doneBy ]]"
+                                       data-ng-show="castInt(popularGoal.stats.doneBy)">
+                                        <span>
+                                            {{ 'home_complete'|trans({},'messages') }}
+                                            [[ ::popularGoal.stats.doneBy ]]
+                                        </span>
+                                        <i class="icon-user-small"></i>
+                                    </a>
+                                    <span class="text-white" data-ng-hide="castInt(popularGoal.stats.doneBy)">
+                                        {{ 'home_complete'|trans({},'messages') }}
+                                        [[ ::popularGoal.stats.doneBy ]]
+                                    </span>
+                                    <i class="icon-user-small" data-ng-hide="castInt(popularGoal.stats.doneBy)"></i>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <figcaption>
+                            <ul  data-ng-app="goal" data-ng-controller="goalFooter" class="row no-gutter"
+                                data-ng-init="completed=true;goal.is_my_goal= false ;goal.id= popularGoal.id " data-ng-cloak>
+
+                                <li class="col-xs-6 ng-hide" data-ng-show="!goal.is_my_goal && completed">
+                                    <a href="javascript:void(0)"
+                                       data-ng-cloak
+                                       data-ls-goal-manage
+                                       data-ls-goal-id="[[ ::goal.id ]]"
+                                       data-ng-click=" goal.is_my_goal = 1 {% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
+
+                                        <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                        <span class="text">{{ 'add'|trans | capitalize}}</span>
+                                    </a>
+                                </li>
+                                <li class="col-xs-6 transparent ng-hide" data-ng-show="(goal.is_my_goal && goal.is_my_goal !== 0)|| !completed ">
+                                    <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                    <span class="text">{{ 'added'|trans | capitalize}}</span>
+                                </li>
+
+
+                                <li class="col-xs-6 ng-hide" data-ng-show="goal.is_my_goal !== 2 && completed">
+                                    <a href="javascript:void(0)"
+                                       data-ng-cloak
+                                       data-ls-user-goal-manage
+                                       data-ls-goal-id="[[ ::goal.id ]]"
+                                       data-ng-click=" completed = false {% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
+                                        <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                                        <span class="text">{{ 'done'|trans | capitalize}}</span>
+                                    </a>
+                                </li>
+                                <li class="col-xs-6 transparent ng-hide" data-ng-show="(goal.is_my_goal && goal.is_my_goal === 2 )|| !completed">
+                                    <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                    <span class="text">{{ 'completed'|trans | capitalize}}</span>
+                                </li>
+
+                            </ul>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    </div>
+</div>

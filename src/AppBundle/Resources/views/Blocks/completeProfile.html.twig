@@ -1,0 +1,110 @@
+{% if user is defined and user.profileCompletedPercent != 100 %}
+
+    <div class="bg-white round padding ng-hide" data-ng-show="{{ user.getCompletedPercent()|round(1, 'floor') }} != 100">
+        <div class="row">
+            <em>{{ 'complete_message'|trans }}</em>
+            <div class="col-xs-10">
+
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped"
+                         role="progressbar"
+                         style="width: {{ user.getCompletedPercent()|round(1, 'floor') }}%">
+                        {% if app.request.locale == 'ru' %}
+                            {{ 'account.complete'|trans }} {{ user.getCompletedPercent()|round(1, 'floor') }}%
+                        {% else %}
+                            {{ user.getCompletedPercent()|round(1, 'floor') }}% {{ 'account.complete'|trans }}
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-xs-2">
+                <a class="text-gray"
+                   data-ng-click="completeProfileProperties=!completeProfileProperties"
+                   data-ng-cloak>
+                    <i class="icon-question-icon ng-hide" data-ng-hide="completeProfileProperties"><span class="path1"></span><span class="path2"></span></i>
+                    <i class="icon-icon-up ng-hide" data-ng-show="completeProfileProperties"><span class="path1"></span><span class="path2"></span></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <ol class="slide ng-hide" data-ng-cloak data-ng-show="completeProfileProperties">
+        <li>
+            <span>
+                {{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }}
+                <i class="icon-ok-only"></i>
+            </span>
+        </li>
+        <li>
+            <span>{{ 'account.complete_text'|trans }}
+                {% if user.registrationToken is null %}
+                    <i class="icon-ok-only"></i>
+                {% else %}
+                    <i class="icon-question-only"></i>
+                {% endif %}
+            </span>
+
+        </li>
+        <li>
+            {% if user.socialPhotoLink or  user.fileName %}
+                <span>{{ 'image_complete_text'|trans }}
+                    <i class="icon-ok-only"></i>
+                </span>
+            {% else %}
+                {#<a href="javascript:void(0)"#}
+                   {#data-ls-jquery-modal#}
+                   {#data-ls-template-url="{{ path('settings') }}"#}
+                   {#data-ls-identity="goalSettingsInCompleteModal">#}
+                    {#<strong>{{ 'image_complete_text'|trans }}</strong>#}
+                    {#<i class="icon-question-only"></i>#}
+                {#</a>#}
+
+                <a href="{{ path('edit_user_profile') }}">
+                    <strong>{{ 'image_complete_text'|trans }}</strong>
+                    <i class="icon-question-only"></i>
+                </a>
+            {% endif %}
+        </li>
+        <li>
+            <a href="{{ path('add_goal') }}"><strong>{{ 'my_bucket_list.add_goal'|trans |capitalize }}</strong>
+                {% if user.userGoalCount > 0 %}
+                    <i class="icon-ok-only"></i>
+                {% else %}
+                    <i class="icon-question-only"></i>
+                {% endif %}
+            </a>
+        </li>
+        <li>
+            <span>{{ 'deadline.complete_text'|trans }}
+                {% if user.checkDeadLines() %}
+                    <i class="icon-ok-only"></i>
+                {% else %}
+                    <i class="icon-question-only"></i>
+                {% endif %}
+            </span>
+        </li>
+        <li>
+            <span>{{ 'goal.complete_text'|trans }}
+                {% if user.checkCompletedGoals() %}
+                    <i class="icon-ok-only"></i>
+                {% else %}
+                    <i class="icon-question-only"></i>
+                {% endif %}
+            </span>
+        </li>
+
+        <li>
+            <span>{{ 'success_story.complete_text'|trans }}
+                {% if user.checkSuccessStory() %}
+                    <i class="icon-ok-only"></i>
+                {% else %}
+                    <i class="icon-question-only"></i>
+                {% endif %}
+            </span>
+        </li>
+    </ol>
+
+{% endif %}

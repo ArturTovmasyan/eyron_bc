@@ -1,0 +1,113 @@
+<!--{% if user is defined and user.profileCompletedPercent != 100 %}-->
+<div class="complete-profile" *ngIf="appUser && appUser.completed_percent !== 100">
+
+    <div class="bg-white round padding">
+        <!--*ngIf="{{ user.getCompletedPercent()|round(1, 'floor') }} != 100"-->
+        <div class="row">
+            <em>{{ 'complete_message'|translate }}</em>
+
+            <div class="col-xs-10">
+
+                <div class="progress">
+                    <section class="progress-section">
+                       <span *ngIf="locale == 'ru' ">
+                         {{ 'account.complete'|translate }}
+                         {{appUser.completed_percent| round}}%
+                        </span>
+                        <span *ngIf="locale == 'en'">
+                            {{appUser.completed_percent| round}}%
+                             {{'account.complete'|translate}}
+                        </span>
+                        <md-progress-bar
+                                class="example-margin"
+                                [value]="appUser.completed_percent">
+                        </md-progress-bar>
+                    </section>
+                </div>
+
+            </div>
+
+            <div class="col-xs-2">
+                <a class="text-gray"
+                   (click)="completeProfileProperties=!completeProfileProperties">
+                    <i class="icon-question-icon " *ngIf="!completeProfileProperties"><span class="path1"></span><span
+                            class="path2"></span></i>
+                    <i class="icon-icon-up " *ngIf="completeProfileProperties"><span class="path1"></span><span
+                            class="path2"></span></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <ol class="slide" *ngIf="completeProfileProperties">
+        <li>
+            <span>
+                {{ 'security.login.sign_up'|translate }}
+                <i class="icon-ok-only"></i>
+            </span>
+        </li>
+        <li>
+            <span>{{ 'account.complete_text'|translate }}
+                <!--{% if user.registrationToken is null %}-->
+                    <i *ngIf="appUser.is_confirmed == true" class="icon-ok-only"></i>
+                <!--{% else %}-->
+                    <i *ngIf="appUser.is_confirmed !== true" class="icon-question-only"></i>
+                <!--{% endif %}-->
+            </span>
+
+        </li>
+        <li>
+            <!--{% if user.socialPhotoLink or  user.fileName %}-->
+        <span *ngIf="appUser.social_photo_link || appUser.file_name || appUser.image_path">{{ 'image_complete_text'|translate }}
+            <i class="icon-ok-only"></i>
+        </span>
+            <!--{% else %}-->
+
+            <a *ngIf="!appUser.social_photo_link && !appUser.file_name && !appUser.image_path"
+               routerLink='/edit/profile'>
+                <strong>{{ 'image_complete_text'|translate }}</strong>
+                <i class="icon-question-only"></i>
+            </a>
+            <!--{% endif %}-->
+        </li>
+        <li>
+            <a routerLink="/goal/create"><strong>{{ 'my_bucket_list.add_goal'|translate |titlecase }}</strong>
+                <!--{% if user.userGoalCount > 0 %}-->
+                <i *ngIf="appUser.draft_count > 0" class="icon-ok-only"></i>
+                <!--{% else %}-->
+                <i *ngIf="appUser.draft_count == 0 " class="icon-question-only"></i>
+                <!--{% endif %}-->
+            </a>
+        </li>
+        <li>
+            <span>{{ 'deadline.complete_text'|translate }}
+                <!--{% if user.checkDeadLines() %}-->
+                    <i *ngIf="appUser.check_deadline == true" class="icon-ok-only"></i>
+                <!--{% else %}-->
+                    <i *ngIf="appUser.check_deadline !== true" class="icon-question-only"></i>
+                <!--{% endif %}-->
+            </span>
+        </li>
+        <li>
+            <span>{{ 'goal.complete_text'|translate }}
+                <!--{% if user.checkCompletedGoals() %}-->
+                    <i *ngIf="appUser.check_completed_goals == true" class="icon-ok-only"></i>
+                <!--{% else %}-->
+                    <i *ngIf="appUser.check_completed_goals !== true" class="icon-question-only"></i>
+                <!--{% endif %}-->
+            </span>
+        </li>
+
+        <li>
+            <span>{{ 'success_story.complete_text'|translate }}
+                <!--{% if user.checkSuccessStory() %}-->
+                    <i *ngIf="appUser.check_success_story == true" class="icon-ok-only"></i>
+                <!--{% else %}-->
+                    <i *ngIf="appUser.check_success_story !== true" class="icon-question-only"></i>
+                <!--{% endif %}-->
+            </span>
+        </li>
+    </ol>
+</div>
+<!--{% endif %}-->

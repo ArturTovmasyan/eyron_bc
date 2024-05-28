@@ -1,0 +1,38 @@
+
+{% for i in 0..1 %}
+    <div class="col-sm-6"
+         data-ng-cloak>
+        <div class="table-responsive">
+            <table class="table table-bordered year-calendar">
+                <caption class="text-center">[[ +currentYear + {{ i }} ]]</caption>
+                <tbody>
+                    {% for j in 0..3 %}
+                        <tr>
+                        {% for k in 0..2 %}
+                            <td>
+                                <span>
+                                    <sup>[[ dateByFormat(currentYear, 3 * {{ j }} + {{ k }} + 1, 1, 'MMM')]]</sup>
+                                </span>
+                                <span class="absolute">
+                                    <span class="goal-count bg-green ng-hide"
+                                          data-ng-mouseleave="isHover = false"
+                                          data-ng-mousemove="hoverIn($event, myYAMonths[+currentYear + {{ i }} ][3 * {{ j }} + {{ k }} + 1].complete + ' ' + (myYAMonths[+currentYear + {{ i }} ][3 * {{ j }} + {{ k }} + 1].complete > 1?'{{ 'my_bucket_list.calendar.theCompleted'|trans }}':'{{ 'my_bucket_list.calendar.completed'|trans }}'))"
+                                          data-ng-show="myYAMonths[+currentYear + {{ i }} ][3 * {{ j }} + {{ k }} + 1].complete > 0">[[ myYAMonths[+currentYear + {{ i }}][3 * {{ j }} + {{ k }} + 1].complete ]]</span>
+                                    <span class="goal-count bg-gradinet ng-hide"
+                                          data-ng-mouseleave="isHover = false"
+                                          data-ng-mousemove="hoverIn($event, myYAMonths[+currentYear + {{ i }} ][3 * {{ j }} + {{ k }} + 1].deadline + ' ' + (myYAMonths[+currentYear + {{ i }} ][3 * {{ j }} + {{ k }} + 1].deadline > 1?'{{ 'my_bucket_list.calendar.deadlines'|trans }}':'{{ 'my_bucket_list.calendar.deadline'|trans }}'))"
+                                          data-ng-show="myYAMonths[+currentYear + {{ i }} ][3 * {{ j }} + {{ k }} + 1].deadline > 0">[[ myYAMonths[+currentYear + {{ i }}][3 * {{ j }} + {{ k }} + 1].deadline ]]</span>
+                                    <span class="goal-count bg-purple ng-hide"
+                                          data-ng-mouseleave="isHover = false"
+                                          data-ng-mousemove="hoverIn($event, myYAMonths[+currentYear + {{ i }} ][3 * {{ j }} + {{ k }} + 1].current + ' ' + (myYAMonths[+currentYear + {{ i }} ][3 * {{ j }} + {{ k }} + 1].current > 1?'{{ 'my_bucket_list.calendar.actives'|trans }}':'{{ 'my_bucket_list.calendar.active'|trans }}'))"
+                                          data-ng-show="myYAMonths[+currentYear + {{ i }} ][3 * {{ j }} + {{ k }} + 1].current > 0">[[ myYAMonths[+currentYear + {{ i }}][3 * {{ j }} + {{ k }} + 1].current ]]</span>
+                                </span>
+                            </td>
+                        {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endfor %}

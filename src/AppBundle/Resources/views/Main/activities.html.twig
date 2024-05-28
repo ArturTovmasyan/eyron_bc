@@ -1,0 +1,46 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block angularApp %}
+    <html data-ng-app="goal" xmlns="http://www.w3.org/1999/xhtml">
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div id="news-feed">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-8">
+                    {% block left_content %}
+                        {%  include "AppBundle:Blocks:activities.html.twig" with {'single': false}   %}
+                    {% endblock %}
+                </div>
+
+                <div class="col-md-4">
+                    {% block rigth_content %}
+                        {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
+                        {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
+                        {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
+                        {% include "AppBundle:Blocks:featureGoals.html.twig" %}
+                        {% include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 1}  %}
+                        {% include 'AppBundle:Blocks:leaderboardTop.html.twig' with {'user': app.user} %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{%- block title -%}
+    {{ 'activities.title'|trans }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'activities.description'|trans }}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}

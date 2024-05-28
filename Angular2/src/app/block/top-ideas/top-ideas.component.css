@@ -1,0 +1,29 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.top-ideas {
+  margin: 0 0 20px 0;
+}
+.top-ideas .idea-item figure {
+  margin-bottom: 15px;
+}
+.featured-icon {
+  display: inline-block;
+  width: 27px;
+  height: 27px;
+  background: url('../../../assets/images/featured.svg') no-repeat center center;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.suggested-icon {
+  display: inline-block;
+  width: 27px;
+  height: 28px;
+  background: url('../../../assets/images/suggested-icon.svg') no-repeat center center;
+  vertical-align: middle;
+}

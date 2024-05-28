@@ -1,0 +1,48 @@
+imports:
+    - { resource: config_prod.yml }
+
+parameters:
+    node_path: /usr/local/bin/node
+    matches_user_maximum_number: 100
+    angular2host: '*'
+    locale: en
+    languages:
+       en: English
+       ru: Русский
+       fr: French
+       nl: Dutch
+    tablet:
+        with: 640
+        height: 640
+    mobile:
+        with: 480
+        height: 320
+    list:
+        with: 770
+        height: 540
+    cover:
+        with: 1280
+        height: 720
+
+
+framework:
+    test: ~
+    session:
+          gc_probability: 0
+          save_path: ~
+    profiler:
+        collect: false
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+swiftmailer:
+    disable_delivery: true
+
+doctrine:
+    dbal:
+        dbname: "%test_database_name%"
+twig:
+    globals:
+        env_prefix: ~

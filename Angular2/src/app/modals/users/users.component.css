@@ -1,0 +1,43 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+#goal-users-modal {
+  width: 280px;
+  margin: 0 auto;
+}
+#goal-users-modal h3 {
+  margin: 0;
+  padding: 20px 10px;
+  font-size: 18px;
+  color: #021523;
+}
+#goal-users-modal .users-content {
+  padding: 15px 15px 5px;
+  border-top: 1px solid #ccc;
+}
+#goal-users-modal .users-content h4 strong {
+  font-size: 14px;
+}
+#goal-users-modal .users-content h4 span {
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  #goal-users-modal {
+    width: 390px;
+  }
+  #goal-users-modal h3 {
+    padding: 20px;
+    font-size: 22px;
+  }
+  #goal-users-modal .users-content {
+    padding: 20px 20px 0;
+  }
+  #goal-users-modal .users-content h4 strong {
+    font-size: 16px;
+  }
+}

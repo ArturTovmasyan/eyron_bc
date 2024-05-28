@@ -1,0 +1,19 @@
+<div class="relative">
+    <input type="text"
+       class="form-control"
+       name="videoLink[[ key ]]"
+       placeholder="[['video_placeholder'|translate]]"
+       data-ng-model="link">
+
+    <a href="javascript:void(0)"
+       data-ng-show="link"
+       data-ng-click="removeItem()" class="remove-icon">
+        <span class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </a>
+
+    <!--<embed-video data-ng-href="[[link ? link:' ']]" width="350px" height="350px" data-ng-if="for == 'admin'" data-ng-show="isVideoLink(link)"></embed-video>-->
+    <embed-video data-ng-href="[[link ? link:' ']]" width="100%" height="500px" data-ng-show="isVideoLink(link)"></embed-video>
+
+</div>
+
+

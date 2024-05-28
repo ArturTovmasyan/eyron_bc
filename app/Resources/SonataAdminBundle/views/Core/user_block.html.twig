@@ -1,0 +1,8 @@
+{% block user_block %}
+
+    {% if app.user %}
+        {{ app.user }}
+        - <a href="{{ path('sonata_user_admin_security_logout') }}">logout</a>
+    {% endif %}
+
+{% endblock %}

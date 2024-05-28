@@ -1,0 +1,12 @@
+goal:
+  create: поставил(а) цель
+  create_goals: поставил(а)
+  goals: целей
+  add: добавил(а) цель
+  add_goals: добавил(а)
+  complete: достиг(ла) цели
+  complete_goals: достиг(ла)
+  success_story: разместил(а) историю успеха
+  comment: добавил(а) комментарий
+
+new_activity: Лента

@@ -1,0 +1,7 @@
+User-agent: * 
+Host: www.bucketlist127.com
+
+Sitemap: http://www.bucketlist127.com/sitemap.xml
+
+User-agent: Googlebot-Image
+Disallow: /*uploads/photo

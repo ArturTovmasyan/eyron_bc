@@ -1,0 +1,68 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+.share-modal{
+  &>div{
+    //left: 5px;
+    //right: 5px;
+    max-width: 330px;
+    min-width: 280px;
+    margin: 0 auto;
+    //position: absolute;
+    -webkit-animation: shimmy 250ms;  /* Safari 4.0 - 8.0 */
+    -webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+    animation: shimmy 250ms;
+    animation-fill-mode: forwards;
+    background-color: #ffffff;
+    .rounded-corners(4px);
+    padding: 0 15px;
+  }
+
+
+  .sb-container{
+    //position: absolute;
+    min-width: 215px;
+    right: 15px;
+    z-index: 11;
+    //top: 31px;
+    //width: auto;
+
+    .sb-buttons{
+      margin: 10px 0;
+
+      .sb-button{
+        width: 100%;
+        position: relative;
+        flex-direction: inherit;
+
+        span{
+          margin-left: 40px;
+          font-size: 16px;
+          position: absolute;
+          top: 19px;
+          color: rgba(0,0,0,0.87);
+          font-weight: 600;
+        }
+
+        &:hover{
+          color: inherit;
+        }
+      }
+    }
+
+    h3{
+      display: none;
+    }
+
+    button{
+      max-width: 50px;
+      min-width: 30px;
+    }
+
+  }
+}
+
+@keyframes shimmy {
+  from {bottom: 0;}
+  to {bottom: 40%;}
+}

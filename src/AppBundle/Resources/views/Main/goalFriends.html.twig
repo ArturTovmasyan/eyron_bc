@@ -1,0 +1,160 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block meta %}
+    <meta name="robots" content="noindex">
+{% endblock %}
+
+{% block angularApp %}
+<html data-ng-app="profile" data-ng-controller="friendsController">
+{% endblock %}
+{% set friend = (app.request.get('_route') == 'goal_friends') %}
+{% if app.request.get('slug') is defined %}
+    {% set slug = app.request.get('slug') %}
+{% else %}
+    {% set slug = false %}
+{% endif %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div id="goal-friends">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8"
+                     data-ng-init="goalId = {{ (goalId is defined and goalId)?goalId: 0 }}"
+                     data-ng-cloak
+                     data-infinite-scroll='Friends.nextFriends(friendName, slug, goalId, category)'
+                     data-infinite-scroll-disabled='Friends.noItem || Friends.busy'>
+
+                    {% if friend %}
+
+                        <div class="bg-white padding round">
+
+                            <form role="search" action="#" method="GET">
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <span class="icon-search-icon"></span>
+                                        <input type="text" name="search"
+                                               data-ng-model="friendName"
+                                               data-ng-keypress="doSearch($event)"
+                                               class="form-control"
+                                               id="searchInput"
+                                               placeholder="{{ 'search_placeholder'|trans }}"
+                                               {#value="{{ app.request.get('search') }}"#}>
+                                        <span data-ng-show = "friendName.length" class="close-icon ng-hide" data-ng-click="friendName = ''; resetFriends()"></span>
+
+                                    </div>
+
+                                </div>
+                            </form>
+
+                            <ul class="goalfrineds-menu">
+                                <li>
+                                    <a data-ng-class="{'text-purple': category == 'all'}" href="#all" data-ng-click="getCategory('all')">{{ 'goal_friend_menu.all'|trans }}</a>
+                                </li>
+
+                                <li>
+                                    <a data-ng-class="{'text-purple': category == 'recently'}" href="#recently" data-ng-click="getCategory('recently')">{{ 'goal_friend_menu.recently_matched'|trans }}</a>
+                                </li>
+
+                                <li>
+                                    <a data-ng-class="{'text-purple': category == 'match'}" href="#match" data-ng-click="getCategory('match')">{{ 'goal_friend_menu.most_matching'|trans }}</a>
+                                </li>
+
+                                <li>
+                                    <a data-ng-class="{'text-purple': category == 'active'}" href="#active" data-ng-click="getCategory('active')">{{ 'goal_friend_menu.most_activity'|trans }}</a>
+                                </li>
+
+                                <li>
+                                    <a data-ng-class="{'text-purple': category == 'follow'}" href="#follow" data-ng-click="getCategory('follow')">{{ 'goal_friend_menu.follow'|trans }}</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ng-hide" data-ng-cloak data-ng-show="Friends.noItem">
+                            <br />
+                            <p class="text-center text-gray">{{ 'no_friends' | trans }}</p>
+                        </div>
+
+                    {% endif %}
+
+                    {% if slug %}
+                        <div>
+                            <a href="{{ path('inner_goal', {'slug': slug}) }}" class="row text-gray heading"> &laquo; Back to {{ title }}</a>
+                        </div>
+                    {% endif %}
+
+                    <div class="row">
+                        <div data-ng-cloak
+                             class="col-sm-6 goals-animate"
+                             data-ng-repeat="user in Friends.users"
+                             data-ng-class-even="row"
+                             {% if friend %} data-ng-class="{'margin-top': $index < 2 }" {% endif %}>
+
+                                <div class="users-list round clearfix">
+                                     <a href="{{ env_prefix }}/profile/[[ ::user.u_id ]]" style="display:block;" class="text-gray">
+                                        <div class="row no-gutter">
+                                            <div class="col-xs-3">
+                                                <figure class="image-goalfrinds img-circle ">
+                                                    <img data-ng-if="user.image_path" data-ng-src="[[ ::user.image_path ]]" alt="[[ ::user.first_name ]]" class="img-circle img-responsive" />
+                                                    {% set className = "user-no" ~ random(4) %}
+                                                    <p data-ng-if="!user.image_path" class="no-image {{ className }}">[[ (user.first_name | limitTo:1 | uppercase) + (user.last_name | limitTo:1 | uppercase) ]]</p>
+                                                </figure>
+                                            </div>
+
+                                            <div class="col-xs-9">
+                                                <div class="text-gray">
+                                                    <h4 class="text-dark-gray">
+                                                        [[ ::user.first_name ]] [[ ::user.last_name ]]
+                                                    </h4>
+                                                    <span class="text-gray">{{ 'listed_by'|trans }} [[ ::user.stats.listedBy ]]</span> |
+                                                    <span class="text-gray">{{ 'completed'|trans }} [[ ::user.stats.doneBy ]]</span><br />
+                                                    <a href="javascript:void(0)"
+                                                       data-ls-common-manage
+                                                       data-ng-show="user.common_goals_count != 0"
+                                                       data-ls-user="[[ ::user.id ]]"
+                                                       data-ng-cloak class="text-gray">{{ 'menu.common'|trans }} [[ ::user.common_goals_count ]]
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <br />
+                </div>
+
+            {% if app.user %}
+                <div class="col-md-4">
+                    {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
+                    {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
+                    {%  include "AppBundle:Blocks:featureGoals.html.twig" %}
+                    {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 1}  %}
+                </div>
+            {% endif %}
+            </div>
+        </div>
+   </div>
+{% endblock %}
+
+{%- block title -%}
+    {% if friend %}
+        {{- 'goal.friends_title'|trans -}}
+    {% else %}
+        {{- 'goal.user_title'|trans -}}{% if title %} {{ title }}{% endif %}
+    {% endif %}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {% if friend %}
+        {{- 'goal.friends_description'|trans -}}
+    {% else %}
+        {{- 'goal.user_description'|trans -}}{% if title %} {{ title }}{% endif %}
+    {% endif %}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}

@@ -1,0 +1,10 @@
+FOS\UserBundle\Form\Model\ChangePassword:
+    properties:
+        new:
+           - Length:
+              min: 6
+              minMessage: "Error"
+           - Regex:
+              pattern: "/^[a-zA-Z\d\.]+$/i"
+              groups: [ChangePassword, ResetPassword]
+              message: "Error"

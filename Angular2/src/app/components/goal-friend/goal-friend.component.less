@@ -1,0 +1,63 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+.list{
+  padding-left:0;
+  li{
+    border-bottom:1px solid #eeeeee;
+    margin-bottom:7px;
+    padding-bottom:7px;
+
+    &:last-child{
+      border-bottom:0;
+      margin-bottom:0;
+      padding-bottom:0;
+    }
+
+    figure{
+      margin:0 10px 0;
+    }
+
+    .image{
+      float:left;
+    }
+
+    h4{
+      padding: 5px 0 2px 0;
+      margin: 3px 0 0;
+      font-size: 14px;
+      font-weight: 600;
+
+      span{
+        display: inline-block;
+      }
+    }
+
+    a{
+      font-size:13px;
+    }
+  }
+}
+
+@media (min-width: @screen-sm) {
+  .list{
+    li{
+      margin-bottom:10px;
+      padding-bottom:10px;
+
+      figure{
+        margin:0 20px 0 0;
+      }
+
+      h4{
+        font-size: 16px;
+      }
+
+      a{
+        font-size:13px;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md) {}

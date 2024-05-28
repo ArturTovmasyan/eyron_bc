@@ -1,0 +1,51 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.horizontal-menu {
+  padding: 0 5px 0 0;
+}
+.horizontal-menu li {
+  display: inline-block;
+  border-right: 1px solid #cccccc;
+  padding: 0 15px 0 10px;
+}
+.horizontal-menu li strong {
+  display: block;
+  color: #666666;
+  font-size: 13px;
+}
+.horizontal-menu li span {
+  display: block;
+  color: #7d7d7d;
+}
+.horizontal-menu li span:last-child {
+  font-size: 18px;
+}
+.horizontal-menu li:last-child {
+  border: 0;
+}
+.horizontal-menu li:hover {
+  background-color: transparent;
+}
+@media (min-width: 768px) {
+  .horizontal-menu {
+    padding: 0 10px 0 0;
+  }
+  .horizontal-menu li strong {
+    font-size: 14px;
+  }
+  .horizontal-menu li span:last-child {
+    font-size: 22px;
+  }
+  .en li {
+    padding: 0 14px 0 10px;
+  }
+  .ru li {
+    padding: 0 9px;
+  }
+}

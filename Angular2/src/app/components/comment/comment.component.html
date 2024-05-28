@@ -1,0 +1,160 @@
+<div  [hidden]="isModal && !ready" [ngClass]="{'comment-modal':isModal && ready}">
+  <div>
+    <div class="story-count"  *ngIf="isInner">
+      <div class="row">
+        <div class="col-xs-12">
+          <a name="comments"></a>
+          <h4>
+            <i class="comment-icon"></i>
+            {{ 'comments'|translate }}
+          </h4>
+        </div>
+      </div>
+      <hr/>
+    </div>
+
+    <perfect-scrollbar class="comment-container" #myScroll>
+
+    <div class="comments-column padding scroll-container" [attr.id]="data.slug">
+
+      <div *ngFor="let comment of comments; let i = index"
+           [hidden]="!comments || !comment.visible"
+           class="comment-information" id="comment-{{i}}-{{data.slug}}">
+        <!--data-ng-init="comment.visible = ($index > comments.length - commentsDefaultCount - 1)"-->
+
+        <div class="clearfix">
+          <figure class="pull-left">
+            <img *ngIf="comment.author.image_path" src="{{ serverPath + comment.author.image_path }}"
+                 alt="{{ comment.author.first_name }}" class="img-circle img-responsive"/>
+
+            <p *ngIf="!comment.author.image_path" class="no-image user-no1 text-white">
+              {{ (comment.author.first_name |
+              slice:0:1 | uppercase) + (comment.author.last_name | slice:0:1 | uppercase) }}
+            </p>
+          </figure>
+
+          <div class="pull-left">
+            <p class="text-dark-gray">{{ comment.author.show_name }}</p>
+            <span class="convert-to-local">{{ comment.created_at| date:'MMMM dd,yyyy' }} at {{ comment.created_at| date:'shortTime' | lowercase}}</span>
+              <span (click)="report(0, comment.id)"
+                    *ngIf="appUser && comment.author.id != appUser.id"
+                    class="report">{{ 'report.title'|translate }}</span>
+          </div>
+        </div>
+
+        <div>
+          <span class="fos_comment_comment_authorname">
+              <i class="arrow-up"></i>
+              <p>{{ comment.comment_body }}</p>
+          </span>
+
+          <div class="border-left">
+            <div class="row">
+              <div class="col-xs-11 col-xs-offset-1">
+                <div *ngFor="let child of comment.children"
+                     [hidden]="!comment.children">
+                  <!--|| !child.visible-->
+                  <!--data-ng-init="child.visible = ($index > comment.children.length - 3)"-->
+                  <div class="clearfix">
+                    <figure class="pull-left">
+                      <img *ngIf="child.author.image_path" src="{{ serverPath + child.author.image_path }}"
+                           alt="{{ child.author.first_name }}" class="img-circle img-responsive"/>
+                      <p *ngIf="!child.author.image_path" class="no-image user-no1 text-white">{{ (child.author.first_name |
+                        slice:0:1 | uppercase) + (child.author.last_name | slice:0:1 | uppercase) }}</p>
+                    </figure>
+
+                    <div class="pull-left">
+                      <p class="text-dark-gray">{{ child.author.show_name }} <span class="text-dark-gray">{{ 'replied'|translate }}</span></p>
+                      <span class="convert-to-local ">{{ child.created_at| date:'MMMM dd,yyyy' }} at {{ child.created_at| date:'shortTime' | lowercase}}</span>
+                        <span (click)="report(0,comment.id)"
+                              *ngIf="appUser && child.author.id != appUser.id"
+                              class="report">{{ 'report.title'|translate }}</span>
+                    </div>
+                  </div>
+
+                  <div>
+                     <span class="fos_comment_comment_authorname">
+                        <i class="arrow-up"></i>
+                        <p>
+                          {{ child.comment_body  }}
+                        </p>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-11 col-xs-offset-1">
+              <a (click)="comment.reply = false"
+                 *ngIf="comment.reply && appUser"
+                 class="text-dark-grey reply">
+                <!--data-ng-init="comment.reply = true"-->
+                {{ 'reply'|translate }}
+              </a>
+              <div class="clearfix " *ngIf="!comment.reply">
+
+                <figure class="pull-left">
+                  <img *ngIf=" appUser.image_path" src="{{ serverPath + appUser.image_path}}"
+                       class="img-circle img-responsive"/>
+                  <p *ngIf="!appUser.image_path" class="no-image user-no1 text-white">{{ appUser.first_name|slice:0:1 |uppercase}}{{ appUser.last_name|slice:0:1 |uppercase}}</p>
+                </figure>
+
+                <div class="pull-left leave-comment">
+                  <form class="fos_comment_comment_new_form" action="" method="POST">
+                    <i class="arrow-left"></i>
+                    <div class="fos_comment_form_errors"></div>
+                        <textarea name="replyBody"
+                            [(ngModel)]="comment.replyBody"
+                            (keypress)="writeReply($event, comment)"
+                            class="form-control"
+                            placeholder="{{'reply_comment'|translate}}">
+                        </textarea>
+                  </form>
+                  <button class="pull-right" *ngIf="isMobile" md-button (click)="writeReply($event, comment,true)">Reply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row " *ngIf="isInner">
+        <div class="col-xs-12">
+          <div class="text-right " *ngIf="comments && commentsLength > 0">
+            <a class="view-more-comments text-purple"
+               (click)="showMoreComment()">
+              Show More +<span>{{ commentsLength }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="clearfix " *ngIf="appUser">
+
+        <figure class="pull-left">
+          <img *ngIf=" appUser.image_path" src="{{ serverPath + appUser.image_path}}"
+               class="img-circle img-responsive"/>
+          <p *ngIf="!appUser.image_path" class="no-image user-no1 text-white">{{ appUser.first_name|slice:0:1 |uppercase}}{{ appUser.last_name|slice:0:1 |uppercase}}</p>
+        </figure>
+
+        <div class="pull-left leave-comment">
+          <form class="fos_comment_comment_new_form" action="" method="POST">
+            <i class="arrow-left"></i>
+            <div class="fos_comment_form_errors"></div>
+                <textarea name="commentBody"
+                  [(ngModel)]="commentBody"
+                  (keypress)="writeComment($event)"
+                  class="form-control"
+                  placeholder="{{'leave_comment'|translate}}">
+                </textarea>
+          </form>
+          <button class="pull-right" *ngIf="isMobile" md-button (click)="writeComment($event, true)">Post</button>
+        </div>
+      </div>
+      </div>
+    </perfect-scrollbar>
+  </div>
+</div>

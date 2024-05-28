@@ -1,0 +1,124 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+#activities .idea-item figure {
+  margin-bottom: 0;
+}
+#activities .image {
+  margin: 0 10px 0 0;
+  float: left;
+}
+#activities .image a {
+  height: auto;
+}
+#activities .image img {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  border: 2px solid #cecece;
+}
+#activities .image .no-image {
+  height: 40px;
+  width: 40px;
+  line-height: 35px;
+  color: #ffffff;
+}
+#activities p {
+  font-size: 12px;
+  color: #999999;
+}
+#activities h4 {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 5px 0 2px 0;
+  margin: 0;
+}
+#activities h4 a {
+  font-size: 14px;
+  padding-bottom: 2px;
+  display: inline-block;
+}
+#activities h4 span {
+  display: block;
+}
+#activities .swiper-button-next,
+#activities .swiper-button-prev {
+  top: 42%;
+}
+#activities .swiper-pagination {
+  text-align: right;
+  position: absolute;
+  right: 3px;
+  top: 36px;
+  width: 100px;
+  height: 25px;
+  font-size: 14px;
+  left: auto;
+}
+#activities .swiper-pagination .swiper-pagination-bullet {
+  margin: 0 5px;
+}
+#activities p {
+  padding-bottom: 0;
+}
+#activities .idea-item figure.rounded-corners {
+  border-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+@media (min-width: 768px) {
+  #activities .image {
+    margin: 0 15px 5px 0;
+    float: left;
+  }
+  #activities .image a {
+    height: auto;
+  }
+  #activities .image img {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    border: 2px solid #cecece;
+  }
+  #activities .image .no-image {
+    height: 50px;
+    width: 50px;
+    line-height: 45px;
+  }
+  #activities p {
+    font-size: 13px;
+  }
+  #activities h4 {
+    font-size: 16px;
+    padding: 9px 0 2px 0;
+  }
+  #activities h4 a {
+    font-size: 16px;
+    padding: 0 10px 0 0;
+  }
+  #activities h4 span {
+    display: inline-block;
+  }
+  #activities .swiper-pagination {
+    top: 6px;
+    font-size: 16px;
+  }
+  #activities p {
+    padding-bottom: 0;
+  }
+}

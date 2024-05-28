@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <!--  Service for registration form -->
+        <service id="bl_user.form.registration" class="Application\UserBundle\Form\Type\RegistrationType">
+            <tag name="form.type" alias="bl_user_registration" />
+        </service>
+
+        <!--  Service for registration form handler -->
+        <service id="bl_user.form.handler.registration" class="Application\UserBundle\Form\Handler\RegistrationFormHandler" public="false">
+            <argument type="service" id="fos_user.registration.form" />
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="fos_user.user_manager" />
+            <argument type="service" id="fos_user.mailer" />
+            <argument type="service" id="fos_user.util.token_generator" />
+            <argument type="service" id="service_container" />
+        </service>
+
+        <!--  service for authentication   -->
+        <service id="authentication_handler" class="Application\UserBundle\Handler\AuthenticationHandler">
+            <argument type="service" id="session" />
+            <argument type="service" id="router" />
+        </service>
+
+        <service id="authentication_entry_point" class="Application\UserBundle\Handler\AuthenticationHandler">
+            <argument type="service" id="session" />
+            <argument type="service" id="router" />
+        </service>
+
+        <service id="bl.email.sender" class="Application\UserBundle\Services\EmailSenderService">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="bl_notification" class="Application\UserBundle\Services\NotificationService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+        <service id="bl_user_api_authenticator" class="Application\UserBundle\Security\ApiKeyAuthenticator">
+        </service>
+
+        <service id="bl_user_api_provider" class="Application\UserBundle\Provider\ApiKeyUserProvider">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+        <service id="bl.user.mailer" class="Application\UserBundle\Services\Mailer" public="false">
+            <argument type="service" id="translator"/>
+            <argument>%apihost%</argument>
+            <argument type="service" id="mailer" />
+            <argument type="service" id="router" />
+            <argument type="service" id="templating" />
+            <argument type="collection">
+                <argument key="confirmation.template">%fos_user.registration.confirmation.template%</argument>
+                <argument key="resetting.template">%fos_user.resetting.email.template%</argument>
+                <argument key="from_email" type="collection">
+                    <argument key="confirmation">%fos_user.registration.confirmation.from_email%</argument>
+                    <argument key="resetting">%fos_user.resetting.email.from_email%</argument>
+                </argument>
+            </argument>
+        </service>
+
+        <service id="report.moderator" class="Application\UserBundle\Admin\ReportAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.report"/>
+            <argument/>
+            <argument>Application\UserBundle\Entity\Report</argument>
+            <argument/>
+        </service>
+
+        <service id="bl.badge.service" class="Application\UserBundle\Services\BadgeService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="user_notify" />
+            <argument type="service" id="bl_put_notification_service" />
+            <argument type="service" id="bl_notification" />
+            <argument type="service" id="router" />
+            <argument type="service" id="liip_imagine.cache.manager" />
+            <argument type="service" id="bl.apc" />
+        </service>
+
+    </services>
+
+</container>

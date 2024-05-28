@@ -1,0 +1,8 @@
+{% if admin.isGranted('VIEW', object) and admin.hasRoute('show') %}
+
+    {% if object.goal and not object.goal.archived %}
+        <a href="{{ path('inner_goal', {'slug': object.goal.slug}) }}" target="_blank" class="btn btn-sm btn-default view_link" title="{{ 'admin.label.name.goal_link'|trans() }}">
+            <i class="glyphicon glyphicon-home"></i>
+        </a>
+    {% endif %}
+{% endif %}

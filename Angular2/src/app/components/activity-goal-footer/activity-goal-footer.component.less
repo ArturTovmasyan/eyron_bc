@@ -1,0 +1,118 @@
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+figcaption{
+  background-color: #ffffff;
+  ul{
+    li{
+      height:35px;
+      line-height:31px;
+      a{
+        &:hover,&:focus{
+          text-decoration: none;
+        }
+      }
+
+      i{
+        font-size:25px;
+        vertical-align: middle;
+        margin-right: 0;
+
+        &.comment-icon{
+          vertical-align: middle;
+          display: inline-block;
+          background: url('../../../assets/images/comment-icon.svg') no-repeat center center;
+          width:21px;
+          height:20px;
+          margin: 0 0 0 -16px;
+        }
+      }
+
+      i.icon-green-ok,.icon-green-plus{
+        font-size: 36px;
+        vertical-align: middle;
+      }
+
+      &:hover{
+        //background-color: #7724f6;
+        color: #fff;
+        a{
+          .text{
+            color:#ffffff;
+          }
+        }
+      }
+      .text{
+        font-size:12px;
+      }
+      &:last-child{
+        text-align:left;
+        padding-left: 1px;
+      }
+    }
+    .transparent{
+      .text{
+        color: #a4a4a4;
+      }
+      &:hover{
+        background-color: transparent;
+        a,.text {
+          color: #a4a4a4;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-sm) {
+  figcaption{
+    ul{
+      li{
+        height:50px;
+        line-height:45px;
+
+        i.icon-green-ok,.icon-green-plus{
+          font-size: 49px;
+        }
+
+        i{
+          font-size:30px;
+
+          &.comment-icon{
+            width:30px;
+            height:24px;
+            margin: 3px 1px 0 -17px;
+          }
+        }
+
+        .text{
+          font-size:14px;
+        }
+        &:last-child{
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md) {
+  figcaption{
+    ul{
+      li:not(.transparent){
+
+        &:hover{
+          //background-color: #7724F6;
+          color:#ffffff;
+        }
+
+        &:focus,&:active{
+          //background-color: #6108EA;
+          //a{
+          //  color:#ffffff;
+          //}
+        }
+      }
+    }
+  }
+}

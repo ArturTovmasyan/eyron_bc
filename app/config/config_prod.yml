@@ -1,0 +1,45 @@
+imports:
+    - { resource: config.yml }
+
+#framework:
+#    validation:
+#        cache: validator.mapping.cache.apc
+#    serializer:
+#        cache: serializer.mapping.cache.apc
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+assetic:
+    bundles:        [ AppBundle ]
+    debug:          %kernel.debug%
+    use_controller: false
+    node: /usr/local/bin/node
+    filters:
+        cssrewrite: ~
+        less:
+            node: /usr/local/bin/node
+            node_paths: [/usr/local/lib/node_modules]
+            apply_to: "\.less$"
+        uglifyjs2:
+            # the path to the uglifyjs executable
+            bin: "%kernel.root_dir%/Resources/node_modules/.bin/uglifyjs"
+            apply_to: "\.js$"
+        uglifycss:
+            bin: "%kernel.root_dir%/Resources/node_modules/.bin/uglifycss"
+            apply_to: "\.css$"
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: error
+        console:
+            type:  console

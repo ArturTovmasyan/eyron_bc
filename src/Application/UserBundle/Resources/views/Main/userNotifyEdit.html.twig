@@ -1,0 +1,349 @@
+{% extends "ApplicationUserBundle:Base:settings.html.twig" %}
+
+{% block settings_content %}
+
+    {% set notifySettings = form.children.userNotifySettings %}
+    {% set notifyValues = user.getUserNotifySettings() %}
+    {% if notifyValues %}
+        {% set commentGoalValue = notifyValues.isCommentOnGoalNotify ? 1 : 0 %}
+        {% set commentIdeaValue = notifyValues.isCommentOnIdeaNotify ? 1 : 0%}
+        {% set successStoryGoalValue = notifyValues.IsSuccessStoryOnGoalNotify ? 1 : 0 %}
+        {% set successStoryIdeaValue = notifyValues.IsSuccessStoryOnIdeaNotify ? 1 : 0 %}
+        {% set successStoryLikeValue = notifyValues.IsSuccessStoryLikeNotify ? 1 : 0 %}
+        {% set publishGoalValue = notifyValues.IsGoalPublishNotify ? 1 : 0 %}
+        {% set commentReplyValue = notifyValues.IsCommentReplyNotify ? 1 : 0 %}
+        {% set deadlineExpValue = notifyValues.IsDeadlineExpNotify ? 1 : 0 %}
+        {% set newGoalFriendValue = notifyValues.IsNewGoalFriendNotify ? 1 : 0 %}
+        {% set newIdeaValue = notifyValues.IsNewIdeaNotify ? 1 : 0 %}
+    {% else %}
+        {% set commentGoalValue = 0 %}
+        {% set commentIdeaValue = 0 %}
+        {% set successStoryGoalValue = 0 %}
+        {% set successStoryIdeaValue = 0 %}
+        {% set successStoryLikeValue = 0 %}
+        {% set publishGoalValue = 0 %}
+        {% set commentReplyValue = 0 %}
+        {% set deadlineExpValue = 0 %}
+        {% set newGoalFriendValue = 0 %}
+        {% set newIdeaValue = 0 %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-8">
+
+        <div class="settings bg-white round">
+            <h3>{{ 'user.notify_settings_text'|trans({}, 'FOSUserBundle') }}</h3>
+            <hr />
+
+            <div class="row no-marginb">
+
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="commentGoal.switch={{ commentGoalValue }}">
+                    <span data-ng-show="commentGoal.switch">{{ 'notify_settings.comment_goal'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="commentGoal.switch">{{ 'notify_settings.comment_goal'|trans({}, 'messages') }}</span>
+                    <p class="text-muted">{{ 'notify_settings.comment_goal_desc'|trans({}, 'messages') }}</p>
+                </label>
+
+                <div class="col-xs-5 col-sm-2">
+                    <div class="onoffswitch">
+                        <input type="checkbox"
+                               name="{{ notifySettings.isCommentOnGoalNotify.vars.full_name }}"
+                               data-ng-model="commentGoal.switch"
+                               data-ls-checked="commentGoal.switch"
+                               class="onoffswitch-checkbox"
+                               id="myCommentGoalSwitch">
+                        <label class="onoffswitch-label" for="myCommentGoalSwitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-marginb">
+
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="commentIdea.switch={{ commentIdeaValue }}">
+                    <span data-ng-show="commentIdea.switch">{{ 'notify_settings.comment_idea'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="commentIdea.switch">{{ 'notify_settings.comment_idea'|trans({}, 'messages') }}</span>
+                    <p class="text-muted">{{ 'notify_settings.comment_idea_desc'|trans({}, 'messages') }}</p>
+                </label>
+
+                <div class="col-xs-5 col-sm-2">
+                    <div class="onoffswitch">
+                        <input type="checkbox"
+                               name="{{ notifySettings.isCommentOnIdeaNotify.vars.full_name }}"
+                               data-ng-model="commentIdea.switch"
+                               data-ls-checked="commentIdea.switch"
+                               class="onoffswitch-checkbox"
+                               id="myCommentIdeaSwitch">
+                        <label class="onoffswitch-label" for="myCommentIdeaSwitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-marginb">
+
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="successStoryGoal.switch={{ successStoryGoalValue }}">
+                    <span data-ng-show="successStoryGoal.switch">{{ 'notify_settings.success_story_goal'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="successStoryGoal.switch">{{ 'notify_settings.success_story_goal'|trans({}, 'messages') }}</span>
+                    <p class="text-muted">{{ 'notify_settings.success_story_goal_desc'|trans({}, 'messages') }}</p>
+                </label>
+
+                <div class="col-xs-5 col-sm-2">
+                    <div class="onoffswitch">
+                        <input type="checkbox"
+                               name="{{ notifySettings.isSuccessStoryOnGoalNotify.vars.full_name }}"
+                               data-ng-model="successStoryGoal.switch"
+                               data-ls-checked="successStoryGoal.switch"
+                               class="onoffswitch-checkbox"
+                               id="mySuccessStoryGoalSwitch">
+                        <label class="onoffswitch-label" for="mySuccessStoryGoalSwitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-marginb">
+
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="successStoryIdea.switch={{ successStoryIdeaValue }}">
+                    <span data-ng-show="successStoryIdea.switch">{{ 'notify_settings.success_story_idea'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="successStoryIdea.switch">{{ 'notify_settings.success_story_idea'|trans({}, 'messages') }}</span>
+                    <p class="text-muted">{{ 'notify_settings.success_story_idea_desc'|trans({}, 'messages') }}</p>
+                </label>
+
+                <div class="col-xs-5 col-sm-2">
+                    <div class="onoffswitch">
+                        <input type="checkbox"
+                               name="{{ notifySettings.isSuccessStoryOnIdeaNotify.vars.full_name }}"
+                               data-ng-model="successStoryIdea.switch"
+                               data-ls-checked="successStoryIdea.switch"
+                               class="onoffswitch-checkbox"
+                               id="mySuccessStoryIdeaSwitch">
+                        <label class="onoffswitch-label" for="mySuccessStoryIdeaSwitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-marginb">
+
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="successStoryLike.switch={{ successStoryLikeValue }}">
+                    <span data-ng-show="successStoryLike.switch">{{ 'notify_settings.success_story_like'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="successStoryLike.switch">{{ 'notify_settings.success_story_like'|trans({}, 'messages') }}</span>
+                    <p class="text-muted">{{ 'notify_settings.success_story_like_desc'|trans({}, 'messages') }}</p>
+                </label>
+
+                <div class="col-xs-5 col-sm-2">
+                    <div class="onoffswitch">
+                        <input type="checkbox"
+                               name="{{ notifySettings.isSuccessStoryLikeNotify.vars.full_name }}"
+                               data-ng-model="successStoryLike.switch"
+                               data-ls-checked="successStoryLike.switch"
+                               class="onoffswitch-checkbox"
+                               id="mySuccessStoryLikeSwitch">
+                        <label class="onoffswitch-label" for="mySuccessStoryLikeSwitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-marginb">
+
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="publishGoal.switch={{ publishGoalValue }}">
+                    <span data-ng-show="publishGoal.switch">{{ 'notify_settings.publish_goal'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="publishGoal.switch">{{ 'notify_settings.publish_goal'|trans({}, 'messages') }}</span>
+                    <p class="text-muted">{{ 'notify_settings.publish_goal_desc'|trans({}, 'messages') }}</p>
+                </label>
+
+                <div class="col-xs-5 col-sm-2">
+                    <div class="onoffswitch">
+                        <input type="checkbox"
+                               name="{{ notifySettings.isGoalPublishNotify.vars.full_name }}"
+                               data-ng-model="publishGoal.switch"
+                               data-ls-checked="publishGoal.switch"
+                               class="onoffswitch-checkbox"
+                               id="myPublishGoalSwitch">
+                        <label class="onoffswitch-label" for="myPublishGoalSwitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-marginb">
+
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="commentReply.switch={{ commentReplyValue }}">
+                    <span data-ng-show="commentReply.switch">{{ 'notify_settings.reply_comment'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="commentReply.switch">{{ 'notify_settings.reply_comment'|trans({}, 'messages') }}</span>
+                    <p class="text-muted">{{ 'notify_settings.reply_comment_desc'|trans({}, 'messages') }}</p>
+                </label>
+
+                <div class="col-xs-5 col-sm-2">
+                    <div class="onoffswitch">
+                        <input type="checkbox"
+                               name="{{ notifySettings.isCommentReplyNotify.vars.full_name }}"
+                               data-ng-model="commentReply.switch"
+                               data-ls-checked="commentReply.switch"
+                               class="onoffswitch-checkbox"
+                               id="myCommentReplySwitch">
+                        <label class="onoffswitch-label" for="myCommentReplySwitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-marginb">
+
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="deadlineExp.switch={{ deadlineExpValue }}">
+                    <span data-ng-show="deadlineExp.switch">{{ 'notify_settings.deadline'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="deadlineExp.switch">{{ 'notify_settings.deadline'|trans({}, 'messages') }}</span>
+                    <p class="text-muted">{{ 'notify_settings.deadline_desc'|trans({}, 'messages') }}</p>
+                </label>
+
+                <div class="col-xs-5 col-sm-2">
+                    <div class="onoffswitch">
+                        <input type="checkbox"
+                               name="{{ notifySettings.isDeadlineExpNotify.vars.full_name }}"
+                               data-ng-model="deadlineExp.switch"
+                               data-ls-checked="deadlineExp.switch"
+                               class="onoffswitch-checkbox"
+                               id="myDeadlineExpSwitch">
+                        <label class="onoffswitch-label" for="myDeadlineExpSwitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-marginb">
+
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="newGoalFriend.switch={{ newGoalFriendValue }}">
+                    <span data-ng-show="newGoalFriend.switch">{{ 'notify_settings.new_goalfriend'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="newGoalFriend.switch">{{ 'notify_settings.new_goalfriend'|trans({}, 'messages') }}</span>
+                    <p class="text-muted">{{ 'notify_settings.new_goalfriend_desc'|trans({}, 'messages') }}</p>
+                </label>
+
+                <div class="col-xs-5 col-sm-2">
+                    <div class="onoffswitch">
+                        <input type="checkbox"
+                               name="{{ notifySettings.isNewGoalFriendNotify.vars.full_name }}"
+                               data-ng-model="newGoalFriend.switch"
+                               data-ls-checked="newGoalFriend.switch"
+                               class="onoffswitch-checkbox"
+                               id="myNewGoalFriendSwitch">
+                        <label class="onoffswitch-label" for="myNewGoalFriendSwitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-marginb">
+
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="newIdea.switch={{ newIdeaValue }}">
+                    <span data-ng-show="newIdea.switch">{{ 'notify_settings.new_idea'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="newIdea.switch">{{ 'notify_settings.new_idea'|trans({}, 'messages') }}</span>
+                    <p class="text-muted">{{ 'notify_settings.new_idea_desc'|trans({}, 'messages') }}</p>
+                </label>
+
+                <div class="col-xs-5 col-sm-2">
+                    <div class="onoffswitch">
+                        <input type="checkbox"
+                               name="{{ notifySettings.isNewIdeaNotify.vars.full_name }}"
+                               data-ng-model="newIdea.switch"
+                               data-ls-checked="newIdea.switch"
+                               class="onoffswitch-checkbox"
+                               id="myNewIdeaSwitch">
+                        <label class="onoffswitch-label" for="myNewIdeaSwitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            {#<div class="row no-marginb">#}
+
+                {#<label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="comment.switch={{ commentValue|default("0") }}">#}
+                    {#<span data-ng-show="comment.switch">{{ 'comments'|trans({}, 'messages') }}</span>#}
+                    {#<span data-ng-hide="comment.switch">{{ 'comments'|trans({}, 'messages') }}</span>#}
+                {#</label>#}
+
+                {#<div class="col-xs-5 col-sm-2">#}
+                    {#<div class="onoffswitch">#}
+                        {#<input type="checkbox"#}
+                               {#name="{{ form.children.isCommentNotify.vars.full_name }}"#}
+                               {#data-ng-model="comment.switch"#}
+                               {#data-ls-checked="comment.switch"#}
+                               {#class="onoffswitch-checkbox"#}
+                               {#id="myCommentSwitch">#}
+                        {#<label class="onoffswitch-label" for="myCommentSwitch">#}
+                            {#<span class="onoffswitch-inner"></span>#}
+                            {#<span class="onoffswitch-switch"></span>#}
+                        {#</label>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+
+            {#<div class="row no-marginb">#}
+
+                {#<label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="story.switch={{ storyValue|default("0") }}">#}
+                    {#<span data-ng-show="story.switch">{{ 'success_stories'|trans({}, 'messages') }}</span>#}
+                    {#<span data-ng-hide="story.switch">{{ 'success_stories'|trans({}, 'messages') }}</span>#}
+                {#</label>#}
+
+                {#<div class="col-xs-5 col-sm-2">#}
+                    {#<div class="onoffswitch">#}
+                        {#<input type="checkbox"#}
+                               {#name="{{ form.children.isSuccessStoryNotify.vars.full_name }}"#}
+                               {#data-ng-model="story.switch"#}
+                               {#data-ls-checked="story.switch"#}
+                               {#class="onoffswitch-checkbox"#}
+                               {#id="myStorySwitch">#}
+                        {#<label class="onoffswitch-label" for="myStorySwitch">#}
+                            {#<span class="onoffswitch-inner"></span>#}
+                            {#<span class="onoffswitch-switch"></span>#}
+                        {#</label>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+
+            <hr />
+
+            <div>
+                <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
+            </div>
+
+            {{ form_widget(form._token) }}
+        </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{%- block title -%}
+    {{ 'user.notify_edit'|trans({},'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'user.notify_edit'|trans({},'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}

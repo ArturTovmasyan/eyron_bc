@@ -1,0 +1,145 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+#notdrop {
+  min-width: 310px;
+  position: absolute;
+  z-index: 1000;
+  top: 78px;
+}
+#notdrop #notification-list {
+  margin-bottom: 0;
+  padding: 0;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  background-color: #ffffff;
+}
+#notdrop #notification-list a:hover {
+  background-color: transparent;
+}
+#notdrop #notification-list li {
+  display: block;
+  border-left: 0;
+  position: relative;
+  width: auto;
+}
+#notdrop #notification-list li ul {
+  border-bottom: 1px solid #e5e5e5;
+  border-top: 0;
+  padding: 2px 0;
+}
+#notdrop #notification-list li ul li {
+  border-bottom: 0;
+}
+#notdrop #notification-list li ul li figure {
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  margin: 0 10px 2px 10px;
+}
+#notdrop #notification-list li ul li figure p {
+  height: 60px;
+  width: 60px;
+  line-height: 55px;
+  color: #ffffff;
+}
+#notdrop #notification-list li ul li figure img {
+  height: 60px;
+}
+#notdrop #notification-list li ul li p span {
+  text-align: left;
+  padding: 0 15px 0 0;
+}
+#notdrop #notification-list li ul li:nth-child(1) a {
+  padding: 0;
+}
+#notdrop #notification-list li:nth-child(1) {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 6px 10px 5px;
+}
+#notdrop #notification-list li:nth-child(1) h3,
+#notdrop #notification-list li:nth-child(1) a {
+  font-size: 14px;
+  margin: 0;
+  line-height: 21px;
+}
+#notdrop #notification-list li:nth-child(1) h3 {
+  font-weight: 600;
+}
+#notdrop #notification-list li:nth-child(1) a {
+  display: inline-block;
+  font-weight: 400;
+  padding: 3px 25px 0 5px;
+}
+#notdrop #notification-list li:nth-child(1) a:hover {
+  text-decoration: none;
+  background-color: transparent;
+}
+#notdrop #notification-list li.text-center {
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 0 ;
+}
+#notdrop #notification-list li.text-center a {
+  padding: 10px 0;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+}
+#notdrop #notification-list li.text-center a:hover {
+  background-color: transparent;
+  color: #7724f6 !important;
+}
+#container {
+  position: relative;
+  height: 100%;
+  /* Or whatever you want (eg. 400px) */
+}
+@media (min-width: 768px) {
+  #notdrop {
+    right: -122px;
+    left: auto;
+    border: 1px solid #e5e5e5;
+  }
+  #notdrop #notification-list {
+    position: relative;
+  }
+  #notdrop ul {
+    width: 430px;
+  }
+  #notdrop ul li:first-child a:hover {
+    color: #7724f6 !important;
+  }
+}
+@media (min-width: 992px) {
+  #notdrop {
+    top: 80px;
+    right: -240px;
+    left: auto;
+  }
+  #notdrop:hover,
+  #notdrop:active,
+  #notdrop:focus {
+    background-color: #000000;
+  }
+  #notdrop:hover a.relative,
+  #notdrop:active a.relative,
+  #notdrop:focus a.relative {
+    background-color: #000000;
+  }
+}
+.content {
+  height: 400px;
+}
+.container {
+  position: relative;
+  margin: 0px auto;
+  padding: 0px;
+  width: auto;
+  max-height: 385px;
+}

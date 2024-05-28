@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bucketlist 127</title>
+    <style>
+        html {
+            background: url('/bundles/app/images/comming-soon.jpg') no-repeat center 0 fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        .text {
+            font-size: 400%;
+            font-family: "Arial", sans-serif;
+        }
+
+        .top-text {
+            color: #393838;
+        }
+
+        .second-text {
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #0a001d;
+        }
+
+        p {
+            line-height:20%;
+        }
+
+        .small-text {
+           color: #2a3039;font-size: 22px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            font-family: "Arial", sans-serif;
+            color:#342e2a;
+        }
+
+        .column {
+            width: 100%;
+            height: 100%;
+            float: left;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            height: 50%;
+            padding: 5px;
+        }
+
+
+        .vertical-align-wrap {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: table;
+        }
+
+        .vertical-align {
+            display: table-cell;
+        }
+
+        .vertical-align--middle {
+            vertical-align: middle;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="column">
+    <div class="container">
+        <div class="vertical-align-wrap">
+            <div class="vertical-align vertical-align--middle">
+                <p class="text top-text">Cool stuff is on its way</p>
+                <p class="text second-text">Check back soon</p>
+                <p class="text small-text">The goal is to have memories, not just dreams!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <footer class="footer">
+        <small>&copy; {{ 'copyright'|trans | upper }}</small>
+    </footer>
+</div>
+
+
+</body>
+</html>
+
+
+
+
+
+

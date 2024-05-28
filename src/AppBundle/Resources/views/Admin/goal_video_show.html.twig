@@ -1,0 +1,12 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    {% for k,videoLink in value %}
+        <embed-video
+           width="'420px'"
+           height="'315px'"
+           data-ng-init="adminShowVideos[{{ k }}]='{{ videoLink }}'"
+           data-ng-href="{{ videoLink }}">
+        </embed-video>
+    {% endfor %}
+{% endblock %}

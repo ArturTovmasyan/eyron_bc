@@ -1,0 +1,26 @@
+<div id="news-feed">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-8">
+        <my-activity [single]="false"></my-activity>
+        <!--{%  include "AppBundle:Blocks:activities.html.twig" with {'single': false}   %}-->
+      </div>
+
+      <div class="col-md-4">
+        <!--{% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}-->
+        <complete-profile-block></complete-profile-block>
+        <!--{% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}-->
+        <my-list-block></my-list-block>
+        <!--{% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}-->
+        <goal-friends-block></goal-friends-block>
+        <!--{% include "AppBundle:Blocks:featureGoals.html.twig" %}-->
+        <top-ideas-block [type]="'featured'"></top-ideas-block>
+        <!--{% include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 1}  %}-->
+        <top-ideas-block [type]="'top'"></top-ideas-block>
+        <!--{% include 'AppBundle:Blocks:leaderboardTop.html.twig' with {'user': app.user} %}-->
+        <leaderboards-block></leaderboards-block>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+fos_user:
+    username:
+        already_used: Account with this email already exists, please, sign in.
+        blank: Please enter a username
+        short: "[-Inf,Inf]The username is too short"
+        long: "[-Inf,Inf]The username is too long"
+    email:
+        primary_error: Account with this email already exists, please, set another primary email.
+        already_used: Account with this email already exists, please, sign in.
+        blank: Please enter an email
+        short: "[-Inf,Inf]The email is too short"
+        long: "[-Inf,Inf]The email is too long"
+        invalid: The email is not valid
+    password:
+        validation: Strong passwords include numbers, letters, and punctuation marks. It must be at least 6 characters long
+        blank: Please enter a password
+        short: "[-Inf,Inf]The password is too short"
+        mismatch: Passwords do not match, please retype
+    new_password:
+        blank: Please enter a new password
+        short: "[-Inf,Inf]The new password is too short"
+    current_password:
+        invalid: The entered password is invalid
+    group:
+        blank: Please enter a name
+        short: "[-Inf,Inf]The name is too short"
+        long: "[-Inf,Inf]The name is too long"
+
+email_duplicate: The email address you have entered is already registered
+file:
+    width_extension: The minimum image size is 400x400 px
+    height_extension: The minimum image size is 400x400 px
+    goal_image_width_extension: File width must be min 770 px
+    goal_image_height_extension: File height must be min 540 px
+    goal_image_min_width_extension: File width must be min 770 px
+    goal_image_min_height_extension: File height must be min 540 px
+    extension_error: Wrong format of file
+    size_error: Wrong size of file
+    category_logo_width_min_extension: The minimum image size is 20x20 px
+    category_logo_height_min_extension: The minimum image size is 20x20 px
+    category_logo_width_max_extension: The maximum image size is 50x50 px
+    category_logo_height_max_extension: The maximum image size is 50x50 px
+Error: Error

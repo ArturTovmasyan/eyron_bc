@@ -1,0 +1,10 @@
+admin:
+   flash:
+      empty_location: The task hasn't location
+      already_exists: Affiliate already exists
+      created: Affiliate successfully created
+      updated: Affiliate successfully updated
+      ufi_not_found: Ufi not found
+      deals_finder_type_not_found: Affiliate type with 'DealsFinder' name not found
+      google_api_error: Can't get location from Google
+

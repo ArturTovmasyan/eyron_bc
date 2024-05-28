@@ -1,0 +1,41 @@
+<div data-ng-controller="reportController" class="bg-grey" id="report-modal">
+
+    <div class="bg-white">
+        <h3 data-ng-show="!isReported">{{ 'report.title'|trans({},'messages') }}</h3>
+
+        <h3 class="ng-hide text-center" data-ng-show="isReported">{{ 'report.thanks'|trans({},'messages') }}</h3>
+
+        <a class="close-icon" rel="modal:close" data-ng-show="!isReported"></a>
+    </div>
+
+    <div class="report-content">
+
+        <form class="form-horizontal" data-ng-show="!isReported">
+
+            <div class="radio">
+                <label>
+                    <input type="radio" data-ng-model="reportOption" name="optionsRadios" id="optionsRadios1" value="2" checked>
+                    {{ 'report.spam'|trans({},'messages') }}
+                </label>
+            </div>
+
+            <div class="radio">
+                <label>
+                    <input type="radio" data-ng-model="reportOption" name="optionsRadios" id="optionsRadios2" value="3">
+                     {{ 'report.opinion'|trans({},'messages') }}
+                </label>
+            </div>
+
+            <textarea class="form-control" rows="3" data-ng-model='reportText' placeholder="{{ 'report.other'|trans({},'messages') }}"></textarea>
+
+        </form>
+
+        <p data-ng-show="isReported" class="text-center ng-hide">{{ 'report.message'|trans({},'messages') }}</p>
+
+    </div>
+
+    <div class="bg-white padding text-center" data-ng-show="!isReported">
+        <button name="submit" data-ng-click="report()" class="btn btn-purple" data-ng-class="{'purple-transparent': !(reportOption || reportText)}">{{ 'submit'|trans({},'messages') | upper }}</button>
+    </div>
+
+</div>

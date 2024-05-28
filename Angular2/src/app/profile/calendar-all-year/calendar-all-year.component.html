@@ -1,0 +1,22 @@
+<div class="col-xs-6 col-sm-3 col-md-2" *ngFor="let i of colArray; let k = index">
+  <div class="lifetime bg-white">
+        <span class="text-grey-dark">
+           <sup>Year {{ +currentYear + +i }}</sup>
+        </span>
+
+        <span class="absolute" *ngIf="currentYear && myYears && myYears[ +currentYear + i ]" >
+            <span id={{i}}-{{k}} class="goal-count bg-green" (touchstart)="mouseDown($event,i+'-'+k)" (touchend)="mouseUp($event,i+'-'+k)" [mdTooltip]="myYears[+currentYear + i ].complete +' '+ (myYears[+currentYear + i].complete > 1?('my_bucket_list.calendar.theCompleted'|translate ):('my_bucket_list.calendar.completed'|translate))"
+                  *ngIf="myYears[ +currentYear + i ].complete > 0">
+                {{ myYears[ currentYear + i].complete }}
+            </span>
+            <span id={{i}}-{{k}}  (touchstart)="mouseDown($event,i+'-'+k)" (touchend)="mouseUp($event,i+'-'+k)" class="goal-count bg-gradinet" [mdTooltip]="myYears[+currentYear + i ].deadline +' '+ (myYears[+currentYear + i].deadline > 1?('my_bucket_list.calendar.deadlines'|translate ):('my_bucket_list.calendar.deadline'|translate))"
+                  *ngIf="myYears[ +currentYear + i ].deadline > 0">
+                {{ myYears[ +currentYear + i].deadline }}
+            </span>
+            <span id={{i}}-{{k}}  (touchstart)="mouseDown($event,i+'-'+k)" (touchend)="mouseUp($event,i+'-'+k)" class="goal-count bg-purple" *ngIf="myYears[ +currentYear + i].current > 0"
+                  [mdTooltip]="myYears[+currentYear + i ].current +' '+ (myYears[+currentYear + i].current > 1?('my_bucket_list.calendar.actives'|translate ):('my_bucket_list.calendar.active'|translate))">
+                {{ myYears[ +currentYear + i].current }}
+            </span>
+        </span>
+  </div>
+</div>

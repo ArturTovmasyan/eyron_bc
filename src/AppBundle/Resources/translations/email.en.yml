@@ -1,0 +1,44 @@
+notify_comment: <a style="%profileStyle%" href="%profile%">%senderName%</a> wrote a <a href="%link%" style="%style%">comment</a> in your goal:
+notify_success_story: <a style="%profileStyle%" href="%profile%">%senderName%</a> wrote a <a href = %link% style="%style%">success story</a> in your goal:
+subject_for_comment_email: %senderName% wrote a comment
+subject_for_story_email: %senderName% wrote a success story
+notify_email_footer: This message was sent to %email%. If you don't want to receive these emails from Bucket List 127 in the future, please manage your <a href="%link%" style="%style%" target="_blank">subscription</a>.
+email_bucketlist_link: View on Bucket List 127
+
+#subject_for_comment_email: <a style="%profileStyle%" href="%profile%">%senderName%</a> wrote a <a href="%link%" style="%style%">comment</a> in your goal <strong><a href="%goal_link%">%goal%</a></strong>:
+#emails
+
+email_body_for_user_activity: There's a lot going on at Bucket List 127. Come around and check it out.
+email_subject_for_user_activity: There's a lot going on at Bucket List 127. Come around and check it out.
+
+email_body_for_comment_goal: %senderName% commented on your Goal %goalName%.
+email_subject_for_comment_goal: %senderName% commented on your Goal.
+
+email_body_for_comment_idea: %senderName% commented on your Idea %goalName%.
+email_subject_for_comment_idea: %senderName% commented on your Idea.
+
+email_body_for_success_story_goal:  %senderName% wrote a Success story for your Goal %goalName%.
+email_subject_for_success_story_goal: %senderName% wrote a Success story for your Goal
+
+email_body_for_success_story_idea: %senderName% wrote a Success story for your Idea %goalName%.
+email_subject_for_success_story_idea: %senderName% wrote a Success story for your Idea
+
+email_body_for_success_story_like: %senderName%  liked your Success story .
+email_subject_for_success_story_like: %senderName%  liked your Success story .
+
+email_body_for_publish_goal: Your Goal %goalName% has been published in the Ideas list.
+email_subject_for_publish_goal: Your Goal has been published .
+
+email_body_for_reply_comment: You have a reply for your comment.
+email_subject_for_reply_comment: You have a reply for your comment.
+
+email_body_for_deadline: The deadline for your Goal %goalName% expires tomorrow.
+email_subject_for_deadline: The deadline for your Goal %goalName% expires tomorrow.
+
+email_body_for_new_goalfriend: You have %count% new Goalfriends .
+email_subject_for_new_goalfriend: You have %count% new Goalfriends.
+
+email_body_for_new_idea: We have %count% new Ideas in the list.
+email_subject_for_new_idea: We have %count%  new Ideas in the list.
+
+hello: Hello

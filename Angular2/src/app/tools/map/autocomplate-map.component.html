@@ -1,0 +1,41 @@
+<h3 class="text-center nearby-title text-dark " *ngIf="notAllowed" [innerHTML]="'ideas_near_by_allow'|translate" (click)="setCurrentPosition()">
+</h3>
+<div class="map-autocomplete">
+    <div class="clearfix">
+        <input id="pac-input" autocorrect="off" autocapitalize="off" class="mapControls pull-left" type="text"
+               placeholder="Enter a location" #search [formControl]="searchControl">
+
+        <div id="type-selector" class="mapControls pull-left">
+            <input type="radio" name="type" id="changetype-all" checked="checked" (click)="setType([])">
+            <label for="changetype-all">All</label>
+
+            <input type="radio" name="type" id="changetype-establishment" (click)="setType(['establishment'])">
+            <label for="changetype-establishment">Establishments</label>
+
+            <input type="radio" name="type" id="changetype-address" (click)="setType(['address'])">
+            <label for="changetype-address">Addresses</label>
+
+            <input type="radio" name="type" id="changetype-geocode" (click)="setType(['geocode'])">
+            <label for="changetype-geocode">Geocodes</label>
+        </div>
+    </div>
+
+    <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" [fitBounds]="bounds"
+                     [mapTypeControl]="true">
+        <sebm-google-map-marker *ngFor="let marker of markers"
+            [latitude]="marker.latitude" [longitude]="marker.longitude"
+            [iconUrl]="marker.iconUrl">
+            <sebm-google-map-info-window [disableAutoPan]="true">
+                {{ marker.title}}
+            </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+        <sebm-google-map-marker width='30' height='30' *ngFor="let marker of locations"
+            [latitude]="marker.latitude" [longitude]="marker.longitude"
+            (mouseOut)="marker.isHover = false" (markerClick)="clickMarker(marker)" (mouseOver)="marker.isHover = true"
+            [iconUrl]="(marker.status == 1)?activeGoalMarkerIcon1:(marker.status == 2)?activeGoalMarkerIcon2:passiveMarkerIcon">
+            <sebm-google-map-info-window [disableAutoPan]="true" [isOpen]="marker.isHover">
+                {{ marker.title}}
+            </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+    </sebm-google-map>
+</div>

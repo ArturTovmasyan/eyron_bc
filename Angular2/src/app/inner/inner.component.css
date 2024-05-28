@@ -1,0 +1,847 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.inner-container {
+  background-color: #d8d8d8;
+}
+.inner-container hr {
+  margin: 7px 0 10px;
+}
+.inner-container .quote {
+  position: relative;
+  padding: 5px 0;
+}
+.inner-container .quote i {
+  height: 30px;
+  width: 33px;
+  font-size: 16px;
+  position: absolute;
+}
+.inner-container .ticker {
+  font-size: 12px;
+  line-height: 18px;
+  color: #ffffff;
+  position: relative;
+}
+.inner-container .ticker div {
+  display: inline-block;
+  word-wrap: break-word;
+  padding: 0 10px;
+}
+.inner-container .ticker .aphorism {
+  padding: 0 20px;
+  text-align: justify;
+}
+.inner-container .ticker .aphorism li {
+  transition: opacity 0.5s linear;
+  -webkit-transition: opacity 0.5s linear;
+  -moz-transition: opacity 0.5s linear;
+  -o-transition: opacity 0.5s linear;
+  position: absolute;
+  opacity: 0;
+  padding: 0 50px 0 5px;
+  width: 98%;
+}
+.inner-container .ticker .aphorism li span {
+  display: block;
+  margin: 5px 10px 0;
+}
+.inner-container .ticker .aphorism li.active {
+  opacity: 1;
+}
+.inner-container .goal-image {
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+}
+.inner-container .goal-image .overlay {
+  background: rgba(0, 0, 0, 0.2);
+  height: 680px;
+  z-index: 1;
+}
+.inner-container .goal-image img {
+  width: 105%;
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+  margin: -50px -30px -25px;
+}
+.inner-container .goal-content {
+  position: relative;
+  z-index: 5;
+}
+.inner-container h2.goal-inner-title {
+  background-color: #021523;
+  display: inline-block;
+  color: #ffffff;
+  padding: 5px 10px 5px;
+  margin-bottom: 2px;
+  overflow: hidden;
+  line-height: 25px;
+  font-size: 18px;
+  margin-top: 0;
+}
+.inner-container h2.title-smaller {
+  font-size: 15px;
+  line-height: 22px;
+}
+.inner-container .goal-author {
+  position: absolute;
+  top: -30px;
+  font-size: 13px;
+  line-height: 21px;
+}
+.inner-container .goal-author a {
+  padding: 2px 10px 5px;
+}
+.inner-container .goal-author a:hover {
+  color: #ffffff;
+}
+.inner-container .inner {
+  padding: 0 15px 5px;
+  margin: 0 0 5px 0;
+}
+.inner-container .inner .goal-info p,
+.inner-container .inner .goal-info span,
+.inner-container .inner .goal-info a,
+.inner-container .inner .goal-info strong,
+.inner-container .inner .goal-info ul,
+.inner-container .inner .goal-info ol,
+.inner-container .inner .goal-info li,
+.inner-container .inner .goal-info em {
+  font-size: 15px;
+  line-height: 22px;
+  white-space: normal;
+  word-break: break-word;
+  color: #333;
+  text-align: justify;
+}
+.inner-container .inner .goal-info ul,
+.inner-container .inner .goal-info ol {
+  padding-left: 20px;
+}
+.inner-container .inner .goal-info ul li,
+.inner-container .inner .goal-info ol li {
+  margin: 5px;
+  list-style-type: inherit;
+}
+.inner-container .inner .goal-info a {
+  color: #333;
+}
+.inner-container .inner .goal-info a:hover {
+  color: #4421ab;
+}
+.inner-container .inner .goal-info h1,
+.inner-container .inner .goal-info h2,
+.inner-container .inner .goal-info h3,
+.inner-container .inner .goal-info h4,
+.inner-container .inner .goal-info h5,
+.inner-container .inner .goal-info h6 {
+  color: #021523;
+  font-weight: 700;
+  padding: 0;
+  margin: 10px 0 10px 0;
+}
+.inner-container .inner .goal-info h1 {
+  font-size: 20px;
+  line-height: normal;
+}
+.inner-container .inner .goal-info h2 {
+  font-size: 18px;
+  line-height: normal;
+}
+.inner-container .inner .goal-info h3 {
+  font-size: 17px;
+  line-height: normal;
+}
+.inner-container .inner .goal-info h4 {
+  font-size: 16px;
+  line-height: normal;
+}
+.inner-container .inner .goal-info h5,
+.inner-container .inner .goal-info h6 {
+  font-size: 15px;
+  line-height: normal;
+}
+.inner-container .inner span.no-image {
+  display: block;
+  width: 43px;
+  height: 43px;
+  color: #ffffff;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.inner-container h4 {
+  padding-top: 10px;
+  color: #666666;
+  font-size: 14px;
+}
+.inner-container .story-count {
+  padding-top: 10px;
+}
+.inner-container .story-count h4 {
+  padding: 3px 0;
+  margin: 0;
+  line-height: normal;
+}
+.inner-container .story-count i.success-icon {
+  vertical-align: middle;
+  display: inline-block;
+  width: 30px;
+  height: 24px;
+  background: url('../../assets/images/success-story-icon.svg') no-repeat center top;
+  margin-top: -5px;
+}
+.inner-container .story-count hr {
+  margin: 2px 0;
+}
+.inner-container .story-count .view-more-comments {
+  margin: 5px 0 0 0;
+  line-height: normal;
+}
+.goal-information {
+  overflow: hidden;
+  background-color: #ffffff;
+  padding: 0 5px;
+}
+.goal-information hr {
+  margin: 0 !important;
+  border-color: #eee;
+}
+.goal-information p {
+  font-size: 14px;
+  margin-bottom: 0;
+}
+.goal-icons {
+  padding: 5px 15px;
+  border-bottom: 1px solid #eeeeee;
+  text-align: center;
+  margin-bottom: 0;
+}
+.goal-icons li {
+  display: inline-block;
+  margin: 0 3px;
+}
+.goal-icons li i {
+  vertical-align: middle;
+  display: inline-block;
+  font-size: 26px;
+  color: #a4a4a4;
+}
+.goal-icons li i.icon-info {
+  margin: -1px 0 0 6px;
+}
+.goal-icons li a:hover i {
+  color: #7724F6;
+  cursor: pointer;
+}
+.goal-icons li .icon-eye {
+  width: 32px;
+  font-size: 40px;
+  margin: 1px 0 0 -5px;
+  display: inline-block;
+}
+.goal-icons li .edit-note {
+  display: inline-block;
+  width: 25px;
+  height: 15px;
+  background: url('../../assets/images/edit-note.svg') no-repeat center center;
+  background-size: 100%;
+}
+.goal-icons li.bordered-list {
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 4px;
+}
+.goal-icons li.bordered-list a {
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  vertical-align: middle;
+  margin: 0 -5px 0 0;
+}
+.goal-icons li.bordered-list a[md-button] {
+  min-width: 35px;
+  height: 22px;
+  padding: 0;
+  line-height: 21px;
+}
+.goal-icons li.bordered-list a[md-button] span {
+  display: inline-block;
+}
+.goal-icons li.bordered-list a[md-button] i {
+  margin: -4px 0 0 0;
+}
+.goal-icons li.bordered-list a[md-button] i.icon-green-ok {
+  margin: -5px 0 0 0;
+}
+.goal-icons li.bordered-list a[md-button] i.icon-ok-icon {
+  margin: -3px 0 0 0;
+}
+.goal-icons li.bordered-list a.manage-modal i {
+  font-size: 28px;
+  padding: 0 4px 2px 3px;
+}
+.goal-icons li.bordered-list .check_status {
+  padding-bottom: 0;
+}
+.goal-icons li.bordered-list .check_status a i {
+  font-size: 22px;
+  padding: 0 6px 4px 7px;
+}
+.goal-icons li.bordered-list .check_status a i.icon-green-ok {
+  font-size: 30px;
+  padding: 0 2px 4px 3px;
+}
+.goal-links {
+  padding-left: 0;
+  margin-bottom: 0;
+  height: 35px;
+  border-bottom: 1px solid #eeeeee;
+}
+.goal-links li {
+  text-align: center;
+  border-right: 1px solid #eee;
+  height: 35px;
+  line-height: 35px;
+}
+.goal-links li a {
+  display: block;
+  color: #a4a4a4;
+  font-size: 12px;
+}
+.goal-links li a[md-button] {
+  line-height: 33px;
+}
+.goal-links li a:focus {
+  text-decoration: none;
+}
+.goal-links li i {
+  font-size: 20px;
+  vertical-align: middle;
+}
+.goal-links li i.icon-green-ok,
+.goal-links li .icon-green-plus {
+  font-size: 30px;
+  margin-right: 0;
+}
+.goal-links li .text {
+  display: inline-block;
+  color: #a4a4a4;
+  vertical-align: middle;
+  font-size: 13px;
+}
+.goal-links li:hover {
+  background-color: #7724F6;
+}
+.goal-links li:hover a {
+  color: #ffffff;
+}
+.goal-links li:hover a .text {
+  color: #ffffff;
+}
+.goal-links li.clone {
+  text-align: right;
+}
+.goal-links li.clone a {
+  font-size: 11px;
+  padding-right: 10px;
+}
+.goal-links li:last-child {
+  border-right: 0;
+  margin-bottom: 0;
+}
+.goal-links .transparent:hover {
+  background-color: transparent;
+}
+.goal-links .transparent:hover a,
+.goal-links .transparent:hover .text {
+  color: #a4a4a4;
+}
+.users-lists {
+  clear: both;
+  margin-bottom: 0;
+  padding: 0 15px;
+  border-bottom: 1px solid #eee;
+}
+.users-lists li:first-child {
+  border-right: 1px solid #eee;
+}
+.users-lists li:last-child ul {
+  padding-left: 10px;
+}
+.users-lists ul {
+  padding: 5px 0 0;
+  margin-bottom: 0;
+}
+.users-lists ul > li {
+  color: #999999;
+  border-right: 0;
+  font-size: 14px;
+}
+.users-lists ul > li ul {
+  border-bottom: 0;
+}
+.users-lists ul > li ul li {
+  display: inline-block;
+  border-bottom: 0;
+  padding-bottom: 0;
+  font-size: 12px;
+}
+.users-lists ul > li p {
+  font-size: 23px;
+}
+.users-lists ul > li:first-child {
+  border-right: 0;
+}
+.users-lists ul > li .users-arrow {
+  right: 5px;
+}
+.users-lists ul > li .users-arrow a,
+.users-lists ul > li .users-arrow i {
+  background: url('../../assets/images/listed-arrow.png') no-repeat center center;
+  background-size: 100% ;
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 1px 0 0 3px;
+}
+.users-lists ul > li .users-arrow a:hover {
+  background: url('../../assets/images/listed-arrow-purple.png') no-repeat center center;
+  background-size: 100% ;
+}
+.inner-content .overlay:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+.inner-content .twitter-hashtag-button {
+  margin: 7px 0;
+}
+.inner-content .fb-like {
+  margin: 8px 0 0 0;
+  display: inline-block;
+}
+.inner-content .addthis_counter a.atc_s {
+  width: 113px !important;
+  height: 31px !important;
+  background: url('../../assets/images/share-new.png') no-repeat center center !important;
+  background-size: 100% !important;
+}
+.inner-content .addthis_counter a.atc_s:hover {
+  background: url('../../assets/images/share-purple.png') no-repeat center center !important;
+  background-size: 100% !important;
+}
+.inner-content .addthis_counter.addthis_pill_style a.atc_s {
+  font-size: 0;
+}
+.inner-content .addthis_counter .addthis_button_expanded {
+  margin-top: 7px !important;
+}
+.inner-content .addthis_native_toolbox {
+  padding: 0 15px 0 0;
+}
+.inner-content #main-slider {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 190px;
+}
+.inner-content #main-slider img {
+  margin: 0 auto;
+  width: 100%;
+}
+.inner-content #main-slider .swiper-slide {
+  height: 190px;
+}
+.inner-content #main-slider .swiper-button-prev {
+  left: 25px;
+}
+.inner-content #main-slider .swiper-button-next {
+  right: 20px;
+}
+.inner-content .goal-preview {
+  height: 190px;
+  overflow: hidden;
+}
+.inner-content .goal-preview img {
+  margin: 0 auto;
+  width: 100%;
+}
+.fullHeight {
+  height: 100%;
+}
+.addthis_counter {
+  width: 113px;
+  height: 31px;
+  background: url('../../assets/images/share-new.png') no-repeat center center;
+  background-size: 100%;
+  float: right;
+  cursor: pointer;
+}
+.addthis_counter:hover {
+  background: url('../../assets/images/share-purple.png') no-repeat center center;
+  background-size: 100%;
+}
+.addthis_counter .sb-btn {
+  background-color: #0a001d;
+}
+.addthis_counter .sb-container {
+  position: absolute;
+  min-width: 215px;
+  right: 15px;
+  z-index: 11;
+  top: 31px;
+  width: auto;
+  background-color: whitesmoke;
+  border: 1px solid gainsboro;
+}
+.addthis_counter .sb-container .sb-buttons {
+  margin: 10px 0;
+}
+.addthis_counter .sb-container h3 {
+  display: none;
+}
+.addthis_counter .sb-container button {
+  max-width: 50px;
+  min-width: 30px;
+}
+@media (min-width: 768px) {
+  .inner-container hr {
+    margin: 10px 0;
+  }
+  .inner-container .quote {
+    padding: 10px 0 0;
+  }
+  .inner-container .quote i {
+    font-size: 23px;
+  }
+  .inner-container .ticker {
+    font-size: 14px;
+    line-height: 25px;
+  }
+  .inner-container .ticker div {
+    padding-left: 40px;
+  }
+  .inner-container .ticker .aphorism li {
+    padding: 0 40px 0 10px;
+  }
+  .inner-container .ticker .aphorism li span {
+    margin: 5px 10px 0;
+  }
+  .inner-container .goal-image .overlay {
+    height: 627px;
+  }
+  .inner-container .goal-image img {
+    height: 656px;
+  }
+  .inner-container h2.goal-inner-title {
+    padding: 5px 20px 10px;
+    margin: 0 0 10px 0;
+    line-height: 40px;
+    font-size: 30px;
+  }
+  .inner-container h2.title-smaller {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .inner-container .goal-author {
+    top: -42px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .inner-container .goal-author a {
+    padding: 5px 40px 8px;
+  }
+  .inner-container .inner {
+    padding: 0 34px 5px;
+    margin: 0 0 10px 0;
+  }
+  .inner-container .inner .goal-info p,
+  .inner-container .inner .goal-info span,
+  .inner-container .inner .goal-info a,
+  .inner-container .inner .goal-info strong,
+  .inner-container .inner .goal-info ul,
+  .inner-container .inner .goal-info ol,
+  .inner-container .inner .goal-info li,
+  .inner-container .inner .goal-info em {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .inner-container .inner .goal-info ul,
+  .inner-container .inner .goal-info ol {
+    padding-left: 40px;
+  }
+  .inner-container .inner .goal-info h1,
+  .inner-container .inner .goal-info h2,
+  .inner-container .inner .goal-info h3,
+  .inner-container .inner .goal-info h4,
+  .inner-container .inner .goal-info h5,
+  .inner-container .inner .goal-info h6 {
+    margin: 20px 0 10px 0;
+  }
+  .inner-container .inner .goal-info h1 {
+    font-size: 32px;
+  }
+  .inner-container .inner .goal-info h2 {
+    font-size: 24px;
+  }
+  .inner-container .inner .goal-info h3 {
+    font-size: 20px;
+  }
+  .inner-container .inner .goal-info h4 {
+    font-size: 16px;
+  }
+  .inner-container .inner .goal-info h5 {
+    font-size: 15px;
+  }
+  .inner-container .inner .goal-info h6 {
+    font-size: 14px;
+  }
+  .inner-container h4 {
+    padding-top: 20px;
+    font-size: 16px;
+  }
+  .inner-container .story-count {
+    padding-top: 20px;
+  }
+  .inner-container .story-count h4 {
+    padding-top: 0;
+  }
+  .inner-container .story-count hr {
+    margin: 5px 0;
+  }
+  .inner-container .story-count .view-more-comments {
+    margin: 2px 0 0 0;
+  }
+  .goal-information {
+    padding: 0 5px 0 10px;
+  }
+  .goal-information p {
+    font-size: 17px;
+  }
+  .goal-icons {
+    padding: 0 20px;
+  }
+  .goal-icons li {
+    margin: 0 6px;
+  }
+  .goal-links {
+    height: 50px;
+  }
+  .goal-links li {
+    height: 50px;
+    line-height: 50px;
+  }
+  .goal-links li a {
+    font-size: 13px;
+  }
+  .goal-links li a[md-button] {
+    padding: 6px 0 8px;
+    line-height: 36px;
+  }
+  .goal-links li.clone {
+    text-align: center;
+    padding-left: 13px;
+  }
+  .goal-links li.clone a {
+    font-size: 13px;
+    padding-right: 0;
+  }
+  .goal-links li:last-child {
+    text-align: left;
+  }
+  .users-lists {
+    border-bottom: 0;
+    padding: 0 33px;
+  }
+  .users-lists li:last-child ul {
+    padding-left: 20px;
+  }
+  .users-lists ul {
+    padding: 7px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .users-lists ul > li:first-child {
+    border-right: 0;
+  }
+  .users-lists ul > li ul li {
+    font-size: 14px;
+    border-right: 0;
+  }
+  .users-lists ul > li ul li:first-child {
+    border-right: 0;
+  }
+  .users-lists ul > li .users-arrow {
+    right: 40px;
+  }
+  .users-lists ul > li .users-arrow a,
+  .users-lists ul > li .users-arrow i {
+    width: 37px;
+    height: 37px;
+  }
+  .inner-content {
+    overflow: hidden;
+  }
+  .inner-content .fb-like {
+    margin: 13px 0 0 20px;
+  }
+  .inner-content .twitter-hashtag-button {
+    margin: 13px 0 0;
+  }
+  .inner-content .addthis_native_toolbox {
+    text-align: right;
+    margin: 2px 0 0;
+  }
+  .inner-content .addthis_counter .addthis_button_expanded {
+    margin-top: 10px !important;
+  }
+  .inner-content #main-slider {
+    height: 414px;
+  }
+  .inner-content #main-slider .swiper-slide {
+    height: 414px;
+  }
+  .inner-content .goal-preview {
+    height: 414px;
+  }
+  .addthis_counter {
+    margin-right: 17px;
+  }
+  .addthis_counter .sb-container {
+    right: 32px;
+  }
+}
+@media (min-width: 992px) {
+  .inner-container hr {
+    margin: 20px 0;
+  }
+  .inner-container .quote i {
+    font-size: 30px;
+  }
+  .inner-container .ticker {
+    font-size: 16px;
+  }
+  .inner-container .ticker div {
+    padding-left: 40px;
+  }
+  .inner-container .ticker .aphorism li {
+    padding: 0 40px 0 20px;
+  }
+  .inner-container .ticker .aphorism li span {
+    margin: 5px 10px 0;
+  }
+  .inner-container .goal-image .overlay {
+    height: 680px;
+  }
+  .inner-container .goal-image img {
+    height: 710px;
+  }
+  .inner-container h2.goal-inner-title {
+    padding: 5px 40px 10px;
+    margin: 0 0 20px 0;
+    line-height: 55px;
+    font-size: 52px;
+  }
+  .inner-container h2.title-smaller {
+    font-size: 36px;
+    line-height: 55px;
+  }
+  .inner-container .inner {
+    padding: 0 15px 10px 54px;
+  }
+  .inner-container h4 {
+    padding-top: 40px;
+    font-size: 18px;
+  }
+  .inner-container .story-count {
+    padding-top: 40px;
+  }
+  .inner-container .story-count h4 {
+    padding-top: 0;
+  }
+  .inner-container .story-count hr {
+    margin: 1px 0 15px !important;
+  }
+  .goal-information {
+    width: 330px;
+    padding: 0;
+  }
+  .goal-information p {
+    font-size: 18px;
+  }
+  .users-lists {
+    padding: 0 15px 0 52px;
+  }
+  .users-lists li:last-child ul {
+    padding-left: 33px;
+  }
+  .users-lists ul {
+    padding: 20px 0 0;
+  }
+  .inner-content .fb-like {
+    margin: 9px 0 0 40px;
+  }
+  .inner-content .addthis_native_toolbox {
+    padding-right: 0;
+  }
+  .inner-content .twitter-hashtag-button {
+    margin: 9px 17px 0;
+  }
+  .inner-content #main-slider {
+    height: 435px;
+  }
+  .inner-content #main-slider .swiper-slide {
+    height: 435px;
+  }
+  .inner-content #main-slider .swiper-button-next {
+    right: 10px;
+  }
+  .inner-content .goal-preview {
+    height: 435px;
+  }
+  .addthis_counter {
+    margin-right: 0;
+  }
+  .addthis_counter .sb-container {
+    right: 15px;
+  }
+}
+@media (min-width: 1200px) {
+  .goal-links li a {
+    font-size: 14px;
+  }
+  .goal-links li i {
+    font-size: 30px;
+    margin-right: 4px;
+  }
+  .goal-links li i.icon-green-ok,
+  .goal-links li .icon-green-plus {
+    font-size: 49px;
+  }
+  .goal-links li:last-child {
+    text-align: center;
+  }
+  .goal-information {
+    width: 374px;
+  }
+  .goal-information p {
+    font-size: 20px;
+  }
+  .inner-content .twitter-hashtag-button {
+    margin: 9px 10px 0;
+  }
+}

@@ -1,0 +1,51 @@
+<div class="bg-grey my-modal" id="report-modal"  [ngClass]="{'close-burger':!isOpen,'burger':isOpen}">
+
+    <div class="bg-white">
+        <h3 *ngIf="!isReported">{{ 'report.title'|translate }}</h3>
+
+        <h3 class=" text-center" *ngIf="isReported">{{ 'report.thanks'|translate }}</h3>
+
+        <a class="close-icon" (click)="closeModal()" *ngIf="!isReported"></a>
+    </div>
+
+    <div class="report-content">
+
+        <form class="form-horizontal" *ngIf="!isReported">
+
+            <md-radio-group [(ngModel)]="reportOption" name="optionsRadios">
+                <div class="radio">
+                <md-radio-button  name="optionsRadios" id="optionsRadios1" value="2" disableRipple ngDefaultControl>
+                        {{ 'report.spam'|translate }}
+                </md-radio-button>
+                    </div>
+                <div class="radio">
+                <md-radio-button  name="optionsRadios" id="optionsRadios2" value="3" disableRipple ngDefaultControl>
+                    <span>{{ 'report.opinion'|translate }}</span>
+                </md-radio-button>
+                    </div>
+            </md-radio-group>
+                <!--<div class="radio">-->
+                <!--<md-radio-button [(ngModel)]="reportOption" name="optionsRadios" id="optionsRadios1" value="2" disableRipple ngDefaultControl>-->
+                    <!--{{ 'report.spam'|translate }}-->
+                <!--</md-radio-button>-->
+            <!--</div>-->
+
+            <!--<div class="radio">-->
+                <!--<md-radio-button (change)="someFunction($event)" name="optionsRadios" id="optionsRadios2" value="3" disableRipple ngDefaultControl>-->
+                    <!--<span>{{ 'report.opinion'|translate }}</span>-->
+                <!--</md-radio-button>-->
+            <!--</div>-->
+
+            <textarea class="form-control" rows="3" name="reportText" [(ngModel)]='reportText' placeholder="{{ 'report.other'|translate }}" [ngClass]="{'mobileHeight':isMobile}"></textarea>
+
+        </form>
+
+        <p *ngIf="isReported" class="text-center ">{{ 'report.message'|translate }}</p>
+
+    </div>
+
+    <div class="bg-white padding text-center" *ngIf="!isReported">
+        <button md-button name="submit" (click)="report()" class="btn btn-purple" [ngClass]="{'purple-transparent': !(reportOption || reportText)}">{{ 'submit'|translate | uppercase }}</button>
+    </div>
+
+</div>

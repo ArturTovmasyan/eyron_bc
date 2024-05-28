@@ -1,0 +1,253 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalList"> {% endblock %}
+
+{% block content %}
+    <div class="content-top ideas-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="search" data-ng-init="placeholderText = '{{ 'search'|trans | capitalize}}'">
+                        <form class="navbar-form" role="search" action="{{ path("goals_list") }}">
+                            <span class="icon-search-icon" data-ng-class="{'text-purple': isSearching}"></span>
+                            <input type="text"
+                                   name="search"
+                                   data-ng-cloak
+                                   autocomplete="off"
+                                    {% if app.request.get('_route') == 'goals_list' %}
+                                        data-ng-model="search"
+                                        data-ng-keydown="doSearch($event)"
+                                    {% else %}
+                                        data-ng-enter-submit=".search form"
+                                    {% endif %}
+                                   placeholder="{{ 'search'|trans | capitalize}}"
+                                   class="form-control">
+                            <i class="close-icon hidden-sm hidden-md hidden-lg"
+                               data-ng-class="{'hidden-xs': !isSearching}"
+                               data-ng-click="search = '';isSearching = false">
+                            </i>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="container">
+            <div class="row no-gutter" data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">
+                <div class="col-xs-12" data-ng-init="activeCategory = '{{ category?category:'nearby' }}'">
+                    {% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories, 'selected': category } %}
+                </div>
+            </div>
+        </div>
+
+
+        {#<div class="slide ng-hide" data-ng-cloak data-ng-show="showMap">#}
+            {#<div data-simple-map-marker#}
+                 {#data-markers="locations"#}
+                 {#data-is-bounded="true"#}
+                 {#data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"#}
+                 {#data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"#}
+                 {#data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"#}
+                 {#data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"#}
+                 {#data-refresh="showMap"#}
+                 {#data-item-page-url="{{ env_prefix  }}/goal/"#}
+                 {#class="google-map "#}
+                 {#style="width: 100%; height: 600px"#}
+                    {#></div>#}
+        {#</div>#}
+
+    </div>
+
+    <div class="container" data-ng-cloak data-ng-show="activeCategory == 'nearby'">
+        <h3 class="text-center nearby-title text-dark ng-hide" data-ng-show="notAllowed">
+            {{ 'ideas_near_by_allow'|trans |raw }}
+        </h3>
+        {#<p data-ng-cloak data-ng-show="browseError.length > 0" class="error-message text-center">[[ browseError]]</p>#}
+        <div data-autocomplete-map
+             data-markers="locations"
+             data-item-page-url="{{ env_prefix  }}/goal/"
+             data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
+             data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"
+             data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"
+             data-active-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
+             class="map-autocomplete">
+        </div>
+
+        <div>
+            <label>
+                <div id="hide-completed" class="task-checkbox purple-checkbox">
+                    <label class="relative">
+                    <span class="my-md-container" data-ng-class="{'my-md-checked': isCompletedGoals}">
+                        <span class="my-md-icon"></span>
+                        <input type="checkbox" aria-label="steps"
+                               name="completed"
+                               data-ng-model="isCompletedGoals"
+                               data-ng-change="completedChange()"
+                               style="display: none" />
+                    </span>
+                    </label>
+                </div>
+                Show Completed
+            </label>
+        </div>
+
+    </div>
+
+    <div class="container ideas-list"
+         data-ng-cloak
+         data-infinite-scroll='Ideas.nextPage("{{ env_prefix }}/api/v1.0/goals/{first}/{count}", search, activeCategory)'
+         data-infinite-scroll-disabled='Ideas.busy || Ideas.request >= 2 || activeCategory == "nearby"'
+         data-infinite-scroll-distance='2'>
+
+        {% set href = path('add_goal')~'?title=[[search]]'  %}
+        <h2 data-ng-show="noIdeas" class="ng-hide text-center creating-goal">
+            <span class="empty-text text-center">{{ 'goal.not_found'|trans({'%search%' : '[[search]]', '%href%': href, '%isSearch%' : '!!search'})|raw }}</span>
+        </h2>
+
+        {% if not search %}
+            <h2 data-ng-show="Ideas.items.length && !noIdeas && ideasTitle" class="text-center text-dark">
+               {{ 'ideas_list_title'|trans }}
+            </h2>
+        {% endif %}
+
+        <div class="row">
+
+            <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+                <div class="row idea-item  {% if search %} ideas-result {% endif %}">
+                    <div class="col-md-[[ (($index + 1) % 7) < 5 ? 4 : 8 ]] goals-animate"
+                         data-ng-cloak
+                         data-ng-repeat="goal in Ideas.items">
+                        <figure>
+                            {% if app.user %}
+                                <span class="ng-hide hide-nearby"
+                                      data-ng-init="goal.isInterested = true"
+                                      data-ng-show="activeCategory == 'nearby' && goal.isInterested"
+                                      data-ng-click="notInterest(goal)"
+                                      data-ng-mouseleave="$parent.isHover = false"
+                                      data-ng-mousemove="hoverIn($event, '{{ "hide_nearby"|trans }}')">
+                                </span>
+                            {% endif %}
+
+                            <h3 data-ng-class="{nearby: (activeCategory == 'nearby' && goal.location && userLocation && goal.distance > 0)}">
+                                <a data-ng-href="{{ env_prefix  }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
+                            </h3>
+
+                            <a data-ng-href="{{ env_prefix  }}/goal/[[ ::goal.slug ]]"
+                               data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"
+                               class="goalTitle">
+                                <span class="overlay"></span>
+                                <img data-ng-if="goal.cached_image" data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
+                            </a>
+                            <a class="nearby-distance"
+                               target="_blank"
+                               data-ng-show="activeCategory == 'nearby' && goal.location && userLocation && goal.distance > 0"
+                               data-ng-href="https://www.google.com/maps/dir/[[ goal.location.latitude]],[[ goal.location.longitude]]/[[ userLocation.latitude ]],[[ userLocation.longitude ]]/"
+                               data-ng-mouseleave="$parent.isHover = false"
+                               data-ng-mousemove="hoverIn($event, '{{ "goal.get_direction"|trans }}')">
+                               <i></i>
+                               <span class="text-center" data-ng-if="goal.distance > 10">[[ goal.distance | number: 0]] km</span>
+                               <span class="text-center" data-ng-if="goal.distance <= 10">[[ goal.distance | number:1]] km</span>
+                            </a>
+
+                            <div class="absolute">
+                                <ul>
+                                    <li>
+                                        <a data-ls-goal-users
+                                           href="javascript:void(0)"
+                                           data-ls-goal-id="[[ ::goal.id ]]"
+                                           data-ls-count="[[ ::goal.stats.listedBy ]]"
+                                           data-ls-category="1"
+                                           data-ng-show="castInt(goal.stats.listedBy)">
+                                            <span>
+                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                [[ ::goal.stats.listedBy ]]
+                                            </span>
+                                            <i class="icon-user-small"></i>
+                                        </a>
+
+                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
+                                            {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                            [[ ::goal.stats.listedBy ]]
+                                            <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <a data-ls-goal-users
+                                           href="javascript:void(0)"
+                                           data-ls-goal-id="[[ ::goal.id ]]"
+                                           data-ls-count="[[ ::goal.stats.doneBy ]]"
+                                           data-ng-show="castInt(goal.stats.doneBy)">
+                                            <span>
+                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                [[ ::goal.stats.doneBy ]]
+                                            </span>
+                                            <i class="icon-user-small"></i>
+                                        </a>
+
+                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
+                                            {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                            [[ ::goal.stats.doneBy ]]
+                                            <i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <figcaption>
+                                {%  include "AppBundle:Blocks:goalFooter.html.twig"  %}
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-tooltip ng-hide"
+             data-ng-cloak
+             data-ng-show="isHover">
+            <span class="arrow-up"></span>
+            [[ hoveredText]]
+        </div>
+
+            {#display nearBy#}
+            <div class="navigation text-center">
+                <a href="javascript:void(0)"
+                   data-ng-cloak
+                   data-ng-show="!Ideas.busy && Ideas.reserve.length > 0 && activeCategory == 'nearby'"
+                   data-ng-click='Ideas.getNearByReserve(userLocation)'
+                   class="show-more ng-hide">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+
+             {#display navigation#}
+            <div class="navigation text-center">
+                <a href="javascript:void(0)"
+                   data-ng-cloak
+                   data-ng-show="!Ideas.busy && Ideas.request >= 2 && activeCategory != 'nearby'"
+                   data-ng-click='Ideas.getReserve("{{ env_prefix }}/api/v1.0/goals/{first}/{count}", search, "{{ category }}")'
+                   class="show-more ng-hide">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+
+    </div>
+{% endblock %}
+
+{%- block title -%}
+    {{ 'goal.ideas_title'|trans }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'goal.list_description'|trans }}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}

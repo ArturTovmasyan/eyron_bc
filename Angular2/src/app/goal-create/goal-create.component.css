@@ -1,0 +1,289 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.buttons {
+  margin: 0 0 5px 0;
+}
+.buttons button[md-button],
+.buttons a[md-button] {
+  display: inline-block;
+  padding: 3px 7px 4px;
+  margin-left: 1px;
+  font-size: 12px;
+  line-height: 20px;
+  margin-bottom: 8px;
+  min-width: 60px;
+}
+.buttons button[md-button] span,
+.buttons a[md-button] span {
+  line-height: 20px;
+}
+.buttons button[md-button] i.icon-arrow-right,
+.buttons a[md-button] i.icon-arrow-right,
+.buttons button[md-button] i.icon-arrow-left,
+.buttons a[md-button] i.icon-arrow-left {
+  font-size: 20px;
+  vertical-align: middle;
+}
+.buttons button[md-button]:first-child,
+.buttons a[md-button]:first-child {
+  border: 1px solid #e3e3e3;
+  color: #999999;
+}
+.buttons button[md-button]:hover,
+.buttons a[md-button]:hover {
+  background-color: #5e1dc3;
+  color: #ffffff;
+  box-shadow: none;
+}
+.buttons button[md-button]:active,
+.buttons a[md-button]:active,
+.buttons button[md-button]:focus,
+.buttons a[md-button]:focus,
+.buttons button[md-button]:visited,
+.buttons a[md-button]:visited {
+  box-shadow: none;
+  outline: 0;
+  background-color: #4f3576;
+}
+.buttons button[md-button]:focus,
+.buttons a[md-button]:focus {
+  color: #ffffff;
+}
+.buttons .btn-transparent {
+  padding: 4px 6px 4px 7px;
+}
+.buttons .icon-right {
+  margin-left: 15px;
+}
+.suggest-input {
+  padding: 21px 0 0 16px;
+}
+#goal-create-form h3.text-purple,
+.goal-preview h3.text-purple {
+  margin: 18px 0 0;
+  font-size: 17px;
+  line-height: 25px;
+}
+#goal-create-form p,
+.goal-preview p {
+  font-size: 12px;
+  line-height: 18px;
+}
+.goals {
+  padding-bottom: 20px;
+  margin: 15px 0 0;
+}
+.goals .swiper-wrapper {
+  margin: 0 auto;
+}
+.goals .margin-top {
+  margin-top: 5px;
+}
+.goals a .icon-arrow-right,
+.goals a .icon-arrow-left,
+.goals a i.icon-remove-video-link {
+  display: inline-block;
+  color: #999999;
+  font-size: 25px;
+  margin-top: 3px;
+  line-height: 45px;
+}
+.goals a i.icon-remove-video-link {
+  margin-right: 25px;
+  font-size: 33px;
+}
+.goals a:hover {
+  text-decoration: none;
+}
+.goals h3 {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: normal;
+  margin-top: 10px;
+  padding: 0 2px 0 14px;
+}
+.goals .title {
+  border: 0;
+  border-bottom: 1px solid  #e6e6e6;
+  font-size: 12px;
+  border-radius: 0;
+  box-shadow: none;
+  color: #333333;
+}
+.goals .form-group p {
+  font-size: 12px;
+  text-align: justify;
+}
+.goals .form-group .relative {
+  margin-bottom: 5px;
+}
+.goals .tags {
+  margin: 10px 0;
+  white-space: normal;
+}
+.goals .tags button {
+  padding: 5px 25px;
+  margin: 0 10px 5px 0;
+  white-space: normal;
+  word-break: break-word;
+  text-align: left;
+}
+.goals textarea {
+  resize: none;
+}
+.goals figure {
+  margin: 0 0 20px 0;
+}
+.existing-menu a {
+  display: inline-block;
+}
+.existing-menu .icon-arrow-left {
+  margin-left: 10px;
+}
+@media (min-width: 768px) {
+  .buttons {
+    margin: 5px 0 20px;
+  }
+  .buttons button[md-button],
+  .buttons a[md-button] {
+    margin-bottom: 0;
+    padding: 5px 15px;
+    margin-left: 5px;
+  }
+  .buttons button[md-button] span,
+  .buttons a[md-button] span {
+    line-height: 27px;
+  }
+  .buttons button[md-button] i.icon-arrow-right,
+  .buttons a[md-button] i.icon-arrow-right,
+  .buttons button[md-button] i.icon-arrow-left,
+  .buttons a[md-button] i.icon-arrow-left {
+    font-size: 25px;
+  }
+  .buttons .btn-transparent {
+    padding: 4px 15px;
+  }
+  .suggest-input {
+    padding: 22px 0 0 22px;
+  }
+  #goal-create-form h3.text-purple,
+  .goal-preview h3.text-purple {
+    margin: 15px 0 0;
+    font-size: 20px;
+    line-height: 30px;
+  }
+  #goal-create-form p,
+  .goal-preview p {
+    font-size: 13px;
+    line-height: 19px;
+  }
+  .goals {
+    margin: 30px 0;
+  }
+  .goals .margin-top {
+    margin-top: 15px;
+  }
+  .goals a .icon-arrow-right,
+  .goals a .icon-arrow-left,
+  .goals a i.icon-remove-video-link {
+    font-size: 30px;
+    margin-top: 13px;
+  }
+  .goals a i.icon-remove-video-link {
+    font-size: 40px;
+    margin-right: 18px;
+  }
+  .goals .title {
+    margin-top: 10px;
+    font-size: 45px;
+    height: 73px;
+    line-height: 65px;
+    padding: 5px 0 10px;
+  }
+  .goals h3.title {
+    margin-top: 0;
+    padding: 17px 40px;
+    font-size: 25px;
+    line-height: 35px;
+    height: auto;
+  }
+  .goals h3 {
+    margin-top: 16px;
+    font-size: 25px;
+    padding: 0 2px 0 15px;
+  }
+  .goals .form-group p {
+    font-size: 13px;
+  }
+  .goals .relative {
+    margin-bottom: 5px;
+  }
+}
+@media (min-width: 992px) {
+  .buttons {
+    margin: 40px 0;
+  }
+  .buttons button[md-button],
+  .buttons a[md-button] {
+    padding: 6px 25px;
+    margin-left: 10px;
+  }
+  .buttons .btn-transparent {
+    padding: 5px 25px;
+  }
+  .suggest-input {
+    padding: 35px 0 0 22px;
+  }
+  .existing-menu {
+    margin-bottom: 10px;
+  }
+  #goal-create-form h3.text-purple,
+  .goal-preview h3.text-purple {
+    margin: 27px 0 0;
+    font-size: 24px;
+    line-height: 36px;
+  }
+  #goal-create-form p,
+  .goal-preview p {
+    font-size: 14px;
+    line-height: 21px;
+  }
+  .goals .margin-top {
+    margin-top: 30px;
+  }
+  .goals .form-group p {
+    font-size: 14px;
+  }
+  .goals a .icon-arrow-right,
+  .goals a .icon-arrow-left,
+  .goals a i.icon-remove-video-link {
+    margin-top: 30px;
+  }
+  .goals .title {
+    margin-top: 15px;
+    font-size: 52px;
+    height: 83px;
+    padding: 5px 0 11px 0;
+  }
+  .goals h3 {
+    margin-top: 31px;
+  }
+  .goals h3.title {
+    padding: 17px 40px;
+    font-size: 25px;
+    line-height: 35px;
+    height: auto;
+  }
+  .goals .relative {
+    margin-bottom: 5px;
+  }
+  .goals .remove-icon .icon-remove-video-link {
+    font-size: 27px;
+  }
+}

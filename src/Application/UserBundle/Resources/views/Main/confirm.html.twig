@@ -1,0 +1,39 @@
+{% extends "::base.html.twig" %}
+
+{% block confirm_email %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div  class="signup notice">
+            <div>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 text-center">
+                        <h1>{{ 'verification.verified'|trans({}, 'FOSUserBundle') }}</h1>
+                        <h4 class="text-gray">{{ 'verification.verified_content'|trans({'%XXX%': project_name}, 'FOSUserBundle') }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{%- block title -%}
+    {{ 'user.account_verified_title'|trans({}, 'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block og_title -%}
+    {{ 'user.account_verified_title'|trans({}, 'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block og_description -%}
+    {{ 'user.account_verified_description'|trans({}, 'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'user.account_verified_description'|trans({}, 'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}

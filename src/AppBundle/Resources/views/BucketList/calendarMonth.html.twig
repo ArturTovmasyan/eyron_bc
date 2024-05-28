@@ -1,0 +1,48 @@
+<table class="table table-bordered month-calendar">
+    <thead>
+    <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for i in 0..5 %}
+        <tr data-ng-hide="({{ i }} == 5 && noShowLast)">
+            {% for j in 0..6 %}
+                <td>
+                    <span data-ng-class="{'text-gray': (days[(7 * {{ i }} + {{ j }} + 1)].status == 'inActive'), 'text-gray-dark': (days[(7 * {{ i }} + {{ j }} + 1)].status == 'active')}">
+                        <sup>[[days[7 * {{ i }} + {{ j }} + 1].day ]]</sup>
+                    </span>
+
+                    <span data-ng-class="{'absolute': !isMobile}">
+                    <span class="goal-count bg-green ng-hide"
+                          data-ng-mouseleave="isHover = false"
+                          data-ng-mousemove="hoverIn($event, myDays[days[7 * {{ i }} + {{ j }} + 1].year][days[7 * {{ i }} + {{ j }} + 1].month][days[7 * {{ i }} + {{ j }} + 1].day].complete + ' ' + (myDays[days[7 * {{ i }} + {{ j }} + 1].year][days[7 * {{ i }} + {{ j }} + 1].month][days[7 * {{ i }} + {{ j }} + 1].day].complete > 1?'{{ 'my_bucket_list.calendar.theCompleted'|trans }}':'{{ 'my_bucket_list.calendar.completed'|trans }}'))"
+                          data-ng-show="myDays[days[7 * {{ i }} + {{ j }} + 1].year][days[7 * {{ i }} + {{ j }} + 1].month][days[7 * {{ i }} + {{ j }} + 1].day].complete > 0">
+                        [[myDays[days[7 * {{ i }} + {{ j }} + 1].year][days[7 * {{ i }} + {{ j }} + 1].month][days[7 * {{ i }} + {{ j }} + 1].day].complete ]]
+                    </span>
+                    <span class="goal-count bg-gradinet ng-hide"
+                          data-ng-mouseleave="isHover = false"
+                          data-ng-mousemove="hoverIn($event, myDays[days[7 * {{ i }} + {{ j }} + 1].year][days[7 * {{ i }} + {{ j }} + 1].month][days[7 * {{ i }} + {{ j }} + 1].day].deadline + ' ' + (myDays[days[7 * {{ i }} + {{ j }} + 1].year][days[7 * {{ i }} + {{ j }} + 1].month][days[7 * {{ i }} + {{ j }} + 1].day].deadline > 1?'{{ 'my_bucket_list.calendar.deadlines'|trans }}':'{{ 'my_bucket_list.calendar.deadline'|trans }}'))"
+                          data-ng-show="myDays[days[7 * {{ i }} + {{ j }} + 1].year][days[7 * {{ i }} + {{ j }} + 1].month][days[7 * {{ i }} + {{ j }} + 1].day].deadline > 0">
+                        [[myDays[days[7 * {{ i }} + {{ j }} + 1].year][days[7 * {{ i }} + {{ j }} + 1].month][days[7 * {{ i }} + {{ j }} + 1].day].deadline ]]
+                    </span>
+                    <span class="goal-count bg-purple ng-hide"
+                          data-ng-mouseleave="isHover = false"
+                          data-ng-mousemove="hoverIn($event, myDays[days[7 * {{ i }} + {{ j }} + 1].year][days[7 * {{ i }} + {{ j }} + 1].month][days[7 * {{ i }} + {{ j }} + 1].day].current + ' ' + (myDays[days[7 * {{ i }} + {{ j }} + 1].year][days[7 * {{ i }} + {{ j }} + 1].month][days[7 * {{ i }} + {{ j }} + 1].day].current > 1?'{{ 'my_bucket_list.calendar.actives'|trans }}':'{{ 'my_bucket_list.calendar.active'|trans }}'))"
+                          data-ng-show="myDays[days[7 * {{ i }} + {{ j }} + 1].year][days[7 * {{ i }} + {{ j }} + 1].month][days[7 * {{ i }} + {{ j }} + 1].day].current > 0">
+                        [[myDays[days[7 * {{ i }} + {{ j }} + 1].year][days[7 * {{ i }} + {{ j }} + 1].month][days[7 * {{ i }} + {{ j }} + 1].day].current ]]
+                    </span>
+                    </span>
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

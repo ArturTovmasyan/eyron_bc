@@ -1,0 +1,17 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    <div>
+        {% if object.facebookId is defined and object.facebookId %}
+            <i class="facebook"></i>
+        {% endif %}
+
+        {% if object.googleId is defined and object.googleId %}
+            <i class="google"></i>
+        {% endif %}
+
+        {% if object.twitterId is defined and object.twitterId %}
+            <i class="twitter"></i>
+        {% endif %}
+    </div>
+{% endblock %}

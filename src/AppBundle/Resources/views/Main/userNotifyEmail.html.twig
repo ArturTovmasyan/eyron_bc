@@ -1,0 +1,144 @@
+
+{% block body_text %}
+
+    {% set baseUrl = app.request.getSchemeAndHttpHost() %}
+    {% set className = "user-no" ~ random(4) %}
+    {% set lastName = user.lastName %}
+    {% set firstName = user.firstName %}
+    {% set senderName = user.showName %}
+    {% set author = goal.author %}
+    {% set email = author.email %}
+    {% set slug = goal.slug %}
+    {% set goalUrl = url('inner_goal', {'slug': slug})~'#'~type %}
+    {% set homePageUrl = url('homepage') %}
+    {% set profile = url('user_profile', {'user' : user.uId}) %}
+
+    {% autoescape false %}
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Bucket List 127</title>
+            </head>
+        <body>
+            <div style="width: 510px;font-family: 'Open Sans', arial, sans-serif;">
+
+                <figure style="margin:0;padding:25px 20px;">
+                    <img src="{{ baseUrl }}/bundles/app/images/email-bucketlist127.png" alt="Bucket List 127" height="50" />
+                </figure>
+
+                <hr style="border: 1px solid #cccccc;margin:0;"/>
+
+                <div style="clear:both;margin:10px 0;padding: 20px 0 0;height:70px;">
+
+                    {% if user.getPhotoLink %}
+                        <figure style="float:left;width:65px;height:65px !important;overflow:hidden;margin:0 20px;border:1px solid #cccccc; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
+                            <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}"
+                                 style="width:65px;height:65px !important; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
+                        </figure>
+                    {% else %}
+                        <p style="width:60px;height:60px;background: #0f2763;
+                              background: -moz-linear-gradient(left, #0f2763 0%, #102a65 3%, #122b6b 4%, #122b6b 5%, #152e70 6%, #173575 8%, #1e3b7d 10%, #335998 16%, #4e78b2 22%, #507bb0 22%, #5d8bbc 25%, #6b9bc3 29%, #6f9dbf 29%, #7ca9c8 32%, #8ab1ce 37%, #94bacf 42%, #95bbce 43%, #9ebfd2 47%, #9dc0d4 48%, #a1c2d5 49%, #a3c2d4 50%, #a7c4d6 51%, #a7c4d4 51%, #afcbd7 56%, #b5d1dc 64%, #b2d0db 69%, #aeccd7 70%, #abcdd9 71%, #a7c8d9 73%, #94bed4 78%, #8fbcd1 78%, #86b4cc 80%, #7cadcd 82%, #74a6c7 83%, #5a94c2 87%, #528cba 88%, #4783b9 90%, #4076b2 92%, #3067a7 97%, #2c62a2 100%); /* FF3.6-15 */
+                              background: -webkit-linear-gradient(left, #0f2763 0%,#102a65 3%,#122b6b 4%,#122b6b 5%,#152e70 6%,#173575 8%,#1e3b7d 10%,#335998 16%,#4e78b2 22%,#507bb0 22%,#5d8bbc 25%,#6b9bc3 29%,#6f9dbf 29%,#7ca9c8 32%,#8ab1ce 37%,#94bacf 42%,#95bbce 43%,#9ebfd2 47%,#9dc0d4 48%,#a1c2d5 49%,#a3c2d4 50%,#a7c4d6 51%,#a7c4d4 51%,#afcbd7 56%,#b5d1dc 64%,#b2d0db 69%,#aeccd7 70%,#abcdd9 71%,#a7c8d9 73%,#94bed4 78%,#8fbcd1 78%,#86b4cc 80%,#7cadcd 82%,#74a6c7 83%,#5a94c2 87%,#528cba 88%,#4783b9 90%,#4076b2 92%,#3067a7 97%,#2c62a2 100%); /* Chrome10-25,Safari5.1-6 */
+                              background: linear-gradient(to right, #0f2763 0%,#102a65 3%,#122b6b 4%,#122b6b 5%,#152e70 6%,#173575 8%,#1e3b7d 10%,#335998 16%,#4e78b2 22%,#507bb0 22%,#5d8bbc 25%,#6b9bc3 29%,#6f9dbf 29%,#7ca9c8 32%,#8ab1ce 37%,#94bacf 42%,#95bbce 43%,#9ebfd2 47%,#9dc0d4 48%,#a1c2d5 49%,#a3c2d4 50%,#a7c4d6 51%,#a7c4d4 51%,#afcbd7 56%,#b5d1dc 64%,#b2d0db 69%,#aeccd7 70%,#abcdd9 71%,#a7c8d9 73%,#94bed4 78%,#8fbcd1 78%,#86b4cc 80%,#7cadcd 82%,#74a6c7 83%,#5a94c2 87%,#528cba 88%,#4783b9 90%,#4076b2 92%,#3067a7 97%,#2c62a2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                              filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f2763', endColorstr='#2c62a2',GradientType=1 );">
+                        {{ nameOnImage }}
+                        </p>
+                    {% endif %}
+
+                    <div style="float:left">
+                        <p style="color: #333;margin: 5px 0;font-size:16px;">{{ mailText|trans({'%senderName%' : senderName, '%profile%': profile, '%link%': goalUrl, '%style%' : 'color: #7724F6 ','%profileStyle%' : 'color: #333 ' }, 'email', language) }}</p>
+                        <a href="{{ goalUrl }}" style="color: #333333;font-size:16px;">{{ goal.title }}</a>
+                        <p style="color:#999999;margin:5px 0 0;font-size:14px;font-weight:700;">{{ 'now'|date('d M Y') }} at {{ 'now'|date('H:m') }}</p>
+                    </div>
+                </div>
+
+                <div style="width:460px;margin:0 auto 20px;clear:both;">
+                    <span style="display:block;width: 0;height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent;border-bottom: 10px solid #f2f2f2;top: -8px;
+            margin-left: 15px;"></span>
+                    <p style="background-color: #f2f2f2;font-size: 16px;padding: 20px;color: #333;margin-top:0;">{{ eventText }}</p>
+                </div>
+
+                {% set cover = goal.getCoverPhotoDownloadLink %}
+
+                <figure style="margin:20px 0 0;background-color: #011420;width: 510px;overflow:hidden;text-align:center;">
+                    <img src="
+                        {% if cover %}
+                            {% set goalPhoto = baseUrl~cover %}
+                            {{ goalPhoto|blImageFilter('goal_bg') }}
+                        {% endif %}"
+                         alt="{{ goal.title }}"  height="230" width="100%"/>
+                    <figcaption style=";text-align:center;">
+                        <h3 style="color:#ffffff;font-size: 24px;padding: 10px 25px;text-transform: capitalize;margin:0;line-height: 30px;font-weight: 700;">{{ goal.title }}</h3>
+                    </figcaption>
+                </figure>
+
+                <p style="text-align:center;padding:28px 0 30px;margin:0;">
+                    <a href = "{{ goalUrl }}" style="background: #7724F6;display: inline-block;color:#ffffff;padding:15px 60px;font-size:14px;text-decoration:none;border-radius: 6px;-webkit-border-radius: 6px;-moz-border-radius: 6px;-ms-border-radius: 6px;-o-border-radius: 6px;">
+                        {{ 'email_bucketlist_link'|trans({}, 'email', language) }}</a>
+                </p>
+
+                <hr style="border:1px solid #cccccc;margin:0;" />
+
+                <footer>
+
+                    <ul style="list-style-type:none;text-align:center;padding:20px 0;margin:0;">
+                        <li style="display: inline-block;">
+                            <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" target="_blank" style="display:block;">
+                                <img src="{{ baseUrl ~ '/bundles/app/images/email-app-store.png' }}" alt="Appstore" height="40"/>
+                            </a>
+                        </li>
+                        <li style="display: inline-block;margin-left:10px;">
+                            <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" target="_blank" style="display:block;">
+                                <img src="{{ baseUrl ~ '/bundles/app/images/email-google-play.png' }}" alt="Googleplay" height="40"/>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul style="list-style-type:none;text-align:center;padding-left:0;margin:0;">
+                        <li style="display: inline-block;">
+                            <a href="https://www.facebook.com/bucketlist127com/" target="_blank" style="display:block;">
+                                <img src="{{ baseUrl }}/bundles/app/images/email-facebook.png" height="32"/>
+                            </a>
+                        </li>
+
+                        <li style="display: inline-block;margin-left:20px;">
+                            <a href="https://www.twitter.com/bucketlist127" target="_blank" style="display:block;">
+                                <img src="{{ baseUrl }}/bundles/app/images/email-twitter.png" height="32"/>
+                            </a>
+                        </li>
+
+                        <li style="display: inline-block;margin-left:20px;">
+                            <a href="https://www.pinterest.com/bucketlist127/" target="_blank" style="display:block;">
+                                <img src="{{ baseUrl }}/bundles/app/images/email-pinterest.png" height="32"/>
+                            </a>
+                        </li>
+
+                        <li style="display: inline-block;margin-left:20px;">
+                            <a href="https://www.instagram.com/bucketlist127/" target="_blank" style="display:block;">
+                                <img src="{{ baseUrl }}/bundles/app/images/email-instagram.png" height="32"/>
+                            </a>
+                        </li>
+
+                        <li style="display: inline-block;margin-left:20px;">
+                            <a href="https://plus.google.com/+Bucketlist127com" target="_blank" style="display:block;">
+                                <img src="{{ baseUrl }}/bundles/app/images/email-gplus.png" height="32"/>
+                            </a>
+                        </li>
+
+                        <li style="display: inline-block;margin-left:20px;">
+                            <a href="https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g" target="_blank" style="display:block;">
+                                <img src="{{ baseUrl }}/bundles/app/images/email-youtube.png" height="32"/>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                   <p style="text-align:center;color: #666666;font-size:12px;line-height: 17px;"> {{ 'notify_email_footer'|trans({'%email%': email}, 'email', language) }}</p>
+
+                </footer>
+            </div>
+        </body>
+    </html>
+    {% endautoescape %}
+
+{% endblock %}

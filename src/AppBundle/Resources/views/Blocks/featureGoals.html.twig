@@ -1,0 +1,122 @@
+<div class="right-block ng-hide margin-top round padding padding-no" data-ng-controller="featureGoalsController" data-ng-show="featureGoals && featureGoals.length" data-ng-cloak>
+    <div class="right-menu">
+        <div class="row" {% if user is defined%}data-ng-init="userId= {{ user.id }}"{% endif %}>
+
+            <div class="col-xs-10">
+                <span>
+                     <i class="featured-icon"></i>
+                     <a href="{{ path('goals_list', {'category' : 'featured'}) }}">
+                         {{ 'featured_ideas'|trans({},'messages') }}
+                     </a>
+                </span>
+            </div>
+
+            <div class="col-xs-2 text-right">
+                <a href="#" class="load" id="featuresLoad" data-ng-click="refreshFeatures()"></a>
+            </div>
+
+        </div>
+        <hr/>
+    </div>
+    <div class="row">
+        <div>
+            <div class="col-sm-6 col-md-12 idea-item"
+                 data-ng-cloak
+                 data-ng-repeat="goal in featureGoals">
+                <div class="ideas">
+                    <figure>
+                        <h3>
+                            <a href="{{ env_prefix }}/goal/[[ ::goal.slug]]">[[ ::goal.title ]]</a>
+                        </h3>
+
+                        <a href="{{ env_prefix }}/goal/[[ ::goal.slug]]" class="goalTitle">
+                            <span class="overlay"></span>
+                            <img data-ng-if="goal.cached_image" data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
+                        </a>
+
+                        <div class="absolute">
+                            <ul>
+                                <li>
+                                    <a data-ls-goal-users
+                                       href="javascript:void(0)"
+                                       data-ls-goal-id="[[ ::goal.id ]]"
+                                       data-ls-category="1"
+                                       data-ls-count="[[ ::goal.stats.listedBy ]]"
+                                       data-ng-show="castInt(goal.stats.listedBy)">
+                                        <span>
+                                            {{ 'home_listed_by'|trans({},'messages') }}
+                                            [[ ::goal.stats.listedBy ]]
+                                        </span>
+                                        <i class="icon-user-small"></i>
+                                    </a>
+                                    <span class="text-white" data-ng-hide="castInt(goal.stats.listedBy)">
+                                        {{ 'home_listed_by'|trans({},'messages') }}
+                                        [[ ::goal.stats.listedBy ]]
+                                    </span>
+                                    <i class="icon-user-small" data-ng-hide="castInt(goal.stats.listedBy)"></i>
+                                </li>
+                                <li>
+                                    <a data-ls-goal-users
+                                       href="javascript:void(0)"
+                                       data-ls-goal-id="[[ ::goal.id ]]"
+                                       data-ls-count="[[ ::goal.stats.doneBy ]]"
+                                       data-ng-show="castInt(goal.stats.doneBy)">
+                                        <span>
+                                            {{ 'home_complete'|trans({},'messages') }}
+                                            [[ ::goal.stats.doneBy ]]
+                                        </span>
+                                        <i class="icon-user-small"></i>
+                                    </a>
+                                    <span class="text-white" data-ng-hide="castInt(goal.stats.doneBy)">
+                                        {{ 'home_complete'|trans({},'messages') }}
+                                        [[ ::goal.stats.doneBy ]]
+                                    </span>
+                                    <i class="icon-user-small" data-ng-hide="castInt(goal.stats.doneBy)"></i>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <figcaption>
+                            <ul  data-ng-app="goal" data-ng-controller="goalFooter" class="row no-gutter"
+                                 data-ng-init="completed=true" data-ng-cloak>
+
+                                <li class="col-xs-6 ng-hide" data-ng-show="!goal.is_my_goal && completed">
+                                    <a href="javascript:void(0)"
+                                       data-ng-cloak
+                                       data-ls-goal-manage
+                                       data-ls-goal-id="[[ ::goal.id ]]"
+                                       data-ng-click=" goal.is_my_goal = 1 {% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
+
+                                        <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                        <span class="text">{{ 'add'|trans | capitalize}}</span>
+                                    </a>
+                                </li>
+                                <li class="col-xs-6 transparent ng-hide" data-ng-show="(goal.is_my_goal && goal.is_my_goal !== 0)|| !completed ">
+                                    <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                    <span class="text">{{ 'added'|trans | capitalize}}</span>
+                                </li>
+
+
+                                <li class="col-xs-6 ng-hide" data-ng-show="goal.is_my_goal !== 2 && completed">
+                                    <a href="javascript:void(0)"
+                                       data-ng-cloak
+                                       data-ls-user-goal-manage
+                                       data-ls-goal-id="[[ ::goal.id ]]"
+                                       data-ng-click=" completed = false {% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
+                                        <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                                        <span class="text">{{ 'done'|trans | capitalize}}</span>
+                                    </a>
+                                </li>
+                                <li class="col-xs-6 transparent ng-hide" data-ng-show="(goal.is_my_goal && goal.is_my_goal === 2 )|| !completed">
+                                    <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                    <span class="text">{{ 'completed'|trans | capitalize}}</span>
+                                </li>
+
+                            </ul>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

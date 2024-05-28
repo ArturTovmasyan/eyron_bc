@@ -1,0 +1,599 @@
+<div class="my-modal goal-modal" [ngClass]="{'manage_modal':!newAdded && userGoal.id}" *ngIf="load">
+    <div class="goal-container">
+
+        <div *ngIf="newAdded" class="email">
+            {{ "goal.create_goal" | translate }}
+            <span *ngIf="!newCreated"> {{ "addedU" | translate }}</span>
+            <span *ngIf="newCreated"> {{ "admin.label.name.createdU" | translate }}</span>
+        </div>
+
+        <div class="modal-top" *ngIf="userGoal">
+
+            <span class="close-modal" (click)="dialogRef.close(); isOpen = false;" *ngIf="!newAdded">
+                <i></i>
+            </span>
+
+            <figure>
+                <img src="{{ userGoal.goal.cached_image?userGoal.goal.cached_image:imgPath}}"
+                     alt="{{ userGoal.goal.title }}" class="img-responsive"/>
+            </figure>
+
+            <span class="overlay"></span>
+
+            <div *ngIf="userGoal.goal">
+                <h2>
+                    <span [ngClass]="{'title-smaller': userGoal.goal.title.length > 25, 'title-top': !userGoal.goal || !userGoal.goal.author || !userGoal.goal.author.show_name}">{{ userGoal.goal.title }}</span>
+                </h2>
+                <!--{% if app.user %}-->
+                <p *ngIf="userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == appUser.id " class="hidden-xs">
+                    {{ userGoal.goal.author.show_name }}
+                </p>
+                <!--{% endif %}-->
+                <ul *ngIf="userGoal.goal.stats">
+                    <li>
+                        <a>
+                            {{ 'block_listed'|translate | titlecase }}
+                            <span>{{ userGoal.goal.stats.listedBy | number }}</span>
+                            <i class="icon-user-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            {{ 'block_completed'|translate | titlecase }}
+                            <span>{{ userGoal.goal.stats.doneBy | number }}</span>
+                            <i class="icon-user-small"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <form class="form-horizontal" method="post" #addForm="ngForm">
+            <div class="goal-add bg-white">
+                <div *ngIf="newAdded && userGoal.id">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+
+                            <div class="clearfix" *ngIf="userGoal.id">
+                                <div class="no-marginb">
+
+                                    <h3 class="text-left">
+                                        {{ "goal.status"|translate }}
+                                    </h3>
+
+                                    <p class="hidden-xs">{{ "goal.in_proces"|translate }}</p>
+
+
+                                    <div class="clearfix purple-checkbox">
+                                        <md-radio-group [(ngModel)]="complete.switch" name="status" (ngModelChange)="switchChanges()">
+                                            <md-radio-button value="0" disableRipple>{{ "user_goal.active"|translate }}</md-radio-button>
+                                            <md-radio-button value="1" disableRipple>{{ "user_goal.completed"|translate }}</md-radio-button>
+                                        </md-radio-group>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                            <h3 [ngClass]="{'text-purple': !(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1}"
+                                *ngIf="!(complete.switch == 1) || userGoal.do_date">
+                                {{ "goal.deadline"|translate }}
+                                <i *ngIf="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1"
+                                   class="icon-info text-purple"></i>
+
+                            <span class="text-purple "
+                                  *ngIf="complete.switch == 1 && userGoal.do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)">: {{ userGoal.do_date| date:'dd MMMM yyyy' }}</span>
+                            <span class="text-purple "
+                                  *ngIf="complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 2)">: {{ userGoal.do_date| date:'yyyy'}}</span>
+                            <span class="text-purple "
+                                  *ngIf="complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 3)">: {{ userGoal.do_date| date:'MMM yyyy' }}</span>
+                            </h3>
+
+                            <p class="text-gray text-left hidden-xs"
+                               *ngIf="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1">
+                                {{ "goal.missed_deadline"|translate }}
+                            </p>
+
+                            <p [hidden]="userGoal.do_date || userGoal.completion_date || complete.switch == 1"
+                               class="text-left hidden-xs">
+                                {{ "dream"|translate }}
+                            </p>
+
+                            <h3 *ngIf="complete.switch == 1">{{ "completed"|translate }}</h3>
+
+                            <div class="row">
+
+                                <div class="col-xs-4" *ngIf="complete.switch != 1">
+                                    <md-select  placeholder="{{ 'form.birth_date_year'|translate }}" name="year" [(ngModel)]="year">
+                                        <md-option [value]="0">
+                                            {{ 'form.birth_date_year'|translate }}
+                                        </md-option>
+                                        <md-option *ngFor="let year of years" [value]="year">
+                                            {{ year }}
+                                        </md-option>
+                                    </md-select>
+
+                                </div>
+                                <div class="col-xs-4" *ngIf="complete.switch == 1">
+                                    <md-select placeholder="{{ 'form.birth_date_year'|translate }}" name="year" [(ngModel)]="year">
+                                        <md-option [value]="0">
+                                            {{ 'form.birth_date_year'|translate }}
+                                        </md-option>
+                                        <md-option *ngFor="let year of completeYears" [value]="year">
+                                            {{ year }}
+                                        </md-option>
+                                    </md-select>
+
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" [(ngModel)]="month">
+                                        <md-option *ngFor="let month of months; let i=index" [value]="i">
+                                            {{ month|translate }}
+                                        </md-option>
+                                    </md-select>
+
+                                </div>
+                                <div class="col-xs-4">
+                                    <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" [(ngModel)]="day">
+                                        <md-option [value]="0">
+                                            {{ 'form.birth_date_day'|translate }}
+                                        </md-option>
+                                        <md-option *ngFor="let day of days" [value]="day">
+                                            {{ day }}
+                                        </md-option>
+                                    </md-select>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                            <div class="no-marginb">
+
+                                <h3 class="text-left">
+                                    {{ "goal.visibility"|translate }}
+
+                                    <i class="icon-eye-icon hidden-sm hidden-md hidden-lg" *ngIf="userGoal.is_visible"></i>
+                                    <i class="icon-eye hidden-sm hidden-md hidden-lg" *ngIf="!userGoal.is_visible"></i>
+                                </h3>
+
+                                <p class="text-gray no-marginb hidden-xs">
+                                    <i class="icon-eye-icon " *ngIf="userGoal.is_visible"></i>
+                                    <i class="icon-eye" *ngIf="!userGoal.is_visible"></i>
+                                    <span>{{ "goal.visible_text"|translate }}</span>
+                                </p>
+
+                                <div class="clearfix purple-checkbox" id="goal-is-visible-first">
+                                    <!--[(ngModel)]="userGoal.is_visible"-->
+                                    <md-radio-group [(ngModel)]="userGoal.is_visible" name="visibility">
+                                        <md-radio-button [value]="true" disableRipple>{{ "goal.visible"|translate }}</md-radio-button>
+                                        <md-radio-button [value]="false" disableRipple>{{ "my_bucket_list.invisible"|translate }}</md-radio-button>
+                                    </md-radio-group>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                            <div *ngIf="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == appUser.id && userGoal.goal.status == false">
+                                <p class="text-gray clearfix private-space">
+                                    <strong class="text-dark-gray">
+                                        <i class="icon-lock-white"></i>
+                                        <span>{{ 'user_goal.private' |translate }}</span>
+                                    </strong>
+                                    <span class="text-left">{{ 'goal.private_text'|translate }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+
+                            <p class="text-center error-message" *ngIf="invalidYear">
+                                {{ 'success_story.error_day_in_month1'|translate }} {{dayInMonth}} {{ 'success_story.error_day_in_month2'|translate }}
+                            </p>
+
+                            <p class="text-center error-message"
+                               *ngIf="uncompletedYear">{{ 'success_story.error_uncomplete_year'|translate }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row modal-bottom">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                            <a md-button  (click)="save()"
+                               class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
+                            <a md-button (click)="dialogRef.close(); isOpen = false;" id="cancel"
+                               class="btn btn-transparent">{{"cancel"|translate | uppercase}}</a>
+                            <a md-button (click)="showDetails = ! showDetails"
+                               class="btn btn-transparent">
+                                <span>{{ 'forget'|translate | uppercase}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!newAdded && userGoal.id">
+
+                        <div  *ngIf="first" class="first">
+                            <div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+
+                                        <div class="clearfix " *ngIf="userGoal.id">
+                                            <div class="no-marginb">
+
+                                                <h3 class="text-left">
+                                                    {{ "goal.status"|translate }}
+                                                </h3>
+
+                                                <p class="hidden-xs">{{ "goal.in_proces"|translate }}</p>
+
+                                                <div class="clearfix purple-checkbox">
+                                                    <md-radio-group [(ngModel)]="complete.switch" name="status" (ngModelChange)="switchChanges()">
+                                                        <md-radio-button value="0" disableRipple>{{ "user_goal.active"|translate }}</md-radio-button>
+                                                        <md-radio-button value="1" disableRipple>{{ "user_goal.completed"|translate }}</md-radio-button>
+                                                    </md-radio-group>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr/>
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                                        <h3 [ngClass]="{'text-purple': !(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1}"
+                                            *ngIf="!(complete.switch == 1) || userGoal.do_date">
+                                            {{ "goal.deadline"|translate }}
+                                            <i *ngIf="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1"
+                                               class="icon-info text-purple"></i>
+
+                                <span class="text-purple "
+                                      *ngIf="complete.switch == 1 && userGoal.do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)">: {{ userGoal.do_date| date:'dd MMMM yyyy' }}</span>
+                                <span class="text-purple "
+                                      *ngIf="complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 2)">: {{ userGoal.do_date| date:'yyyy'}}</span>
+                                <span class="text-purple "
+                                      *ngIf="complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 3)">: {{ userGoal.do_date| date:'MMM yyyy' }}</span>
+                                        </h3>
+
+                                        <p class="text-gray text-left hidden-xs"
+                                           *ngIf="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1">
+                                            {{ "goal.missed_deadline"|translate }}
+                                        </p>
+
+                                        <p [hidden]="userGoal.do_date || userGoal.completion_date || complete.switch == 1 || isMobile"
+                                           class="text-left hidden-xs">
+                                            {{ "dream"|translate }}
+                                        </p>
+
+                                        <h3 *ngIf="complete.switch == 1">{{ "completed"|translate }}</h3>
+
+                                        <div class="row">
+
+                                            <div class="col-xs-4" *ngIf="complete.switch != 1">
+                                                <md-select  placeholder="{{ 'form.birth_date_year'|translate }}" name="year" [(ngModel)]="year">
+                                                    <md-option [value]="0">
+                                                        {{ 'form.birth_date_year'|translate }}
+                                                    </md-option>
+                                                    <md-option *ngFor="let year of years" [value]="year">
+                                                        {{ year }}
+                                                    </md-option>
+                                                </md-select>
+
+                                            </div>
+                                            <div class="col-xs-4" *ngIf="complete.switch == 1">
+                                                <md-select placeholder="{{ 'form.birth_date_year'|translate }}" name="year" [(ngModel)]="year">
+                                                    <md-option [value]="0">
+                                                        {{ 'form.birth_date_year'|translate }}
+                                                    </md-option>
+                                                    <md-option *ngFor="let year of completeYears" [value]="year">
+                                                        {{ year }}
+                                                    </md-option>
+                                                </md-select>
+
+                                            </div>
+
+                                            <div class="col-xs-4">
+                                                <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" [(ngModel)]="month">
+                                                    <md-option *ngFor="let month of months; let i=index" [value]="i">
+                                                        {{ month|translate }}
+                                                    </md-option>
+                                                </md-select>
+
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" [(ngModel)]="day">
+                                                    <md-option [value]="0">
+                                                        {{ 'form.birth_date_day'|translate }}
+                                                    </md-option>
+                                                    <md-option *ngFor="let day of days" [value]="day">
+                                                        {{ day }}
+                                                    </md-option>
+                                                </md-select>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <hr/>
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                                        <div class="no-marginb">
+
+                                            <h3 class="text-left">
+                                                {{ "goal.visibility"|translate }}
+                                                <i class="icon-eye-icon hidden-sm hidden-md hidden-lg" *ngIf="userGoal.is_visible"></i>
+                                                <i class="icon-eye hidden-sm hidden-md hidden-lg" *ngIf="!userGoal.is_visible "></i>
+                                            </h3>
+
+                                            <p class="text-gray no-marginb hidden-xs">
+                                                <i class="icon-eye-icon " *ngIf="userGoal.is_visible"></i>
+                                                <i class="icon-eye" *ngIf="!userGoal.is_visible "></i>
+                                                <span *ngIf="!isMobile">{{ "goal.visible_text"|translate }}</span>
+                                            </p>
+
+                                            <div class="clearfix purple-checkbox" id="goal-is-visible">
+                                                <!--[(ngModel)]="userGoal.is_visible"-->
+                                                <md-radio-group [(ngModel)]="userGoal.is_visible" name="visibility">
+                                                    <md-radio-button [value]="true" disableRipple>{{ "goal.visible"|translate }}</md-radio-button>
+                                                    <md-radio-button [value]="false" disableRipple>{{ "my_bucket_list.invisible"|translate }}</md-radio-button>
+                                                </md-radio-group>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <hr *ngIf="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == appUser.id && userGoal.goal.status == false"/>
+
+                                <div class="row" *ngIf="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == appUser.id && userGoal.goal.status == false">
+                                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                                        <p class="text-gray clearfix private-space">
+                                            <strong class="text-dark-gray">
+                                                <i class="icon-lock-white"></i>
+                                                <span>{{ 'user_goal.private' |translate }}</span>
+                                            </strong>
+                                            <span class="text-left">{{ 'goal.private_text'|translate }}</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+
+                                        <p class="text-center error-message" *ngIf="invalidYear">
+                                            {{ 'success_story.error_day_in_month1'|translate }} {{dayInMonth}} {{ 'success_story.error_day_in_month2'|translate }}
+                                        </p>
+
+                                        <p class="text-center error-message"
+                                           *ngIf="uncompletedYear">{{ 'success_story.error_uncomplete_year'|translate }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div  *ngIf="second" class="second">
+                            <div>
+                                <perfect-scrollbar [ngClass]="{'modal-container':isMobile,'modal-Dcontainer':!isMobile}" [config]="config">
+
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                                        <div class="content">
+                                            <h3 *ngIf="userGoal.goal.location">Location</h3>
+
+                                            <div class="form-group row" *ngIf="userGoal.goal.location">
+                                                <div class="col-sm-12">
+                                                    <div class="location">
+                                                        <i class="icon-location-icon"></i>
+                                                        <input type="text"
+                                                               name="address"
+                                                               disabled
+                                                               [(ngModel)]="userGoal.goal.location.address"
+                                                               class="form-control place-autocomplete"
+                                                               placeholder="{{ 'goal.location_ex'|translate }}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-xs-12">
+                                                    <h3>{{ 'goal.priority'|translate }}</h3>
+
+                                                    <h6 class="hidden-xs">{{ "goal.deside"|translate }}</h6>
+
+                                                    <div class="priority purple-checkbox">
+
+                                                        <label class="relative">
+                                                            <md-checkbox class="example-margin" name="urgent" [(ngModel)]="userGoal.urgent" disableRipple>
+                                                                {{ 'goal.urgent'|translate }}
+                                                            </md-checkbox>
+
+                                                        </label>
+
+                                                        <label class="relative">
+                                                            <md-checkbox class="example-margin" name="important" [(ngModel)]="userGoal.important" disableRipple>
+                                                                {{ 'goal.important'|translate }}
+                                                            </md-checkbox>
+                                                        </label>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <h3 [ngClass]="{'no-marginb' : !isMobile}" >{{ 'my_bucket_list.notes'|translate }}</h3>
+
+                                            <p class="hidden-xs">
+
+                                                <i class="icon-pencil"></i>
+                                                {{ 'goal.take_note'|translate }}
+                                            </p>
+
+                                            <div class="form-group row">
+                                                <div class="col-xs-12">
+                                                <textarea class="form-control"
+                                                          name="note"
+                                                          [(ngModel)]="userGoal.note"
+                                                          placeholder="{{ 'goal.note_p'|translate }}"
+                                                          [ngClass]="{'formHeight':isMobile}">
+
+                                                </textarea>
+                                                </div>
+                                            </div>
+                                            <br *ngIf="(complete.switch == 1)"/>
+
+                                            <h3 class="no-marginb" *ngIf="!(complete.switch == 1)">{{ "tasks"|translate }}</h3>
+
+                                            <p class="hidden-xs" *ngIf="!(complete.switch == 1)">
+
+                                                <i title="Notes" class="icon-step-list"></i>
+                                                {{ "goal.complete_step"|translate }}
+                                            </p>
+
+                                            <div class="progress " *ngIf="!(complete.switch == 1)">
+                                                <section class="progress-section">
+                                                    <span>{{ complatedPercent | round}} %</span>
+                                                    <md-progress-bar
+                                                            class="example-margin"
+                                                            [value]="complatedPercent">
+                                                    </md-progress-bar>
+                                                </section>
+                                            </div>
+
+                                            <div dnd-sortable-container [sortableData]="userGoal.formatted_steps">
+                                                <div class="form-group row"
+                                                     *ngFor="let step of userGoal.formatted_steps; let i = index"
+                                                     dnd-sortable
+                                                     [sortableIndex]="i"
+                                                     [hidden]="step.switch || (!step.text && complete.switch == 1)"
+                                                     [ngClass]="{'noselect': !step.text}">
+
+                                                    <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
+
+                                                        <label class="relative">
+                                                            <md-checkbox class="example-margin" name="switch{{i}}" [(ngModel)]="step.switch" *ngIf="step.text" (ngModelChange)="complatedPercent = getCompleted(userGoal)" disableRipple [disabled]="complete.switch == 1"></md-checkbox>
+                                                        </label>
+
+                                                    </div>
+
+                                                    <div class="col-xs-10 col-sm-11">
+                                                        <div class="to-do-list">
+
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   [ngClass]="{'market-step': step.switch}"
+                                                                   [ngModel]="step.text"
+                                                                   [disabled]="complete.switch == 1"
+                                                                   (ngModelChange)="generateStep($event, userGoal.formatted_steps, i)"
+                                                                   name="stepText-{{i}}"
+                                                                   placeholder="{{ 'goal.add_step'|translate }}">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <p (click)="completedStepsShow = !completedStepsShow"
+                                                   *ngIf="completedStepCount" class="text-purple">
+                                                    <span *ngIf="!completedStepsShow">{{ "show" |translate }}</span>
+                                                    <span *ngIf="completedStepsShow">{{ "hide" |translate }}</span> {{ completedStepCount}} {{ "completed" |translate }}
+                                                </p>
+
+                                                <div class="form-group row"
+                                                     *ngFor="let step of userGoal.formatted_steps; let k = index"
+                                                     [hidden]="!completedStepsShow || !step.switch">
+
+                                                    <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
+
+                                                        <label class="relative">
+                                                            <md-checkbox class="example-margin" name="switch{{k}}" [(ngModel)]="step.switch" (ngModelChange)="complatedPercent = getCompleted(userGoal)" disableRipple [disabled]="complete.switch == 1"></md-checkbox>
+
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="col-xs-10 col-sm-11">
+                                                        <div class="to-do-list">
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   [(ngModel)]="step.text"
+                                                                   [disabled]="complete.switch == 1"
+                                                                   name="stepText{{ k }}"
+                                                                   placeholder="{{ 'goal.add_step'|translate }}">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    <hr/>
+                                </div>
+                            </div>
+                            </perfect-scrollbar>
+
+                            </div>
+                        </div>
+                        <div class="row modal-bottom">
+                            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                                <a md-button  (click)="save()"
+                                   class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
+                                <a md-button *ngIf="first" (click)="first=!first; second=!second"
+                                   class="btn btn-transparent">{{ "next"|translate }}</a>
+                                <a md-button *ngIf="second" (click)="first=!first; second=!second"
+                                   class="btn btn-transparent">{{ "prev"|translate }}</a>
+                                <a md-button (click)="showDetails = ! showDetails"
+                                   class="btn btn-transparent">
+                                    <span>{{ 'forget'|translate | uppercase}}</span>
+                                </a>
+                            </div>
+                        </div>
+
+                </div>
+
+
+
+                <div *ngIf="showDetails">
+                    <div class="delete-message">
+                        <div class="delete-content">
+                            <h3 [innerHTML]="'delete_message'|translate|uppercase"></h3>
+                            <a md-button  (click)="removeUserGoal()"
+                               class="btn btn-transparent">{{ 'btn_delete'|translate| uppercase}}</a>
+                            <a md-button (click)="showDetails=!showDetails"
+                               class="btn btn-purple">{{ 'btn_cancel'|translate| uppercase}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<bl-loading mode="indeterminate" *ngIf="!load"></bl-loading>

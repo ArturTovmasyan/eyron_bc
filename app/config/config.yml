@@ -1,0 +1,499 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: "@ApplicationAffiliateBundle/Resources/config/services.yml" }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    node_path: /usr/local/bin/node
+    matches_user_maximum_number: 100
+    locale: en
+    languages:
+       en: English
+       ru: Русский
+       fr: French
+       nl: Dutch
+    tablet:
+        with: 640
+        height: 640
+    mobile:
+        with: 480
+        height: 320
+    list:
+        with: 770
+        height: 540
+    cover:
+        with: 1280
+        height: 720
+
+framework:
+    esi:            { enabled: true }
+    fragments:      { path: /_proxy }
+    translator:      { fallbacks: ["%locale%"] }
+    ide: "phpstorm://open?file=%%f&line=%%l"
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        assets_version: v635
+
+    default_locale:  en
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+#        name: %session_name%
+#        cookie_domain: "%cookie_domain%"
+        # handler_id set to null will use default session handler from php.ini
+#        cookie_lifetime: 86400
+#        gc_maxlifetime: 1800
+#        handler_id:  ~
+        gc_probability: 0
+        save_path: ~
+    fragments:       ~
+    http_method_override: true
+
+#        gc_maxlifetime: 50 #50 seconds - only needed for testing. Dont use this in a production environment
+#        gc_probability: 1 #only needed for testing. Dont use this in a production environment
+#        gc_divisor: 1 #only needed for testing. Dont use this in a production environment
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form:
+        resources:
+          - 'AppBundle:Form:multipleFile.html.twig'
+          - 'AppBundle:Form:multipleBlog.html.twig'
+          - 'AppBundle:Form:storyMultipleFile.html.twig'
+          - 'AppBundle:Form:location.html.twig'
+          - 'AppBundle:Form:multipleVideo.html.twig'
+          - 'A2lixTranslationFormBundle::default.html.twig'
+          - 'SonataCoreBundle:Form:datepicker.html.twig'
+          - 'ApplicationAffiliateBundle:Form:fields.html.twig'
+
+    globals:
+        production: %production%
+        project_name: %project_name%
+        google_api_key: %google_api_key%
+        ga_id: %ga_id%
+        facebook_api_id: %facebook_client_id%
+        booking_aid: %booking_aid%
+        env_prefix: ~
+        remote_console: %remote_console%
+        iframe_host: %iframe_host%
+        ang2_host: %apihost%
+
+    paths:
+        '%kernel.root_dir%/../web': ~
+
+
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [AppBundle, ApplicationUserBundle ]
+    #java: /usr/bin/java
+    filters:
+        uglifyjs2:
+            # the path to the uglifyjs executable
+            bin: "%kernel.root_dir%/Resources/node_modules/bin/uglifyjs"
+        uglifycss:
+            bin: "%kernel.root_dir%/Resources/node_modules/bin/uglifycss"
+        cssrewrite: ~
+        less:
+            node: /usr/local/bin/node
+            node_paths: [/usr/local/lib/node_modules]
+            apply_to: "\.less$"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        entity_listener_resolver: bl.settings.listener.resolver
+        default_entity_manager: default
+        result_cache_driver: apc
+        query_cache_driver: apc
+        dql:
+            datetime_functions:
+                date:           Oro\ORM\Query\AST\Functions\SimpleFunction
+                hour:           Oro\ORM\Query\AST\Functions\SimpleFunction
+                dayofweek:      Oro\ORM\Query\AST\Functions\SimpleFunction
+            numeric_functions:
+                timestampdiff:  Oro\ORM\Query\AST\Functions\Numeric\TimestampDiff
+                ACOS: DoctrineExtensions\Query\Mysql\Acos
+                SIN: DoctrineExtensions\Query\Mysql\Sin
+                RADIANS: DoctrineExtensions\Query\Mysql\Radians
+                COS: DoctrineExtensions\Query\Mysql\Cos
+                week: Oro\ORM\Query\AST\Functions\SimpleFunction
+                day: Oro\ORM\Query\AST\Functions\SimpleFunction
+                month: Oro\ORM\Query\AST\Functions\SimpleFunction
+            string_functions:
+                match_against: AppBundle\Extensions\Doctrine\MatchAgainst
+        filters:
+            # An array of filters
+            publish_filter:
+                class:                AppBundle\Filter\PublishFilter
+                enabled:              false
+            archived_goal_filter:
+                class:                AppBundle\Filter\ArchivedGoalFilter
+                enabled:              true
+            visibility_filter:
+                class:                AppBundle\Filter\VisibilityFilter
+                enabled:              true
+
+        mappings:
+            loggable:
+                type: annotation
+                alias: Gedmo
+                prefix: Gedmo\Loggable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport:  "%mailer_transport%"
+    host:       "%mailer_host%"
+    username:   "%mailer_user%"
+    password:   "%mailer_password%"
+    spool:     { type: memory }
+
+
+#    fos user bundle
+fos_user:
+    service:
+        mailer: bl.user.mailer
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Application\UserBundle\Entity\User
+    group:
+        group_class:   Application\UserBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager
+    service:
+        user_manager: sonata.user.orm.user_manager
+    registration:
+            form:
+                type: bl_user_registration
+                handler: bl_user.form.handler.registration
+    resetting:
+        email:
+            template: FOSUserBundle:Resetting:email.html.twig
+
+    from_email:
+        address: "info@%project_name%.com"
+        sender_name: "%email_sender%"
+
+
+# fos rest bundle
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: false
+    body_converter:
+                enabled: true
+    format_listener: false
+    view:
+        view_response_listener: true
+    routing_loader:
+        default_format: json
+        include_format: false
+
+#    hwi oauth configs
+hwi_oauth:
+    firewall_names: [main]
+    resource_owners:
+            facebook:
+                type:                facebook
+                client_id:           "%facebook_client_id%"
+                client_secret:       "%facebook_client_secret%"
+                scope:               "public_profile user_friends email"
+                infos_url:           "https://graph.facebook.com/me?fields=id,email,first_name,last_name,gender,birthday,picture"
+            google:
+                type:                google
+                client_id:           "%google_client_id%"
+                client_secret:       "%google_client_secret%"
+                scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/plus.stream.write https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.media.upload"
+            twitter:
+                type:                twitter
+                client_id:           "%twitter_client_id%"
+                client_secret:       "%twitter_client_secret%"
+
+# sonata block configuration
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.admin.block.search_result:
+            contexts: [admin]
+
+        sonata.block.service.text:
+        sonata.block.service.action:
+        sonata.block.service.rss:
+
+# sonata admin configuration
+sonata_admin:
+    dashboard:
+        blocks:
+            # display a dashboard block
+            - { position: left, type: sonata.admin.block.admin_list }
+    show_mosaic_button: true
+    security:
+        handler: sonata.admin.security.handler.role
+    templates:
+        preview:  AppBundle:Admin:preview.html.twig
+
+sonata_user:
+    security_acl:     false
+    impersonating_route:    sonata_admin_dashboard
+    class:
+        user:         Application\UserBundle\Entity\User
+        group:        Application\UserBundle\Entity\Group
+    admin:
+        user:
+            class: Application\UserBundle\Admin\Model\UserAdmin
+            controller: 'AppBundle:Admin/CRUD'
+
+# stfo doctrine extensions
+stof_doctrine_extensions:
+    default_locale: en
+    translation_fallback: true
+    orm:
+        default:
+            timestampable: true
+            sluggable: true
+            translatable: true
+            loggable: true
+            blameable: true
+
+# tinumce
+stfalcon_tinymce:
+    include_jquery:       false
+    tinymce_jquery:       false
+    language: en
+    theme:
+          # Simple theme: same as default theme
+          simple:
+               plugins:
+                   - "advlist autolink lists link image charmap print preview hr anchor pagebreak"
+                   - "searchreplace wordcount visualblocks visualchars code fullscreen"
+                   - "insertdatetime media nonbreaking save table contextmenu directionality"
+                   - "emoticons template paste textcolor"
+               toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+               toolbar2: "print preview media | forecolor backcolor emoticons | stfalcon | example"
+               image_advtab: true
+
+a2lix_translation_form:
+    locales: [en, ru]                       # [Optionnal] Array of translations locales. Can be specified in the form.
+    default_required: false
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        goal_list_small:
+            quality: 100
+            filters:
+                central_crop: { size: [370, 230] }
+            post_processors:
+                opt_post_processor: {}
+
+        story_homepage_small:
+            quality: 100
+            filters:
+                central_crop: { size: [106, 83] }
+            post_processors:
+                opt_post_processor: {}
+
+        slide_max_size:
+            quality: 100
+            filters:
+                central_crop: { size: [1280, 900] }
+            post_processors:
+                  opt_post_processor: {}
+
+        goal_list_horizontal:
+            quality: 100
+            filters:
+                central_crop: { size: [770, 230] }
+            post_processors:
+                opt_post_processor: {}
+
+        goal_list_vertical:
+            quality: 100
+            filters:
+                central_crop: { size: [370, 540] }
+            post_processors:
+                opt_post_processor: {}
+
+        goal_list_big:
+            quality: 100
+            filters:
+                central_crop: { size: [770, 540] }
+            post_processors:
+                opt_post_processor: {}
+
+        goal_admin_list:
+            quality: 100
+            filters:
+                central_crop: { size: [90, 90] }
+            post_processors:
+                opt_post_processor: {}
+
+        goal_slider_image:
+            quality: 100
+            filters:
+                thumbnail: { size: [780, 435], mode: inset }
+            post_processors:
+                opt_post_processor: {}
+
+        goal_bucketlist:
+            quality: 100
+            filters:
+                central_crop: { size: [320, 180] }
+            post_processors:
+                opt_post_processor: {}
+
+        goal_cover:
+            quality: 100
+            filters:
+                central_crop: { size: [1280, 680] }
+            post_processors:
+                opt_post_processor: {}
+
+        user_cover:
+            quality: 100
+            filters:
+                central_crop: { size: [1280, 274] }
+            post_processors:
+                opt_post_processor: {}
+
+        user_image:
+            quality: 100
+            filters:
+                central_crop: { size: [140, 140] }
+            post_processors:
+                opt_post_processor: {}
+
+        user_icon:
+            quality: 100
+            filters:
+                central_crop: { size: [150, 150] }
+            post_processors:
+                opt_post_processor: {}
+
+        goal_bg:
+            quality: 100
+            filters:
+                thumbnail: { size: [780, 440], mode: outbound }
+            post_processors:
+                opt_post_processor: {}
+
+        mobile_goal:
+            quality: 100
+            filters:
+                relative_resize: { widen: 640 }
+            post_processors:
+                opt_post_processor: {}
+
+        user_goal:
+            quality: 100
+            filters:
+                relative_resize: { widen: 200 }
+            post_processors:
+                opt_post_processor: {}
+
+        affiliate_image:
+            quality: 100
+            filters:
+                thumbnail: { size: [320, 180], mode: outbound }
+            post_processors:
+                opt_post_processor: {}
+
+knp_markdown:
+    parser:
+        service: markdown.parser.max
+
+mobile_detect:
+    redirect:
+        mobile: ~
+        tablet: ~
+    switch_device_view: ~
+
+
+rms_push_notifications:
+  android:
+      timeout: 60 # Seconds to wait for connection timeout, default is 5
+      gcm:
+          api_key: "%android_api%" # This is titled "Server Key" when creating it
+  ios:
+      timeout: 60 # Seconds to wait for connection timeout, default is 60
+      sandbox: false
+#      pem: %kernel.root_dir%/Certificates/luvbyrdDev.pem
+      pem: %kernel.root_dir%/Certificates/production_Certificates.pem
+#      passphrase: %kernel.root_dir%/Certificates/Certificates_dev.p12
+
+genemu_form:
+    select2:
+        enabled: true
+        configs:
+            width: 100%
+            allowClear: false
+            minimumInputLength: 0
+
+monolog:
+    channels: ["mailchimp", "mandrill"]
+    handlers:
+        mailchimp:
+            type:  stream
+            path:  "%kernel.logs_dir%/mailchimp.log"
+            channels: [mailchimp]
+        mandrill:
+            type:  stream
+            path:  "%kernel.logs_dir%/mandrill.log"
+            channels: [mandrill]
+
+lexik_maintenance:
+    driver:
+        class: '\Lexik\Bundle\MaintenanceBundle\Drivers\FileDriver'
+        options: {file_path: %kernel.root_dir%/lock}
+
+nelmio_cors:
+    defaults:
+        allow_credentials: false
+        allow_origin: []
+        allow_headers: []
+        allow_methods: []
+        expose_headers: []
+        max_age: 0
+        hosts: []
+        origin_regex: false
+    paths:
+        '^/':
+            origin_regex: true
+            allow_origin: ['*']
+            allow_headers: ['*']
+            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+            max_age: 3600
+            hosts: ['^/']

@@ -1,0 +1,46 @@
+{# If goal exists, uses that, if not, then will use the goal parents scopes goal #}
+{% if app.user.id is defined %}
+    {% set userId = app.user.id %}
+{% else %}
+    {% set userId = 0 %}
+{% endif %}
+<ul data-ng-controller="goalFooter" class="row no-gutter"
+    {% if goal is defined and goalInner is not defined %} data-ng-init="completed=true;goal.is_my_goal={{ goal.isMyGoal|default(0) }};goal.id={{ goal.id }}" {% endif %} data-ng-cloak>
+
+    <li class="col-xs-6" data-ng-class="{transparent: (goal.is_my_goal && goal.is_my_goal !== 0) || !completed}">
+        <a href="javascript:void(0)"
+           data-ng-cloak
+           data-ng-show="!goal.is_my_goal && completed"
+           data-ls-goal-id="[[ ::goal.id ]]"
+           data-ls-goal-manage
+           data-ng-click="goal.is_my_goal = 1{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}"
+           class="ng-hide">
+            <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+            <span class="text">{{ 'add'|trans | capitalize}}</span>
+        </a>
+
+        <span  class="ng-hide" data-ng-show="(goal.is_my_goal && goal.is_my_goal !== 0) || !completed">
+            <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+            <span class="text">{{ 'added'|trans | capitalize}}</span>
+        </span>
+
+    </li>
+    
+    <li class="col-xs-6" data-ng-class="{transparent: (goal.is_my_goal && goal.is_my_goal === 2 )|| !completed}" data-ng-init="success[ goal.id ] = false">
+        <span class="ng-hide" data-ng-show="goal.is_my_goal !== 2 && completed">
+            <a href="javascript:void(0)"
+               data-ng-cloak
+               data-ls-goal-id="[[ ::goal.id ]]"
+               data-ls-user-goal-manage
+               data-ng-click="goal.is_my_goal = 1; completed = false{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
+                 <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                 <span class="text">{{ 'done'|trans | capitalize}}</span>
+             </a>
+        </span>
+
+        <span class="ng-hide" data-ng-show="(goal.is_my_goal && goal.is_my_goal === 2 )|| !completed" id="success[[ ::goal.id]]">
+             <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+            <span class="text">{{ 'completed'|trans | capitalize}}</span>
+        </span>
+    </li>
+</ul>

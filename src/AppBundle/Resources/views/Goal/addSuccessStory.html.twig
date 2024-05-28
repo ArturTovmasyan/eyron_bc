@@ -1,0 +1,190 @@
+<div id="story-modal" data-ng-controller="goalDone" class="overflow">
+    <div data-ng-if="newAdded" class="email">{{ "message_on_top_of_the_page" | trans | upper }}</div>
+    <div class="modal-top">
+        <figure data-ng-if="userGoal.goal.cached_image">
+            <img data-ng-if="userGoal.goal.cached_image" data-ng-src="[[ userGoal.goal.cached_image]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
+        </figure>
+
+        <span class="overlay"></span>
+
+        <div>
+            <h2 data-ng-class="{'title-smaller': userGoal.goal.title.length > 35, 'title-top': !userGoal.goal.author.show_name}">
+                <span>[[ userGoal.goal.title ]]</span>
+            </h2>
+            {% if app.user %}
+                <p data-ng-if="userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == {{ app.user.id }}">
+                    [[ userGoal.goal.author.show_name ]]
+                </p>
+            {% endif %}
+            <ul>
+                <li>
+                    <a href="javascript:void(0)">
+                        {{ 'block_listed'|trans | capitalize }}
+                        <span>[[ userGoal.goal.stats.listedBy | number ]]</span>
+                        <i class="icon-user-small"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        {{ 'block_completed'|trans | capitalize }}
+                        <span>[[ userGoal.goal.stats.doneBy | number ]]</span>
+                        <i class="icon-user-small"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="fb-root"></div>
+    <div class="row bg-grey">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2 class="text-grey-dark">{{ 'share_title'|trans }}</h2>
+                </div>
+                <div class="col-sm-4" data-ng-cloak>
+                    <div fb-share class="fb-share-button"
+                         data-fb-name="userGoal.goal.slug"
+                         data-fb-link="goalLink"
+                         data-fb-caption="BUCKETLIST127.COM"
+                         data-fb-picture="userGoal.goal.cached_image"
+                         data-fb-message="{{ 'facebook_post_text'|trans }}"
+                         data-fb-description="userGoal.goal.description">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% set arrayMonth = {
+    0:'form.birth_date_month'|trans({}, 'FOSUserBundle'),
+    1:'form.month_january'|trans({}, 'FOSUserBundle'),
+    2:'form.month_february'|trans({}, 'FOSUserBundle'),
+    3:'form.month_march'|trans({}, 'FOSUserBundle'),
+    4:'form.month_april'|trans({}, 'FOSUserBundle'),
+    5:'form.month_may'|trans({}, 'FOSUserBundle'),
+    6:'form.month_june'|trans({}, 'FOSUserBundle'),
+    7:'form.month_july'|trans({}, 'FOSUserBundle'),
+    8:'form.month_august'|trans({}, 'FOSUserBundle'),
+    9:'form.month_september'|trans({}, 'FOSUserBundle'),
+    10:'form.month_october'|trans({}, 'FOSUserBundle'),
+    11:'form.month_november'|trans({}, 'FOSUserBundle'),
+    12:'form.month_december'|trans({}, 'FOSUserBundle') }
+    %}
+
+    <div data-ng-show="newAdded" class="ng-hide" data-ng-init="myMonths={{ arrayMonth |json_encode()}}">
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+
+                <h3 class="story-title text-grey-dark">{{ "success_story.completion_date"|trans }}</h3>
+
+                <p class="complete-text">{{ "success_story.complete_edit_text"|trans }}</p>
+
+                <div class="form-group row">
+                    <div class="col-sm-4 date"
+                         data-ng-init="defaultYear = '{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}';
+                                        defaultDay = '{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}';
+                                        defaultMonth = '{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}'">
+                        <ui-select search-enabled="false" data-ng-model="$parent.year" skip-focusser="true">
+                            <ui-select-match placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
+                                <span>[[ $select.selected ]]</span>
+                            </ui-select-match>
+
+                            <ui-select-choices repeat="y in years">
+                                <span data-ng-bind="y"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+                    <div class="col-sm-4 date">
+                        <ui-select search-enabled="false" data-ng-model="$parent.month" skip-focusser="true">
+                            <ui-select-match placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
+                                <span>[[ $select.selected ]]</span>
+                            </ui-select-match>
+
+                            <ui-select-choices repeat="m in months">
+                                <span data-ng-bind="m"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-sm-4 date">
+
+                        <ui-select search-enabled="false" data-ng-model="$parent.day" skip-focusser="true">
+                            <ui-select-match placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
+                                <span>[[ $select.selected ]]</span>
+                            </ui-select-match>
+
+                            <ui-select-choices repeat="day in days">
+                                <span data-ng-bind="day"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <hr/>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <h3 class="story-title text-grey-dark">{{ 'success_story.title'|trans }}</h3>
+        </div>
+    </div>
+
+        {#{{ form_errors(form) }}#}
+
+    <form id="goal-done-form" action="#">
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        {#<i class="icon-pencil"></i>#}
+                        <textarea required="required" name="story" data-ng-model="userGoal.story.story" class="form-control" placeholder="{{ 'success_story.add'|trans }}" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="text-center" data-ng-init="initDropzone('{{ path('add_goal_success_story_images') }}')">
+                    <div class="dropzone" id="goalDropzone">
+                        <div class="dz-message">
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <h3 class="text-dark-gray">
+                                        <i class="icon-cloud"></i>{{ 'drag_drop'|trans }}
+                                    </h3>
+                                </div>
+                            </div>
+
+                            <p>{{ 'upload'|trans | raw}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {#{{ form_widget(form.files, {'attr': { "value" : "[[ files ]]" } }) }}#}
+
+                <div class="form-group">
+                    <label class="text-grey-dark story-title">Video</label>
+                    <video-link data-ng-repeat="(k, video) in userGoal.videos_array"
+                        data-key="k"
+                        data-limit="3"
+                        data-link="video.link"
+                        data-array="userGoal.videos_array">
+                    </video-link>
+                </div>
+                {#<p class="text-center error-message" data-ng-if="noFile">{{ 'success_story.error_without_file'|trans }}</p>#}
+                <p class="text-center error-message" data-ng-if="noStory">{{ 'success_story.error_widht_file'|trans }}</p>
+                <p class="text-center error-message" data-ng-if="invalidYear">{{ 'success_story.error_day_in_month1'|trans }} [[ dayInMonth]] {{ 'success_story.error_day_in_month2'|trans }}</p>
+                <p class="text-center error-message" data-ng-if="uncompletedYear">{{ 'success_story.error_uncomplete_year'|trans }}</p>
+
+            </div>
+        </div>
+
+        <div class="text-center bottom-modal">
+            <a href="javascript:void(0)" data-ng-click="save()" class="btn btn-purple button-lg">{{ 'btn_save'|trans }}</a>
+            <a href="javascript:void(0)" rel="modal:close" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
+        </div>
+
+    </form>
+
+</div>

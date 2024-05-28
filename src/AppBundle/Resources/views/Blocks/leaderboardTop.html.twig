@@ -1,0 +1,50 @@
+{% if user is defined %}
+    <div data-ng-controller="topInLeaderboardController"
+         id="leaderboard-list"
+         class="ng-hide"
+         data-ng-show="normOfTop > 0">
+        <div class="bg-white padding round margin-top"
+             data-ng-cloak
+             data-ng-init = "userId = {{ user.id }}">
+
+            <div class="row">
+                <div class="col-xs-10">
+                    <a href="{{ path('leaderboard') }}" class="heading text-gray">
+                        {#<i class="leaderboard-icon"></i>#}
+                        <i class="icon-suggest-icon"></i>
+                        <span class="text">{{ 'leaderboard.name'|trans | capitalize }}</span>
+                    </a>
+                </div>
+
+                <div class="col-xs-2 text-right">
+                    <a href="javascript:void(0)" data-ng-click="refreshLeaderboard()" class="load" id="goalFriendLoad"></a>
+                </div>
+            </div>
+
+            <hr/>
+
+            <ul class="bg-white round badge-place goals-animate"
+                data-ng-cloak
+                data-ng-repeat="(k, user) in users"
+                data-ng-if="user">
+                <li class="text-gray">
+                    <i class="badge-[[ (k == 'motivator')?2:(k == 'innovator')?3:1]]"></i>
+                </li>
+
+                <li>
+                    <figure class="img-circle">
+                        {% set className = "user-no" ~ random(4) %}
+                        <img data-ng-if="user.user.image_path.length" data-ng-src="[[ user.user.image_path]]" alt="user image"/>
+                        <p data-ng-if="!user.user.image_path.length" class="no-image text-white {{ className }}">[[ user.user.first_name  | limitTo: 1 | uppercase ]] [[ user.user.last_name | limitTo: 1 | uppercase ]]</p>
+                    </figure>
+                </li>
+
+                <li>
+                    <a href="{{ env_prefix }}/profile/[[ user.user.u_id + (k == 'innovator'?'#/owned':'')]]"  class="text-dark-gray">[[ getFullName(user.user)]]</a>
+                </li>
+
+                <li class="text-gray">[[ user.score]]</li>
+            </ul>
+        </div>
+    </div>
+{% endif %}

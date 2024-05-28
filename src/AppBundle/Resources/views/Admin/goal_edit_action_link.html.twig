@@ -1,0 +1,11 @@
+{% if admin.isGranted('VIEW', object) and admin.hasRoute('show') %}
+
+    {% if not object.archived and object.slug %}
+        <a class="sonata-action-element" href="{{ path('inner_goal', {'slug': object.slug}) }}" target="_blank" title="{{ 'admin.label.name.goal_link'|trans() }}">
+            <i class="glyphicon glyphicon-home"></i>
+            {{ 'admin.label.name.goal_link'|trans() }}
+        </a>
+    {% endif %}
+{% endif %}
+
+

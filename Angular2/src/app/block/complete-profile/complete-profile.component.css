@@ -1,0 +1,76 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.complete-profile {
+  margin-bottom: 10px;
+}
+.complete-profile em {
+  padding: 0 0 5px 15px;
+  display: block;
+  font-size: 14px;
+}
+.complete-profile ol {
+  padding: 10px 35px;
+  background-color: #e6e6e6;
+}
+.complete-profile ol li {
+  color: #7d7d7d;
+  clear: both;
+}
+.complete-profile ol li i {
+  cursor: default;
+}
+.complete-profile ol li a,
+.complete-profile ol li span {
+  color: #666666;
+  font-size: 14px;
+}
+.complete-profile ol li a i,
+.complete-profile ol li span i {
+  margin-left: 25px;
+}
+.complete-profile ol li a i.question-icon,
+.complete-profile ol li span i.question-icon {
+  float: right;
+}
+.complete-profile ol li a i {
+  cursor: pointer;
+}
+.complete-profile ol li a:hover {
+  color: #666666;
+}
+.complete-profile ol li a:hover i {
+  color: #7724f6;
+}
+.complete-profile i {
+  font-size: 25px;
+  vertical-align: middle;
+}
+@media (min-width: 768px) {
+  .complete-profile {
+    margin-bottom: 20px;
+  }
+  .complete-profile em {
+    padding: 0 0 5px 15px;
+    font-size: 16px;
+  }
+  .complete-profile ol {
+    padding: 20px 15px 20px 50px;
+  }
+  .complete-profile ol li a,
+  .complete-profile ol li bdi {
+    font-size: 16px;
+  }
+  .complete-profile ol li a i,
+  .complete-profile ol li bdi i {
+    margin-left: 25px;
+  }
+  .complete-profile i {
+    font-size: 30px;
+  }
+}

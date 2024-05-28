@@ -1,0 +1,11 @@
+notification:
+  comment: написал коммент под вашей идеей
+  important_goal_comment: написал коммент под вашей важней идеей
+  reply: атветил на коммент под вашей идеей
+  important_goal_reply: атветил на коммент под вашей важней идеей
+
+admin:
+  label:
+    name:
+     comment: Коментарии
+     thread:  Thread

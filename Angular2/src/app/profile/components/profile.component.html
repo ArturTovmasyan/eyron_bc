@@ -1,0 +1,229 @@
+<profile-header (onHover)="hideJoin($event)" [userInfo]="uId"></profile-header>
+
+<!--{% block content_container %}-->
+<!--{% set myProfile = true %}-->
+<!--{% set my_router_params =  app.request.query.all %}-->
+<!--{% set routeName = 'user_profile_single' %}-->
+<!--{% if profileUser.id != app.user.id %}-->
+<!--{% set myProfile = false %}-->
+<!--{% set routeName = 'user_profile' %}-->
+<!--{% endif %}-->
+<div class="bucketlist">
+    <!--data-ng-init="-->
+    <!--profile.status = '{{ (status or myProfile )? status: activity}}';-->
+    <!--profile.condition = '{{ status? (status == 'completed-goals')? 2: 1: 0}}';-->
+    <!--profile.isDream = '{{ app.request.get('d')? 'true': 'false' }}';-->
+    <!--profile.f_1 = '{{ app.request.get('f_1')? 'true': 'false'}}';-->
+    <!--profile.f_2 = '{{ app.request.get('f_2')? 'true': 'false' }}';-->
+    <!--profile.f_3 = '{{ app.request.get('f_3')? 'true': 'false' }}';-->
+    <!--profile.f_4 = '{{ app.request.get('f_4')? 'true': 'false' }}';-->
+    <!--profile.userId = '{{ profileUser.id }}';-->
+    <!--activeGoals = '{{ profileUser.getStats.active }}';-->
+    <!--{% if not myProfile %}ProfileItems.busy = true;{% endif %}-->
+    <!--"-->
+    <div class="container">
+        <div class="row">
+            <ul class="menu">
+                <li [ngClass]="{'active': type == 'activity' }">
+                    <a routerLink="/profile/{{ uId?uId:'my'}}/activity">
+                        {{ 'menu.activity'|translate }}
+                    </a>
+                </li>
+
+                <li [ngClass]="{'active': type == 'all' }">
+                    <a routerLink="/profile/{{ uId?uId:'my'}}/all">
+                        {{ (myProfile?'menu.bucket':'right_menu.show')|translate }}
+                    </a>
+                </li>
+                <li [ngClass]="{'active': type == 'active' }">
+                    <a routerLink="/profile/{{ uId?uId:'my'}}/active">
+                        {{ 'menu.active'|translate }}
+                    </a>
+                </li>
+                <li [ngClass]="{'active': type == 'completed' }">
+                    <a routerLink="/profile/{{ uId?uId:'my'}}/completed">
+                        {{ 'menu.completed'|translate}}
+                    </a>
+                </li>
+                <li [ngClass]="{'active': type == 'common' }" *ngIf="!myProfile">
+                    <a routerLink="/profile/{{ uId?uId:'my'}}/common">
+                        {{ 'menu.common'|translate}}
+                    </a>
+                </li>
+
+                <li [ngClass]="{'active': type == 'owned' }">
+                    <a routerLink="/profile/{{ uId?uId:'my' }}/owned">
+                        {{ 'menu.owned'|translate}}
+                    </a>
+                </li>
+
+                <li class="pull-right">
+                    <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="showCalendar = !showCalendar;showMap = false">
+                        <img src="assets/images/calendar-icon.svg" class="svg"/>
+                    </a>
+
+                    <a [ngClass]="{'map-marker-active': showMap}"
+                       (click)="showMap=!showMap;showCalendar = false">
+                        <img src="assets/images/map-icon.svg" class="svg"/>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide map-marker accordion burger"  [ngClass]="{'close-burger':!showMap,'burger':showMap}" *ngIf="showMap">
+        <map-single [locations]="locations"></map-single>
+         <!--style="width: 100%; height: 300px">-->
+    </div>
+
+    <hr/>
+    <div class="calendar-animate" *ngIf="showCalendar">
+        <calendar></calendar>
+    </div>
+
+    <!--{% if myProfile %}-->
+
+    <div class="container slide" *ngIf="myProfile && type != 'activity'">
+        <div class="row">
+
+            <div class="col-sm-12">
+                <form class="form-inline" action="#">
+                    <!--{# dream filter #}-->
+                    <label class="checkbox-inline" [ngClass]="{'checked-label': (isDream == true)}">
+                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="isDream" (change)="getData()" disableRipple></md-checkbox>
+                        <!--<input [(ngModel)]="isDream" type="checkbox" name="d" data-ng-true-value="'true'"-->
+                               <!--data-ng-false-value="'false'">-->
+                        {{ 'filter.dream'|translate}}
+                    </label>
+
+                    <label class="checkbox-inline" [ngClass]="{'checked-label': (urgentImportant == true)}">
+                        <md-checkbox class="example-margin" name="urgentImportant" [(ngModel)]="urgentImportant" (change)="getData()" disableRipple></md-checkbox>
+                        {{ 'filter.import_urgent'|translate}}
+                    </label>
+
+                    <label class="checkbox-inline" [ngClass]="{'checked-label': (urgentNotImportant == true)}">
+                        <md-checkbox class="example-margin" name="urgentNotImportant" [(ngModel)]="urgentNotImportant" (change)="getData()" disableRipple></md-checkbox>
+                        {{ 'filter.not_import_urgent'|translate}}
+                    </label>
+
+                    <label class="checkbox-inline" [ngClass]="{'checked-label': (notUrgentImportant == true)}">
+                        <md-checkbox class="example-margin" name="notUrgentImportant" [(ngModel)]="notUrgentImportant" (change)="getData()" disableRipple></md-checkbox>
+                        {{ 'filter.import_not_urgent'|translate}}
+                    </label>
+
+                    <label class="checkbox-inline" [ngClass]="{'checked-label': (notUrgentNotImportant == true)}">
+                        <md-checkbox class="example-margin" name="notUrgentNotImportant" [(ngModel)]="notUrgentNotImportant" (change)="getData()" disableRipple></md-checkbox>
+                        {{ 'filter.not_import_not_urgent'|translate}}
+                    </label>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!--{% endif %}-->
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div id="news-feed" class="user-activities" *ngIf="type == 'activity' && !busyInitial">
+                <my-activity [single]="true" [userId]="id"></my-activity>
+            </div>
+
+            <div [class.goals-information]="myProfile" [class.user-goals]="!myProfile"
+                 *ngIf="type != 'activity'"
+                 infinite-scroll
+                 [infiniteScrollDistance]="1"
+                 [infiniteScrollThrottle]="500"
+                 (scrolled)="onScroll()">
+                <!--data-infinite-scroll='ProfileItems.nextPage(profile)'-->
+                <!--data-infinite-scroll-disabled='ProfileItems.noItem || ProfileItems.busy'-->
+                <div *ngIf="userGoals && userGoals.length">
+                    <!--{% if myProfile %}-->
+                    <!--*ngIf="$parent.userGoalIds[$index] != 'removed'"-->
+                    <!--data-ng-init="goal = userGoal.goal; status = userGoal.status;$parent.userGoalIds[$index] = userGoal.id"-->
+                    <div *ngIf="myProfile">
+                        <!--class goal{{goal.id}}-->
+                        <div [ngClass]="{'active-idea': ((userGoal.status != 2) && userGoal.do_date)}"
+                             class="row goals-animate"
+                             *ngFor="let userGoal of userGoals;let i = index">
+                            <profile-goal [userGoal]="userGoal" [last]="i == userGoals.length - 1" [first]="i == 0"
+                                (onUserGoalChange)="updateUserGoal($event, i)">
+                            </profile-goal>
+                        </div>
+                    </div>
+                    <!--{% else%}-->
+                    <div *ngIf="!myProfile">
+                        <div class="row goals-animate"
+                             *ngFor="let userGoal of userGoals">
+                            <div class="col-sm-12">
+                                <div class="bg-white round">
+                                    <div class="idea-item">
+
+                                        <figure>
+                                            <app-goal [goal]="userGoal.goal? userGoal.goal:userGoal"></app-goal>
+
+                                            <activity-goal-footer [goal]="userGoal.goal? userGoal.goal: userGoal"></activity-goal-footer>
+                                        </figure>
+                                    </div>
+
+                                    <div [ngClass]="{'line': (userGoal.createComment && userGoal.showComment) || (userGoal.goal && userGoal.goal.createComment && userGoal.goal.showComment)}"></div>
+
+                                    <app-comment *ngIf="userGoal.createComment || (userGoal.goal && userGoal.goal.createComment)" [hidden]="!userGoal.showComment && (!userGoal.goal || !userGoal.goal.showComment)"
+                                                 [data]="{id: (userGoal && userGoal.goal && userGoal.goal.id)?userGoal.goal.id:userGoal.id, slug:(userGoal && userGoal.goal && userGoal.goal.slug)?userGoal.goal.slug:userGoal.slug,inner:false}">
+                                    </app-comment>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--{% endif %}-->
+                </div>
+
+                <bl-loading mode="indeterminate"  *ngIf="busy || (!userGoals && !noItem)"></bl-loading>
+            <p class="empty-text text-center"
+               *ngIf="(!userGoals || !userGoals.length) && noItem">
+                <!--data-ng-init="link = (activeGoals? '{{ path('user_profile_single', {'status': active }) }}': '{{ path('goals_list') }}')"-->
+                <!--{% if myProfile %}-->
+                                <span *ngIf="myProfile && isDream == 'true'">
+                                    {{ 'dream'|translate}}
+                                </span>
+                                <span *ngIf="(myProfile && !isDream) && (notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant)">
+                                    {{ 'my_bucket_list.filter'|translate}}
+                                </span>
+                                <span *ngIf="myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'completed'">
+                                    {{ 'my_bucket_list.complete'|translate}} <a data-ng-href="[[ link ]]" class="text-purple">{{ 'my_bucket_list.some_goal'|translate}}</a>
+                                </span>
+                                <span *ngIf="myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'active'">
+                                    {{ 'my_bucket_list.need_goal'|translate}} <a routerLink="/goal/create" class="text-purple">{{ 'my_bucket_list.add_some'|translate}}</a>
+                                </span>
+                                <span *ngIf="myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'all'">
+                                    {{ 'my_bucket_list.doing_here'|translate}} <a routerLink="/goal/create" class="text-purple">{{ 'my_bucket_list.add_goal'|translate}}</a>
+                                </span>
+                                <span *ngIf="myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'owned'">
+                                    {{ 'my_bucket_list.doing_here'|translate}} <a routerLink="/goal/create" class="text-purple">{{ 'my_bucket_list.create_goal'|translate}}</a>
+                                </span>
+                <!--{% else %}-->
+                                <span *ngIf="!myProfile">
+                                    {{ 'profile_empty'|translate}}
+                                </span>
+                <!--{% endif %}-->
+            </p>
+        </div>
+        </div>
+
+        <div class="col-md-4" >
+            <create-goal [myProfile]="myProfile" [myIdeasCount]="appUser?appUser.draft_count:'0'"></create-goal>
+            <overall-block *ngIf="uId && uId == 'my' && overall" [overall]="overall"></overall-block>
+            <top-ideas-block [type]="'suggest'"></top-ideas-block>
+            <top-ideas-block [type]="'featured'"></top-ideas-block>
+        </div>
+    </div>
+</div>
+<!--{% endblock %}-->
+
+<div class="list-tooltip"
+     [hidden]="!isHover" #tooltip>
+    <span class="arrow-up"></span>
+    {{ hoveredText |translate}}
+</div>

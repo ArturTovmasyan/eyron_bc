@@ -1,0 +1,79 @@
+{% extends base_template %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/app/js/merge-goal-image.js') }}"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="hidden-xs"><a href="{{ url('sonata_admin_dashboard') }}">{% trans %}Dashboard{% endtrans %}</a></li>
+    <li class="active hidden-xs">Goal Merge</li>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <h2 class="text-center">Goal Merge</h2>
+
+            <div class="row drafts idea-item">
+                <div class="col-sm-6">
+                    <figure class="relative">
+                       <h2>{{ goal.title }}</h2>
+                        <a href="#">
+                            <span class="overlay"></span>
+                            {% if goal.getListPhoto %} <img src="{{ goal.getListPhoto.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/>{% endif %}
+                        </a>
+                    </figure>
+
+                    <br />
+                    <div class="alert alert-danger" role="alert" style="padding: 15px; margin-left: 0">This goal would be archived after merging</div>
+                </div>
+
+                <div class="col-sm-6">
+                    <form action="#" method="post" class="form-inline">
+                        <div class="col-sm-8">
+
+                            {{ form_row(form.goal) }}
+
+                            <div>
+                                {{ form_row(form.tags) }}
+                            </div>
+                            <div>
+                                {{ form_row(form.successStory) }}
+                            </div>
+                            <div>
+                                {{ form_row(form.comment) }}
+                            </div>
+
+                            <div>
+                                {{ form_row(form.user) }}
+                            </div>
+
+                            {{ form_widget(form._token) }}
+
+                            {{ form_stylesheet(form) }}
+                            {{ form_javascript(form) }}
+
+                        </div>
+
+                        <div class="col-sm-4">
+                            <input type="submit" name="submit" class="btn btn-primary" value="Submit">
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 id="merge-goal-id"></h3>
+                            <img src="#" id="merge_image" style="display: none;width: 300px;height: 200px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+
+
+{% endblock %}

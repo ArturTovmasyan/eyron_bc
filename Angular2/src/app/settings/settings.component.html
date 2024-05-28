@@ -1,0 +1,271 @@
+<profile-header type="settings" [userInfo]="'my'"></profile-header>
+<div xmlns="http://www.w3.org/1999/html">
+    <div class="bucketlist settings-menu">
+        <div class="container">
+            <div class="row">
+                <ul class="menu">
+                    <li [class.active]="type == 'profile'">
+                        <a routerLink="/edit/profile">{{ 'user.profile'|translate }}</a>
+                    </li>
+                    <li [class.active]="type == 'notification'">
+                        <a routerLink="/edit/notification">{{ 'user.notification'|translate }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr/>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <bl-loading mode="indeterminate" *ngIf="!loading && (type != 'profile')"></bl-loading>
+                <div class="settings bg-white round" *ngIf="ready">
+                    <form action="#" method="POST" [formGroup]="form" enctype="multipart/form-data" (ngSubmit)="saveUserData(form.value)" class="form-horizontal text-center">
+
+                        <div *ngIf="type == 'profile'" class="row">
+                            <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0">
+
+                                <div *ngIf="saveMessage && !errorMessage" class="alert alert-success" role="alert">
+                                    {{ 'updated_user_data'|translate }}
+                                </div>
+
+                                <div *ngIf="removeMessage" class="alert alert-success" role="alert">
+                                    {{ 'remove_email'|translate }}
+                                </div>
+
+                                <div class="form-group row no-padding">
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" formControlName="firstName" placeholder="{{ 'form.firstName'|translate }}">
+                                        <control-messages [control]="form.controls.firstName"></control-messages>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" formControlName="lastName" placeholder="{{ 'form.lastName'|translate }}">
+                                        <control-messages [control]="form.controls.lastName"></control-messages>
+                                    </div>
+                                </div>
+                                <span *ngIf="errorMessage && errorMessage.bl_user_angular_settings" style="text-align: center;color: red">{{ errorMessage.bl_user_angular_settings }}</span>
+
+                                <div class="form-group row no-padding emails" *ngIf="!socialEmail || socialEmail != appUser.username">
+
+                                    <div class="col-sm-3 primary">
+                                        <label for="bl_user_settings_email">{{ 'primary_email'|translate }}</label>
+                                    </div>
+
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col-xs-2 text-center" *ngIf="ready">
+                                                <md-radio-group formControlName="primary" name="primary">
+                                                    <md-radio-button value="{{ email }}" checked="true"></md-radio-button>
+                                                </md-radio-group>
+                                            </div>
+
+                                            <div class="col-xs-10">
+                                                <input type="email" class="form-control" formControlName="email" value="{{ email }}" id="bl_user_settings_email" readonly placeholder="{{ 'form.email'|translate }}">
+                                            </div>
+                                        </div>
+                                        <span *ngIf="errorMessage && errorMessage.primary" style="text-align: center;color: red">{{ errorMessage.primary }}</span>
+                                    </div>
+
+                                </div>
+
+                                <div *ngIf="userEmails">
+                                    <div *ngFor="let item of userEmails" class="form-group row emails">
+
+                                        <!--TODO must fix token error after add Email-->
+                                        <div *ngIf="appUser.user_emails[item] && !appUser.user_emails[item].token">
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-xs-2 text-right">
+                                                        <md-radio-group formControlName="primary" name="primary">
+                                                            <md-radio-button value="{{ item }}"></md-radio-button>
+                                                        </md-radio-group>
+                                                    </div>
+
+                                                    <div class="col-xs-10">
+                                                        <div class="delete-email">
+                                                            <a (click)="removeEmail(item)" class="delete-link icon">x</a>
+                                                            <input name="userEmail" class="form-control" readonly type="text" value="{{ item }}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--{% else %}-->
+
+                                        <!--{% set token = true %}-->
+
+                                        <!--{% endif %}-->
+                                    </div>
+                                    <!--{% endfor %}-->
+                                </div>
+                                <!--{% endif %}-->
+
+                                <div class="form-group row" *ngIf="token">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" formControlName="addEmail" placeholder="{{ 'form.add_email'|translate }}">
+                                        <control-messages [control]="form.controls.addEmail"></control-messages>
+                                        <span *ngIf="errorMessage && errorMessage.addEmail" style="text-align: center;color: red">{{ errorMessage.addEmail }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row" *ngIf="!socialEmail || (socialEmail !== email)">
+                                    <div class="col-sm-12">
+                                        <input type="password" class="form-control" formControlName="currentPassword" placeholder="{{ 'form.current_password'|translate }}">
+                                        <control-messages [control]="form.controls.currentPassword"></control-messages>
+                                        <span *ngIf="errorMessage && errorMessage.currentPassword" style="text-align: center;color: red">{{ errorMessage.currentPassword }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row no-padding" *ngIf="!socialEmail || (socialEmail !== email)">
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control" formControlName="password" placeholder="{{ 'form.new_password'|translate }}">
+                                        <control-messages [control]="form.controls.password"></control-messages>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control" formControlName="plainPassword" placeholder="{{ 'form.re_new_password'|translate }}">
+                                        <control-messages [control]="form"></control-messages>
+                                    </div>
+                                </div>
+
+                                <br/>
+                                <div class="form-group row">
+
+                                    <div class="col-xs-4">
+                                        <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" formControlName="month">
+                                            <md-option *ngFor="let month of arrayMonth; let i=index" [value]="i">
+                                                {{ month|translate }}
+                                            </md-option>
+                                        </md-select>
+
+                                        <control-messages [control]="form.controls.month"></control-messages>
+                                    </div>
+
+                                    <div class="col-xs-4">
+
+                                        <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" formControlName="day">
+                                            <md-option [value]="0">
+                                                {{ 'form.birth_date_day'|translate }}
+                                            </md-option>
+                                            <md-option *ngFor="let day of arrayDay" [value]="day">
+                                                {{ day }}
+                                            </md-option>
+                                        </md-select>
+
+                                        <control-messages [control]="form.controls.day"></control-messages>
+                                    </div>
+
+                                    <div class="col-xs-4">
+
+                                        <md-select placeholder="{{ 'form.birth_date_year'|translate }}" name="year" formControlName="year">
+                                            <md-option [value]="0">
+                                                {{ 'form.birth_date_year'|translate }}
+                                            </md-option>
+                                            <md-option *ngFor="let year of arrayYear" [value]="year">
+                                                {{ year }}
+                                            </md-option>
+                                        </md-select>
+
+                                        <control-messages [control]="form.controls.year"></control-messages>
+                                    </div>
+
+                                </div>
+
+                                <br />
+
+                                <div class="form-group row">
+                                    <div class="col-sm-12 language lng">
+                                        <md-select placeholder="Language" style="width: 100%" formControlName="language">
+                                            <md-option *ngFor="let language of languages" [value]="language.value">
+                                                {{ language.name }}
+                                            </md-option>
+                                        </md-select>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="col-md-4">
+                                    <div class="col-xs-4">
+                                    </div>
+                            </div>
+                        </div>
+                        <div *ngIf="(type == 'notification') && loading" class="text-left">
+
+                            <div *ngIf="saveMessage" class="alert alert-success" role="alert">
+                                {{ 'updated_user_data'|translate }}
+                            </div>
+
+                            <h3 class="text-left">{{ 'user.notify_settings_text'|translate }}</h3>
+                            <hr />
+
+
+                                <md-slide-toggle formControlName="isCommentOnGoalNotify">
+                                    <strong class="text-grey-dark center-block">{{ 'notify_settings.comment_goal'|translate }}</strong>
+                                    <strong class="text-muted">{{ 'notify_settings.comment_goal_desc'|translate }}</strong>
+                                </md-slide-toggle>
+
+                                <md-slide-toggle formControlName="isCommentOnIdeaNotify">
+                                    <strong class="text-grey-dark center-block">{{ 'notify_settings.comment_idea'|translate }}</strong>
+                                    <strong class="text-muted">{{ 'notify_settings.comment_idea_desc'|translate }}</strong>
+                                </md-slide-toggle>
+
+                                <md-slide-toggle formControlName="isSuccessStoryOnGoalNotify">
+                                    <strong class="text-grey-dark center-block">{{ 'notify_settings.success_story_goal'|translate }}</strong>
+                                    <strong class="text-muted">{{ 'notify_settings.success_story_goal_desc'|translate }}</strong>
+                                </md-slide-toggle>
+
+                                <md-slide-toggle formControlName="isSuccessStoryOnIdeaNotify">
+                                    <strong class="text-grey-dark center-block">{{ 'notify_settings.success_story_idea'|translate }}</strong>
+                                    <strong class="text-muted">{{ 'notify_settings.success_story_idea_desc'|translate }}</strong>
+                                </md-slide-toggle>
+
+                                <md-slide-toggle formControlName="isSuccessStoryLikeNotify">
+                                    <strong class="text-grey-dark center-block">{{ 'notify_settings.success_story_like'|translate }}</strong>
+                                    <strong class="text-muted">{{ 'notify_settings.success_story_like_desc'|translate }}</strong>
+                                </md-slide-toggle>
+
+                                <md-slide-toggle formControlName="isGoalPublishNotify">
+                                    <strong class="text-grey-dark center-block">{{ 'notify_settings.publish_goal'|translate }}</strong>
+                                    <strong class="text-muted">{{ 'notify_settings.publish_goal_desc'|translate }}</strong>
+                                </md-slide-toggle>
+
+                                <md-slide-toggle formControlName="isCommentReplyNotify">
+                                    <strong class="text-grey-dark text-left center-block">{{ 'notify_settings.reply_comment'|translate }}</strong>
+                                    <strong class="text-muted">{{ 'notify_settings.reply_comment_desc'|translate }}</strong>
+                                </md-slide-toggle>
+
+                                <md-slide-toggle formControlName="isDeadlineExpNotify">
+                                    <strong class="text-grey-dark center-block">{{ 'notify_settings.deadline'|translate }}</strong>
+                                    <strong class="text-muted">{{ 'notify_settings.deadline_desc'|translate }}</strong>
+                                </md-slide-toggle>
+
+                                <md-slide-toggle formControlName="isNewGoalFriendNotify">
+                                    <strong class="text-grey-dark center-block">{{ 'notify_settings.new_goalfriend'|translate }}</strong>
+                                    <strong class="text-muted">{{ 'notify_settings.new_goalfriend_desc'|translate }}</strong>
+                                </md-slide-toggle>
+
+                                <md-slide-toggle formControlName="isNewIdeaNotify">
+                                    <strong class="text-grey-dark center-block">{{ 'notify_settings.new_idea'|translate }}</strong>
+                                    <strong class="text-muted">{{ 'notify_settings.new_idea_desc'|translate }}</strong>
+                                </md-slide-toggle>
+
+                            <hr />
+                        </div>
+                        <div class="text-left">
+                            <button md-button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</button>
+                        </div>
+                    </form>
+                    <button md-button  name="save" (click)="removeProfile()" class="prof-del" *ngIf="type != 'notification'">{{ 'remove_profile'|translate }}</button>
+                    <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
+                        <bl-loading mode="indeterminate"></bl-loading>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

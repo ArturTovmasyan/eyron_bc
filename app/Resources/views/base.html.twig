@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+{% block angularApp %} <html data-ng-app="main" data-ng-controller="MainController"> {% endblock %}
+
+{% set lang = app.request.attributes.get('_locale') %}
+{% set host = app.request.getSchemeAndHttpHost() %}
+{% set user = app.user %}
+{% set testUrl = app.request.getSchemeAndHttpHost() %}
+
+    <head>
+        <meta charset="utf-8" />
+        <title>{%- block title -%}BucketList{%- endblock -%}</title>
+        <meta name="description" content="{%- block meta_description -%}BucketList{%- endblock -%}">
+        <meta property="og:title" content="{%- block og_title -%}{{ block('title') }}{%- endblock -%}" />
+        <meta property="og:url" content="{%- block og_url -%}{{- app.request.uri -}} {%- endblock -%}" />
+        <meta property="og:description" content="{%- block og_description -%}{{ block('meta_description') }}{%- endblock -%}" />
+        <meta property="og:site_name" content="BucketList127" />
+        {#<meta property="og:image" content="{%- block og_image -%}{{ 'bl.w3docs.com/favicon.ico' }}{%- endblock -%}" />#}
+        <meta property="og:image" content="{%- block og_image -%}{{ app.request.schemeAndHttpHost }}/bundles/app/images/bucketlist_new.png{%- endblock -%}" />
+        <meta property="og:type" content="article">
+        <meta property="fb:pages" content="1711606329055370" />
+        <meta property="fb:app_id" content="{{ facebook_api_id }}" />
+        <meta name='B-verify' content='8bfd63c976e1100818e071965bd9a439cc72f0f4' />
+        
+        <link rel="canonical" href="https://www.bucketlist127.com{{ app.request.getPathInfo }}" />
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1">
+
+        {#<link rel="stylesheet" type="text/css" href="{{ asset('app/bower_components/bootstrap/dist/css/bootstrap.min.css') }}"/>#}
+
+        {# this allows to add additional meta data #}
+        {% block meta %}{% endblock %}
+
+        {# styles #}
+        {% block stylesheets %}
+
+            {#{% stylesheets output='css/bootstrap.css'#}
+                    {#'@AppBundle/Resources/public/less/bootstrap.less'#}
+                    {#filter='less' %}#}
+                {#<link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>#}
+            {#{% endstylesheets %}#}
+
+            <style>
+                [ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak{display:none !important}
+            </style>
+
+            {% stylesheets output='css/base.css'
+            'bundles/app/less/bootstrap.css'
+            'bundles/app/less/icons.css'
+            'bundles/app/less/font.css'
+            'app/bower_components/angular-motion/dist/angular-motion.min.css'
+            'app/bower_components/jquery-nice-select/css/nice-select.css'
+            'app/bower_components/jquery-modal/jquery.modal.css'
+            'app/bower_components/slick-carousel/slick/slick.css'
+            'app/bower_components/slick-carousel/slick/slick-theme.css'
+            'app/bower_components/angular-ui-select/dist/select.css'
+            'app/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css'
+            'app/bower_components/toastr/toastr.min.css'
+            'bundles/app/less/style.less'
+            'bundles/app/less/news-feed.less'
+            'bundles/app/less/notices.less'
+            'bundles/app/less/goals.less'
+            'bundles/app/less/ideas.less'
+            'bundles/app/less/modal.less'
+            'bundles/app/less/profile.less'
+            'bundles/app/less/comments.less'
+            'bundles/app/less/animation.css'
+
+            filter='less,cssrewrite' %}
+            <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+            {% endstylesheets %}
+
+            {% if app.request.locale == 'ru' %}
+                {% stylesheets output='css/ru.css'
+                'bundles/app/less/ru.less'
+                filter='less,cssrewrite' %}
+                <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+                {% endstylesheets %}
+            {% endif %}
+
+        {% endblock %}
+
+        {#<link rel="stylesheet" href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}">#}
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset('bucketlist152x152.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ asset('bucketlist120x120.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bucketlist72x72.png') }}">
+        <link rel="apple-touch-icon-precomposed" href="{{ asset('bucketlist57x57.png') }}">
+        {#<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>#}
+
+        {% if not app.debug and testUrl != "http://behat.bucketlist.loc" %}
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', '{{ ga_id }}', 'auto');
+                ga('send', 'pageview' {% if app.request.get('search') != null %} , '/ideas?search={{ app.request.get('search') }}' {% endif %} );
+                {% if app.session.flashBag.has('userRegistration') %}
+                    {% for msg in app.session.flashBag.get('userRegistration')  %}
+                        ga('send', 'event', 'User', 'User registration', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+                {% if app.session.flashBag.has('userLogin') %}
+                    {% for msg in app.session.flashBag.get('userLogin')  %}
+                        ga('send', 'event', 'User', 'User login', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+                {% if app.session.flashBag.has('comments') %}
+                    {% for msg in app.session.flashBag.get('comments')  %}
+                        ga('send', 'event', 'comments', 'comments ', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+                {% if app.session.flashBag.has('private') %}
+                    {% for msg in app.session.flashBag.get('private')  %}
+                        ga('send', 'event', 'My ideas', 'My private ideas ', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+                {% if app.session.flashBag.has('draft') %}
+                    {% for msg in app.session.flashBag.get('draft')  %}
+                        ga('send', 'event', 'My ideas', 'Drafts ', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+                {% if app.session.flashBag.has('category') %}
+                    {% for msg in app.session.flashBag.get('category')  %}
+                        ga('send', 'event', 'Goal', 'Goal select category ', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+            </script>
+        {% endif %}
+
+        {# facebook code it must be disabled in non production #}
+        {% if production %}
+        <!-- Facebook Pixel Code -->
+        <script>
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+                n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+                    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+            fbq('init', '1100030436724857');
+            fbq('track', "PageView");</script>
+        <noscript><img height="1" width="1" style="display:none"
+                       src="https://www.facebook.com/tr?id=1100030436724857&ev=PageView&noscript=1"
+            /></noscript>
+        <!-- End Facebook Pixel Code -->
+        {% endif %}
+    </head>
+
+    <body>
+    {% spaceless %}
+
+        <div data-ls-jquery-modal
+             style="display: none"
+             data-ls-identity="mobileDetectModal"
+             data-ls-template='{{ include('AppBundle:Blocks:mobileModal.html.twig') }}'>
+        </div>
+
+        {% set goalAction = getSession('goal_action') %}
+
+        {#<img src="{{ asset('bundles/app/images/loading.gif') }}" style="display:none;position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading"/>#}
+        <div style="display:none;position: fixed;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading sk-fading-circle">
+            {#<div class="sk-fading-circle">#}
+                <div class="sk-circle1 sk-circle"></div>
+                <div class="sk-circle2 sk-circle"></div>
+                <div class="sk-circle3 sk-circle"></div>
+                <div class="sk-circle4 sk-circle"></div>
+                <div class="sk-circle5 sk-circle"></div>
+                <div class="sk-circle6 sk-circle"></div>
+                <div class="sk-circle7 sk-circle"></div>
+                <div class="sk-circle8 sk-circle"></div>
+                <div class="sk-circle9 sk-circle"></div>
+                <div class="sk-circle10 sk-circle"></div>
+                <div class="sk-circle11 sk-circle"></div>
+                <div class="sk-circle12 sk-circle"></div>
+            {#</div>#}
+        </div>
+        {% if user and goalAction is not null %}
+            {% if goalAction['action'] == "rest_put_usergoal" %}
+                <div data-ls-goal-manage
+                     style="display: none"
+                     data-ls-initial-run="true"
+                     data-ls-user-id="{{ app.user.id }}"
+                     data-ls-goal-id="{{ goalAction['goal_id'] }}">
+                </div>
+            {% elseif goalAction['action'] == "rest_get_usergoal_done" %}
+                <div data-ls-user-goal-manage
+                     style="display: none"
+                     data-ls-initial-run="true"
+                     data-ls-user-id="{{ app.user.id }}"
+                     data-ls-goal-id="{{ goalAction['goal_id'] }}">
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {% block body %}
+
+        <div id="mainframe">
+            <div id="wrap">
+                <header>
+                    {{ render_esi(controller('AppBundle:Main:esiMenu')) }}
+                </header>
+
+                <div class="bg-transparent hidden-sm hidden-md hidden-lg ng-hide" data-ng-show="$parent.joinToggle11"></div>
+
+                {% block confirm_email %}
+                    {% if app.user and app.user.getRegistrationToken is not null %}
+                        <div class="email">
+                            <div class="container">
+                                <div class="row no-gutter">
+                                    <div class="col-sm-9">
+                                        <span>
+                                            {{ 'register_text'|trans({'%XXX%': project_name}) }}
+                                            {{ 'registration.check_email'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <a id="resend_message" href="{{ path('resend_message') }}">{{ 'email.resend'|trans({}, 'FOSUserBundle') | upper }}</a>
+                                        <a href="{{ path('update_email') }}">{{ 'email.update'|trans({}, 'FOSUserBundle') | upper }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endblock %}
+                {% block content %}{% endblock %}
+            </div>
+            <footer>
+                <div class="container">
+
+                    <ul class="apps clearfix">
+                        <li>
+                            <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
+                                <img src="{{ asset('bundles/app/images/appstore.png') }}" alt="Appstore" class="img-responsive"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play" target="_blank">
+                                <img src="{{ asset('bundles/app/images/googleplay.png') }}" alt="Googleplay" class="img-responsive"/>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="social">
+                        <li>
+                            <a href="https://www.facebook.com/bucketlist127com/" target="_blank" class="facebook-icon"></a>
+                        </li>
+
+                        <li>
+                            <a href="https://www.instagram.com/bucketlist127/" target="_blank" class="instagram-icon"></a>
+                        </li>
+
+                        <li>
+                            <a href="https://www.twitter.com/bucketlist127" target="_blank" class="twitter-icon"></a>
+                        </li>
+
+                        <li>
+                            <a href="https://www.pinterest.com/bucketlist127/" target="_blank" class="pinterest-icon"></a>
+                        </li>
+
+                        <li>
+                            <a href="https://plus.google.com/+Bucketlist127com" target="_blank" class="gplus-icon"></a>
+                        </li>
+
+                        <li>
+                            <a href="https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g" target="_blank" class="youtube-icon"></a>
+                        </li>
+
+                    </ul>
+
+                    {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <small>&copy; {{ 'copyright'|trans | upper }}</small>
+                            </div>
+                            <div class="col-xs-7">
+                                {{ knp_menu_render('AppBundle:Builder:privacyMenu') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </footer>
+        </div>
+
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="https://maps.googleapis.com/maps/api/js?libraries=places&language=en&key={{ google_api_key }}"></script>
+
+            {% javascripts output='js/base_script.js'
+                'app/bower_components/jquery/dist/jquery.min.js'
+                'app/bower_components/jquery-form/jquery.form.js'
+                'app/bower_components/moment/min/moment.min.js'
+                'app/bower_components/jquery-nice-select/js/jquery.nice-select.min.js'
+                'app/bower_components/jquery.scrollTo/jquery.scrollTo.min.js'
+                'app/bower_components/bootstrap/dist/js/bootstrap.min.js'
+                'app/bower_components/underscore/underscore.js'
+                'app/bower_components/angular/angular.min.js'
+                'app/bower_components/angular-resource/angular-resource.min.js'
+                'app/bower_components/re-tree/re-tree.min.js'
+                'app/bower_components/ng-device-detector/ng-device-detector.min.js'
+                'app/bower_components/angular-animate/angular-animate.min.js'
+                'app/bower_components/angular-aria/angular-aria.min.js'
+                'app/bower_components/angular-messages/angular-messages.min.js'
+
+                'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
+                'app/bower_components/angular-sanitize/angular-sanitize.min.js'
+                'app/bower_components/ng-videosharing-embed/build/ng-videosharing-embed.min.js'
+                'app/bower_components/angular-strap/dist/angular-strap.min.js'
+                'app/bower_components/angular-strap/dist/angular-strap.tpl.min.js'
+                'app/bower_components/angular-local-storage/dist/angular-local-storage.min.js'
+                'app/bower_components/angular-cache/dist/angular-cache.min.js'
+                'app/bower_components/angulartics/dist/angulartics.min.js'
+                'app/bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js'
+                'app/bower_components/slick-carousel/slick/slick.min.js'
+                'app/bower_components/angular-slick-carousel/dist/angular-slick.min.js'
+                'app/bower_components/angular-ui-select/dist/select.js'
+                'app/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
+                'app/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js'
+                'app/bower_components/ng-scrollbars/dist/scrollbars.min.js'
+                'app/bower_components/toastr/toastr.min.js'
+
+                'app/bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js'
+
+                'app/scripts/jquery-modal/jquery.modal.js'
+                'app/scripts/Interpolation/Interpolation.js'
+                'app/scripts/PathPrefix/PathPrefix.js'
+                'app/scripts/Authenticator/Authenticator.js'
+                'app/scripts/Components/Components.js'
+                'app/scripts/Confirm/Confirm.js'
+                'app/scripts/Google/Google.js'
+                'bundles/applicationuser/js/angular/user.js'
+                'bundles/app/js/angular/facebook/facebook.js'
+                'bundles/app/js/angular/modules/affiliate/adds.js'
+                'bundles/app/js/angular/modules/notification/notification.js'
+                'bundles/app/js/angular/modules/notification/controllers/notificationController.js'
+                'bundles/app/js/angular/modules/notification/services/NotificationManager.js'
+                'bundles/app/js/angular/goal_manager/goalManager.js'
+                'bundles/app/js/angular/comment/comment.js'
+                'bundles/app/js/angular/comment/services/CommentManager.js'
+                'bundles/app/js/angular/manage/manage.js'
+                'bundles/app/js/angular/goalComponents/goalComponents.js'
+                'bundles/app/js/angular/goal_manager/services/GoalDataManager.js'
+                'bundles/app/js/angular/goal_manager/constants/goalConstant.js'
+                'bundles/app/js/angular/goal_manager/constants/userGoalConstant.js'
+                'bundles/app/js/angular/modules/activity/activity.js'
+                'bundles/app/js/angular/modules/activity/services/activityServices.js'
+                'bundles/app/js/angular/main.js'
+                'bundles/app/js/angular/modules/user_profile/profile.js'
+                'bundles/app/js/angular/modules/user_profile/services/profileServices.js'
+                'bundles/app/js/angular/modules/user_profile/controllers/profileControllers.js'
+                'bundles/app/js/angular/translation.js'
+                'bundles/app/js/angular/videoComponent.js'
+                'app/bower_components/angular-translate/angular-translate.min.js'
+                'app/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js'
+
+                %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+
+            <script>
+                angular.module('Components').constant('UserContext',{
+                    id: {% if app.user is defined and app.user %}{{ app.user.id }}{% else %}0{% endif %},
+                    locale: '{{ app.request.getLocale() }}'
+                });
+
+                {#{% if not app.user and (app.session.flashBag.peekAll|length and#}
+                    {#app.session.flashBag.peekAll['error-open-login'] is defined and#}
+                    {#app.session.flashBag.get('error-open-login') is not null) %}#}
+
+                    {#angular.module('Authenticator').run(['AuthenticatorLoginService', '$timeout', function(AuthenticatorLoginService, $timeout){#}
+                        {#$timeout(AuthenticatorLoginService.openLoginPopup, 1000);#}
+                    {#}]);#}
+
+                {#{% endif %}#}
+
+                function autoResizeDiv()
+                {
+                    if(document.getElementById('homepage')) {
+                        document.getElementById('homepage').style.height = window.innerHeight + 'px';
+                    }
+                }
+                window.onresize = autoResizeDiv;
+                autoResizeDiv();
+
+
+                $(function () {
+                    $('[data-toggle="popover"]').popover();
+
+                    $('#main-nav').fadeIn(1000);
+                });
+
+                function openSettingsModal(){
+                    $('.settings-modal').trigger('openLsModal','settingModal');
+                }
+
+                {% set error = app.session.get('jsForm') %}
+
+
+            </script>
+
+            <script>
+                function EmailValidation(textbox){
+
+                    if(textbox.value.indexOf('@') == -1){
+                        textbox.setCustomValidity("{{ 'email.dogApsent'|trans({}, "FOSUserBundle") }}");
+                    }
+                    else if (textbox.value[0] == '@'){
+                        textbox.setCustomValidity("{{ 'email.beforeDog'|trans({}, "FOSUserBundle") }}");
+                    }
+                    else if (!textbox.value.match(/@.+\..+/g)){
+                        textbox.setCustomValidity("{{ 'email.afterDog'|trans({}, "FOSUserBundle") }}");
+                    }
+                    else {
+                        textbox.setCustomValidity('');
+                    }
+
+                    return true;
+                }
+            </script>
+
+
+        {# this is for debug #}
+        {% if remote_console is defined and remote_console %}
+            <script src="http://jsconsole.com/js/remote.js?{{ remote_console }}"></script>
+        {% endif %}
+
+        {% endblock %}
+
+        {#<script>#}
+            {#// Include the UserVoice JavaScript SDK (only needed once on a page)#}
+            {#UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/gETpMgXP20ANdgNG25OAg.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();#}
+
+            {#//#}
+            {#// UserVoice Javascript SDK developer documentation:#}
+            {#// https://www.uservoice.com/o/javascript-sdk#}
+            {#//#}
+
+            {#// Set colors#}
+            {#UserVoice.push(['set', {#}
+                {#trigger_style: 'tab',#}
+                {#accent_color: '#448dd6',#}
+                {#trigger_color: 'white',#}
+{#//                trigger_background_color: 'rgba(46, 49, 51, 0.6)',#}
+                {#trigger_background_color: '#021523',#}
+
+                {#strings: {#}
+                    {#post_suggestion_title: 'Feedback'#}
+                {#},#}
+            {#}]);#}
+
+            {#// Identify the user and pass traits#}
+            {#// To enable, replace sample data with actual user traits and uncomment the line#}
+            {#UserVoice.push(['identify', {}]);#}
+
+            {#// Add default trigger to the bottom-right corner of the window:#}
+            {#UserVoice.push(['addTrigger', {trigger_position: 'bottom-right' }]);#}
+
+            {#// Or, use your own custom trigger:#}
+            {#//UserVoice.push(['addTrigger', '#id']);#}
+
+            {#// Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)#}
+            {#UserVoice.push(['autoprompt', {}]);#}
+        {#</script>#}
+    {% endspaceless %}
+
+    </body>
+</html>

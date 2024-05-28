@@ -1,0 +1,43 @@
+notify_comment: <a style="%profileStyle%" href="%profile%">%senderName%</a> wrote a <a href="%link%" style="%style%">comment</a> in your goal:
+notify_success_story: <a style="%profileStyle%" href="%profile%">%senderName%</a> wrote a <a href= %link% style="%style%">success story</a> in your goal:
+subject_for_comment_email: %senderName% wrote a comment
+subject_for_story_email: %senderName% wrote a success story
+notify_email_footer: Данное сообщение было отправлено на %email%. Если Вы в дальнейшем не хотите получать электронные письма от Bucket List 127, пожалуйста, откажитесь от <a href= %link% style="%style%" target="_blank">подписки</a>.
+email_bucketlist_link: Просмотреть на Bucket List 127
+
+#emails
+
+email_body_for_user_activity: Много чего нового происходит на Bucket List 127. Заходи, не теряй время.
+email_subject_for_user_activity: Много чего нового происходит на Bucket List 127. Заходи, не теряй время.
+
+email_body_for_comment_goal:  %senderName%  оставил(а) комментарий к вашей Цели %goalName%.
+email_subject_for_comment_goal:  %senderName%  оставил(а) комментарий к вашей Цели
+
+email_body_for_comment_idea:  %senderName%  оставил(а) комментарий к вашей Идее %goalName%.
+email_subject_for_comment_idea: %senderName%  оставил(а) комментарий к вашей Идее
+
+email_body_for_success_story_goal:  %senderName%  написал(а) Историю успеха к вашей Цели %goalName%.
+email_subject_for_success_story_goal:  %senderName%  написал(а) Историю успехак вашей Цели
+
+email_body_for_success_story_idea:  %senderName%  написал(а) Историю успеха к вашей Идее %goalName%.
+email_subject_for_success_story_idea: %senderName%  написал(а) Историю успехак вашей Идее
+
+email_body_for_success_story_like:  %senderName%  понравилась ваша История успеха .
+email_subject_for_success_story_like: %senderName%  понравилась ваша История успеха .
+
+email_body_for_publish_goal: Ваша Цель %goalName% добавлена в общий список Идей.
+email_subject_for_publish_goal: Ваша Цель %goalName% добавлена в общий список Идей.
+
+email_body_for_reply_comment: Вы получили ответ на ваш комментарий.
+email_subject_for_reply_comment: Вы получили ответ на ваш комментарий.
+
+email_body_for_deadline: Завтра истекает крайний срок достижения вашей Цели %goalName%.
+email_subject_for_deadline: Завтра истекает крайний срок достижения вашей Цели %goalName% .
+
+email_body_for_new_goalfriend: У вас %count% новых Единомышленников .
+email_subject_for_new_goalfriend: У вас %count% новых Единомышленников.
+
+email_body_for_new_idea: У нас %count% новых Идей в списке.
+email_subject_for_new_idea: У нас %count% новых Идей в списке.
+
+hello: Здравствуйте

@@ -1,0 +1,26 @@
+{% block field %}
+    <table class="table table-bordered table-striped sonata-ba-list">
+        <tr>
+            <th>title</th>
+            <th>sent</th>
+            <th>seen</th>
+            <th>device</th>
+        </tr>
+        {% for email in object.sentEmails %}
+            <tr>
+                <td><a href="{{ path('admin_app_email_show', {'id': email.id}) }}" target="_blank">{{ email.title }}</a></td>
+                <td>{{ email.sent|date('m/d/Y h:i') }}</td>
+                <td>{% if email.seen %}{{ email.seen|date('m/d/Y h:i') }}{% endif %}</td>
+                <td>
+                    {% if email.device == 1 %}
+                        mobile
+                    {% elseif email.device == 2 %}
+                        TABLET
+                    {% elseif email.device == 3 %}
+                        PC
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
